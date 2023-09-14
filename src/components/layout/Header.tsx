@@ -1,7 +1,7 @@
 import { ConnectButton } from "components/common/ConnectButton";
-import TwitterImage from "assets/svg/twitter.svg";
-import DiscordImage from "assets/svg/discord.svg";
-import FaceImage from "assets/svg/face.svg";
+import TwitterImage from "assets/svg/header/twitter.svg";
+import DiscordImage from "assets/svg/header/discord.svg";
+import FaceImage from "assets/svg/header/face.svg";
 
 const Header = () => {
   return (
