@@ -1,0 +1,9 @@
+.pawnshop {
+    background: url("../../../assets/png/apeworld/pawnshop/background.png");
+    background-repeat: no-repeat;
+    width: 100%;
+    background-size: cover;
+    position: relative;
+    min-height: calc(100vh - 96px);
+    padding-bottom: 18vh;
+}

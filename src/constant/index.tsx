@@ -1,8 +1,20 @@
-export const LOCATIONS = {
-    JUNGLE: 1,
-    BAR: 2,
-    PAWN_SHOP: 3,
-    REAL_ESTATE: 4,
-    CASINO: 5,
-    STORE: 6,
-};
+export const buildings = [
+    "store",
+    "ship",
+    "jungle",
+    "shop",
+    "lab",
+    "casino",
+    "bar",
+    "gym",
+    "realstate",
+];
+export const decorators = [
+    "gull",
+    "islandstones",
+    "lack",
+    "palm",
+    "seastones",
+    "title",
+    "whale",
+];

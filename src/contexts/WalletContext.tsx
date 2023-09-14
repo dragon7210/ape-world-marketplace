@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   createContext,
   PropsWithChildren,
@@ -100,7 +102,7 @@ const WalletContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
     const balanceResponse = await connex.thor.account(address).get();
     setBalance(BigInt(balanceResponse.balance));
-    setBalance(BigInt(balanceResponse.energy));
+    setEnergy(BigInt(balanceResponse.energy));
   }, [connex, address]);
 
   useEffect(() => {
@@ -120,8 +122,7 @@ const WalletContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
         connect,
         disconnect,
         switchNetwork,
-      }}
-    >
+      }}>
       {children}
     </WalletContext.Provider>
   );
