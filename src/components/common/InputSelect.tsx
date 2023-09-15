@@ -10,22 +10,6 @@ const InputSelect = ({
   onChange: (value: any) => void;
   options: any;
 }) => {
-  let newOptions: any[] = [];
-  options?.collections?.map((item: any) =>
-    newOptions.push({
-      value: item.collectionId,
-      label: (
-        <div className='flex item-center'>
-          <img
-            src={item.thumbnailImageUrl}
-            alt={item.name}
-            className='rounded-[99px] mr-5 w-[28px] h-[28px]'
-          />
-          <p className='m-0 text-white'>{item.name}</p>
-        </div>
-      ),
-    })
-  );
   return (
     <div className='flex items-center justify-between py-4'>
       <div className='flex justify-center w-[100px]'>
@@ -34,7 +18,7 @@ const InputSelect = ({
       <div className='w-[calc(100%_-_100px)]'>
         <Select
           onChange={onChange}
-          options={newOptions}
+          options={options}
           isClearable={true}
           styles={{
             control: (baseStyles) => ({

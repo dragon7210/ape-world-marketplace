@@ -20,13 +20,15 @@ const Header = () => {
       </div>
       <div className='flex text-white items-center text-xl'>
         <p
-          className='cursor-pointer hover:text-[red]'
+          className='cursor-pointer hover:text-[red] w-[180px] text-right'
           onClick={() => navigate("/")}>
           ApeWorld
         </p>
         <img alt='face' src={FaceImage} className='px-6' />
         <a href='https://marketplace.worldofv.art/collections'>
-          <p className='cursor-pointer hover:text-[red]'>Wov Marketplace</p>
+          <p className='cursor-pointer hover:text-[red] w-[180px]'>
+            Wov Marketplace
+          </p>
         </a>
       </div>
       <ConnectButton />

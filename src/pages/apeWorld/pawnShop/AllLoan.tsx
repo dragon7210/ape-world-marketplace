@@ -1,12 +1,13 @@
 /** @format */
 
+import Spinner from "components/common/Spinner";
 import { useGetLoanData } from "hooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const AllLoan = () => {
   const [selector, setSelector] = useState(true);
-  const data = useGetLoanData();
-  console.log(data);
+  const { loanedData, loading } = useGetLoanData();
+
   return (
     <div className='p-10'>
       <div className='flex justify-between item-center'>
@@ -28,6 +29,14 @@ const AllLoan = () => {
           </button>
         </div>
       </div>
+      <div className='mt-5'>
+        {loanedData.length > 0
+          ? loanedData.map((item: any, index: number) => (
+              <div key={index}>{item.owner}</div>
+            ))
+          : "No All Loan Data"}
+      </div>
+      <Spinner loading={loading} />
     </div>
   );
 };

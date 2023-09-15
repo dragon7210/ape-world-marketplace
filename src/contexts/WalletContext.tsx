@@ -50,7 +50,6 @@ const WalletContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
     if (isConnected) {
       throw Error("Already Connected");
     }
-
     try {
       setIsConnecting(true);
       const signResponse = await (network === "mainnet"
@@ -108,7 +107,6 @@ const WalletContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     updateBalance();
   }, [updateBalance]);
-
   return (
     <WalletContext.Provider
       value={{
