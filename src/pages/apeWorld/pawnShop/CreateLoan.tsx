@@ -15,21 +15,28 @@ const CreateLoan = () => {
   });
   const [createValue, setCreateValue] = useState<{ [key: string]: string }>({
     id: "",
-    collectionAddress: "",
+    collectionId: "",
     vet: "",
     period: "",
     interest: "",
   });
 
+  const filters = {
+    ownerAddress: address,
+  };
+  const collectionFilter = {
+    ownerAddress: address,
+    collectionId: createValue.collectionId,
+  };
+
   const apes = useCustomQuery({
     query: searchNFTs,
     variables: {
-      filters: {
-        ownerAddress: address,
-      },
+      filters: createValue.collectionId === "" ? filters : collectionFilter,
       pagination: { page: 1, perPage: 24 },
     },
   });
+  console.log(apes);
   useEffect(() => {
     const objectName = Object.keys(createValue);
     const areAllValuesValid = objectName.every(
@@ -52,7 +59,7 @@ const CreateLoan = () => {
         <InputSelect
           label='Collection'
           onChange={(e) => {
-            console.log(e);
+            setCreateValue({ ...createValue, collectionId: e.value });
           }}
           options={options}
         />
