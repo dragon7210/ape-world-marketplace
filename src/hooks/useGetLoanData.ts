@@ -8,10 +8,10 @@ import { getAllItemsABI, getItemABI } from "abi/abis";
 export const useGetLoanData = () => {
   const [loading, setLoading] = useState(true);
   const [loanedData, setLoanedData] = useState<any[]>([]);
-  const { connex } = useWallet();
+  const { connex, isConnected } = useWallet();
 
   useEffect(() => {
-    if (connex) {
+    if (connex && isConnected) {
       (async () => {
         const pawnShop = connex.thor.account(pawn_address);
 
@@ -42,9 +42,11 @@ export const useGetLoanData = () => {
         setLoanedData(temp);
         setLoading(false);
       })();
+    } else {
+      setLoading(false);
+      setLoanedData([]);
     }
-    setLoading(false);
-  }, [connex]);
+  }, [connex, isConnected]);
 
   return { loanedData, loading };
 };

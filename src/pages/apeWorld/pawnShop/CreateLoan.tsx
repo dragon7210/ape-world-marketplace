@@ -136,9 +136,9 @@ const CreateLoan = () => {
         .comment("Create Listing.")
         .request()
         .then(() => {
-          toast.success("Success");
+          toast.success("Created successfully");
         })
-        .catch(() => toast.error("Can't create Loan"));
+        .catch(() => toast.error("Could not create loan."));
     }
   };
 
