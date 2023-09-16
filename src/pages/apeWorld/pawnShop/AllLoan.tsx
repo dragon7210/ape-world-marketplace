@@ -5,8 +5,10 @@ import { useGetLoanData } from "hooks";
 import { useState } from "react";
 
 const AllLoan = () => {
+  const { loanData, myLoanData, loading } = useGetLoanData();
   const [selector, setSelector] = useState(true);
-  const { loanedData, loading } = useGetLoanData();
+
+  const data = selector ? loanData : myLoanData;
 
   return (
     <div className='p-10'>
@@ -30,11 +32,11 @@ const AllLoan = () => {
         </div>
       </div>
       <div className='mt-5'>
-        {loanedData.length > 0
-          ? loanedData.map((item: any, index: number) => (
+        {data.length > 0
+          ? data.map((item: any, index: number) => (
               <div key={index}>{item.owner}</div>
             ))
-          : "No All Loan Data"}
+          : "No Loan Data"}
       </div>
       <Spinner loading={loading} />
     </div>

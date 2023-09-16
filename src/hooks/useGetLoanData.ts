@@ -7,9 +7,10 @@ import { getAllItemsABI, getItemABI } from "abi/abis";
 
 export const useGetLoanData = () => {
   const [loading, setLoading] = useState(true);
-  const [loanedData, setLoanedData] = useState<any[]>([]);
-  const { connex, isConnected } = useWallet();
+  const [loanData, setLoanData] = useState<any[]>([]);
+  const [myLoanData, setMyLoanData] = useState<any[]>([]);
 
+  const { connex, isConnected, address } = useWallet();
   useEffect(() => {
     if (connex && isConnected) {
       (async () => {
@@ -20,7 +21,7 @@ export const useGetLoanData = () => {
 
         const loanedDataAddress = await loanedDataAddressMethod.call();
 
-        const temp: any = [];
+        const tempLoan: any = [];
         for (let i = 0; i < loanedDataAddress.decoded[0].length; i++) {
           const temploanedData = await loanedDataMethod.call(
             loanedDataAddress.decoded[0][i]
@@ -37,16 +38,20 @@ export const useGetLoanData = () => {
             messiah: temploanedData.decoded[0][8],
             status: temploanedData.decoded[0][9],
           };
-          temp.push(item);
+          tempLoan.push(item);
         }
-        setLoanedData(temp);
+        const tempMyLoan = tempLoan.filter(
+          (item: any) => item.owner === address
+        );
+        setLoanData(tempLoan);
+        setMyLoanData(tempMyLoan);
         setLoading(false);
       })();
     } else {
       setLoading(false);
-      setLoanedData([]);
+      setLoanData([]);
     }
-  }, [connex, isConnected]);
+  }, [connex, isConnected, address]);
 
-  return { loanedData, loading };
+  return { loanData, loading, myLoanData };
 };
