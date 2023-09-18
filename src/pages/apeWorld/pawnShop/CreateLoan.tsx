@@ -45,7 +45,7 @@ const CreateLoan = () => {
     query: searchNFTs,
     variables: {
       filters: createValue.collectionId === "" ? filters : collectionFilter,
-      pagination: { page: 1, perPage: 24 },
+      pagination: { page: 1, perPage: 1000 },
     },
   });
 
@@ -66,8 +66,11 @@ const CreateLoan = () => {
         };
       });
       setIdOption(data);
+      if (createValue.collectionId === "") {
+        setIdOption([]);
+      }
     }
-  }, [apes]);
+  }, [apes, createValue]);
 
   useEffect(() => {
     const data = collectionOptions?.collections?.map((item: any) => {
@@ -148,14 +151,22 @@ const CreateLoan = () => {
         <InputSelect
           label='Collection'
           onChange={(e) => {
-            setCreateValue({ ...createValue, collectionId: e.value });
+            address
+              ? setCreateValue({
+                  ...createValue,
+                  collectionId: e ? e.value : "",
+                })
+              : toast.error("Please connect the wallet");
           }}
           options={collectionOption}
         />
         <InputSelect
           label='Id'
           onChange={(e) => {
-            setCreateValue({ ...createValue, id: e.value });
+            setCreateValue({
+              ...createValue,
+              id: e.value,
+            });
           }}
           options={idOption}
         />

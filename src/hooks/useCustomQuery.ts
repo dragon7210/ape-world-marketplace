@@ -10,7 +10,7 @@ export const useCustomQuery = ({
   variables: any;
 }) => {
   const { data, error, loading } = useQuery(query, {
-    variables: variables,
+    variables,
   });
   if (loading) {
     return null;
