@@ -18,15 +18,15 @@ const Header = () => {
           <img alt='discord' src={DiscordImage} />
         </a>
       </div>
-      <div className='flex text-white items-center text-xl'>
+      <div className='flex text-white items-center text-xl font-[700] uppercase'>
         <p
-          className='cursor-pointer hover:text-[red] w-[180px] text-right'
+          className='cursor-pointer hover:text-[#FF4200] w-[200px] text-right'
           onClick={() => navigate("/")}>
-          ApeWorld
+          Ape World
         </p>
         <img alt='face' src={FaceImage} className='px-6' />
         <a href='https://marketplace.worldofv.art/collections'>
-          <p className='cursor-pointer hover:text-[red] w-[180px]'>
+          <p className='cursor-pointer hover:text-[#FF4200] w-[200px]'>
             Wov Marketplace
           </p>
         </a>

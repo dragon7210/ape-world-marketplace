@@ -1,24 +1,19 @@
 /** @format */
 
-import {
-  approveABI,
-  createLoanABI,
-  getServiceFeeABI,
-  mvaApproveABI,
-} from "abi/abis";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
-import { mva_token_address, pawn_address } from "config/contractAddress";
+import CreateLoanModal from "components/pawnShop/createLoanModal";
 import { useWallet, useCustomQuery } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { getCollections, searchNFTs } from "utils/query";
 
 const CreateLoan = () => {
-  const { address, connex } = useWallet();
+  const { address } = useWallet();
   const [activeButton, setActiveButton] = useState(false);
   const [idOption, setIdOption] = useState<any[]>([]);
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const collectionOptions = useCustomQuery({
     query: getCollections,
@@ -99,55 +94,9 @@ const CreateLoan = () => {
     });
   };
 
-  const handleCreate = async () => {
-    if (!address) {
-      toast.error("Please connect the wallet");
-      return;
-    }
-    if (connex) {
-      const data = collectionOptions.collections.filter(
-        (item: any) => item.collectionId === createValue.collectionId
-      );
-      const selAddress = data[0].smartContractAddress;
-
-      const pawnShop = connex.thor.account(pawn_address);
-
-      const getFeeMethod = pawnShop.method(getServiceFeeABI);
-      const namedMethod = connex.thor.account(selAddress).method(approveABI);
-      const anotherNamedMethod = connex.thor
-        .account(pawn_address)
-        .method(createLoanABI);
-      const yetAnotherMethod = connex.thor
-        .account(mva_token_address)
-        .method(mvaApproveABI);
-
-      const fee = await getFeeMethod.call();
-      const clause1 = namedMethod.asClause(pawn_address, createValue.id);
-      const clause2 = anotherNamedMethod.asClause(
-        selAddress,
-        createValue.id,
-        createValue.vet,
-        createValue.interest,
-        createValue.period
-      );
-      const clause3 = yetAnotherMethod.asClause(
-        pawn_address,
-        (fee.decoded[0] * 10 ** 18).toString()
-      );
-      connex.vendor
-        .sign("tx", [clause1, clause3, clause2])
-        .comment("Create Listing.")
-        .request()
-        .then(() => {
-          toast.success("Created successfully");
-        })
-        .catch(() => toast.error("Could not create loan."));
-    }
-  };
-
   return (
     <div className='px-20 m-20 flex justify-center'>
-      <div className='min-w-[550px] max-w-3xl border-[#4D4D4D] border-2 rounded-[30px] px-6 py-10'>
+      <div className='min-w-[550px] max-w-3xl border-[#BEBEBE] border-2 rounded-[30px] px-6 py-10'>
         <InputSelect
           label='Collection'
           onChange={(e) => {
@@ -196,10 +145,17 @@ const CreateLoan = () => {
             activeButton && "bg-[#FF4200]"
           } `}
           disabled={!activeButton}
-          onClick={handleCreate}>
+          onClick={() => setOpenModal(true)}>
           Create Loan
         </button>
       </div>
+      <CreateLoanModal
+        open={openModal}
+        collections={collectionOptions?.collections}
+        createValue={createValue}
+        apes={apes}
+        setOpenModal={setOpenModal}
+      />
     </div>
   );
 };

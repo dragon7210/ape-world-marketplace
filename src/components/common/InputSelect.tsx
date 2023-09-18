@@ -23,7 +23,7 @@ const InputSelect = ({
           styles={{
             control: (baseStyles) => ({
               ...baseStyles,
-              borderColor: "#4D4D4D",
+              borderColor: "#BEBEBE",
               padding: "13px 20px",
               background: "transparent",
               borderRadius: "12px",

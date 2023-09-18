@@ -19,7 +19,7 @@ const InputValue = ({
         <p className='text-[18px]'>{label}</p>
       </div>
       <input
-        className='border-[#4D4D4D] border-2 px-[33px] py-[18px] rounded-[12px] bg-[transparent] outline-0 w-[calc(100%_-_100px)] '
+        className='border-[#BEBEBE] border-2 px-[33px] py-[18px] rounded-[12px] bg-[transparent] outline-0 w-[calc(100%_-_100px)] '
         onChange={onChange}
         name={name}
         value={value}
