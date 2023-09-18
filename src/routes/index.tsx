@@ -1,6 +1,6 @@
 import Layout from "components/layout";
-import ApeWorld from "pages/apeWorld";
-import PawnShop from "pages/apeWorld/pawnShop";
+import ApeWorld from "pages";
+import PawnShop from "pages/pawnShop";
 import { Route, Routes } from "react-router-dom";
 
 const MainRoutes = () => {

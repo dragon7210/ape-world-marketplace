@@ -3,7 +3,7 @@
   aspect-ratio: 16 / 9;
   background-size: cover;
   position: relative;
-  background: url('../../assets/png/apeworld/background.png') ;
+  background: url('../assets/png/apeworld/background.png') ;
 }
 
 .main-board div {
@@ -16,7 +16,7 @@
   position: absolute;
   top: 42.8%;
   left: 9.4%;
-  background-image: url('../../assets/svg/apeworld/bar.svg');
+  background-image: url('../assets/svg/apeworld/bar.svg');
   background-size: cover;
 }
 
@@ -26,7 +26,7 @@
   position: absolute;
   top: 2.4%;
   left: 60.99%;
-  background-image: url('../../assets/svg/apeworld/store.svg');
+  background-image: url('../assets/svg/apeworld/store.svg');
   background-size: cover;
 }
 
@@ -36,7 +36,7 @@
   position: absolute;
   top: 6.7%;
   left: 72.5%;
-  background-image: url('../../assets/svg/apeworld/ship.png');
+  background-image: url('../assets/svg/apeworld/ship.png');
   background-size: cover;
 }
 
@@ -46,7 +46,7 @@
   position: absolute;
   top: 16.13%;
   left: 44.56%;
-  background-image: url('../../assets/svg/apeworld/jungle.svg');
+  background-image: url('../assets/svg/apeworld/jungle.svg');
   background-size: cover;
 }
 
@@ -56,7 +56,7 @@
   position: absolute;
   top: 23.79%;
   left: 4.42%;
-  background-image: url('../../assets/svg/apeworld/shop.svg');
+  background-image: url('../assets/svg/apeworld/shop.svg');
   background-size: cover;
 }
 
@@ -66,7 +66,7 @@
   position: absolute;
   top: 18.89%;
   left: 18.6%;
-  background-image: url('../../assets/svg/apeworld/lab.svg');
+  background-image: url('../assets/svg/apeworld/lab.svg');
   background-size: cover;
 }
 
@@ -76,7 +76,7 @@
   position: absolute;
   top: 40%;
   left: 76.2%;
-  background-image: url('../../assets/svg/apeworld/casino.svg');
+  background-image: url('../assets/svg/apeworld/casino.svg');
   background-size: cover;
 }
 
@@ -86,7 +86,7 @@
   position: absolute;
   top: 45.9%;
   left: 42.8%;
-  background-image: url('../../assets/svg/apeworld/gym.svg');
+  background-image: url('../assets/svg/apeworld/gym.svg');
   background-size: cover;
 }
 
@@ -96,7 +96,7 @@
   position: absolute;
   top: 65.69%;
   left: 19.11%;
-  background-image: url('../../assets/svg/apeworld/realstate.svg');
+  background-image: url('../assets/svg/apeworld/realstate.svg');
   background-size: cover;
 }
 
@@ -106,7 +106,7 @@
   position: absolute;
   top: 4.07%;
   left: 9.43%;
-  background-image: url('../../assets/png/apeworld/decorators/gull.png');
+  background-image: url('../assets/png/apeworld/decorators/gull.png');
   background-size: cover;
 }
 
@@ -116,7 +116,7 @@
   position: absolute;
   top: 1.67%;
   left: 36.46%;
-  background-image: url('../../assets/png/apeworld/decorators/title.png');
+  background-image: url('../assets/png/apeworld/decorators/title.png');
   background-size: cover;
   z-index: 4 !important;
 }
@@ -127,7 +127,7 @@
   position: absolute;
   top: 56.82%;
   left: 5.94%;
-  background-image: url('../../assets/png/apeworld/decorators/islandstones.png');
+  background-image: url('../assets/png/apeworld/decorators/islandstones.png');
   background-size: cover;
 }
 
@@ -137,7 +137,7 @@
   position: absolute;
   top: 13.33%;
   left: 17.5%;
-  background-image: url('../../assets/png/apeworld/decorators/seastones.png');
+  background-image: url('../assets/png/apeworld/decorators/seastones.png');
   background-size: cover;
 }
 
@@ -147,7 +147,7 @@
   position: absolute;
   top: 8.42%;
   left: 18.6%;
-  background-image: url('../../assets/png/apeworld/decorators/palm.png');
+  background-image: url('../assets/png/apeworld/decorators/palm.png');
   background-size: cover;
 }
 
@@ -157,7 +157,7 @@
   position: absolute;
   top: 49.17%;
   left: 3.7%;
-  background-image: url('../../assets/png/apeworld/decorators/lack.png');
+  background-image: url('../assets/png/apeworld/decorators/lack.png');
   background-size: cover;
 }
 
