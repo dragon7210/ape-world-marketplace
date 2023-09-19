@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   return (
-    <div className='w-full h-24 shadow shadow-gray-700 bg-[black] flex justify-between items-center px-20'>
-      <div className='flex items-center'>
+    <div className='w-full h-24 shadow shadow-gray-700 bg-[black] flex justify-between items-center md:px-20 px-3'>
+      <div className='md:flex items-center hidden'>
         <a href='https://www.twitter.com/'>
           <img alt='twitter' src={TwitterImage} />
         </a>
@@ -20,13 +20,13 @@ const Header = () => {
       </div>
       <div className='flex text-white items-center text-xl font-[700] uppercase'>
         <p
-          className='cursor-pointer hover:text-[#FF4200] w-[200px] text-right'
+          className='cursor-pointer hover:text-[#FF4200] w-[200px] text-right hidden md:inline'
           onClick={() => navigate("/")}>
           Ape World
         </p>
         <img alt='face' src={FaceImage} className='px-6' />
         <a href='https://marketplace.worldofv.art/collections'>
-          <p className='cursor-pointer hover:text-[#FF4200] w-[200px]'>
+          <p className='cursor-pointer hover:text-[#FF4200] w-[200px]  hidden md:inline'>
             Wov Marketplace
           </p>
         </a>

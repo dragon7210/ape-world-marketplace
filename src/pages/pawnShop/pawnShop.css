@@ -5,5 +5,8 @@
     background-size: cover;
     position: relative;
     min-height: calc(100vh - 96px);
-    padding-bottom: 18vh;
+    padding-bottom: 30px;
+    @media (min-width: 768px) {
+        padding-bottom: 18vh;
+    }
 }

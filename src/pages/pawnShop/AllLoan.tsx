@@ -32,24 +32,24 @@ const AllLoan = () => {
   };
 
   return (
-    <div className='p-10 shadow-lg'>
-      <div className='flex justify-between item-center'>
-        <p className='text-[32px]'>
+    <div className='md:p-10 p-3 shadow-lg min-h-[50vh]'>
+      <div className='md:flex justify-between item-center'>
+        <p className='md:text-[32px] text-[20px]'>
           Here are{" "}
           <span className='text-[#FF4200]'>
             {selector ? "All" : "My"} Items
           </span>
         </p>
-        <div className='flex'>
+        <div className='flex md:text-[20px] text-[15px] mt-2 md:mt-0'>
           <button
-            className={`text-[20px] px-[32px] py-[16px]  rounded-[9px] mr-[28px] ${
+            className={`md:px-[32px] md:py-[16px] py-[5px] px-[10px] rounded-[9px] md:mr-5 mr-2 ${
               selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(true)}>
             List All Items
           </button>
           <button
-            className={`text-[20px] px-[32px] py-[16px]  rounded-[9px] ${
+            className={`md:px-[32px] md:py-[16px] py-[5px] px-[10px] rounded-[9px] ${
               !selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(false)}>
@@ -57,17 +57,17 @@ const AllLoan = () => {
           </button>
         </div>
       </div>
-      <div className='shadow-lg rounded-lg mt-5 p-5'>
+      <div className='shadow-lg rounded-lg mt-5 md:p-5 p-1'>
         {data.length > 0 ? (
-          <table className='w-full text-gray-200 text-[20px]'>
+          <table className='w-full text-gray-200 md:text-[20px] text-[16px]'>
             <thead className='uppercase bg-[#4F4F54]'>
               <tr className='text-center'>
-                <th className='p-6 text-left'>Collection</th>
-                <th>Value</th>
-                <th>Interest</th>
-                <th>Duration</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th className='p-3 text-left'>Collection</th>
+                <th className='hidden md:table-cell'>Value</th>
+                <th className='hidden md:table-cell'>Interest</th>
+                <th className='hidden md:table-cell'>Duration</th>
+                <th className='hidden md:table-cell'>Status</th>
+                <th className='p-3'>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -76,13 +76,17 @@ const AllLoan = () => {
                   <td className='p-4 text-left'>
                     {getCollectionName(item.tokenAddress)}
                   </td>
-                  <td>{item.loanValue / 10 ** 18}</td>
-                  <td>{item.loanFee}</td>
-                  <td>{item.duration}</td>
-                  <td>{statusArray[item.status]}</td>
+                  <td className='hidden md:table-cell'>
+                    {item.loanValue / 10 ** 18}
+                  </td>
+                  <td className='hidden md:table-cell'>{item.loanFee}</td>
+                  <td className='hidden md:table-cell'>{item.duration}</td>
+                  <td className='hidden md:table-cell'>
+                    {statusArray[item.status]}
+                  </td>
                   <td>
                     <button
-                      className='bg-[#F67D53] hover:bg-[#FF4200] px-3 py-1 rounded-md'
+                      className='bg-gray-200 hover:bg-[#FF4200] px-3 py-1 rounded-md'
                       onClick={() => {
                         setLoanSel(index);
                         setOpenModal(true);

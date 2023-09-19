@@ -2,7 +2,7 @@
 
 import { Dialog } from "@headlessui/react";
 import { CSSProperties } from "react";
-import { HashLoader } from "react-spinners";
+import { DotLoader } from "react-spinners";
 
 const override: CSSProperties = {
   display: "block",
@@ -15,11 +15,11 @@ const Spinner = ({ loading }: { loading: boolean }) => {
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm'
       open={loading}
       onClose={() => {}}>
-      <HashLoader
+      <DotLoader
         color='#36d7b7'
         loading={loading}
         cssOverride={override}
-        size={150}
+        size={100}
         aria-label='Loading Spinner'
       />
     </Dialog>
