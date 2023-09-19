@@ -10,7 +10,7 @@ const PawnShop = () => {
   const [select, setSelect] = useState(0);
   return (
     <div className='pawnshop p-3'>
-      <p className='md:text-[70px] text-[#38df37] font-bold mx-[5%] text-[50px] text-center'>
+      <p className='md:text-[70px] text-[#38df37] font-bold mx-[5%] text-[50px] md:text-left text-center'>
         PAWN SHOP
       </p>
       <div className='text-white md:rounded-[35px] rounded-lg bg-[#AEAFBE36] md:mx-[15%] md:my-[30px] md:border-8 border-[#565656AB]'>

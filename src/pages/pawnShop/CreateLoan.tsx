@@ -2,6 +2,7 @@
 
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
+import Spinner from "components/common/Spinner";
 import CreateLoanModal from "components/pawnShop/createLoanModal";
 import { useWallet, useCustomQuery } from "hooks";
 import { useEffect, useState } from "react";
@@ -14,11 +15,20 @@ const CreateLoan = () => {
   const [idOption, setIdOption] = useState<any[]>([]);
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
 
   const collectionOptions = useCustomQuery({
     query: getCollections,
     variables: { ownerAddress: address },
   });
+
+  useEffect(() => {
+    if (!collectionOptions) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [collectionOptions]);
 
   const [createValue, setCreateValue] = useState<{ [key: string]: string }>({
     id: "",
@@ -114,7 +124,7 @@ const CreateLoan = () => {
           onChange={(e) => {
             setCreateValue({
               ...createValue,
-              id: e.value,
+              id: e ? e.value : "",
             });
           }}
           options={idOption}
@@ -156,6 +166,7 @@ const CreateLoan = () => {
         apes={apes}
         setOpenModal={setOpenModal}
       />
+      <Spinner loading={loading} />
     </div>
   );
 };

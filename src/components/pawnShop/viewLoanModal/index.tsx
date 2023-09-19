@@ -23,7 +23,7 @@ const ViewLoanModal = ({
 
   return (
     <Dialog
-      className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto'
+      className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3'
       open={open}
       onClose={() => {}}>
       <div className='bg-[#3D3D47] p-4 md:flex rounded-lg shadow-lg shadow-gray-500 '>

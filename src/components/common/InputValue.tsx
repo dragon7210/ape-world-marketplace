@@ -19,12 +19,13 @@ const InputValue = ({
         <p className='text-[18px]'>{label}</p>
       </div>
       <input
-        className='border-[#BEBEBE] border-2 md:px-[33px] md:py-[18px] py-2 px-3 rounded-[12px] bg-[transparent] outline-0 w-[calc(100%_-_100px)] '
+        className='border-[#BEBEBE] border-2 md:px-[33px] md:py-4 py-2 px-3 rounded-[12px] bg-[transparent] outline-0 w-[calc(100%_-_100px)] '
         onChange={onChange}
         name={name}
         value={value}
+        autoComplete='off'
       />
-      <p className='absolute right-[33px]'>{placeholder}</p>
+      <p className='absolute md:right-[33px] right-4'>{placeholder}</p>
     </div>
   );
 };

@@ -2,17 +2,20 @@
 
 import Spinner from "components/common/Spinner";
 import { useCustomQuery, useGetLoanData } from "hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCollections } from "utils/query";
 import ViewImg from "assets/svg/apeworld/view.svg";
 import { statusArray } from "constant";
 import ViewLoanModal from "components/pawnShop/viewLoanModal";
+import Pagination from "components/common/Pagination";
 
 const AllLoan = () => {
   let { loanData, myLoanData, loading } = useGetLoanData();
   const [selector, setSelector] = useState<boolean>(true);
   const [loanSel, setLoanSel] = useState(-1);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [selPage, setSelPage] = useState(1);
+  const [pageData, setPageData] = useState<any[]>([]);
 
   const collectionOptions = useCustomQuery({
     query: getCollections,
@@ -20,6 +23,23 @@ const AllLoan = () => {
   });
 
   const data = selector ? loanData : myLoanData;
+  // const data = Array(57)
+  //   .fill(0)
+  //   .map((item, index) => ({
+  //     owner: "0x91e5e50cf953c3853dcb10b01c41a6a8a0adc46a",
+  //     tokenAddress: "0xd861be8e33ebd09764bfca242ca6a8c54dcf844a",
+  //     tokenId: "4227",
+  //     loanValue: "11000000000000000000",
+  //     loanFee: index,
+  //     duration: "25",
+  //     startTime: "0",
+  //     endTime: "0",
+  //     messiah: "0x0000000000000000000000000000000000000000",
+  //     status: "1",
+  //   }));
+  useEffect(() => {
+    setPageData(data.slice((selPage - 1) * 10, selPage * 10));
+  }, [selPage, data]);
 
   const getCollectionName = (tokenAddress: string) => {
     let temp = collectionOptions?.collections?.filter(
@@ -34,7 +54,7 @@ const AllLoan = () => {
   return (
     <div className='md:p-10 p-3 shadow-lg min-h-[50vh]'>
       <div className='md:flex justify-between item-center'>
-        <p className='md:text-[32px] text-[20px]'>
+        <p className='md:text-[32px] text-[20px] font-[700]'>
           Here are{" "}
           <span className='text-[#FF4200]'>
             {selector ? "All" : "My"} Items
@@ -57,57 +77,60 @@ const AllLoan = () => {
           </button>
         </div>
       </div>
-      <div className='shadow-lg rounded-lg mt-5 md:p-5 p-1'>
-        {data.length > 0 ? (
-          <table className='w-full text-gray-200 md:text-[20px] text-[16px]'>
-            <thead className='uppercase bg-[#4F4F54]'>
-              <tr className='text-center'>
-                <th className='p-3 text-left'>Collection</th>
-                <th className='hidden md:table-cell'>Value</th>
-                <th className='hidden md:table-cell'>Interest</th>
-                <th className='hidden md:table-cell'>Duration</th>
-                <th className='hidden md:table-cell'>Status</th>
-                <th className='p-3'>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item: any, index: number) => (
-                <tr key={index} className='border-b text-center bg-[#656264]'>
-                  <td className='p-4 text-left'>
-                    {getCollectionName(item.tokenAddress)}
-                  </td>
-                  <td className='hidden md:table-cell'>
-                    {item.loanValue / 10 ** 18}
-                  </td>
-                  <td className='hidden md:table-cell'>{item.loanFee}</td>
-                  <td className='hidden md:table-cell'>{item.duration}</td>
-                  <td className='hidden md:table-cell'>
-                    {statusArray[item.status]}
-                  </td>
-                  <td>
-                    <button
-                      className='bg-gray-200 hover:bg-[#FF4200] px-3 py-1 rounded-md'
-                      onClick={() => {
-                        setLoanSel(index);
-                        setOpenModal(true);
-                        loading = true;
-                      }}>
-                      <img
-                        className='mt-[1px]'
-                        src={ViewImg}
-                        alt='view'
-                        width={25}
-                      />
-                    </button>
-                  </td>
+      {pageData.length > 0 ? (
+        <>
+          <div className='min-h-[30vh]'>
+            <table className='w-full text-gray-200 md:text-[20px] text-[16px] mt-5'>
+              <thead className='uppercase bg-[#4F4F54]'>
+                <tr className='text-center'>
+                  <th className='px-3 py-4 text-left'>Collection</th>
+                  <th className='hidden md:table-cell'>Value (Vet)</th>
+                  <th className='hidden md:table-cell'>Interest (%)</th>
+                  <th className='hidden md:table-cell'>Duration (h)</th>
+                  <th className='hidden md:table-cell'>Status</th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          "No Loan Data"
-        )}
-      </div>
+              </thead>
+              <tbody>
+                {pageData.map((item: any, index: number) => (
+                  <tr key={index} className='border-b text-center bg-[#656264]'>
+                    <td className='p-3 text-left'>
+                      {getCollectionName(item.tokenAddress)}
+                    </td>
+                    <td className='hidden md:table-cell'>
+                      {item.loanValue / 10 ** 18}
+                    </td>
+                    <td className='hidden md:table-cell'>{item.loanFee}</td>
+                    <td className='hidden md:table-cell'>{item.duration}</td>
+                    <td className='hidden md:table-cell'>
+                      {statusArray[item.status]}
+                    </td>
+                    <td>
+                      <button
+                        className='bg-gray-200 hover:bg-[#FF4200] px-3 py-1 rounded-md'
+                        onClick={() => {
+                          setLoanSel(index);
+                          setOpenModal(true);
+                          loading = true;
+                        }}>
+                        <img
+                          className='mt-[1px]'
+                          src={ViewImg}
+                          alt='view'
+                          width={25}
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <Pagination data={data} selPage={selPage} setSelPage={setSelPage} />
+        </>
+      ) : (
+        "No Loan Data"
+      )}
       <Spinner loading={loading} />
       <ViewLoanModal
         open={openModal}

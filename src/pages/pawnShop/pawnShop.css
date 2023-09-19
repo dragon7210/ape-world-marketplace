@@ -1,12 +1,14 @@
+/** @format */
+
 .pawnshop {
-    background: url("../../assets/png/apeworld/pawnshop/background.png");
-    background-repeat: no-repeat;
-    width: 100%;
-    background-size: cover;
-    position: relative;
-    min-height: calc(100vh - 96px);
-    padding-bottom: 30px;
-    @media (min-width: 768px) {
-        padding-bottom: 18vh;
-    }
+  background-repeat: no-repeat;
+  background: url("../../assets/png/apeworld/pawnshop/background.png");
+  width: 100%;
+  background-size: cover;
+  position: relative;
+  min-height: calc(100vh - 96px);
+  padding-bottom: 30px;
+  @media (min-width: 768px) {
+    padding-bottom: 10vh;
+  }
 }
