@@ -46,14 +46,14 @@ const AllLoan = () => {
       (item: any) =>
         item.smartContractAddress?.toLowerCase() === tokenAddress?.toLowerCase()
     );
-    if (temp.length !== 0) {
+    if (temp?.length !== 0) {
       return temp[0]?.name;
     }
   };
 
   return (
     <div className='md:p-10 p-3 shadow-lg min-h-[50vh]'>
-      <div className='md:flex justify-between item-center'>
+      <div className='md:flex justify-between item-center border-b-2 pb-1'>
         <p className='md:text-[32px] text-[20px] font-[700]'>
           Here are{" "}
           <span className='text-[#FF4200]'>
@@ -80,7 +80,7 @@ const AllLoan = () => {
       {pageData.length > 0 ? (
         <>
           <div className='min-h-[30vh]'>
-            <table className='w-full text-gray-200 md:text-[20px] text-[16px] mt-5'>
+            <table className='w-full text-gray-200 md:text-[20px] text-[16px] mt-2'>
               <thead className='uppercase bg-[#4F4F54]'>
                 <tr className='text-center'>
                   <th className='px-3 py-4 text-left'>Collection</th>
@@ -129,7 +129,7 @@ const AllLoan = () => {
           <Pagination data={data} selPage={selPage} setSelPage={setSelPage} />
         </>
       ) : (
-        "No Loan Data"
+        <p className='mt-5'>No Loan Data</p>
       )}
       <Spinner loading={loading} />
       <ViewLoanModal

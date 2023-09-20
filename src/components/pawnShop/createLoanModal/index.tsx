@@ -89,8 +89,9 @@ const CreateLoanModal = ({
           />
           <div className='md:ml-[50px] text-gray-200 mt-4'>
             <p className='md:text-[45px] text-[24px] mt-2'>{data[0]?.name}</p>
-            <p className='md:text-[28px] text-[16px] mt-2 max-w-[256px] text-center'>
-              You are about to REQUEST a {createValue.vet} VET LOAN for This.{" "}
+            <p className='md:text-[28px] text-[14px] mt-2 min-w-[256px] text-center'>
+              You are about to REQUEST a {createValue.vet} VET
+              <br /> LOAN for This.{" "}
             </p>
             <div className='flex text-4 font-[600] justify-end mt-6 mr-5'>
               <button
