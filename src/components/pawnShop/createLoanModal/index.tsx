@@ -7,8 +7,10 @@ import {
   getServiceFeeABI,
   mvaApproveABI,
 } from "abi/abis";
+import Spinner from "components/common/Spinner";
 import { mva_token_address, pawn_address } from "config/contractAddress";
 import { useWallet } from "hooks";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 const CreateLoanModal = ({
@@ -25,6 +27,7 @@ const CreateLoanModal = ({
   setOpenModal: any;
 }) => {
   const { address, connex } = useWallet();
+  const [load, setLoad] = useState(true);
   const data = apes?.tokens?.items?.filter(
     (item: any) => item.collectionId === createValue.collectionId
   );
@@ -86,6 +89,7 @@ const CreateLoanModal = ({
             className='rounded-lg'
             src={data[0]?.assets[1].url}
             alt='createLoan'
+            onLoad={() => setLoad(false)}
           />
           <div className='md:ml-[50px] text-gray-200 mt-4'>
             <p className='md:text-[45px] text-[24px] mt-2'>{data[0]?.name}</p>
@@ -111,6 +115,7 @@ const CreateLoanModal = ({
           </div>
         </div>
       )}
+      <Spinner loading={load} />
     </Dialog>
   );
 };

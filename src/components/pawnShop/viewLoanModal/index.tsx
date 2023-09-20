@@ -1,7 +1,10 @@
 /** @format */
 
 import { Dialog } from "@headlessui/react";
+import Spinner from "components/common/Spinner";
 import { useCustomQuery } from "hooks";
+import { useState } from "react";
+import { shortenAddress } from "utils";
 import { getToken } from "utils/query";
 
 const ViewLoanModal = ({
@@ -20,6 +23,7 @@ const ViewLoanModal = ({
     }),
     variables: {},
   });
+  const [load, setLoad] = useState(true);
 
   return (
     <Dialog
@@ -31,16 +35,17 @@ const ViewLoanModal = ({
           className='rounded-lg'
           src={selData?.getToken?.assets[2]?.url}
           alt='loanImg'
+          onLoad={() => setLoad(false)}
         />
         <div className='md:ml-[50px] text-gray-200'>
           <p className='md:text-[45px] text-[24px] mt-5 font-[700]'>
             {selData?.getToken?.name}
           </p>
-          <span className='bg-[#1D57ED] px-2 rounded-md md:text-[18px] text-[14px]'>
-            Item owner By : {loanSel?.owner}
+          <span className='bg-[#1D57ED] px-2 rounded-md md:text-[18px] text-[14px] shadow'>
+            Item owner By {shortenAddress(loanSel?.owner)}
           </span>
           <br />
-          <span className='bg-[#1D57ED] px-2 rounded-md md:text-[18px] text-[14px]'>
+          <span className='bg-[blue] px-2 rounded-md md:text-[18px] text-[14px]'>
             Available for Loan
           </span>
           <div className='flex md:text-[28px] text-[18px] font-[700]'>
@@ -92,6 +97,7 @@ const ViewLoanModal = ({
           </div>
         </div>
       </div>
+      <Spinner loading={load} />
     </Dialog>
   );
 };
