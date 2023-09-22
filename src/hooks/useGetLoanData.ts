@@ -22,6 +22,7 @@ export const useGetLoanData = () => {
         const loanedDataAddress = await loanedDataAddressMethod.call();
 
         const tempLoan: any = [];
+
         for (let i = 0; i < loanedDataAddress.decoded[0].length; i++) {
           const temploanedData = await loanedDataMethod.call(
             loanedDataAddress.decoded[0][i]
@@ -37,6 +38,7 @@ export const useGetLoanData = () => {
             endTime: temploanedData.decoded[0][7],
             messiah: temploanedData.decoded[0][8],
             status: temploanedData.decoded[0][9],
+            itemId: loanedDataAddress["decoded"]["0"][i]
           };
           tempLoan.push(item);
         }

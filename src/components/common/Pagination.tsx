@@ -47,7 +47,7 @@ const Pagination = ({
               selPage + item > -1 && (
                 <span
                   key={index}
-                  className={`rounded-[99px] border-gray-100 px-2 pt-[6px] border-2 w-[39px] h-[39px] text-center cursor-pointer hover:bg-[#FF4200] ${
+                  className={`rounded-[99px] border-gray-100 px-2 pt-[6px] border-2 w-10 h-10 text-center cursor-pointer hover:bg-[#FF4200] ${
                     item === 0 && "bg-[#FF4200]"
                   }`}
                   onClick={() => {

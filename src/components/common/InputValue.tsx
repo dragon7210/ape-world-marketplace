@@ -16,10 +16,10 @@ const InputValue = ({
   return (
     <div className='flex items-center justify-between md:py-4 py-1 relative'>
       <div className='flex justify-center w-[100px]'>
-        <p className='text-[18px]'>{label}</p>
+        <p className='text-xl'>{label}</p>
       </div>
       <input
-        className='border-[#BEBEBE] border-2 md:px-[33px] md:py-4 py-2 px-3 rounded-[12px] bg-[transparent] outline-0 w-[calc(100%_-_100px)] '
+        className='border-[#BEBEBE] border-2 md:px-[33px] md:py-4 py-2 px-3 rounded-lg bg-[transparent] outline-0 w-[calc(100%_-_100px)] '
         onChange={onChange}
         name={name}
         value={value}

@@ -13,7 +13,7 @@ const InputSelect = ({
   return (
     <div className='flex items-center justify-between md:py-4 py-1'>
       <div className='flex justify-center w-[100px]'>
-        <p className='text-[18px]'>{label}</p>
+        <p className='text-xl'>{label}</p>
       </div>
       <div className='w-[calc(100%_-_100px)]'>
         <Select
@@ -25,8 +25,9 @@ const InputSelect = ({
               ...baseStyles,
               borderColor: "#BEBEBE",
               background: "transparent",
-              borderRadius: "12px",
-              padding: "5px",
+              border: "solid 2px",
+              borderRadius: "8px",
+              padding: "4px",
               outline: "none",
               "@media(min-width: 768px)": {
                 padding: "13px 20px",

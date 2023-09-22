@@ -86,7 +86,7 @@ const CreateLoan = () => {
             <img
               src={item.thumbnailImageUrl}
               alt={item.name}
-              className='rounded-[99px] mr-5 w-[28px] h-[28px]'
+              className='rounded-[99px] mr-5 w-7 h-7'
             />
             <p className='m-0 text-white'>{item.name}</p>
           </div>
@@ -106,7 +106,7 @@ const CreateLoan = () => {
 
   return (
     <div className='lg:px-20 md:px-10 md:my-20 p-3 flex justify-center '>
-      <div className='min-w-[340px] max-w-3xl border-[#BEBEBE] border-2 md:rounded-[30px] rounded-lg m-6 px-3 py-5 md:py-10 md:px-14'>
+      <div className='min-w-[340px] max-w-3xl border-[#BEBEBE] border-2 md:rounded-3xl rounded-lg m-6 px-3 py-5 md:py-10 md:px-14'>
         <InputSelect
           label='Collection'
           onChange={(e) => {
@@ -151,7 +151,7 @@ const CreateLoan = () => {
           onChange={handleChange}
         />
         <button
-          className={`w-full md:text-[30px] text-[18px] font-[600] border-2 border-[#FF4200] rounded-[99px] py-2 mt-5 ${
+          className={`w-full md:text-3xl text-lg font-[600] border-2 border-[#FF4200] rounded-[99px] py-2 mt-5 ${
             activeButton && "bg-[#FF4200]"
           } `}
           disabled={!activeButton}

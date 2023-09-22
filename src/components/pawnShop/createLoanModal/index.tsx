@@ -27,7 +27,7 @@ const CreateLoanModal = ({
   setOpenModal: any;
 }) => {
   const { address, connex } = useWallet();
-  const [load, setLoad] = useState(true);
+  const [loading, setLoading] = useState(true);
   const data = apes?.tokens?.items?.filter(
     (item: any) => item.collectionId === createValue.collectionId
   );
@@ -72,9 +72,15 @@ const CreateLoanModal = ({
         .comment("Create Listing.")
         .request()
         .then(() => {
+          setLoading(false);
+          setOpenModal(!open);
           toast.success("Created successfully");
         })
-        .catch(() => toast.error("Could not create loan."));
+        .catch(() => {
+          setLoading(false);
+          setOpenModal(!open);
+          toast.error("Could not create loan.");
+        });
     }
   };
 
@@ -89,25 +95,25 @@ const CreateLoanModal = ({
             className='rounded-lg'
             src={data[0]?.assets[1].url}
             alt='createLoan'
-            onLoad={() => setLoad(false)}
+            onLoad={() => setLoading(false)}
           />
-          <div className='md:ml-[50px] text-gray-200 mt-4'>
-            <p className='md:text-[45px] text-[24px] mt-2'>{data[0]?.name}</p>
-            <p className='md:text-[28px] text-[14px] mt-2 min-w-[256px] text-center'>
+          <div className='md:ml-[50px] text-gray-200 md:mt-6 mt-4'>
+            <p className='md:text-5xl text-2xl mt-2'>{data[0]?.name}</p>
+            <p className='md:text-3xl text-md mt-2 min-w-[256px] text-center'>
               You are about to REQUEST a {createValue.vet} VET
               <br /> LOAN for This.{" "}
             </p>
-            <div className='flex text-4 font-[600] justify-end mt-6 mr-5'>
+            <div className='flex md:text-2xl text-xl font-[600] justify-end mt-6 mr-5'>
               <button
-                className='bg-[#FF4200] py-1 rounded-lg md:mr-[40px] mr-5 md:w-[140px] w-[100px]'
+                className='bg-[#FF4200] py-1 rounded-lg md:mr-[40px] mr-5 md:w-32 w-24'
                 onClick={() => {
                   handleCreate();
-                  setOpenModal(!open);
+                  setLoading(true);
                 }}>
                 Confirm
               </button>
               <button
-                className='bg-[#FF0000] py-1 rounded-lg md:w-[140px] w-[100px]'
+                className='bg-[#FF0000] py-1 rounded-lg md:w-32 w-24'
                 onClick={() => setOpenModal(!open)}>
                 Cancel
               </button>
@@ -115,7 +121,7 @@ const CreateLoanModal = ({
           </div>
         </div>
       )}
-      <Spinner loading={load} />
+      <Spinner loading={loading} />
     </Dialog>
   );
 };
