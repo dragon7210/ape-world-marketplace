@@ -23,14 +23,13 @@ const InputSelect = ({
           styles={{
             control: (baseStyles) => ({
               ...baseStyles,
-              borderColor: "#BEBEBE",
               background: "transparent",
-              border: "solid 2px",
+              border: "solid 2px #BEBEBE",
               borderRadius: "8px",
               padding: "4px",
               outline: "none",
               "@media(min-width: 768px)": {
-                padding: "13px 20px",
+                padding: "10px 20px",
               },
             }),
             option: (provided, state) => ({
