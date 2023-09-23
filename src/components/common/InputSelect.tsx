@@ -31,6 +31,9 @@ const InputSelect = ({
               "@media(min-width: 768px)": {
                 padding: "10px 20px",
               },
+              "@media(min-width: 1200px)": {
+                width: "282px",
+              },
             }),
             option: (provided, state) => ({
               ...provided,

@@ -38,28 +38,27 @@ const AllLoan = () => {
   };
 
   return (
-    <div className='md:p-10 p-3 shadow-lg min-h-[50vh]'>
-      <div className='md:flex justify-between item-center border-b-2 pb-1'>
-        <p className='md:text-3xl text-xl font-[700]'>
-          Here are{" "}
-          <span className='text-[#FF4200]'>
-            {selector ? "All" : "My"} Items
-          </span>
-        </p>
-        <div className='flex md:text-xl text-[15px] mt-2 md:mt-0'>
+    <div className='md:py-12  shadow-lg min-h-[50vh]'>
+      <div className='flex justify-between items-center'>
+        <div className='flex text-xl'>
           <button
-            className={`md:px-8 md:py-4 py-1 px-2 rounded-lg md:mr-5 mr-2 ${
-              selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
+            className={`w-[190px] py-4 rounded-l-[99px] ${
+              selector ? "bg-[#8264E2]" : "bg-[#A4A8B2]"
             }`}
             onClick={() => setSelector(true)}>
-            List All Items
+            All Items
           </button>
           <button
-            className={`md:px-8 md:py-4  py-1 px-2 rounded-lg ${
-              !selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
+            className={`w-[190px] py-4 rounded-r-[99px] ${
+              !selector ? "bg-[#8264E2]" : "bg-[#A4A8B2]"
             }`}
             onClick={() => setSelector(false)}>
-            List My Items
+            My Items
+          </button>
+        </div>
+        <div>
+          <button className='bg-[#8264E2] p-4 rounded-[99px]'>
+            CREATE LOAN
           </button>
         </div>
       </div>

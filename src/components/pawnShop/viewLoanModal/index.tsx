@@ -210,7 +210,7 @@ const ViewLoanModal = ({
           onLoad={() => setLoading(false)}
         />
         <div className='md:ml-12 text-gray-200'>
-          <p className='md:text-4xl text-xl mt-5 font-[700]'>
+          <p className='md:text-4xl text-xl md:mt-9 mt-4 font-[700]'>
             {selData?.getToken?.name}
           </p>
           <div className='flex mt-3 md:text-lg text-sm '>

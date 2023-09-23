@@ -64,6 +64,7 @@ const CreateLoan = () => {
 
   useEffect(() => {
     if (apes) {
+      setLoading(true);
       const data = apes.tokens?.items.map((item: any) => {
         return {
           label: <p className='m-0 text-white'>{item.tokenId}</p>,
@@ -71,6 +72,7 @@ const CreateLoan = () => {
         };
       });
       setIdOption(data);
+      setLoading(false);
       if (createValue.collectionId === "") {
         setIdOption([]);
       }
@@ -106,7 +108,7 @@ const CreateLoan = () => {
 
   return (
     <div className='lg:px-20 md:px-10 md:my-20 p-3 flex justify-center '>
-      <div className='min-w-[340px] max-w-3xl border-[#BEBEBE] border-2 md:rounded-3xl rounded-lg m-6 px-3 py-5 md:py-10 md:px-14'>
+      <div className='min-w-[320px] border-[#BEBEBE] border-2 md:rounded-3xl rounded-lg m-6 px-3 py-5 md:py-10 md:px-6 lg:px-14'>
         <InputSelect
           label='Collection'
           onChange={(e) => {
