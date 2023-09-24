@@ -25,7 +25,7 @@ const InputValue = ({
         value={value}
         autoComplete='off'
       />
-      <p className='absolute md:right-[33px] right-4 font-[100] md:text-base text-sm'>
+      <p className='absolute md:right-[33px] right-4 font-[100] md:text-base text-sm text-gray-400'>
         {placeholder}
       </p>
     </div>

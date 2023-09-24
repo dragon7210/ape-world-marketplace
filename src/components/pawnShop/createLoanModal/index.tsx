@@ -76,7 +76,7 @@ const CreateLoanModal = ({
           setOpenModal(!open);
           toast.success("Created successfully");
         })
-        .catch(() => {
+        .catch((e) => {
           setLoading(false);
           setOpenModal(!open);
           toast.error("Could not create loan.");
