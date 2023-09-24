@@ -81,7 +81,9 @@ const AllLoan = () => {
                 {pageData.map((item: any, index: number) => (
                   <tr key={index} className='border-b text-center bg-[#656264]'>
                     <td className='md:py-3 px-3 text-left'>
-                      {getCollectionName(item.tokenAddress)}
+                      {getCollectionName(item.tokenAddress) +
+                        " #" +
+                        item.tokenId}
                     </td>
                     <td className='hidden md:table-cell'>
                       {item.loanValue / 10 ** 18}
