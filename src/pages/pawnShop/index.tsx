@@ -38,7 +38,7 @@ const PawnShop = () => {
             CREATE LOAN
           </p>
         </div>
-        <div>{select === 0 ? <AllLoan /> : <CreateLoan />}</div>
+        {select === 0 ? <AllLoan /> : <CreateLoan />}
       </div>
     </div>
   );

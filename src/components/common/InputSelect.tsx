@@ -11,7 +11,7 @@ const InputSelect = ({
   options: any;
 }) => {
   return (
-    <div className='flex items-center justify-between md:py-4 py-1 md:text-xl text-sm'>
+    <div className='flex items-center justify-between md:py-3 py-1 md:text-lg text-sm'>
       <div className='flex justify-center md:w-[140px] w-[90px]'>
         <p>{label}</p>
       </div>
@@ -29,7 +29,7 @@ const InputSelect = ({
               padding: "4px",
               outline: "none",
               "@media(min-width: 768px)": {
-                padding: "10px 20px",
+                padding: "6px 20px",
               },
             }),
             option: (provided, state) => ({

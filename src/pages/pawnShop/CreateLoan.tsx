@@ -84,7 +84,7 @@ const CreateLoan = () => {
       return {
         value: item.collectionId,
         label: (
-          <div className='flex items-center'>
+          <div className='flex items-center md:text-base'>
             <img
               src={item.thumbnailImageUrl}
               alt={item.name}
@@ -107,7 +107,7 @@ const CreateLoan = () => {
   };
 
   return (
-    <div className='lg:px-20 md:px-10 md:my-10 p-3 flex justify-center '>
+    <div className='md:my-10 flex justify-center '>
       <div className='border-[#BEBEBE] border-2 md:rounded-3xl rounded-lg m-6 px-2 py-4 md:py-8 md:px-6 lg:px-10'>
         <InputSelect
           label='Collection'
@@ -153,7 +153,7 @@ const CreateLoan = () => {
           onChange={handleChange}
         />
         <button
-          className={`w-full md:text-3xl text-lg font-[600] border-2 border-[#FF4200] rounded-[99px] py-2 mt-5 ${
+          className={`w-full md:text-2xl text-lg border-2 border-[#FF4200] rounded-[99px] md:py-2 py-1 mt-5 ${
             activeButton && "bg-[#FF4200]"
           } `}
           disabled={!activeButton}
