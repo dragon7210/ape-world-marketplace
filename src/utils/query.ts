@@ -21,6 +21,7 @@ export const searchNFTs = gql`
     tokenId
     smartContractAddress
     name
+    rank
     collectionId
     collection {
       ...MarketplaceCollection

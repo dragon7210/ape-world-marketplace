@@ -209,7 +209,7 @@ const ViewLoanModal = ({
           alt='loanImg'
           onLoad={() => setLoading(false)}
         />
-        <div className='md:ml-12 p-3'>
+        <div className='md:ml-12 p-3 mt-3'>
           <span className='bg-green-600 text-gray-50 px-3 py-1 rounded-xl'>
             Rank {selData?.getToken?.rank}
           </span>
@@ -217,20 +217,23 @@ const ViewLoanModal = ({
             {selData?.getToken?.name}
           </p>
           <div className='md:flex mt-3 md:text-lg text-sm text-gray-100'>
-            <span className='bg-blue-600 mr-5 rounded-md px-1'>
-              Item owner By {shortenAddress(loanSel?.owner)}
-            </span>
-            <br />
-            <span className='bg-[blue] rounded-md px-1'>
-              Available for Loan
-            </span>
+            <div className='mr-2'>
+              <span className='bg-rose-700 rounded-md p-1'>
+                Item owner By {shortenAddress(loanSel?.owner)}
+              </span>
+            </div>
+            <div className='mt-2 md:mt-0'>
+              <span className='bg-violet-700 rounded-md p-1'>
+                Available for Loan
+              </span>
+            </div>
           </div>
-          <div className='bg-gray-900 text-gray-100 p-5 md:mt-7 mt-2 rounded-xl'>
+          <div className='bg-gray-900 text-gray-100 p-5 md:mt-5 mt-2 rounded-xl'>
             <p className='md:text-2xl md:mt-2 text-md'>Details</p>
             <div className='columns-2 px-6'>
               <div className='md:text-lg md:mt-2 text-md'>
                 <p className='text-gray-500'>Ask Value</p>
-                <p className='text-sm'>{loanSel?.loanValue / 10 ** 18} Vet</p>
+                <p className='text-sm'>{loanSel?.loanValue / 10 ** 18} VET</p>
               </div>
               <div className='md:text-lg md:mt-2 text-md'>
                 <p className='text-gray-500'>Interest</p>
@@ -238,7 +241,7 @@ const ViewLoanModal = ({
               </div>
               <div className='md:text-xl md:mt-2 text-md'>
                 <p className='text-gray-500'>Duration</p>
-                <p className='text-sm'>{loanSel?.duration} h</p>
+                <p className='text-sm'>{loanSel?.duration} H</p>
               </div>
               <div className='md:text-xl md:mt-2 text-md'>
                 <p className='text-gray-500'>Start time</p>
