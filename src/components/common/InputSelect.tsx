@@ -11,11 +11,11 @@ const InputSelect = ({
   options: any;
 }) => {
   return (
-    <div className='flex items-center justify-between md:py-4 py-1'>
-      <div className='flex justify-center w-[100px]'>
-        <p className='text-xl'>{label}</p>
+    <div className='flex items-center justify-between md:py-4 py-1 md:text-xl text-sm'>
+      <div className='flex justify-center md:w-[140px] w-[90px]'>
+        <p>{label}</p>
       </div>
-      <div className='w-[calc(100%_-_100px)]'>
+      <div className='md:w-[calc(100%_-_140px)] w-[calc(100%_-_90px)]'>
         <Select
           onChange={onChange}
           options={options}
@@ -30,9 +30,6 @@ const InputSelect = ({
               outline: "none",
               "@media(min-width: 768px)": {
                 padding: "10px 20px",
-              },
-              "@media(min-width: 1200px)": {
-                width: "282px",
               },
             }),
             option: (provided, state) => ({

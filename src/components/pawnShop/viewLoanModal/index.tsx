@@ -151,7 +151,7 @@ const ViewLoanModal = ({
     if (loanSel?.owner === address) {
       Button = (
         <button
-          className='bg-[#FF0000] py-1 rounded-lg md:w-[140px] w-[100px]'
+          className='bg-[#FF0000] py-1 rounded-lg md:w-[120px] w-[100px]'
           onClick={() => {
             removeItem({ id: loanSel?.itemId });
             setLoading(true);
@@ -162,7 +162,7 @@ const ViewLoanModal = ({
     } else {
       Button = (
         <button
-          className='bg-[#FF0000] py-1 rounded-lg md:w-[140px] w-[100px]'
+          className='bg-[#FF0000] py-1 rounded-lg md:w-[120px] w-[100px]'
           onClick={() => {
             grantLoan({ id: loanSel?.itemId, loanValue: loanSel?.loanValue });
             setLoading(true);
@@ -175,7 +175,7 @@ const ViewLoanModal = ({
     if (loanSel?.owner === address) {
       Button = (
         <button
-          className='bg-[#FF0000] py-1 rounded-lg md:w-[140px] w-[100px]'
+          className='bg-[#FF0000] py-1 rounded-lg md:w-[120px] w-[100px]'
           onClick={() => {
             settleLoan(loanSel);
             setLoading(true);
@@ -186,7 +186,7 @@ const ViewLoanModal = ({
     } else if (loanSel?.messiah === address) {
       Button = (
         <button
-          className='bg-[#FF0000] py-1 rounded-lg md:w-[140px] w-[100px]'
+          className='bg-[#FF0000] py-1 rounded-lg md:w-[120px] w-[100px]'
           onClick={() => {
             claimLoan({ id: loanSel?.itemId });
             setLoading(true);
@@ -202,18 +202,18 @@ const ViewLoanModal = ({
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3'
       open={open}
       onClose={() => {}}>
-      <div className='bg-[#3D3D47] p-4 md:flex rounded-lg shadow-lg shadow-gray-500 '>
+      <div className='bg-[#3D3D47] p-2 md:flex rounded-lg shadow-lg shadow-gray-500 '>
         <img
           className='rounded-lg'
           src={selData?.getToken?.assets[2]?.url}
           alt='loanImg'
           onLoad={() => setLoading(false)}
         />
-        <div className='md:ml-12 text-gray-200'>
-          <p className='md:text-4xl text-xl md:mt-9 mt-4 font-[700]'>
+        <div className='md:ml-12 text-gray-200 p-3'>
+          <p className='md:text-4xl text-xl md:mt-9 mt-2 font-[700]'>
             {selData?.getToken?.name}
           </p>
-          <div className='flex mt-3 md:text-lg text-sm '>
+          <div className='md:flex mt-3 md:text-lg text-sm '>
             <span className='bg-[#1D57ED] mr-5 rounded-md px-1'>
               Item owner By {shortenAddress(loanSel?.owner)}
             </span>
@@ -222,46 +222,46 @@ const ViewLoanModal = ({
               Available for Loan
             </span>
           </div>
-          <div className='flex md:text-2xl text-lg font-[700] md:mt-6 mt-3'>
-            <p className='w-[200px]'>Rank :</p>
+          <div className='flex md:text-2xl text-md font-[700] md:mt-6 mt-3'>
+            <p className='md:w-[200px] w-[120px]'>Rank :</p>
             <p>{selData?.getToken?.rank}</p>
           </div>
-          <div className='flex md:text-2xl md:mt-2 text-lg font-[700]'>
-            <p className='w-[200px]'>Ask Value :</p>
+          <div className='flex md:text-2xl md:mt-2 text-md font-[700]'>
+            <p className='md:w-[200px] w-[120px]'>Ask Value :</p>
             <p>{loanSel?.loanValue / 10 ** 18} Vet</p>
           </div>
-          <div className='flex md:text-2xl md:mt-2 text-lg font-[700]'>
-            <p className='w-[200px]'>Interest :</p>
+          <div className='flex md:text-2xl md:mt-2 text-md font-[700]'>
+            <p className='md:w-[200px] w-[120px]'>Interest :</p>
             <p>
               {loanSel?.loanFee} % (
               {(loanSel?.loanValue / 10 ** 20) * loanSel?.loanFee} Vet)
             </p>
           </div>
-          <div className='flex md:text-2xl md:mt-2 text-lg font-[700]'>
-            <p className='w-[200px]'>Duration :</p>
+          <div className='flex md:text-2xl md:mt-2 text-md font-[700]'>
+            <p className='md:w-[200px] w-[120px]'>Duration :</p>
             <p>{loanSel?.duration + "h"}</p>
           </div>
-          <div className='flex md:text-2xl md:mt-2 text-lg font-[700]'>
-            <p className='w-[200px]'>Start time :</p>
+          <div className='flex md:text-2xl md:mt-2 text-md font-[700]'>
+            <p className='md:w-[200px] w-[120px]'>Start time :</p>
             <p>
               {loanSel?.status !== "1" ? loanSel?.startTime : "Not granted"}
             </p>
           </div>
-          <div className='flex md:text-2xl md:mt-2 text-lg font-[700]'>
-            <p className='w-[200px]'>End time :</p>
+          <div className='flex md:text-2xl md:mt-2 text-md font-[700]'>
+            <p className='md:w-[200px] w-[120px]'>End time :</p>
             <p>{loanSel?.status !== "1" ? loanSel?.endTime : "Not granted"}</p>
           </div>
-          <div className='flex md:text-2xl md:mt-2 text-lg font-[700]'>
-            <p className='w-[200px]'>Messiah :</p>
+          <div className='flex md:text-2xl md:mt-2 text-md font-[700]'>
+            <p className='md:w-[200px] w-[120px]'>Messiah :</p>
             <p>
               {loanSel?.status !== "1"
                 ? shortenAddress(loanSel?.messiah)
                 : "Not granted"}
             </p>
           </div>
-          <div className='flex md:text-2xl text-xl font-[600] justify-end md:mt-8 mt-4 md:mr-5'>
+          <div className='flex md:text-lg text-sm justify-end md:mt-8 mt-4 md:mr-5'>
             <button
-              className='bg-[#FF4200] py-1 rounded-lg md:mr-[40px] mr-5 md:w-[140px] w-[100px]'
+              className='bg-[#FF4200] py-1 rounded-lg md:mr-[40px] mr-5 md:w-[120px] w-[100px]'
               onClick={() => setOpenModal(!open)}>
               OK
             </button>

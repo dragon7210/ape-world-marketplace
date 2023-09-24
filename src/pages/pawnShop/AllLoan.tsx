@@ -38,34 +38,35 @@ const AllLoan = () => {
   };
 
   return (
-    <div className='md:py-12  shadow-lg min-h-[50vh]'>
-      <div className='flex justify-between items-center'>
-        <div className='flex text-xl'>
+    <div className='md:p-10 p-3 shadow-lg min-h-[66vh]'>
+      <div className='lg:flex justify-between items-center border-b-2 pb-1'>
+        <p className='md:text-3xl text-lg font-[700]'>
+          Here are{" "}
+          <span className='text-[#FF4200]'>
+            {selector ? "All" : "My"} Items
+          </span>
+        </p>
+        <div className='flex lg:text-xl text-[13px] mt-2 md:mt-4 lg:mt-0'>
           <button
-            className={`w-[190px] py-4 rounded-l-[99px] ${
-              selector ? "bg-[#8264E2]" : "bg-[#A4A8B2]"
+            className={`lg:px-5 lg:py-3 py-1 px-2 rounded-l-[99px] ${
+              selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(true)}>
-            All Items
+            List All Items
           </button>
           <button
-            className={`w-[190px] py-4 rounded-r-[99px] ${
-              !selector ? "bg-[#8264E2]" : "bg-[#A4A8B2]"
+            className={`lg:px-5 lg:py-3  py-1 px-2 rounded-r-[99px] ${
+              !selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(false)}>
-            My Items
-          </button>
-        </div>
-        <div>
-          <button className='bg-[#8264E2] p-4 rounded-[99px]'>
-            CREATE LOAN
+            List My Items
           </button>
         </div>
       </div>
       {pageData.length > 0 ? (
         <>
-          <div className='min-h-[30vh]'>
-            <table className='w-full text-gray-200 md:text-xl text-md mt-2'>
+          <div className='min-h-[40vh]'>
+            <table className='w-full text-gray-200 md:text-lg text-sm mt-2'>
               <thead className='uppercase bg-[#4F4F54]'>
                 <tr className='text-center'>
                   <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
@@ -88,10 +89,12 @@ const AllLoan = () => {
                     <td className='hidden md:table-cell'>{item.loanFee}</td>
                     <td className='hidden md:table-cell'>{item.duration}</td>
                     <td className='hidden md:table-cell'>
-                      {statusArray[item.status]}
+                      <span className='border-2 px-2 py-1 rounded-lg'>
+                        {statusArray[item.status]}
+                      </span>
                     </td>
                     <td>
-                      <div className='flex items-center justify-center py-1'>
+                      <div className='flex items-center justify-center md:py-1'>
                         <button
                           className='bg-gray-200 hover:bg-[#FF4200] md:px-3 md:py-1 px-1 rounded-md'
                           onClick={() => {

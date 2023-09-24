@@ -84,7 +84,7 @@ const CreateLoan = () => {
       return {
         value: item.collectionId,
         label: (
-          <div className='flex item-center'>
+          <div className='flex items-center'>
             <img
               src={item.thumbnailImageUrl}
               alt={item.name}
@@ -107,8 +107,8 @@ const CreateLoan = () => {
   };
 
   return (
-    <div className='lg:px-20 md:px-10 md:my-20 p-3 flex justify-center '>
-      <div className='min-w-[320px] border-[#BEBEBE] border-2 md:rounded-3xl rounded-lg m-6 px-3 py-5 md:py-10 md:px-6 lg:px-14'>
+    <div className='lg:px-20 md:px-10 md:my-10 p-3 flex justify-center '>
+      <div className='border-[#BEBEBE] border-2 md:rounded-3xl rounded-lg m-6 px-2 py-4 md:py-8 md:px-6 lg:px-10'>
         <InputSelect
           label='Collection'
           onChange={(e) => {
@@ -158,7 +158,7 @@ const CreateLoan = () => {
           } `}
           disabled={!activeButton}
           onClick={() => setOpenModal(true)}>
-          Create Loan
+          CREATE LOAN
         </button>
       </div>
       <CreateLoanModal

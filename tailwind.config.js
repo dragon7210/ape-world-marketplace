@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Zen Dots", ...defaultTheme.fontFamily.sans],
+        sans: ["Zen dots", ...defaultTheme.fontFamily.sans],
       },
     },
   },

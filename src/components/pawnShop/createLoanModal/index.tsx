@@ -90,7 +90,7 @@ const CreateLoanModal = ({
       open={open}
       onClose={() => {}}>
       {data?.length > 0 && (
-        <div className='bg-[#3D3D47] p-4 md:flex rounded-lg shadow-lg shadow-gray-500'>
+        <div className='bg-[#3D3D47] w-[270px] md:w-[40%] p-2 md:flex rounded-lg shadow-lg shadow-gray-500'>
           <img
             className='rounded-lg'
             src={data[0]?.assets[1].url}
@@ -98,12 +98,13 @@ const CreateLoanModal = ({
             onLoad={() => setLoading(false)}
           />
           <div className='md:ml-[50px] text-gray-200 md:mt-6 mt-4'>
-            <p className='md:text-5xl text-2xl mt-2'>{data[0]?.name}</p>
-            <p className='md:text-3xl text-md mt-2 min-w-[256px] text-center'>
-              You are about to REQUEST a {createValue.vet} VET
-              <br /> LOAN for This.{" "}
+            <p className='md:text-4xl text-xl mt-2 text-center'>
+              {data[0]?.name}
             </p>
-            <div className='flex md:text-2xl text-xl font-[600] justify-end mt-6 mr-5'>
+            <p className='md:text-2xl text-md md:mt-5 min-w-[256px] text-center'>
+              You are about to REQUEST a {createValue.vet} VET LOAN for This.{" "}
+            </p>
+            <div className='flex md:text-2xl text-md font-[600] justify-end md:mt-6 mt-2 mr-5'>
               <button
                 className='bg-[#FF4200] py-1 rounded-lg md:mr-[40px] mr-5 md:w-32 w-24'
                 onClick={() => {

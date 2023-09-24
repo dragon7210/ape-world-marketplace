@@ -11,10 +11,10 @@ const Pagination = ({
 }) => {
   const array = [-1, 0, 1];
   return (
-    <div className='flex items-center justify-between  border-gray-200 bg-transparent px-4 py-3 sm:px-6'>
+    <div className='flex items-center justify-between text-sm border-gray-200 bg-transparent px-4 py-3 sm:px-6'>
       <div className='w-full flex md:justify-between justify-center'>
         <div className='hidden md:flex items-center'>
-          <p className='text-sm text-gray-200'>
+          <p className='text-gray-200'>
             Showing&nbsp;
             <span className='font-medium'>{1 + 10 * (selPage - 1)}</span>
             &nbsp;to&nbsp;
@@ -47,7 +47,7 @@ const Pagination = ({
               selPage + item > -1 && (
                 <span
                   key={index}
-                  className={`rounded-[99px] border-gray-100 px-2 pt-[6px] border-2 w-10 h-10 text-center cursor-pointer hover:bg-[#FF4200] ${
+                  className={`rounded-[99px] border-gray-100 px-2 pt-[10px] border-2 w-10 h-10 text-center cursor-pointer hover:bg-[#FF4200] ${
                     item === 0 && "bg-[#FF4200]"
                   }`}
                   onClick={() => {
