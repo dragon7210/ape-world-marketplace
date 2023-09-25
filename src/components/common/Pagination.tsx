@@ -46,23 +46,21 @@ const Pagination = ({
           {array.map((item: number, index: number) => {
             return (
               selPage + item > -1 && (
-                <>
-                  <span
-                    key={index}
-                    className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-2 md:pt-[9px] border-2 text-center cursor-pointer hover:bg-[#FF4200] ${
-                      selPage + item === 0 && "hidden"
-                    } ${item === 0 && "bg-[#FF4200]"}`}
-                    onClick={() => {
-                      if (
-                        selPage + item !== 0 &&
-                        selPage + item <= data.length / 10
-                      ) {
-                        setSelPage(selPage + item);
-                      }
-                    }}>
-                    {selPage + item}
-                  </span>
-                </>
+                <span
+                  key={index}
+                  className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-2 md:pt-[9px] border-2 text-center cursor-pointer hover:bg-[#FF4200] ${
+                    selPage + item === 0 && "hidden"
+                  } ${item === 0 && "bg-[#FF4200]"}`}
+                  onClick={() => {
+                    if (
+                      selPage + item !== 0 &&
+                      selPage + item <= data.length / 10
+                    ) {
+                      setSelPage(selPage + item);
+                    }
+                  }}>
+                  {selPage + item}
+                </span>
               )
             );
           })}

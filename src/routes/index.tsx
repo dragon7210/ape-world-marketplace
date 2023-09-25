@@ -14,6 +14,9 @@ const MainRoutes = () => {
       <Route path='/shop' element={<Layout />}>
         <Route index element={<PawnShop />} />
       </Route>
+      <Route path='/shop/create' element={<Layout />}>
+        <Route index element={<PawnShop />} />
+      </Route>
     </Routes>
   );
 };
