@@ -10,8 +10,9 @@ const Pagination = ({
   setSelPage: any;
 }) => {
   const array = [-1, 0, 1];
+  console.log(selPage);
   return (
-    <div className='flex items-center justify-between text-sm border-gray-200 bg-transparent px-4 py-3 sm:px-6'>
+    <div className='flex items-center justify-between md:text-sm text-[10px] border-gray-200 bg-transparent px-4 py-3 sm:px-6'>
       <div className='w-full flex md:justify-between justify-center'>
         <div className='hidden md:flex items-center'>
           <p className='text-gray-200'>
@@ -28,7 +29,7 @@ const Pagination = ({
         </div>
         <div className='flex items-center justify-between w-[240px]'>
           <span
-            className='rounded-[99px] border-gray-100 p-2 border-2 items-center cursor-pointer hover:bg-[#FF4200]'
+            className='rounded-[99px] border-gray-100 md:p-2 p-1 border-2 items-center cursor-pointer hover:bg-[#FF4200]'
             onClick={() => {
               if (selPage > 1) {
                 setSelPage(selPage - 1);
@@ -45,26 +46,39 @@ const Pagination = ({
           {array.map((item: number, index: number) => {
             return (
               selPage + item > -1 && (
-                <span
-                  key={index}
-                  className={`rounded-[99px] border-gray-100 px-2 pt-[10px] border-2 w-10 h-10 text-center cursor-pointer hover:bg-[#FF4200] ${
-                    item === 0 && "bg-[#FF4200]"
-                  }`}
-                  onClick={() => {
-                    if (
-                      selPage + item !== 0 &&
-                      selPage + item <= data.length / 10
-                    ) {
-                      setSelPage(selPage + item);
-                    }
-                  }}>
-                  {selPage + item}
-                </span>
+                <>
+                  <span
+                    key={index}
+                    className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-2 md:pt-[9px] border-2 text-center cursor-pointer hover:bg-[#FF4200] ${
+                      selPage + item === 0 && "hidden"
+                    } ${item === 0 && "bg-[#FF4200]"}`}
+                    onClick={() => {
+                      if (
+                        selPage + item !== 0 &&
+                        selPage + item <= data.length / 10
+                      ) {
+                        setSelPage(selPage + item);
+                      }
+                    }}>
+                    {selPage + item}
+                  </span>
+                </>
               )
             );
           })}
           <span
-            className='rounded-[99px] border-gray-100 p-2 border-2 items-center cursor-pointer hover:bg-[#FF4200]'
+            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-2 md:pt-[9px] border-2 text-center cursor-pointer hover:bg-[#FF4200] ${
+              selPage !== 1 && "hidden"
+            }`}
+            onClick={() => {
+              if (selPage <= data.length / 10) {
+                setSelPage(3);
+              }
+            }}>
+            {3}
+          </span>
+          <span
+            className='rounded-[99px] border-gray-100 md:p-2 p-1 border-2 cursor-pointer hover:bg-[#FF4200]'
             onClick={() => {
               if (selPage < data.length / 10) {
                 setSelPage(selPage + 1);

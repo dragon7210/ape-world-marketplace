@@ -10,7 +10,7 @@ import "./pawnShop.css";
 const PawnShop = () => {
   const [select, setSelect] = useState(0);
   return (
-    <div className='pawnshop md:pt-10 text-white md:px-[10%] lg:px-[15%] p-3'>
+    <div className='pawnshop md:pt-10 text-white md:px-[10%] lg:px-[13%] p-3'>
       <div className='relative'>
         <p className='md:text-5xl text-3xl md:text-left text-center'>
           PAWN <span className='bg-[#38df37] px-2 rounded-lg'>SHOP</span>

@@ -196,27 +196,26 @@ const ViewLoanModal = ({
       );
     }
   }
-
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3'
       open={open}
       onClose={() => {}}>
-      <div className='bg-gray-200 p-2 md:flex rounded-lg shadow-lg text-gray-600 shadow-gray-500 '>
+      <div className='w-[262px] md:w-[744px] bg-gray-200 p-2 md:flex rounded-lg shadow-lg text-gray-600 shadow-gray-500 '>
         <img
-          className='rounded-lg'
-          src={selData?.getToken?.assets[2]?.url}
+          className='rounded-lg md:mr-2'
+          src={selData?.getToken?.assets[1]?.url}
           alt='loanImg'
           onLoad={() => setLoading(false)}
         />
-        <div className='md:ml-12 p-3 mt-3'>
-          <span className='bg-green-600 text-gray-50 px-3 py-1 rounded-xl'>
+        <div className='pt-3'>
+          <span className='bg-green-600 text-gray-50 md:text-base text-[10px] px-3 py-1 rounded-xl'>
             Rank {selData?.getToken?.rank}
           </span>
-          <p className='md:text-4xl text-xl md:mt-5 mt-2 font-[700] text-black'>
+          <p className='md:text-xl text-sm mt-2 font-[700] text-black'>
             {selData?.getToken?.name}
           </p>
-          <div className='md:flex mt-3 md:text-lg text-sm text-gray-100'>
+          <div className='md:flex md:mt-1 md:text-sm text-[8px] text-gray-100'>
             <div className='mr-2'>
               <span className='bg-rose-700 rounded-md p-1'>
                 Item owner By {shortenAddress(loanSel?.owner)}
@@ -228,36 +227,36 @@ const ViewLoanModal = ({
               </span>
             </div>
           </div>
-          <div className='bg-gray-900 text-gray-100 p-5 md:mt-5 mt-2 rounded-xl'>
-            <p className='md:text-2xl md:mt-2 text-md'>Details</p>
-            <div className='columns-2 px-6'>
-              <div className='md:text-lg md:mt-2 text-md'>
+          <div className='bg-gray-900 text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
+            <p className='md:text-xltext-sm'>Details</p>
+            <div className='columns-2 md:columns-3 md:px-5 px-2 text-[10px] md:text-sm'>
+              <div>
                 <p className='text-gray-500'>Ask Value</p>
-                <p className='text-sm'>{loanSel?.loanValue / 10 ** 18} VET</p>
+                <p>{loanSel?.loanValue / 10 ** 18} VET</p>
               </div>
-              <div className='md:text-lg md:mt-2 text-md'>
+              <div>
                 <p className='text-gray-500'>Interest</p>
-                <p className='text-sm'>{loanSel?.loanFee} %</p>
+                <p>{loanSel?.loanFee} %</p>
               </div>
-              <div className='md:text-xl md:mt-2 text-md'>
+              <div>
                 <p className='text-gray-500'>Duration</p>
-                <p className='text-sm'>{loanSel?.duration} H</p>
+                <p>{loanSel?.duration} H</p>
               </div>
-              <div className='md:text-xl md:mt-2 text-md'>
+              <div>
                 <p className='text-gray-500'>Start time</p>
-                <p className='text-sm'>
+                <p>
                   {loanSel?.status !== "1" ? loanSel?.startTime : "Not granted"}
                 </p>
               </div>
-              <div className='md:text-xl md:mt-2 text-md'>
+              <div>
                 <p className='text-gray-500'>End time</p>
-                <p className='text-sm'>
+                <p>
                   {loanSel?.status !== "1" ? loanSel?.endTime : "Not granted"}
                 </p>
               </div>
-              <div className='md:text-xl md:mt-2 text-md'>
+              <div>
                 <p className='text-gray-500'>Messiah</p>
-                <p className='text-sm'>
+                <p>
                   {loanSel?.status !== "1"
                     ? shortenAddress(loanSel?.messiah)
                     : "Not granted"}
@@ -266,7 +265,7 @@ const ViewLoanModal = ({
             </div>
           </div>
 
-          <div className='flex md:text-lg text-sm justify-end md:mt-8 mt-4 md:mr-5 text-gray-100'>
+          <div className='flex md:text-lg text-[12px] justify-end mt-2 md:mr-5 text-gray-100'>
             <button
               className='bg-[#FF4200] py-1 rounded-lg md:mr-[40px] mr-5 md:w-32 w-24'
               onClick={() => setOpenModal(!open)}>
