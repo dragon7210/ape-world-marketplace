@@ -7,6 +7,7 @@ import CreateLoanModal from "components/pawnShop/createLoanModal";
 import { useWallet, useCustomQuery } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router";
 import { getCollections, searchNFTs } from "utils/query";
 
 const CreateLoan = () => {
@@ -16,19 +17,18 @@ const CreateLoan = () => {
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!address) {
+      navigate("/shop");
+    }
+  }, [address, navigate]);
 
   const collectionOptions = useCustomQuery({
     query: getCollections,
     variables: { ownerAddress: address },
   });
-
-  useEffect(() => {
-    if (!collectionOptions) {
-      setLoading(true);
-    } else {
-      setLoading(false);
-    }
-  }, [collectionOptions]);
 
   const [createValue, setCreateValue] = useState<{ [key: string]: string }>({
     id: "",
@@ -53,6 +53,13 @@ const CreateLoan = () => {
       pagination: { page: 1, perPage: 1000 },
     },
   });
+  useEffect(() => {
+    if (!apes) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [apes]);
 
   useEffect(() => {
     const objectName = Object.keys(createValue);

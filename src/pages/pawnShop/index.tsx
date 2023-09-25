@@ -6,9 +6,12 @@ import Star from "assets/svg/apeworld/star.svg";
 import { useLocation, useNavigate } from "react-router";
 
 import "./pawnShop.css";
+import { useWallet } from "hooks";
+import toast from "react-hot-toast";
 
 const PawnShop = () => {
   const { pathname } = useLocation();
+  const { address } = useWallet();
   const navigate = useNavigate();
   return (
     <div className='pawnshop md:pt-10 text-white md:px-[10%] lg:px-[13%] p-3'>
@@ -35,7 +38,13 @@ const PawnShop = () => {
             className={`w-[50%] md:pt-[30px] md:border-b-8 border-b-4 cursor-pointer md:pb-3 pt-2 pb-1 ${
               pathname !== "/shop" ? "border-[#FF4200]" : "border-[#948E8E] "
             }`}
-            onClick={() => navigate("/shop/create")}>
+            onClick={() => {
+              if (address) {
+                navigate("/shop/create");
+              } else {
+                toast.error("Please connect the Wallet");
+              }
+            }}>
             CREATE LOAN
           </p>
         </div>

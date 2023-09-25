@@ -10,7 +10,6 @@ const Pagination = ({
   setSelPage: any;
 }) => {
   const array = [-1, 0, 1];
-  console.log(selPage);
   return (
     <div className='flex items-center justify-between md:text-sm text-[10px] border-gray-200 bg-transparent px-4 py-3 sm:px-6'>
       <div className='w-full flex md:justify-between justify-center'>
