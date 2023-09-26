@@ -167,7 +167,7 @@ const ViewLoanModal = ({
             grantLoan({ id: loanSel?.itemId, loanValue: loanSel?.loanValue });
             setLoading(true);
           }}>
-          Grant Loan
+          Grant
         </button>
       );
     }
@@ -180,7 +180,7 @@ const ViewLoanModal = ({
             settleLoan(loanSel);
             setLoading(true);
           }}>
-          Settle Loan
+          Settle
         </button>
       );
     } else if (loanSel?.messiah === address) {
@@ -191,7 +191,7 @@ const ViewLoanModal = ({
             claimLoan({ id: loanSel?.itemId });
             setLoading(true);
           }}>
-          Claim NFT
+          Claim
         </button>
       );
     }
@@ -210,14 +210,14 @@ const ViewLoanModal = ({
           onLoad={() => setLoading(false)}
         />
         <div className='pt-3'>
-          <span className='bg-green-600 text-gray-50 md:text-base text-[10px] px-3 py-1 rounded-xl'>
+          <span className='bg-green-600 ml-2 text-gray-50 md:text-base text-[10px] px-3 py-1 rounded-xl'>
             Rank {selData?.getToken?.rank}
           </span>
-          <p className='md:text-xl text-sm mt-2 font-[700] text-black'>
+          <p className='md:text-xl text-sm mt-1 font-[700] text-black'>
             {selData?.getToken?.name}
           </p>
-          <div className='md:flex md:mt-1 md:text-sm text-[8px] text-gray-100'>
-            <div className='mr-2'>
+          <div className='md:flex justify-between px-2 md:mt-1 md:text-sm text-[8px] text-gray-100'>
+            <div>
               <span className='bg-rose-700 rounded-md p-1'>
                 Item owner By {shortenAddress(loanSel?.owner)}
               </span>

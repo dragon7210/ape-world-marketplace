@@ -9,7 +9,7 @@ const Pagination = ({
   selPage: number;
   setSelPage: any;
 }) => {
-  const array = [-1, 0, 1];
+  const array = [-1, 0, 1, 2, 3];
   return (
     <div className='flex items-center justify-between md:text-sm text-[10px] border-gray-200 bg-transparent px-4 py-3 sm:px-6'>
       <div className='w-full flex md:justify-between justify-center'>
@@ -26,7 +26,7 @@ const Pagination = ({
             &nbsp;results
           </p>
         </div>
-        <div className='flex items-center justify-between w-[220px]'>
+        <div className='flex items-center justify-between md:w-[300px] w-[250px]'>
           <span
             className='rounded-[99px] border-gray-100 md:p-2 p-1 border-2 items-center cursor-pointer hover:bg-[#FF4200]'
             onClick={() => {
@@ -69,10 +69,10 @@ const Pagination = ({
             }`}
             onClick={() => {
               if (selPage <= data.length / 10) {
-                setSelPage(3);
+                setSelPage(5);
               }
             }}>
-            {3}
+            {5}
           </span>
           <span
             className='rounded-[99px] border-gray-100 md:p-2 p-1 border-2 cursor-pointer hover:bg-[#FF4200]'
