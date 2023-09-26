@@ -11,7 +11,7 @@ const Pagination = ({
 }) => {
   const array = [-1, 0, 1];
   return (
-    <div className='flex items-center justify-between md:text-sm text-[10px] border-gray-200 bg-transparent px-4 py-3 sm:px-6'>
+    <div className='flex items-center justify-between md:text-sm text-[10px] border-gray-200 bg-transparent px-4 py-4 sm:px-6'>
       <div className='w-full flex md:justify-between justify-center'>
         <div className='hidden md:flex items-center'>
           <p className='text-gray-200'>
