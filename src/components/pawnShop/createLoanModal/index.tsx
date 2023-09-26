@@ -96,19 +96,19 @@ const CreateLoanModal = ({
             alt='createLoan'
             onLoad={() => setLoading(false)}
           />
-          <div className='md:ml-[50px] md:mt-6 mt-4'>
-            <span className='bg-green-600 text-gray-50 px-3 py-1 rounded-xl'>
+          <div className='md:ml-[20px] md:mt-6 mt-4'>
+            <span className='bg-green-600 ml-2 text-gray-50 md:text-base text-[10px] px-3 py-1 rounded-xl'>
               Rank {data[0]?.rank}
             </span>
-            <p className='md:text-3xl text-xl md:mt-5 mt-2 md:text-left text-black text-center'>
+            <p className='md:text-3xl text-md md:mt-5 mt-2 md:text-left text-black text-center'>
               {data[0]?.name}
             </p>
             <p className='md:text-base text-[10px] md:mt-5 mt-2 min-w-[256px] text-center'>
               You are about to REQUEST a {createValue.vet} VET LOAN for This.
             </p>
-            <div className='flex md:text-xl text-md justify-end md:mt-8 mt-2 text-white'>
+            <div className='flex md:text-xl text-[12px] justify-end md:mt-8 mt-2 text-white'>
               <button
-                className='bg-[#FF4200] py-1 rounded-lg md:mr-10 mr-5 md:w-32 w-24'
+                className='bg-[#FF4200] py-1 rounded-lg md:mr-10 mr-5 md:w-40 w-24'
                 onClick={() => {
                   handleCreate();
                   setLoading(true);
@@ -116,7 +116,7 @@ const CreateLoanModal = ({
                 CONFIRM
               </button>
               <button
-                className='bg-[#FF0000] py-1 rounded-lg md:w-32 w-24'
+                className='bg-[#FF0000] py-1 rounded-lg md:w-40 w-24'
                 onClick={() => setOpenModal(!open)}>
                 CANCEL
               </button>

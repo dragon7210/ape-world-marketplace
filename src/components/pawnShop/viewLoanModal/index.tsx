@@ -11,7 +11,7 @@ import Spinner from "components/common/Spinner";
 import { pawn_address } from "config/contractAddress";
 import { months } from "constant";
 import { useCustomQuery, useWallet } from "hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { shortenAddress } from "utils";
 import { getToken } from "utils/query";
@@ -26,6 +26,7 @@ const ViewLoanModal = ({
   loanSel: any;
 }) => {
   const { address, connex } = useWallet();
+  const [state, setState] = useState<string>("Available for Loan");
 
   const selData = useCustomQuery({
     query: getToken({
@@ -151,6 +152,12 @@ const ViewLoanModal = ({
     }
   };
 
+  useEffect(() => {
+    if (loanSel?.status === "2") {
+      setState("Currently on Loan");
+    }
+  }, [loanSel]);
+
   let Button: any;
   if (loanSel?.status === "1") {
     if (loanSel?.owner === address) {
@@ -253,9 +260,7 @@ const ViewLoanModal = ({
               </span>
             </div>
             <div className='mt-2 md:mt-0'>
-              <span className='bg-violet-700 rounded-md p-1'>
-                Available for Loan
-              </span>
+              <span className='bg-violet-700 rounded-md p-1'>{state}</span>
             </div>
           </div>
           <div className='bg-gray-900 text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
