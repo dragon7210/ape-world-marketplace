@@ -196,12 +196,13 @@ const ViewLoanModal = ({
       );
     }
   }
+
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3'
       open={open}
       onClose={() => {}}>
-      <div className='w-[262px] md:w-[744px] bg-gray-200 p-2 md:flex rounded-lg shadow-lg text-gray-600 shadow-gray-500 '>
+      <div className='w-[270px] md:w-[720px] bg-gray-200 p-3 md:flex rounded-lg shadow-lg text-gray-600 shadow-gray-500 '>
         <img
           className='rounded-lg md:mr-2'
           src={selData?.getToken?.assets[1]?.url}
