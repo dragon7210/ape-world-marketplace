@@ -9,6 +9,7 @@ import {
 } from "abi/abis";
 import Spinner from "components/common/Spinner";
 import { pawn_address } from "config/contractAddress";
+import { months } from "constant";
 import { useCustomQuery, useWallet } from "hooks";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -25,6 +26,7 @@ const ViewLoanModal = ({
   loanSel: any;
 }) => {
   const { address, connex } = useWallet();
+
   const selData = useCustomQuery({
     query: getToken({
       tokenId: loanSel?.tokenId,
@@ -200,14 +202,39 @@ const ViewLoanModal = ({
     }
   }
 
+  const getEndTime = (end_block: any) => {
+    if (connex) {
+      var block_info = connex.thor.status["head"];
+      const current_block = block_info["number"];
+      const current_unix = block_info["timestamp"];
+      const delta_block = end_block - current_block;
+      const delta_seconds = delta_block * 10;
+      const end_unixtimestamp = current_unix + delta_seconds;
+      return timeConverter(end_unixtimestamp);
+    }
+  };
+
+  const timeConverter = (UNIX_timestamp: any) => {
+    let a = new Date(UNIX_timestamp * 1000);
+    let year = a.getFullYear();
+    let month = months[a.getMonth()];
+    let date = a.getDate();
+    let hour = a.getHours();
+    let min = a.getMinutes();
+    let sec = a.getSeconds();
+    let time =
+      date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
+    return time;
+  };
+
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3'
       open={open}
       onClose={() => {}}>
-      <div className='w-[270px] md:w-[720px] bg-gray-200 p-3 md:flex rounded-lg shadow-lg text-gray-600 shadow-gray-500 '>
+      <div className='w-[270px] md:w-[720px] bg-gray-200 p-3 md:flex justify-between rounded-lg shadow-lg text-gray-600 shadow-gray-500 '>
         <img
-          className='rounded-lg md:mr-2'
+          className='rounded-lg'
           src={selData?.getToken?.assets[1]?.url}
           alt='loanImg'
           onLoad={() => setLoading(false)}
@@ -219,8 +246,8 @@ const ViewLoanModal = ({
           <p className='md:text-xl text-sm mt-1 font-[700] text-black'>
             {selData?.getToken?.name}
           </p>
-          <div className='md:flex justify-between px-2 md:mt-1 md:text-sm text-[8px] text-gray-100'>
-            <div>
+          <div className='md:flex justify-between md:mt-1 md:text-sm text-[8px] text-gray-100'>
+            <div className='mr-6'>
               <span className='bg-rose-700 rounded-md p-1'>
                 Item owner By {shortenAddress(loanSel?.owner)}
               </span>
@@ -233,12 +260,20 @@ const ViewLoanModal = ({
           </div>
           <div className='bg-gray-900 text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
             <p className='md:text-xltext-sm'>Details</p>
-            <div className='columns-2 md:columns-3 md:px-5 px-2 text-[10px] md:text-sm'>
+            <div className='columns-2 md:px-5 px-2 text-[10px] md:text-sm'>
               <div>
                 <p className='text-gray-500'>Ask Value</p>
                 <p>{loanSel?.loanValue / 10 ** 18} VET</p>
               </div>
               <div>
+                <div>
+                  <p className='text-gray-500'>Start time</p>
+                  <p className='md:text-[11px] text-[7px]'>
+                    {loanSel?.status !== "1"
+                      ? getEndTime(loanSel?.startTime)
+                      : "Not granted"}
+                  </p>
+                </div>
                 <p className='text-gray-500'>Interest</p>
                 <p>{loanSel?.loanFee} %</p>
               </div>
@@ -246,16 +281,13 @@ const ViewLoanModal = ({
                 <p className='text-gray-500'>Duration</p>
                 <p>{loanSel?.duration} H</p>
               </div>
-              <div>
-                <p className='text-gray-500'>Start time</p>
-                <p>
-                  {loanSel?.status !== "1" ? loanSel?.startTime : "Not granted"}
-                </p>
-              </div>
+
               <div>
                 <p className='text-gray-500'>End time</p>
-                <p>
-                  {loanSel?.status !== "1" ? loanSel?.endTime : "Not granted"}
+                <p className='md:text-[11px] text-[7px]'>
+                  {loanSel?.status !== "1"
+                    ? getEndTime(loanSel?.endTime)
+                    : "Not granted"}
                 </p>
               </div>
               <div>
