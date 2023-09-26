@@ -91,9 +91,11 @@ const AllLoan = () => {
                     <td className='hidden md:table-cell'>{item.loanFee}</td>
                     <td className='hidden md:table-cell'>{item.duration}</td>
                     <td className='hidden md:table-cell'>
-                      <span className='border-2 px-2 py-1 rounded-lg'>
-                        {statusArray[item.status]}
-                      </span>
+                      <div className='flex justify-center'>
+                        <p className='border-2 py-1 rounded-lg w-28'>
+                          {statusArray[item.status]}
+                        </p>
+                      </div>
                     </td>
                     <td>
                       <div className='flex items-center justify-center md:py-1 py-[2px]'>

@@ -153,7 +153,9 @@ const ViewLoanModal = ({
   };
 
   useEffect(() => {
-    if (loanSel?.status === "2") {
+    if (loanSel?.status === "1") {
+      setState("Available for Loan");
+    } else if (loanSel?.status === "2") {
       setState("Currently on Loan");
     }
   }, [loanSel]);
