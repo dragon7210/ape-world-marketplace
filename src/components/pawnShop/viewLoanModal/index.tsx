@@ -266,7 +266,7 @@ const ViewLoanModal = ({
             </div>
           </div>
 
-          <div className='flex md:text-lg text-[12px] justify-end mt-2 md:mr-5 text-gray-100'>
+          <div className='flex md:text-lg text-[12px] justify-end mt-2 text-gray-100'>
             <button
               className='bg-[#FF4200] py-1 rounded-lg md:mr-[40px] mr-5 md:w-32 w-24'
               onClick={() => setOpenModal(!open)}>
