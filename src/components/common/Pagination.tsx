@@ -28,7 +28,7 @@ const Pagination = ({
         </div>
         <div className='flex items-center justify-between w-[220px]'>
           <span
-            className='rounded-[99px] border-gray-100 md:p-2 p-1 border-2 items-center cursor-pointer hover:bg-[#FF4200]'
+            className='rounded-[99px] border-gray-100 md:p-2 p-2 border-2 items-center cursor-pointer hover:bg-[#FF4200]'
             onClick={() => {
               if (selPage > 1) {
                 setSelPage(selPage - 1);
