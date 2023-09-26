@@ -26,7 +26,7 @@ const Pagination = ({
             &nbsp;results
           </p>
         </div>
-        <div className='flex items-center justify-between w-[240px]'>
+        <div className='flex items-center justify-between w-[220px]'>
           <span
             className='rounded-[99px] border-gray-100 md:p-2 p-1 border-2 items-center cursor-pointer hover:bg-[#FF4200]'
             onClick={() => {

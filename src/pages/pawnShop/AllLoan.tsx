@@ -98,7 +98,7 @@ const AllLoan = () => {
                     <td>
                       <div className='flex items-center justify-center md:py-1 py-[2px]'>
                         <button
-                          className='bg-gray-200 hover:bg-[#FF4200] md:px-3 md:py-1 px-1 rounded-md'
+                          className='border-gray-200 border-2 hover:bg-[#FF4200] md:px-2 px-1 rounded-md'
                           onClick={() => {
                             setLoanSel(index);
                             setOpenModal(true);
