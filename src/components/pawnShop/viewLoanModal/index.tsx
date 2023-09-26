@@ -11,7 +11,7 @@ import Spinner from "components/common/Spinner";
 import { pawn_address } from "config/contractAddress";
 import { months } from "constant";
 import { useCustomQuery, useWallet } from "hooks";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { shortenAddress } from "utils";
 import { getToken } from "utils/query";
@@ -27,6 +27,7 @@ const ViewLoanModal = ({
 }) => {
   const { address, connex } = useWallet();
   const [state, setState] = useState<string>("Available for Loan");
+  const [Button, setButton] = useState<any>();
 
   const selData = useCustomQuery({
     query: getToken({
@@ -37,193 +38,190 @@ const ViewLoanModal = ({
   });
   const [loading, setLoading] = useState(true);
 
-  const removeItem = async ({ id }: { id: string }) => {
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(pawn_address)
-        .method(removeItemABI);
-      const clause = namedMethod.asClause(id);
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Remove Item.")
-        .request()
-        .then(() => {
-          setLoading(false);
-          setOpenModal(!open);
-          toast.success("Removed successfully");
-        })
-        .catch(() => {
-          setLoading(false);
-          setOpenModal(!open);
-          toast.error("Could not remove Item.");
-        });
-    }
-  };
+  const removeItem = useCallback(
+    async ({ id }: { id: string }) => {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(pawn_address)
+          .method(removeItemABI);
+        const clause = namedMethod.asClause(id);
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Remove Item.")
+          .request()
+          .then(() => {
+            setLoading(false);
+            setOpenModal(!open);
+            toast.success("Removed successfully");
+          })
+          .catch(() => {
+            setLoading(false);
+            setOpenModal(!open);
+            toast.error("Could not remove Item.");
+          });
+      }
+    },
+    [connex, open, setOpenModal]
+  );
 
-  const claimLoan = async ({ id }: { id: string }) => {
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(pawn_address)
-        .method(claimLoanABI);
-      const clause = namedMethod.asClause(id);
+  const claimLoan = useCallback(
+    async ({ id }: { id: string }) => {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(pawn_address)
+          .method(claimLoanABI);
+        const clause = namedMethod.asClause(id);
 
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Claim Loan.")
-        .request()
-        .then(() => {
-          toast.success("Success");
-          setLoading(false);
-          setOpenModal(!open);
-        })
-        .catch(() => {
-          setLoading(false);
-          setOpenModal(!open);
-          toast.error("Could not Claim Loan.");
-        });
-    }
-  };
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Claim Loan.")
+          .request()
+          .then(() => {
+            toast.success("Success");
+            setLoading(false);
+            setOpenModal(!open);
+          })
+          .catch(() => {
+            setLoading(false);
+            setOpenModal(!open);
+            toast.error("Could not Claim Loan.");
+          });
+      }
+    },
+    [connex, open, setOpenModal]
+  );
 
-  const settleLoan = async (loanSel: {
-    itemId: any;
-    loanValue: any;
-    loanFee: any;
-  }) => {
-    if (connex) {
-      const { itemId, loanValue, loanFee } = loanSel;
-      const realLoanValue = (
-        (parseInt(loanValue) / 10 ** 18) *
-        (1 + parseInt(loanFee) / 100) *
-        10 ** 18
-      ).toString();
+  const settleLoan = useCallback(
+    async (loanSel: { itemId: any; loanValue: any; loanFee: any }) => {
+      if (connex) {
+        const { itemId, loanValue, loanFee } = loanSel;
+        const realLoanValue = (
+          (parseInt(loanValue) / 10 ** 18) *
+          (1 + parseInt(loanFee) / 100) *
+          10 ** 18
+        ).toString();
 
-      const namedMethod = connex.thor
-        .account(pawn_address)
-        .method(settleLoanABI);
+        const namedMethod = connex.thor
+          .account(pawn_address)
+          .method(settleLoanABI);
 
-      var clause = namedMethod.asClause(itemId);
-      clause["value"] = realLoanValue;
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Settle Loan.")
-        .request()
-        .then(() => {
-          setOpenModal(!open);
-          setLoading(false);
-          toast.success("Success");
-        })
-        .catch(() => {
-          setOpenModal(!open);
-          setLoading(false);
-          toast.error("Could not Settle Loan.");
-        });
-    }
-  };
+        var clause = namedMethod.asClause(itemId);
+        clause["value"] = realLoanValue;
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Settle Loan.")
+          .request()
+          .then(() => {
+            setOpenModal(!open);
+            setLoading(false);
+            toast.success("Success");
+          })
+          .catch(() => {
+            setOpenModal(!open);
+            setLoading(false);
+            toast.error("Could not Settle Loan.");
+          });
+      }
+    },
+    [connex, open, setOpenModal]
+  );
 
-  const grantLoan = async ({
-    id,
-    loanValue,
-  }: {
-    id: string;
-    loanValue: string;
-  }) => {
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(pawn_address)
-        .method(grantLoanABI);
-      var clause = namedMethod.asClause(id);
+  const grantLoan = useCallback(
+    async ({ id, loanValue }: { id: string; loanValue: string }) => {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(pawn_address)
+          .method(grantLoanABI);
+        var clause = namedMethod.asClause(id);
 
-      clause["value"] = loanValue;
+        clause["value"] = loanValue;
 
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Grant Loan.")
-        .request()
-        .then(() => {
-          toast.success("Grant loan successfully");
-          setLoading(false);
-          setOpenModal(!open);
-        })
-        .catch(() => {
-          toast.error("Could not grant Loan.");
-          setLoading(false);
-          setOpenModal(!open);
-        });
-    }
-  };
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Grant Loan.")
+          .request()
+          .then(() => {
+            toast.success("Grant loan successfully");
+            setLoading(false);
+            setOpenModal(!open);
+          })
+          .catch(() => {
+            toast.error("Could not grant Loan.");
+            setLoading(false);
+            setOpenModal(!open);
+          });
+      }
+    },
+    [connex, open, setOpenModal]
+  );
 
   useEffect(() => {
     if (loanSel?.status === "1") {
       setState("Available for Loan");
+      if (loanSel?.owner === address) {
+        setButton(
+          <button
+            className='bg-[#FF0000] py-1 rounded-lg md:w-32 w-24'
+            onClick={() => {
+              removeItem({ id: loanSel?.itemId });
+              setLoading(true);
+            }}>
+            REMOVE
+          </button>
+        );
+      } else {
+        setButton(
+          <button
+            className='bg-[#FF0000] py-1 rounded-lg md:w-32 w-24'
+            onClick={() => {
+              grantLoan({ id: loanSel?.itemId, loanValue: loanSel?.loanValue });
+              setLoading(true);
+            }}>
+            GRANT
+          </button>
+        );
+      }
     } else if (loanSel?.status === "2") {
       setState("Currently on Loan");
+      if (loanSel?.owner === address) {
+        setButton(
+          <button
+            className='bg-[#FF0000] py-1 rounded-lg md:w-32 w-24'
+            onClick={() => {
+              settleLoan(loanSel);
+              setLoading(true);
+            }}>
+            SETTLE
+          </button>
+        );
+      } else if (loanSel?.messiah === address) {
+        setButton(
+          <button
+            className='bg-[#FF0000] py-1 rounded-lg md:w-32 w-24'
+            onClick={() => {
+              claimLoan({ id: loanSel?.itemId });
+              setLoading(true);
+            }}>
+            CLAIM
+          </button>
+        );
+      }
     }
-  }, [loanSel]);
+  }, [loanSel, address, claimLoan, grantLoan, settleLoan, removeItem]);
 
-  let Button: any;
-  if (loanSel?.status === "1") {
-    if (loanSel?.owner === address) {
-      Button = (
-        <button
-          className='bg-[#FF0000] py-1 rounded-lg md:w-32 w-24'
-          onClick={() => {
-            removeItem({ id: loanSel?.itemId });
-            setLoading(true);
-          }}>
-          REMOVE
-        </button>
-      );
-    } else {
-      Button = (
-        <button
-          className='bg-[#FF0000] py-1 rounded-lg md:w-32 w-24'
-          onClick={() => {
-            grantLoan({ id: loanSel?.itemId, loanValue: loanSel?.loanValue });
-            setLoading(true);
-          }}>
-          GRANT
-        </button>
-      );
-    }
-  } else if (loanSel?.status === "2") {
-    if (loanSel?.owner === address) {
-      Button = (
-        <button
-          className='bg-[#FF0000] py-1 rounded-lg md:w-32 w-24'
-          onClick={() => {
-            settleLoan(loanSel);
-            setLoading(true);
-          }}>
-          SETTLE
-        </button>
-      );
-    } else if (loanSel?.messiah === address) {
-      Button = (
-        <button
-          className='bg-[#FF0000] py-1 rounded-lg md:w-32 w-24'
-          onClick={() => {
-            claimLoan({ id: loanSel?.itemId });
-            setLoading(true);
-          }}>
-          CLAIM
-        </button>
-      );
-    }
-  }
-
-  const getEndTime = (end_block: any) => {
+  const getEndTime = (end_block: string) => {
     if (connex) {
       var block_info = connex.thor.status["head"];
       const current_block = block_info["number"];
       const current_unix = block_info["timestamp"];
-      const delta_block = end_block - current_block;
+      const delta_block = parseInt(end_block) - current_block;
       const delta_seconds = delta_block * 10;
       const end_unixtimestamp = current_unix + delta_seconds;
       return timeConverter(end_unixtimestamp);
     }
   };
 
-  const timeConverter = (UNIX_timestamp: any) => {
+  const timeConverter = (UNIX_timestamp: number) => {
     let a = new Date(UNIX_timestamp * 1000);
     let year = a.getFullYear();
     let month = months[a.getMonth()];
@@ -311,7 +309,10 @@ const ViewLoanModal = ({
           <div className='flex md:text-lg text-[12px] justify-end mt-2 text-gray-100'>
             <button
               className='bg-[#FF4200] py-1 rounded-lg md:mr-[40px] mr-5 md:w-32 w-24'
-              onClick={() => setOpenModal(!open)}>
+              onClick={() => {
+                setOpenModal(!open);
+                setLoading(true);
+              }}>
               OK
             </button>
             {Button}

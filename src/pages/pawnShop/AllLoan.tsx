@@ -38,7 +38,7 @@ const AllLoan = () => {
   };
 
   return (
-    <div className='lg:p-10 md:p-5 p-3 shadow-lg min-h-[62vh]'>
+    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[62vh]'>
       <div className='md:flex justify-between items-center border-b-2 pb-1'>
         <p className='md:text-2xl text-base font-[700]'>
           Here are{" "}
