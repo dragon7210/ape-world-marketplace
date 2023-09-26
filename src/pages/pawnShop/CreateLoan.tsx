@@ -58,6 +58,9 @@ const CreateLoan = () => {
       setLoading(true);
     } else {
       setLoading(false);
+      if (apes.tokens.items.length === 0) {
+        toast.error("There is no NFT.");
+      }
     }
   }, [apes]);
 
