@@ -167,7 +167,7 @@ const ViewLoanModal = ({
             grantLoan({ id: loanSel?.itemId, loanValue: loanSel?.loanValue });
             setLoading(true);
           }}>
-          Grant
+          GRANT
         </button>
       );
     }
@@ -180,7 +180,7 @@ const ViewLoanModal = ({
             settleLoan(loanSel);
             setLoading(true);
           }}>
-          Settle
+          SETTLE
         </button>
       );
     } else if (loanSel?.messiah === address) {
@@ -191,7 +191,7 @@ const ViewLoanModal = ({
             claimLoan({ id: loanSel?.itemId });
             setLoading(true);
           }}>
-          Claim
+          CLAIM
         </button>
       );
     }
