@@ -113,12 +113,12 @@ const CreateLoanModal = ({
                   handleCreate();
                   setLoading(true);
                 }}>
-                Confirm
+                CONFIRM
               </button>
               <button
                 className='bg-[#FF0000] py-1 rounded-lg md:w-32 w-24'
                 onClick={() => setOpenModal(!open)}>
-                Cancel
+                CANCEL
               </button>
             </div>
           </div>
