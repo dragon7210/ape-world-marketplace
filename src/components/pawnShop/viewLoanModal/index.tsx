@@ -88,15 +88,18 @@ const ViewLoanModal = ({
   }) => {
     if (connex) {
       const { itemId, loanValue, loanFee } = loanSel;
-      const realLoanValue = Math.round(
-        (loanValue / 10 ** 18) * (1 + loanFee / 100)
-      );
+      const realLoanValue = (
+        (parseInt(loanValue) / 10 ** 18) *
+        (1 + parseInt(loanFee) / 100) *
+        10 ** 18
+      ).toString();
 
       const namedMethod = connex.thor
         .account(pawn_address)
         .method(settleLoanABI);
+
       var clause = namedMethod.asClause(itemId);
-      clause["value"] = (realLoanValue * 10 ** 18).toFixed(2);
+      clause["value"] = realLoanValue;
       connex.vendor
         .sign("tx", [clause])
         .comment("Settle Loan.")
