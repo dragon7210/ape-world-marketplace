@@ -273,11 +273,13 @@ const ViewLoanModal = ({
               <div>
                 <div>
                   <p className='text-gray-500'>Start time</p>
-                  <p className='md:text-[11px] text-[7px]'>
-                    {loanSel?.status !== "1"
-                      ? getEndTime(loanSel?.startTime)
-                      : "Not granted"}
-                  </p>
+                  {loanSel?.status !== "1" ? (
+                    <p className='md:text-[11px] text-[7px]'>
+                      {getEndTime(loanSel?.startTime)}
+                    </p>
+                  ) : (
+                    <p>Not granted</p>
+                  )}
                 </div>
                 <p className='text-gray-500'>Interest</p>
                 <p>{loanSel?.loanFee} %</p>
@@ -289,11 +291,13 @@ const ViewLoanModal = ({
 
               <div>
                 <p className='text-gray-500'>End time</p>
-                <p className='md:text-[11px] text-[7px]'>
-                  {loanSel?.status !== "1"
-                    ? getEndTime(loanSel?.endTime)
-                    : "Not granted"}
-                </p>
+                {loanSel?.status !== "1" ? (
+                  <p className='md:text-[11px] text-[7px]'>
+                    {getEndTime(loanSel?.endTime)}{" "}
+                  </p>
+                ) : (
+                  <p>Not granted</p>
+                )}
               </div>
               <div>
                 <p className='text-gray-500'>Messiah</p>
