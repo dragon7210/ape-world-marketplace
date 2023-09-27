@@ -167,7 +167,13 @@ const CreateLoan = () => {
             activeButton && "bg-[#FF4200]"
           } `}
           disabled={!activeButton}
-          onClick={() => setOpenModal(true)}>
+          onClick={() => {
+            if (parseInt(createValue.period) >= 24) {
+              setOpenModal(true);
+            } else {
+              toast.error("The period must be greater than 24 hours.");
+            }
+          }}>
           CREATE LOAN
         </button>
       </div>
