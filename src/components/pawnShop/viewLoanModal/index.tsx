@@ -92,7 +92,7 @@ const ViewLoanModal = ({
   );
 
   const settleLoan = useCallback(
-    async (loanSel: { itemId: any; loanValue: any; loanFee: any }) => {
+    async (loanSel: { itemId: string; loanValue: string; loanFee: string }) => {
       if (connex) {
         const { itemId, loanValue, loanFee } = loanSel;
         const realLoanValue = (
