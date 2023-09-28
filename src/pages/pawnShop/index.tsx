@@ -25,17 +25,17 @@ const PawnShop = () => {
           src={Star}
         />
       </div>
-      <div className='text-white md:rounded-3xl rounded-lg bg-[#AEAFBE36] md:my-8 my-4 md:border-8 border-[#565656AB] md:text-5xl text-2xl'>
+      <div className='text-white md:rounded-3xl rounded-lg bg-[#AEAFBE36] md:my-6 my-4 md:border-8 border-[#565656AB] md:text-5xl text-2xl'>
         <div className='flex text-center'>
           <p
-            className={`w-[50%] border-r-2 border-r-[#322A2A] md:pt-[30px] md:pb-3 pt-2 pb-1 md:border-b-8 border-b-4 cursor-pointer ${
+            className={`w-[50%] border-r-2 border-r-[#322A2A] md:pt-5 md:pb-3 pt-2 pb-1 md:border-b-8 border-b-4 cursor-pointer ${
               pathname === "/shop" ? "border-[#FF4200]" : "border-[#948E8E] "
             }`}
             onClick={() => navigate("/shop")}>
             ALL LOANS
           </p>
           <p
-            className={`w-[50%] md:pt-[30px] md:border-b-8 border-b-4 cursor-pointer md:pb-3 pt-2 pb-1 ${
+            className={`w-[50%] md:pt-5 md:border-b-8 border-b-4 cursor-pointer md:pb-3 pt-2 pb-1 ${
               pathname !== "/shop" ? "border-[#FF4200]" : "border-[#948E8E] "
             }`}
             onClick={() => {

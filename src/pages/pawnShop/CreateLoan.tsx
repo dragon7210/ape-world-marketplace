@@ -117,8 +117,8 @@ const CreateLoan = () => {
   };
 
   return (
-    <div className='md:my-10 flex justify-center'>
-      <div className='border-[#BEBEBE] border-2 md:rounded-3xl rounded-lg m-6 px-2 py-4 md:py-8 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
+    <div className='md:my-3 flex justify-center'>
+      <div className='border-[#BEBEBE] border-2 md:rounded-3xl rounded-lg m-6 px-2 py-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
         <InputSelect
           label='Collection'
           onChange={(e) => {
@@ -163,7 +163,7 @@ const CreateLoan = () => {
           onChange={handleChange}
         />
         <button
-          className={`w-full md:text-2xl text-lg border-2 border-[#FF4200] rounded-[99px] md:py-2 py-1 mt-5 ${
+          className={`w-full md:text-2xl text-lg border-2 border-[#FF4200] rounded-[99px] md:py-2 py-1 mt-3 ${
             activeButton && "bg-[#FF4200]"
           } `}
           disabled={!activeButton}
