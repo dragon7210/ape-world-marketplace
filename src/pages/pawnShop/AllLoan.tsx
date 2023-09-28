@@ -40,22 +40,22 @@ const AllLoan = () => {
   return (
     <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[62vh]'>
       <div className='flex justify-between items-center border-b-2 pb-1'>
-        <p className='md:text-3xl text-base'>
+        <p className='md:text-4xl text-xl'>
           Here are{" "}
           <span className='text-[#FF4200]'>
             {selector ? "All" : "My"} Items
           </span>
         </p>
-        <div className='flex lg:text-lg text-sm'>
+        <div className='flex lg:text-xl text-base'>
           <button
-            className={`lg:px-5 lg:py-2 py-1 px-2 rounded-l-[99px] ${
+            className={`lg:px-5 lg:py-2 px-2 rounded-l-[99px] ${
               selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(true)}>
             List All Items
           </button>
           <button
-            className={`lg:px-5 lg:py-2  py-1 px-2 rounded-r-[99px] ${
+            className={`lg:px-5 lg:py-2 px-2 rounded-r-[99px] ${
               !selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(false)}>
@@ -66,7 +66,7 @@ const AllLoan = () => {
       {pageData.length > 0 ? (
         <>
           <div className='min-h-[40vh]'>
-            <table className='w-full text-gray-200 md:text-lg text-base mt-2'>
+            <table className='w-full text-gray-200 md:text-xl text-base mt-2'>
               <thead className='uppercase bg-[#4F4F54]'>
                 <tr className='text-center'>
                   <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
