@@ -118,7 +118,7 @@ const AllLoan = () => {
           <Pagination data={data} selPage={selPage} setSelPage={setSelPage} />
         </>
       ) : (
-        <p className='mt-5'>No Loan Data</p>
+        <p className='mt-5 text-3xl'>No Loan Data</p>
       )}
       <Spinner loading={loading} />
       <ViewLoanModal
