@@ -16,11 +16,11 @@ const PawnShop = () => {
   return (
     <div className='pawnshop md:pt-10 text-white md:px-[10%] tracking-widest lg:px-[13%] p-3'>
       <div className='relative'>
-        <p className='md:text-6xl text-4xl md:text-left text-center'>
+        <p className='md:text-6xl text-4xl md:text-left text-center tracking-[10px]'>
           PAWN <span className='bg-[#38df37] px-2 rounded-lg'>SHOP</span>
         </p>
         <img
-          className='md:top-[-25px] hidden md:inline absolute md:left-[220px]'
+          className='md:top-[-25px] hidden md:inline absolute md:left-[300px]'
           alt='star'
           src={Star}
         />
