@@ -98,7 +98,7 @@ const CreateLoan = () => {
             <img
               src={item.thumbnailImageUrl}
               alt={item.name}
-              className='rounded-[99px] mr-5 w-7 h-7'
+              className='rounded-[99px] mr-3 w-7 h-7'
             />
             <p className='m-0 text-white'>{item.name}</p>
           </div>

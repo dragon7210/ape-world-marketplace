@@ -21,6 +21,10 @@ const InputSelect = ({
           options={options}
           isClearable={true}
           styles={{
+            menu: (baseStyles) => ({
+              ...baseStyles,
+              background: "#373953",
+            }),
             control: (baseStyles) => ({
               ...baseStyles,
               background: "transparent",
@@ -32,8 +36,8 @@ const InputSelect = ({
                 padding: "6px 20px",
               },
             }),
-            option: (provided, state) => ({
-              ...provided,
+            option: (baseStyles, state) => ({
+              ...baseStyles,
               background: state.isSelected ? "#4D4D4D" : "#373953",
               ":hover": {
                 background: "#4D4D4D",
