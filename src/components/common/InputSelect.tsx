@@ -39,6 +39,10 @@ const InputSelect = ({
             option: (baseStyles, state) => ({
               ...baseStyles,
               background: state.isSelected ? "#4D4D4D" : "#373953",
+              padding: "6px 16px",
+              "@media(min-width: 768px)": {
+                padding: "8px 32px",
+              },
               ":hover": {
                 background: "#4D4D4D",
                 cursor: "pointer",
