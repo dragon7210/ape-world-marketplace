@@ -106,7 +106,7 @@ const CreateLoanModal = ({
             <p className='md:text-3xl text-lg md:mt-5 mt-2 min-w-[256px] text-center'>
               You are about to REQUEST a {createValue.vet} VET LOAN for This.
             </p>
-            <div className='flex md:text-xl text-[12px] justify-end md:mt-8 mt-2 text-white'>
+            <div className='flex md:text-xl text-base justify-end md:mt-8 mt-2 text-white'>
               <button
                 className='bg-[#FF4200] py-1 rounded-lg md:mr-10 mr-5 w-24'
                 onClick={() => {

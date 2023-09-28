@@ -38,7 +38,7 @@ const AllLoan = () => {
   };
 
   return (
-    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[62vh]'>
+    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[60vh]'>
       <div className='flex justify-between items-center border-b-2 pb-1'>
         <p className='md:text-4xl text-xl'>
           Here are{" "}
@@ -100,7 +100,7 @@ const AllLoan = () => {
                     <td>
                       <div className='flex items-center justify-center md:py-1 py-[2px]'>
                         <button
-                          className='border-gray-200 border-2 hover:bg-[#FF4200] md:px-2 px-1 rounded-md'
+                          className='border-gray-200 md:py-1 border-2 hover:bg-[#FF4200] md:px-2 px-1 rounded-md'
                           onClick={() => {
                             setLoanSel(index);
                             setOpenModal(true);

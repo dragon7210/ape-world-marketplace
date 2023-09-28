@@ -312,7 +312,7 @@ const ViewLoanModal = ({
             </div>
           </div>
 
-          <div className='flex md:text-lg text-[12px] justify-end mt-2 text-gray-100'>
+          <div className='flex md:text-lg text-base justify-end mt-2 text-gray-100'>
             <button
               className='bg-[#FF4200] py-1 rounded-lg md:mr-[40px] mr-5 w-24'
               onClick={() => {
