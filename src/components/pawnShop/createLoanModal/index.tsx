@@ -108,7 +108,7 @@ const CreateLoanModal = ({
             </p>
             <div className='flex md:text-xl text-base justify-end md:mt-8 mt-2 text-white'>
               <button
-                className='bg-[#FF4200] py-1 rounded-lg md:mr-10 mr-5 w-24'
+                className='bg-[#FF4200] py-1 rounded-lg mr-5 w-24'
                 onClick={() => {
                   handleCreate();
                   setLoading(true);

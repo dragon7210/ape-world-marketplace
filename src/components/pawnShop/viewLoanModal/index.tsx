@@ -236,6 +236,8 @@ const ViewLoanModal = ({
             CLAIM
           </button>
         );
+      } else {
+        setButton(<></>);
       }
     }
   }, [
@@ -312,15 +314,15 @@ const ViewLoanModal = ({
           </div>
 
           <div className='flex md:text-lg text-base justify-end mt-2 text-gray-100'>
+            {Button}
             <button
-              className='bg-[#FF4200] py-1 rounded-lg md:mr-[40px] mr-5 w-24'
+              className='bg-[#FF4200] py-1 rounded-lg ml-5 w-24'
               onClick={() => {
                 setOpenModal(!open);
                 setLoading(true);
               }}>
-              OK
+              CANCEL
             </button>
-            {Button}
           </div>
         </div>
       </div>
