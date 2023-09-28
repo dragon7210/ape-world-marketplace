@@ -48,14 +48,14 @@ const AllLoan = () => {
         </p>
         <div className='flex lg:text-xl text-base'>
           <button
-            className={`lg:px-5 lg:py-2 px-2 rounded-l-[99px] ${
+            className={`lg:px-5 lg:py-2 px-2 rounded-l-[99px] hover:bg-[#F09090] ${
               selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(true)}>
             List All Items
           </button>
           <button
-            className={`lg:px-5 lg:py-2 px-2 rounded-r-[99px] ${
+            className={`lg:px-5 lg:py-2 px-2 rounded-r-[99px] hover:bg-[#F09090] ${
               !selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(false)}>
@@ -66,8 +66,8 @@ const AllLoan = () => {
       {pageData.length > 0 ? (
         <>
           <div className='min-h-[40vh]'>
-            <table className='w-full text-gray-200 md:text-xl text-base mt-2'>
-              <thead className='uppercase bg-[#4F4F54]'>
+            <table className='w-full md:text-xl text-base mt-2'>
+              <thead className='uppercase backdrop-blur-2xl bg-[#0a0b1336]'>
                 <tr className='text-center'>
                   <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
                   <th className='hidden md:table-cell'>Value (Vet)</th>
@@ -79,7 +79,9 @@ const AllLoan = () => {
               </thead>
               <tbody>
                 {pageData.map((item: any, index: number) => (
-                  <tr key={index} className='border-b text-center bg-[#656264]'>
+                  <tr
+                    key={index}
+                    className='border-b text-center backdrop-blur-xl'>
                     <td className='md:py-3 px-3 text-left'>
                       {getCollectionName(item.tokenAddress) +
                         " #" +
@@ -98,13 +100,12 @@ const AllLoan = () => {
                       </div>
                     </td>
                     <td>
-                      <div className='flex items-center justify-center md:py-1 py-[2px]'>
+                      <div className='flex items-center justify-center md:py-1 py-[1px]'>
                         <button
                           className='border-gray-200 md:py-1 border-2 hover:bg-[#FF4200] md:px-2 px-1 rounded-md'
                           onClick={() => {
                             setLoanSel(index);
                             setOpenModal(true);
-                            loading = true;
                           }}>
                           <img src={ViewImg} alt='view' width={25} />
                         </button>
@@ -118,7 +119,7 @@ const AllLoan = () => {
           <Pagination data={data} selPage={selPage} setSelPage={setSelPage} />
         </>
       ) : (
-        <p className='mt-5 text-3xl'>No Loan Data</p>
+        <p className='mt-5 text-2xl'>No Loan Data</p>
       )}
       <Spinner loading={loading} />
       <ViewLoanModal

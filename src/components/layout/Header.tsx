@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   return (
-    <div className='w-full h-24 bg-[transparent] bg-black flex justify-between items-center px-[5%]'>
+    <div className='w-full h-24 bg-black fixed shadow-lg backdrop-blur-2xl flex justify-between items-center px-[5%]'>
       <div className='md:flex md:w-32 w-24 items-center hidden'>
         <a href='https://www.twitter.com/'>
           <img alt='twitter' src={TwitterImage} />
@@ -18,7 +18,7 @@ const Header = () => {
           <img alt='discord' src={DiscordImage} />
         </a>
       </div>
-      <div className='flex text-white items-center text-2xl uppercase'>
+      <div className='flex text-gray-200 items-center text-2xl uppercase'>
         <p
           className='cursor-pointer hover:text-[#FF4200] text-right w-32 hidden lg:inline mr-3'
           onClick={() => navigate("/")}>

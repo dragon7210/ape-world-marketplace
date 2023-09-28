@@ -14,7 +14,7 @@ const PawnShop = () => {
   const { address } = useWallet();
   const navigate = useNavigate();
   return (
-    <div className='pawnshop md:pt-10 text-white md:px-[10%] tracking-widest lg:px-[13%] p-3'>
+    <div className='pawnshop text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-32 pt-28'>
       <div className='relative'>
         <p className='md:text-6xl text-4xl md:text-left text-center tracking-[10px]'>
           PAWN <span className='bg-[#38df37] px-2 rounded-lg'>SHOP</span>
@@ -25,18 +25,18 @@ const PawnShop = () => {
           src={Star}
         />
       </div>
-      <div className='text-white md:rounded-3xl rounded-lg bg-[#AEAFBE36] md:my-6 my-4 md:border-8 border-[#565656AB] md:text-5xl text-2xl'>
+      <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] md:my-6 my-4 md:border-2 shadow-2xl  md:text-5xl text-2xl'>
         <div className='flex text-center'>
           <p
-            className={`w-[50%] border-r-2 border-r-[#322A2A] md:pt-5 md:pb-3 pt-2 pb-1 md:border-b-8 border-b-4 cursor-pointer ${
-              pathname === "/shop" ? "border-[#FF4200]" : "border-[#948E8E] "
+            className={`w-[50%] border-r-2 border-r-gray-200 md:pt-5 md:pb-3 pt-2 pb-1 md:border-b-8 border-b-4 cursor-pointer ${
+              pathname === "/shop" ? "border-[#FF4200]" : "border-gray-200"
             }`}
             onClick={() => navigate("/shop")}>
             ALL LOANS
           </p>
           <p
             className={`w-[50%] md:pt-5 md:border-b-8 border-b-4 cursor-pointer md:pb-3 pt-2 pb-1 ${
-              pathname !== "/shop" ? "border-[#FF4200]" : "border-[#948E8E] "
+              pathname !== "/shop" ? "border-[#FF4200]" : "border-gray-200"
             }`}
             onClick={() => {
               if (address) {

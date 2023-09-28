@@ -179,7 +179,6 @@ const ViewLoanModal = ({
       date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
     return time;
   };
-
   useEffect(() => {
     if (loanSel?.status === "1") {
       setState("Available for Loan");
