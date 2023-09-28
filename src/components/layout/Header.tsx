@@ -11,10 +11,10 @@ const Header = () => {
   return (
     <div className='w-full h-24 bg-black fixed shadow-lg backdrop-blur-2xl flex justify-between items-center px-[5%]'>
       <div className='md:flex md:w-32 w-24 items-center hidden'>
-        <a href='https://www.twitter.com/'>
+        <a href='https://twitter.com/madvapesnft'>
           <img alt='twitter' src={TwitterImage} />
         </a>
-        <a href='https://discord.gg/'>
+        <a href='https://discord.gg/madvapesnft'>
           <img alt='discord' src={DiscordImage} />
         </a>
       </div>
