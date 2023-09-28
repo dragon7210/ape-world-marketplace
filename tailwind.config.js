@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Zen dots", ...defaultTheme.fontFamily.sans],
+        sans: ["League Gothic", ...defaultTheme.fontFamily.sans],
       },
     },
   },

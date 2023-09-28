@@ -62,7 +62,7 @@ export const ConnectButton = () => {
         type='button'
         disabled={isConnecting}
         onClick={!isConnected ? handleConnect : () => setIsOpen(true)}
-        className='md:w-40 w-32 flex justify-center items-center md:py-2 py-1 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 rounded-md md:text-sm text-[10px] text-white font-bold'>
+        className='md:w-32 w-24 flex justify-center items-center md:py-2 py-1 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 rounded-xl md:text-2xl text-base text-white'>
         {isConnecting ? (
           "Connecting ..."
         ) : isConnected ? (

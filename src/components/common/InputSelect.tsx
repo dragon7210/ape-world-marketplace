@@ -12,10 +12,10 @@ const InputSelect = ({
 }) => {
   return (
     <div className='flex items-center justify-between md:py-3 py-1 md:text-lg text-sm'>
-      <div className='flex justify-center md:w-[140px] w-[90px]'>
+      <div className='flex justify-center md:w-20 w-16'>
         <p>{label}</p>
       </div>
-      <div className='md:w-[calc(100%_-_140px)] w-[calc(100%_-_90px)]'>
+      <div className='md:w-[calc(100%_-_80px)] w-[calc(100%_-_64px)]'>
         <Select
           onChange={onChange}
           options={options}

@@ -15,11 +15,11 @@ const InputValue = ({
 }) => {
   return (
     <div className='flex items-center justify-between md:py-3 py-1 relative md:text-lg text-sm'>
-      <div className='flex justify-center md:w-[140px] w-[90px]'>
+      <div className='flex justify-center md:w-20 w-16'>
         <p>{label}</p>
       </div>
       <input
-        className='border-[#BEBEBE] border-2 md:px-[33px] px-3 py-2 md:py-3 rounded-lg bg-[transparent] outline-0 md:w-[calc(100%_-_140px)] w-[calc(100%_-_90px)]'
+        className='border-[#BEBEBE] border-2 md:px-[33px] px-3 py-2 md:py-3 rounded-lg bg-[transparent] outline-0 md:w-[calc(100%_-_80px)] w-[calc(100%_-_64px)]'
         onChange={onChange}
         name={name}
         value={value}

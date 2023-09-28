@@ -11,7 +11,7 @@ const Pagination = ({
 }) => {
   const array = [-1, 0, 1, 2, 3];
   return (
-    <div className='flex items-center justify-between md:text-sm text-[10px] border-gray-200 bg-transparent px-4 py-3 sm:px-6'>
+    <div className='flex items-center justify-between md:text-lg text-base border-gray-200 bg-transparent px-4 py-3 sm:px-6'>
       <div className='w-full flex md:justify-between justify-center'>
         <div className='hidden md:flex items-center'>
           <p className='text-gray-200'>
@@ -47,7 +47,7 @@ const Pagination = ({
               selPage + item > -1 && (
                 <span
                   key={index}
-                  className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-2 md:pt-[9px] border-2 text-center cursor-pointer hover:bg-[#FF4200] ${
+                  className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer hover:bg-[#FF4200] ${
                     selPage + item === 0 && "hidden"
                   } ${item === 0 && "bg-[#FF4200]"}`}
                   onClick={() => {
@@ -64,7 +64,7 @@ const Pagination = ({
             );
           })}
           <span
-            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-2 md:pt-[9px] border-2 text-center cursor-pointer hover:bg-[#FF4200] ${
+            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer hover:bg-[#FF4200] ${
               selPage !== 1 && "hidden"
             }`}
             onClick={() => {

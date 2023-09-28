@@ -117,8 +117,8 @@ const CreateLoan = () => {
   };
 
   return (
-    <div className='md:my-10 flex justify-center '>
-      <div className='border-[#BEBEBE] border-2 md:rounded-3xl rounded-lg m-6 px-2 py-4 md:py-8 md:px-6 lg:px-10'>
+    <div className='md:my-10 flex justify-center'>
+      <div className='border-[#BEBEBE] border-2 md:rounded-3xl rounded-lg m-6 px-2 py-4 md:py-8 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
         <InputSelect
           label='Collection'
           onChange={(e) => {

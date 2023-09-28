@@ -18,7 +18,7 @@ const Header = () => {
           <img alt='discord' src={DiscordImage} />
         </a>
       </div>
-      <div className='flex text-white items-center text-base uppercase'>
+      <div className='flex text-white items-center text-2xl uppercase'>
         <p
           className='cursor-pointer hover:text-[#FF4200] w-[200px] text-right hidden lg:inline'
           onClick={() => navigate("/")}>

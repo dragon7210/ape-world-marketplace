@@ -1,3 +1,5 @@
+/** @format */
+
 import { Toaster, ToastOptions } from "react-hot-toast";
 
 const toastOptions: ToastOptions = {
@@ -8,6 +10,7 @@ const toastOptions: ToastOptions = {
     width: "fit-content",
     border: `1px solid #6366f1`,
     textTransform: "capitalize",
+    letterSpacing: "2px",
   },
 } as ToastOptions;
 
@@ -15,7 +18,7 @@ const Toast = () => {
   return (
     <Toaster
       containerStyle={{ top: 50, right: 20 }}
-      position="top-right"
+      position='top-right'
       toastOptions={toastOptions}
     />
   );
