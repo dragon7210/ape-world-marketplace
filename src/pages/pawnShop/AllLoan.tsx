@@ -1,11 +1,11 @@
 /** @format */
 
 import Spinner from "components/common/Spinner";
-import { useCustomQuery, useGetLoanData } from "hooks";
-import { useEffect, useState } from "react";
+import { useCustomQuery, useGetLoanData, useWallet } from "hooks";
+import { useCallback, useEffect, useState } from "react";
 import { getCollections } from "utils/query";
 import ViewImg from "assets/svg/apeworld/view.svg";
-import { statusArray } from "constant";
+import { months, statusArray } from "constant";
 import ViewLoanModal from "components/pawnShop/viewLoanModal";
 import Pagination from "components/common/Pagination";
 
@@ -16,6 +16,7 @@ const AllLoan = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [selPage, setSelPage] = useState(1);
   const [pageData, setPageData] = useState<any[]>([]);
+  const { connex } = useWallet();
 
   const collectionOptions = useCustomQuery({
     query: getCollections,
@@ -35,6 +36,51 @@ const AllLoan = () => {
     if (temp?.length !== 0) {
       return temp[0]?.name;
     }
+  };
+  const getEndTime = useCallback(
+    (end_block: string) => {
+      if (connex) {
+        var block_info = connex.thor.status["head"];
+        const current_block = block_info["number"];
+        const current_unix = block_info["timestamp"];
+        const delta_block = parseInt(end_block) - current_block;
+        const delta_seconds = delta_block * 10;
+        const end_unixtimestamp = current_unix + delta_seconds;
+        return timeConverter(end_unixtimestamp);
+      }
+    },
+    [connex]
+  );
+
+  const timeConverter = (UNIX_timestamp: number) => {
+    let a = new Date(UNIX_timestamp * 1000);
+    let year = a.getFullYear();
+    let month = months[a.getMonth()];
+    let date = a.getDate();
+    let hour = a.getHours();
+    let min = a.getMinutes();
+    let sec = a.getSeconds();
+    let time =
+      date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
+    return time;
+  };
+
+  const differentTime = (time: string) => {
+    let endTime = getEndTime(time);
+    let returnTime;
+    if (endTime) {
+      let temp =
+        (new Date(endTime).getTime() - new Date().getTime()) / 1000 / 60;
+      returnTime =
+        temp > 0
+          ? (temp / 60).toFixed(0) + "h " + (temp % 60).toFixed(0) + "min"
+          : "-" +
+            Math.abs(temp / 60).toFixed(0) +
+            "h " +
+            Math.abs(temp % 60).toFixed(0) +
+            "min";
+    }
+    return returnTime;
   };
 
   return (
@@ -72,7 +118,7 @@ const AllLoan = () => {
                   <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
                   <th className='hidden md:table-cell'>Value (Vet)</th>
                   <th className='hidden md:table-cell'>Interest (%)</th>
-                  <th className='hidden md:table-cell'>Duration (h)</th>
+                  <th className='hidden md:table-cell'>Duration</th>
                   <th className='hidden md:table-cell'>Status</th>
                   <th>Action</th>
                 </tr>
@@ -91,7 +137,9 @@ const AllLoan = () => {
                       {item.loanValue / 10 ** 18}
                     </td>
                     <td className='hidden md:table-cell'>{item.loanFee}</td>
-                    <td className='hidden md:table-cell'>{item.duration}</td>
+                    <td className='hidden md:table-cell'>
+                      {differentTime(item?.endTime)}
+                    </td>
                     <td className='hidden md:table-cell'>
                       <div className='flex justify-center'>
                         <p className='border-2 py-1 rounded-lg w-20'>
@@ -126,6 +174,7 @@ const AllLoan = () => {
         open={openModal}
         setOpenModal={setOpenModal}
         loanSel={data[loanSel]}
+        getEndTime={getEndTime}
       />
     </div>
   );

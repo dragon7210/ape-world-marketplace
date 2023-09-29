@@ -9,7 +9,6 @@ import {
 } from "abi/abis";
 import Spinner from "components/common/Spinner";
 import { pawn_address } from "config/contractAddress";
-import { months } from "constant";
 import { useCustomQuery, useWallet } from "hooks";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -20,10 +19,12 @@ const ViewLoanModal = ({
   open,
   setOpenModal,
   loanSel,
+  getEndTime,
 }: {
   open: boolean;
   setOpenModal: any;
   loanSel: any;
+  getEndTime: any;
 }) => {
   const { address, connex } = useWallet();
   const [state, setState] = useState<string>("Available for Loan");
@@ -152,33 +153,6 @@ const ViewLoanModal = ({
     [connex, open, setOpenModal]
   );
 
-  const getEndTime = useCallback(
-    (end_block: string) => {
-      if (connex) {
-        var block_info = connex.thor.status["head"];
-        const current_block = block_info["number"];
-        const current_unix = block_info["timestamp"];
-        const delta_block = parseInt(end_block) - current_block;
-        const delta_seconds = delta_block * 10;
-        const end_unixtimestamp = current_unix + delta_seconds;
-        return timeConverter(end_unixtimestamp);
-      }
-    },
-    [connex]
-  );
-
-  const timeConverter = (UNIX_timestamp: number) => {
-    let a = new Date(UNIX_timestamp * 1000);
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let hour = a.getHours();
-    let min = a.getMinutes();
-    let sec = a.getSeconds();
-    let time =
-      date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
-    return time;
-  };
   useEffect(() => {
     if (loanSel?.status === "1") {
       setState("Available for Loan");
@@ -225,7 +199,7 @@ const ViewLoanModal = ({
             onClick={() => {
               let date = getEndTime(loanSel?.endTime);
               if (date) {
-                if (new Date(date.toString()) < new Date()) {
+                if (new Date(date) < new Date()) {
                   claimLoan({ id: loanSel?.itemId });
                   setLoading(true);
                 } else {
