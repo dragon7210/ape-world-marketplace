@@ -75,7 +75,7 @@ const AllLoan = () => {
         temp > 0
           ? (temp / 60).toFixed(0) + "h " + (temp % 60).toFixed(0) + "min"
           : "-" +
-            Math.abs(temp / 60).toFixed(0) +
+            Math.abs(temp / 60 + 1).toFixed(0) +
             "h " +
             Math.abs(temp % 60).toFixed(0) +
             "min";
