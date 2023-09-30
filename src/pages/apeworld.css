@@ -7,13 +7,13 @@
   background: url("../assets/png/apeworld/background.png");
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 768px) {
   .main-board {
     zoom: 0.25;
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1024px) {
   .main-board {
     zoom: 0.5;
   }
