@@ -138,7 +138,9 @@ const AllLoan = () => {
                     </td>
                     <td className='hidden md:table-cell'>{item.loanFee}</td>
                     <td className='hidden md:table-cell'>
-                      {differentTime(item?.endTime)}
+                      {item.status === "1"
+                        ? "Empty Duration"
+                        : differentTime(item?.endTime)}
                     </td>
                     <td className='hidden md:table-cell'>
                       <div className='flex justify-center'>

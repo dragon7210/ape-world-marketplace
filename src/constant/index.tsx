@@ -16,8 +16,8 @@ export const decorators = [
   "islandstones",
   "lack",
   "palm",
-  "seastones",
   "title",
+  "seastones",
   "whale",
 ];
 

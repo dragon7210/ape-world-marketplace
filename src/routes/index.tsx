@@ -15,7 +15,7 @@ import { Route, Routes } from "react-router-dom";
 const MainRoutes = () => {
   return (
     <Routes>
-      <Route path='/' element={<Layout />}>
+      <Route path='/'>
         <Route index element={<ApeWorld />} />
       </Route>
       <Route path='/shop' element={<Layout />}>
