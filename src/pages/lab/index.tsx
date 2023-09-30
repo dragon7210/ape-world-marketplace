@@ -1,7 +1,7 @@
 /** @format */
 
 const Lab = () => {
-  return <div className='md:pt-32 pt-28'>Lab</div>;
+  return <div className='md:pt-8 pt-4'>Lab</div>;
 };
 
 export default Lab;

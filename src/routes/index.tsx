@@ -4,6 +4,7 @@ import Layout from "components/layout";
 import ApeWorld from "pages";
 import Bar from "pages/bar";
 import Casino from "pages/casino";
+import Gym from "pages/gym";
 import Jungle from "pages/jungle";
 import Lab from "pages/lab";
 import PawnShop from "pages/pawnShop";
@@ -44,6 +45,9 @@ const MainRoutes = () => {
       </Route>
       <Route path='/jungle' element={<Layout />}>
         <Route index element={<Jungle />} />
+      </Route>
+      <Route path='/gym' element={<Layout />}>
+        <Route index element={<Gym />} />
       </Route>
     </Routes>
   );

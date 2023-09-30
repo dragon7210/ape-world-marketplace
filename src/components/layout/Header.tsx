@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   return (
-    <div className='w-full h-24 bg-black fixed shadow-lg backdrop-blur-2xl flex justify-between items-center px-[5%]'>
+    <div className='w-full h-24 bg-black shadow-lg backdrop-blur-2xl flex justify-between items-center px-[5%]'>
       <div className='md:flex md:w-32 w-24 items-center hidden'>
         <a href='https://twitter.com/madvapesnft'>
           <img alt='twitter' src={TwitterImage} />
