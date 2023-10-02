@@ -65,7 +65,8 @@ const Header = () => {
           <p className='py-2 cursor-pointer hover:text-gray-100'>
             <a
               href='https://marketplace.worldofv.art/collections'
-              onClick={() => setOpen(!open)}>
+              onClick={() => setOpen(!open)}
+              className='outline-none'>
               Wov Marketplace
             </a>
           </p>
