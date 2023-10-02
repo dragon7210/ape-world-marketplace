@@ -73,11 +73,11 @@ const AllLoan = () => {
         (new Date(endTime).getTime() - new Date().getTime()) / 1000 / 60;
       returnTime =
         temp > 0
-          ? (temp / 60).toFixed(0) + "h " + (temp % 60).toFixed(0) + "min"
+          ? Math.floor(temp / 60) + "h " + Math.floor(temp % 60) + "min"
           : "-" +
-            Math.abs(temp / 60 + 1).toFixed(0) +
+            Math.abs(Math.floor(temp / 60 + 1)) +
             "h " +
-            Math.abs(temp % 60).toFixed(0) +
+            Math.abs(Math.floor(temp % 60)) +
             "min";
     }
     return returnTime;
