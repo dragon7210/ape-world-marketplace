@@ -2,12 +2,13 @@
 
 import AllLoan from "./AllLoan";
 import CreateLoan from "./CreateLoan";
-import Star from "assets/svg/apeworld/star.svg";
+import PawnShopImg from "assets/png/apeworld/pawnshop/pawnShop.png";
+import Mark from "assets/png/apeworld/pawnshop/mark.png";
 import { useLocation, useNavigate } from "react-router";
-
-import "./pawnShop.css";
 import { useWallet } from "hooks";
 import toast from "react-hot-toast";
+
+import "./pawnShop.css";
 
 const PawnShop = () => {
   const { pathname } = useLocation();
@@ -15,28 +16,19 @@ const PawnShop = () => {
   const navigate = useNavigate();
   return (
     <div className='pawnshop text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-8 pt-4'>
-      <div className='relative'>
-        <p className='md:text-6xl text-4xl md:text-left text-center tracking-[10px]'>
-          PAWN <span className='bg-[#38df37] px-2 rounded-lg'>SHOP</span>
-        </p>
-        <img
-          className='md:top-[-25px] hidden md:inline absolute md:left-[300px]'
-          alt='star'
-          src={Star}
-        />
-      </div>
-      <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] md:my-6 my-4 md:border-2 shadow-2xl  md:text-5xl text-2xl'>
+      <img src={Mark} alt='mark' />
+      <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] my-2 md:text-5xl text-2xl relative z-20 border-2'>
         <div className='flex text-center'>
           <p
-            className={`w-[50%] border-r-2 border-r-gray-200 md:pt-5 md:pb-3 pt-2 pb-1 md:border-b-8 border-b-4 cursor-pointer ${
-              pathname === "/shop" ? "border-[#FF4200]" : "border-gray-200"
+            className={`w-[50%] md:pt-5 md:pb-3 pt-2 pb-1 cursor-pointer md:rounded-tl-3xl rounded-tl-xl ${
+              pathname === "/shop" ? "bg-[#FF4200]" : "bg-gray-700"
             }`}
             onClick={() => navigate("/shop")}>
             ALL LOANS
           </p>
           <p
-            className={`w-[50%] md:pt-5 md:border-b-8 border-b-4 cursor-pointer md:pb-3 pt-2 pb-1 ${
-              pathname !== "/shop" ? "border-[#FF4200]" : "border-gray-200"
+            className={`w-[50%] md:pt-5 cursor-pointer md:pb-3 pt-2 pb-1 md:rounded-tr-3xl rounded-tr-xl ${
+              pathname !== "/shop" ? "bg-[#FF4200]" : "bg-gray-700"
             }`}
             onClick={() => {
               if (address) {
@@ -50,6 +42,11 @@ const PawnShop = () => {
         </div>
         {pathname === "/shop" ? <AllLoan /> : <CreateLoan />}
       </div>
+      <img
+        className='absolute bottom-5 right-5 z-10 hidden md:inline opacity-50'
+        src={PawnShopImg}
+        alt='pawnShop'
+      />
     </div>
   );
 };

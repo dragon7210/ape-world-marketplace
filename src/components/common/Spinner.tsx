@@ -12,7 +12,7 @@ const override: CSSProperties = {
 const Spinner = ({ loading }: { loading: boolean }) => {
   return (
     <Dialog
-      className='fixed inset-0 flex items-center justify-center backdrop-blur-3xl'
+      className='fixed inset-0 flex items-center justify-center backdrop-blur-3xl z-30'
       open={loading}
       onClose={() => {}}>
       <DotLoader
