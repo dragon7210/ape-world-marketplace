@@ -16,8 +16,8 @@ const PawnShop = () => {
   const navigate = useNavigate();
   return (
     <div className='pawnshop text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-8 pt-4'>
-      <img src={Mark} alt='mark' />
-      <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] my-2 md:text-5xl text-2xl relative z-20 border-2'>
+      <img className='md:ml-4' src={Mark} alt='mark' />
+      <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] md:text-5xl text-2xl relative z-20 border-2'>
         <div className='flex text-center'>
           <p
             className={`w-[50%] md:pt-5 md:pb-3 pt-2 pb-1 cursor-pointer md:rounded-tl-3xl rounded-tl-xl ${

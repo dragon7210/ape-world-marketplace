@@ -94,14 +94,14 @@ const AllLoan = () => {
         </p>
         <div className='flex lg:text-xl text-base'>
           <button
-            className={`lg:px-5 lg:py-2 px-2 rounded-l-[99px] hover:bg-[#F09090] ${
+            className={`lg:px-5 lg:py-2 px-2 rounded-l-[99px] ${
               selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(true)}>
             List All Items
           </button>
           <button
-            className={`lg:px-5 lg:py-2 px-2 rounded-r-[99px] hover:bg-[#F09090] ${
+            className={`lg:px-5 lg:py-2 px-2 rounded-r-[99px] ${
               !selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(false)}>
