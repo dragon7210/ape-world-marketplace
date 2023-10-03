@@ -168,10 +168,10 @@ const CreateLoan = () => {
           } `}
           disabled={!activeButton}
           onClick={() => {
-            if (parseInt(createValue.period) >= 24) {
+            if (parseInt(createValue.period) >= 1) {
               setOpenModal(true);
             } else {
-              toast.error("The period must be greater than 24 hours.");
+              toast.error("The period must be greater than 1 hours.");
             }
           }}>
           CREATE LOAN

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.39022e4b.css",
-    "main.js": "/static/js/main.480a94cc.js",
+    "main.css": "/static/css/main.0739e3af.css",
+    "main.js": "/static/js/main.9ef8a1f7.js",
     "static/js/725.b51b00b2.chunk.js": "/static/js/725.b51b00b2.chunk.js",
     "static/media/background.png": "/static/media/background.170479539ced52329977.png",
     "static/media/realstate.svg": "/static/media/realstate.babe15b6143c4bf6874f.svg",
@@ -17,6 +17,7 @@
     "static/media/face.svg": "/static/media/face.1f2f845cf3fcf3da94bc9f30663899b8.svg",
     "static/media/lack.png": "/static/media/lack.533b0465975c3b94c66d.png",
     "static/media/seastones.png": "/static/media/seastones.9d88e02b2fed09b4f079.png",
+    "static/media/bar.png": "/static/media/bar.d2cfef3e23b4679cef1c.png",
     "static/media/ship.png": "/static/media/ship.e45b9d37cd85f5d1258e.png",
     "static/media/pawnShop.png": "/static/media/pawnShop.688ceb0d40b0c9206c68.png",
     "static/media/mark.png": "/static/media/mark.20d5eb8b2facd42c162d.png",
@@ -26,12 +27,12 @@
     "static/media/twitter.svg": "/static/media/twitter.23679f38ec8f7e62875f204bc8d4a2f5.svg",
     "static/media/view.svg": "/static/media/view.16813d2b4f28949a3d6de770f59552c6.svg",
     "index.html": "/index.html",
-    "main.39022e4b.css.map": "/static/css/main.39022e4b.css.map",
-    "main.480a94cc.js.map": "/static/js/main.480a94cc.js.map",
+    "main.0739e3af.css.map": "/static/css/main.0739e3af.css.map",
+    "main.9ef8a1f7.js.map": "/static/js/main.9ef8a1f7.js.map",
     "725.b51b00b2.chunk.js.map": "/static/js/725.b51b00b2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.39022e4b.css",
-    "static/js/main.480a94cc.js"
+    "static/css/main.0739e3af.css",
+    "static/js/main.9ef8a1f7.js"
   ]
 }

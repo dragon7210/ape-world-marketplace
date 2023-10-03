@@ -20,14 +20,14 @@ const PawnShop = () => {
       <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] md:text-5xl text-2xl relative z-20 border-2'>
         <div className='flex text-center'>
           <p
-            className={`w-[50%] md:pt-5 md:pb-3 pt-2 pb-1 cursor-pointer md:rounded-tl-3xl rounded-tl-xl ${
+            className={`w-[50%] md:pt-5 md:pb-3 pt-2 pb-1 cursor-pointer md:rounded-tl-3xl rounded-tl-xl tracking-widest ${
               pathname === "/shop" ? "bg-[#FF4200]" : "bg-gray-700"
             }`}
             onClick={() => navigate("/shop")}>
             ALL LOANS
           </p>
           <p
-            className={`w-[50%] md:pt-5 cursor-pointer md:pb-3 pt-2 pb-1 md:rounded-tr-3xl rounded-tr-xl ${
+            className={`w-[50%] md:pt-5 cursor-pointer md:pb-3 pt-2 pb-1 md:rounded-tr-3xl rounded-tr-xl tracking-widest ${
               pathname !== "/shop" ? "bg-[#FF4200]" : "bg-gray-700"
             }`}
             onClick={() => {
