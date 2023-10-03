@@ -3,7 +3,6 @@
 import AllLoan from "./AllLoan";
 import CreateLoan from "./CreateLoan";
 import Star from "assets/svg/apeworld/star.svg";
-import PawnShopImg from "assets/png/apeworld/pawnshop/pawnShop.png";
 import { useLocation, useNavigate } from "react-router";
 
 import "./pawnShop.css";
@@ -26,7 +25,7 @@ const PawnShop = () => {
           src={Star}
         />
       </div>
-      <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] md:my-6 my-4 md:border-2 shadow-2xl  md:text-5xl text-2xl relative'>
+      <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] md:my-6 my-4 md:border-2 shadow-2xl  md:text-5xl text-2xl'>
         <div className='flex text-center'>
           <p
             className={`w-[50%] border-r-2 border-r-gray-200 md:pt-5 md:pb-3 pt-2 pb-1 md:border-b-8 border-b-4 cursor-pointer ${
@@ -49,18 +48,7 @@ const PawnShop = () => {
             CREATE LOAN
           </p>
         </div>
-        {pathname === "/shop" ? (
-          <div className='relative z-20 '>
-            <AllLoan />
-          </div>
-        ) : (
-          <CreateLoan />
-        )}
-        <img
-          className='absolute -bottom-10 -right-20 z-10 blur-[3px] hidden md:inline  '
-          src={PawnShopImg}
-          alt='pawnshop'
-        />
+        {pathname === "/shop" ? <AllLoan /> : <CreateLoan />}
       </div>
     </div>
   );

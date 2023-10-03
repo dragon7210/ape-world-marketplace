@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.0d7c0b0f.css",
-    "main.js": "/static/js/main.dbfb8a77.js",
+    "main.css": "/static/css/main.53eb9e24.css",
+    "main.js": "/static/js/main.ab4eda58.js",
     "static/js/725.b51b00b2.chunk.js": "/static/js/725.b51b00b2.chunk.js",
     "static/media/background.png": "/static/media/background.170479539ced52329977.png",
     "static/media/realstate.svg": "/static/media/realstate.babe15b6143c4bf6874f.svg",
@@ -18,7 +18,6 @@
     "static/media/lack.png": "/static/media/lack.533b0465975c3b94c66d.png",
     "static/media/seastones.png": "/static/media/seastones.9d88e02b2fed09b4f079.png",
     "static/media/ship.png": "/static/media/ship.e45b9d37cd85f5d1258e.png",
-    "static/media/pawnShop.png": "/static/media/pawnShop.688ceb0d40b0c9206c68.png",
     "static/media/islandstones.png": "/static/media/islandstones.e8bd5a17dd5e28c3bb80.png",
     "static/media/gull.png": "/static/media/gull.918a3b241ae08cb22cae.png",
     "static/media/discord.svg": "/static/media/discord.9d1e1afb27e9fd0b1fff6726ed548a81.svg",
@@ -26,12 +25,12 @@
     "static/media/view.svg": "/static/media/view.16813d2b4f28949a3d6de770f59552c6.svg",
     "index.html": "/index.html",
     "static/media/star.svg": "/static/media/star.5eb82ee3339367efded546c1067999f9.svg",
-    "main.0d7c0b0f.css.map": "/static/css/main.0d7c0b0f.css.map",
-    "main.dbfb8a77.js.map": "/static/js/main.dbfb8a77.js.map",
+    "main.53eb9e24.css.map": "/static/css/main.53eb9e24.css.map",
+    "main.ab4eda58.js.map": "/static/js/main.ab4eda58.js.map",
     "725.b51b00b2.chunk.js.map": "/static/js/725.b51b00b2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0d7c0b0f.css",
-    "static/js/main.dbfb8a77.js"
+    "static/css/main.53eb9e24.css",
+    "static/js/main.ab4eda58.js"
   ]
 }
