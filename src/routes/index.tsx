@@ -28,6 +28,9 @@ const MainRoutes = () => {
       <Route path='/bar' element={<Layout />}>
         <Route index element={<Bar />} />
       </Route>
+      <Route path='/bar/fighter' element={<Layout />}>
+        <Route index element={<Bar />} />
+      </Route>
       <Route path='/lab' element={<Layout />}>
         <Route index element={<Lab />} />
       </Route>
