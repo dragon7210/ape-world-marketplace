@@ -81,7 +81,7 @@ export const ConnectButton = () => {
       <Dialog
         open={isOpen}
         onClose={() => {}}
-        className='fixed inset-0 flex items-center justify-center tracking-widest transition-all'>
+        className='fixed inset-0 flex items-center justify-center tracking-widest transition-all z-30'>
         <div className='w-[260px] bg-white py-8 px-6 rounded-lg relative'>
           <button
             type='button'
