@@ -85,7 +85,7 @@ const CreateLoanModal = ({
 
   return (
     <Dialog
-      className='fixed inset-0 flex items-center justify-center backdrop-blur-sm'
+      className='fixed inset-0 flex items-center justify-center backdrop-blur-sm z-30'
       open={open}
       onClose={() => {}}>
       {data?.length > 0 && (
