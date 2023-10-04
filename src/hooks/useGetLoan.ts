@@ -5,14 +5,14 @@ import { useWallet } from "./useWallet";
 import { useEffect, useState } from "react";
 import { getAllItemsABI, getItemABI } from "abi/abis";
 
-export const useGetLoanData = () => {
+export const useGetLoan = () => {
   const [loading, setLoading] = useState(true);
   const [loanData, setLoanData] = useState<any[]>([]);
   const [myLoanData, setMyLoanData] = useState<any[]>([]);
 
   const { connex, isConnected, address } = useWallet();
   useEffect(() => {
-    if (connex && isConnected) {
+    if (connex && isConnected && address) {
       (async () => {
         const pawnShop = connex.thor.account(pawn_address);
 
@@ -43,7 +43,7 @@ export const useGetLoanData = () => {
           tempLoan.push(item);
         }
         const tempMyLoan = tempLoan.filter(
-          (item: any) => item.owner === address
+          (item: any) => item.owner?.toLowerCase() === address?.toLowerCase()
         );
         setLoanData(tempLoan);
         setMyLoanData(tempMyLoan);

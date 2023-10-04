@@ -4,7 +4,7 @@
   width: 1920px;
   height: 1080px;
   position: relative;
-  background: url("../assets/png/apeworld/background.png");
+  background: url("../assets/png/background.png");
 }
 
 @media screen and (max-width: 768px) {
@@ -119,7 +119,7 @@
   position: absolute;
   top: 44px;
   left: 181px;
-  background-image: url("../assets/png/apeworld/decorators/gull.png");
+  background-image: url("../assets/png/decorators/gull.png");
   background-size: cover;
 }
 
@@ -129,7 +129,7 @@
   position: absolute;
   top: 18px;
   left: 700px;
-  background-image: url("../assets/png/apeworld/decorators/title.png");
+  background-image: url("../assets/png/decorators/title.png");
   background-size: cover;
   z-index: 4 !important;
 }
@@ -140,7 +140,7 @@
   position: absolute;
   top: 614px;
   left: 114px;
-  background-image: url("../assets/png/apeworld/decorators/islandstones.png");
+  background-image: url("../assets/png/decorators/islandstones.png");
   background-size: cover;
 }
 
@@ -150,7 +150,7 @@
   position: absolute;
   top: 144px;
   left: 336px;
-  background-image: url("../assets/png/apeworld/decorators/seastones.png");
+  background-image: url("../assets/png/decorators/seastones.png");
   background-size: cover;
 }
 
@@ -160,7 +160,7 @@
   position: absolute;
   top: 91px;
   left: 357px;
-  background-image: url("../assets/png/apeworld/decorators/palm.png");
+  background-image: url("../assets/png/decorators/palm.png");
   background-size: cover;
 }
 
@@ -170,7 +170,7 @@
   position: absolute;
   top: 531px;
   left: 71px;
-  background-image: url("../assets/png/apeworld/decorators/lack.png");
+  background-image: url("../assets/png/decorators/lack.png");
   background-size: cover;
 }
 

@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import Market from "./Market";
 import Call from "./Call";
 import Put from "./Put";
+import LabImg from "assets/png/lab/lab.png";
 
 const Lab = () => {
   const { pathname } = useLocation();
@@ -62,11 +63,11 @@ const Lab = () => {
           <Put />
         )}
       </div>
-      {/* <img
+      <img
         className='absolute bottom-5 right-5 z-10 hidden md:inline opacity-50'
-        src={PawnShopImg}
+        src={LabImg}
         alt='pawnShop'
-      /> */}
+      />
     </div>
   );
 };

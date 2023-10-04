@@ -2,11 +2,25 @@
 import { buildings, decorators } from "constant";
 import { useNavigate } from "react-router-dom";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { useCustomQuery } from "hooks";
+import { getCollections } from "utils/query";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { setCollectionOptions } from "actions/collections";
 
 import "./apeworld.css";
 
 const ApeWorld = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const collectionOptions = useCustomQuery({
+    query: getCollections,
+    variables: {},
+  });
+
+  useEffect(() => {
+    dispatch(setCollectionOptions(collectionOptions));
+  }, [dispatch, collectionOptions]);
 
   return (
     <div className='bg-[#00c4ee] min-h-[100vh] flex items-center justify-center'>

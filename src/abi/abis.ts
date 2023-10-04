@@ -104,3 +104,41 @@ export const removeItemABI = {
   stateMutability: "nonpayable",
   type: "function",
 };
+export const getAllOptionsABI = {
+  inputs: [],
+  name: "getAllOptions",
+  outputs: [{ internalType: "bytes32[]", name: "", type: "bytes32[]" }],
+  stateMutability: "view",
+  type: "function",
+};
+
+export const getOptionABI = {
+  inputs: [{ internalType: "bytes32", name: "_hash", type: "bytes32" }],
+  name: "getOption",
+  outputs: [
+    {
+      components: [
+        { internalType: "enum nftOptions.TYPE", name: "_type", type: "uint8" },
+        {
+          internalType: "enum nftOptions.STATUS",
+          name: "_status",
+          type: "uint8",
+        },
+        { internalType: "address", name: "tokenAddress", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+        { internalType: "uint256", name: "strikePrice", type: "uint256" },
+        { internalType: "uint256", name: "optionPrice", type: "uint256" },
+        { internalType: "uint256", name: "expirationDate", type: "uint256" },
+        { internalType: "uint256", name: "exerciseDate", type: "uint256" },
+        { internalType: "address", name: "owner", type: "address" },
+        { internalType: "address", name: "taker", type: "address" },
+        { internalType: "bool", name: "takeable", type: "bool" },
+      ],
+      internalType: "struct nftOptions.option",
+      name: "",
+      type: "tuple",
+    },
+  ],
+  stateMutability: "view",
+  type: "function",
+};

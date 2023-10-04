@@ -1,16 +1,17 @@
 /** @format */
 
 import Spinner from "components/common/Spinner";
-import { useCustomQuery, useGetLoanData, useWallet } from "hooks";
+import { useGetLoan, useWallet } from "hooks";
 import { useCallback, useEffect, useState } from "react";
-import { getCollections } from "utils/query";
 import ViewImg from "assets/svg/apeworld/view.svg";
 import { months, statusArray } from "constant";
 import ViewLoanModal from "components/pawnShop/viewLoanModal";
 import Pagination from "components/common/Pagination";
+import { getCollectionName } from "utils";
+import { useSelector } from "react-redux";
 
 const AllLoan = () => {
-  let { loanData, myLoanData, loading } = useGetLoanData();
+  let { loanData, myLoanData, loading } = useGetLoan();
   const [selector, setSelector] = useState<boolean>(true);
   const [loanSel, setLoanSel] = useState(-1);
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -18,25 +19,14 @@ const AllLoan = () => {
   const [pageData, setPageData] = useState<any[]>([]);
   const { connex } = useWallet();
 
-  const collectionOptions = useCustomQuery({
-    query: getCollections,
-    variables: {},
-  });
-
+  const { collectionOptions } = useSelector(
+    (state: any) => state.collectionOptions
+  );
   const data = selector ? loanData : myLoanData;
   useEffect(() => {
     setPageData(data.slice((selPage - 1) * 10, selPage * 10));
   }, [selPage, data]);
 
-  const getCollectionName = (tokenAddress: string) => {
-    let temp = collectionOptions?.collections?.filter(
-      (item: any) =>
-        item.smartContractAddress?.toLowerCase() === tokenAddress?.toLowerCase()
-    );
-    if (temp?.length !== 0) {
-      return temp[0]?.name;
-    }
-  };
   const getEndTime = useCallback(
     (end_block: string) => {
       if (connex) {
@@ -82,7 +72,6 @@ const AllLoan = () => {
     }
     return returnTime;
   };
-
   return (
     <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[60vh]'>
       <div className='flex justify-between items-center border-b-2 pb-1'>
@@ -129,9 +118,13 @@ const AllLoan = () => {
                     key={index}
                     className='border-b text-center backdrop-blur-xl'>
                     <td className='md:py-3 px-3 text-left'>
-                      {getCollectionName(item.tokenAddress) +
-                        " #" +
-                        item.tokenId}
+                      {collectionOptions &&
+                        getCollectionName(
+                          collectionOptions,
+                          item.tokenAddress
+                        ) +
+                          " #" +
+                          item.tokenId}
                     </td>
                     <td className='hidden md:table-cell'>
                       {item.loanValue / 10 ** 18}

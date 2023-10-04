@@ -2,6 +2,7 @@
 
 import { useWallet } from "./useWallet";
 import { useCustomQuery } from "./useCustomQuery";
-import { useGetLoanData } from "./useGetLoanData";
+import { useGetLoan } from "./useGetLoan";
+import { useGetOptions } from "./useGetOptions";
 
-export { useWallet, useCustomQuery, useGetLoanData };
+export { useWallet, useCustomQuery, useGetLoan, useGetOptions };
