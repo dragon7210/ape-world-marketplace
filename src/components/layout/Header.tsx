@@ -46,7 +46,7 @@ const Header = () => {
       <Dialog
         open={open}
         onClose={() => {}}
-        className='fixed inset-0 tracking-widest transition-all text-gray-500 text-3xl'>
+        className='fixed inset-0 tracking-widest transition-all text-gray-500 text-3xl z-30'>
         <div className='bg-black w-full h-[100vh] p-[5%]'>
           <div className='flex justify-end'>
             <XMarkIcon
