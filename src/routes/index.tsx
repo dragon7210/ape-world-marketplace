@@ -34,6 +34,12 @@ const MainRoutes = () => {
       <Route path='/lab' element={<Layout />}>
         <Route index element={<Lab />} />
       </Route>
+      <Route path='/lab/call' element={<Layout />}>
+        <Route index element={<Lab />} />
+      </Route>
+      <Route path='/lab/put' element={<Layout />}>
+        <Route index element={<Lab />} />
+      </Route>
       <Route path='/store' element={<Layout />}>
         <Route index element={<Store />} />
       </Route>
