@@ -3,7 +3,6 @@
 import AllLoan from "./AllLoan";
 import CreateLoan from "./CreateLoan";
 import PawnShopImg from "assets/png/apeworld/pawnshop/pawnShop.png";
-import Mark from "assets/png/apeworld/pawnshop/mark.png";
 import { useLocation, useNavigate } from "react-router";
 import { useWallet } from "hooks";
 import toast from "react-hot-toast";
@@ -16,7 +15,11 @@ const PawnShop = () => {
   const navigate = useNavigate();
   return (
     <div className='pawnshop text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-8 pt-4'>
-      <img className='md:ml-4' src={Mark} alt='mark' />
+      <div className='md:mb-7 mb-1'>
+        <p className='md:text-[70px] text-4xl tracking-widest ml-4'>
+          PAWN <span className='bg-green-500 px-2 rounded-lg'>SHOP</span>
+        </p>
+      </div>
       <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] md:text-5xl text-2xl relative z-20 border-2'>
         <div className='flex text-center'>
           <p
