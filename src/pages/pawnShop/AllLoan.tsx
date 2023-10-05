@@ -52,7 +52,7 @@ const AllLoan = () => {
   };
 
   return (
-    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[60vh]'>
+    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)]'>
       <div className='flex justify-between items-center md:mt-3 border-b-2 pb-1'>
         <p className='md:text-4xl text-xl'>
           Here are{" "}
@@ -79,7 +79,7 @@ const AllLoan = () => {
       </div>
       {pageData.length > 0 ? (
         <>
-          <div className='min-h-[40vh]'>
+          <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
             <table className='w-full md:text-xl text-base mt-2'>
               <thead className='uppercase backdrop-blur-2xl bg-[#0a0b1336]'>
                 <tr className='text-center'>

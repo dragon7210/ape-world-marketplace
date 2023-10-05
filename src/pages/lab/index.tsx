@@ -14,7 +14,7 @@ const Lab = () => {
   const { address } = useWallet();
   const navigate = useNavigate();
   return (
-    <div className='bg-[#2260a9] text-gray-200 md:px-[10%] lg:px-[13%] p-3 md:pt-44 pt-28 min-h-[100vh]'>
+    <div className='bg-[#2260a9] text-gray-200 md:px-[10%] lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh]'>
       <div className='md:rounded-3xl rounded-lg md:text-5xl text-lg relative font-700 z-20'>
         <div className='flex text-center'>
           <div className={`w-[33%]`} onClick={() => navigate("/lab")}>
