@@ -12,12 +12,7 @@ const PawnShop = () => {
   const { address } = useWallet();
   const navigate = useNavigate();
   return (
-    <div className='bg-[#da8a34] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-32 pt-28 min-h-[100vh]'>
-      <div className='md:mb-4 mb-2 flex justify-center'>
-        <span className='text-5xl tracking-widest text-center bg-[#00000050] w-[300px] py-2 rounded-[40px]'>
-          PAWN SHOP
-        </span>
-      </div>
+    <div className='bg-[#000000cc] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-44 pt-28 min-h-[100vh]'>
       <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] md:text-5xl text-2xl relative z-20'>
         <div className='flex text-center'>
           <p
