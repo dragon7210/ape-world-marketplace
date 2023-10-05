@@ -100,7 +100,7 @@ const Put = () => {
   };
 
   return (
-    <div className='md:my-3 flex justify-center'>
+    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[60vh] bg-[#20202050] rounded-xl tracking-wide flex justify-center items-center'>
       <div className='bg-[#0a0b1336] md:rounded-3xl rounded-lg m-6 px-2 py-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
         <InputSelect
           label='Collection'
@@ -136,7 +136,7 @@ const Put = () => {
           onChange={handleChange}
         />
         <button
-          className={`w-full md:text-2xl text-lg border-2 border-[#FF4200] rounded-[99px] md:py-2 py-1 mt-3 ${
+          className={`w-full md:text-2xl text-lg border-2 border-[#FF4200] rounded-[99px] md:py-2 py-1 my-4 ${
             activeButton && "bg-[#FF4200]"
           } `}
           disabled={!activeButton}

@@ -16,11 +16,11 @@ import { getToken } from "utils/query";
 
 const ViewOptionModal = ({
   open,
-  setOpenModal,
+  setOpen,
   data,
 }: {
   open: boolean;
-  setOpenModal: any;
+  setOpen: any;
   data: any;
 }) => {
   const dispatch = useDispatch();
@@ -70,19 +70,19 @@ const ViewOptionModal = ({
   };
 
   const editOption = useCallback(() => {
-    setOpenModal(!open);
+    setOpen(!open);
     setOpenEditOption(!openEditOption);
-  }, [setOpenModal, open, openEditOption]);
+  }, [setOpen, open, openEditOption]);
 
   const sellOption = useCallback(() => {
-    setOpenModal(!open);
+    setOpen(!open);
     setOpenSellOption(!openSellOption);
-  }, [setOpenModal, open, openSellOption]);
+  }, [setOpen, open, openSellOption]);
 
   const exercisePut = useCallback(() => {
-    setOpenModal(!open);
+    setOpen(!open);
     setOpenExercisePut(!openExercisePut);
-  }, [setOpenModal, open, openExercisePut]);
+  }, [setOpen, open, openExercisePut]);
 
   const buyOption = useCallback(() => {
     if (connex) {
@@ -165,8 +165,7 @@ const ViewOptionModal = ({
           );
         }
       }
-    }
-    if (
+    } else if (
       data?.status === "OPEN" &&
       address === data?.taker &&
       block < Number(data?.expirationDate)
@@ -193,6 +192,8 @@ const ViewOptionModal = ({
           </button>
         );
       }
+    } else {
+      setButton("");
     }
   }, [
     data,
@@ -239,7 +240,7 @@ const ViewOptionModal = ({
               <div className='md:flex justify-end hidden'>
                 <XMarkIcon
                   className='w-6 cursor-pointer'
-                  onClick={() => setOpenModal(!open)}
+                  onClick={() => setOpen(!open)}
                 />
               </div>
               <div className='flex justify-between items-center'>

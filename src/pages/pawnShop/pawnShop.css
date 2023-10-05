@@ -1,8 +1,0 @@
-/** @format */
-
-.pawnshop {
-  background-image: url("../../assets/png/pawnshop/background.png");
-  background-size: cover;
-  width: 100%;
-  min-height: calc(100vh - 96px);
-}

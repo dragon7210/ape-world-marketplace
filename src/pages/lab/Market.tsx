@@ -11,7 +11,7 @@ import { setLoading } from "actions/loading";
 
 const Market = () => {
   const [selector, setSelector] = useState(true);
-  const [openModal, setOpenModal] = useState(false);
+  const [open, setOpen] = useState(false);
   const [selPage, setSelPage] = useState(1);
   const [pageData, setPageData] = useState<any[]>([]);
   const [optionSel, setOptionSel] = useState<number>(-1);
@@ -32,25 +32,25 @@ const Market = () => {
   }, [loading, dispatch]);
 
   return (
-    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[60vh]'>
+    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[60vh] bg-[#20202050] rounded-xl tracking-wide'>
       <div className='flex justify-between items-center md:mt-3 border-b-2 pb-1'>
-        <p className='md:text-4xl text-xl'>
+        <p className='md:text-4xl text-md'>
           Here are{" "}
-          <span className='text-[#FF4200]'>
+          <span className='text-[#008cff]'>
             {selector ? "All" : "My"} Options
           </span>
         </p>
         <div className='flex lg:text-xl text-base'>
           <button
             className={`lg:px-5 lg:py-2 px-2 rounded-l-[99px] ${
-              selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
+              selector ? "bg-[#006ec9]" : "bg-[#008cff]"
             }`}
             onClick={() => setSelector(true)}>
             All Options
           </button>
           <button
             className={`lg:px-5 lg:py-2 px-2 rounded-r-[99px] ${
-              !selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
+              !selector ? "bg-[#006ec9]" : "bg-[#008cff]"
             }`}
             onClick={() => setSelector(false)}>
             My Options
@@ -75,7 +75,7 @@ const Market = () => {
                 {pageData.map((item: any, index: number) => (
                   <tr
                     key={index}
-                    className='border-b text-center backdrop-blur-xl'>
+                    className='border-b text-center backdrop-blur-sm'>
                     <td className='md:py-3 px-3 text-left'>{item.type}</td>
                     <td className='hidden md:table-cell'>
                       {collectionOptions &&
@@ -93,13 +93,17 @@ const Market = () => {
                     <td>
                       <div className='flex items-center justify-center md:py-1 py-[1px]'>
                         <button
-                          className='border-gray-200 md:py-1 border-2 hover:bg-[#FF4200] md:px-2 px-1 rounded-md'
+                          className='hover:bg-[#008cff] bg-[#006ec9] md:p-[5px] p-[2px] rounded-[99px]'
                           onClick={() => {
                             setOptionSel(index);
-                            setOpenModal(true);
+                            setOpen(true);
                             dispatch(setLoading(true));
                           }}>
-                          <img src={ViewImg} alt='view' width={25} />
+                          <img
+                            src={ViewImg}
+                            alt='view'
+                            className='md:w-6 md:h-6 w-4 h-4'
+                          />
                         </button>
                       </div>
                     </td>
@@ -113,11 +117,7 @@ const Market = () => {
       ) : (
         <p className='mt-5 text-2xl'>No Options Data</p>
       )}
-      <ViewOptionModal
-        open={openModal}
-        setOpenModal={setOpenModal}
-        data={data[optionSel]}
-      />
+      <ViewOptionModal open={open} setOpen={setOpen} data={data[optionSel]} />
     </div>
   );
 };

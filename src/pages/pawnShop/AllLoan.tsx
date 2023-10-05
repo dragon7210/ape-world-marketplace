@@ -116,21 +116,23 @@ const AllLoan = () => {
                     </td>
                     <td className='hidden md:table-cell'>
                       <div className='flex justify-center'>
-                        <p className='border-2 py-1 rounded-lg w-20'>
-                          {statusArray[item.status]}
-                        </p>
+                        <p className='py-1'>{statusArray[item.status]}</p>
                       </div>
                     </td>
                     <td>
                       <div className='flex items-center justify-center md:py-1 py-[1px]'>
                         <button
-                          className='border-gray-200 md:py-1 border-2 hover:bg-[#FF4200] md:px-2 px-1 rounded-md'
+                          className='hover:bg-[#FF4200] bg-[#F67D53] md:p-[5px] p-[2px] rounded-[99px]'
                           onClick={() => {
                             setLoanSel(index);
                             dispatch(setLoading(true));
                             setOpenModal(true);
                           }}>
-                          <img src={ViewImg} alt='view' width={25} />
+                          <img
+                            src={ViewImg}
+                            alt='view'
+                            className='md:w-6 md:h-6 w-4 h-4'
+                          />
                         </button>
                       </div>
                     </td>

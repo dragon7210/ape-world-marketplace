@@ -2,12 +2,10 @@
 
 import AllLoan from "./AllLoan";
 import CreateLoan from "./CreateLoan";
-import PawnShopImg from "assets/png/pawnshop/pawnShop.png";
+import PawnShopImg from "assets/svg/apeworld/shop.svg";
 import { useLocation, useNavigate } from "react-router";
 import { useWallet } from "hooks";
 import toast from "react-hot-toast";
-
-import "./pawnShop.css";
 
 const PawnShop = () => {
   const { pathname } = useLocation();

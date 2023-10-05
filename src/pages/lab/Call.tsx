@@ -118,8 +118,8 @@ const Call = () => {
   };
 
   return (
-    <div className='md:my-3 flex justify-center'>
-      <div className='bg-[#0a0b1336] md:rounded-3xl rounded-lg m-6 px-2 py-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
+    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[60vh] bg-[#20202050] rounded-xl tracking-wide flex justify-center items-center'>
+      <div className='bg-[#0a0b1336] md:rounded-3xl rounded-lg p-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
         <InputSelect
           label='Collection'
           onChange={(e) => {
