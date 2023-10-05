@@ -13,7 +13,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
   return (
-    <div className='w-full h-24 bg-[#00000050] fixed shadow-lg backdrop-blur-2xl flex justify-between items-center px-[5%]'>
+    <div className='w-full h-24 bg-[#00000050] fixed shadow-lg backdrop-blur-2xl flex justify-between items-center px-[5%] z-30'>
       <div className='flex items-center'>
         <a href='https://twitter.com/madvapesnft'>
           <img alt='twitter' src={TwitterImage} className='w-12 md:w-16' />
