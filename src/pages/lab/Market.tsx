@@ -37,7 +37,7 @@ const Market = () => {
         <p className='md:text-4xl text-xl'>
           Here are{" "}
           <span className='text-[#FF4200]'>
-            {selector ? "All" : "My"} Items
+            {selector ? "All" : "My"} Options
           </span>
         </p>
         <div className='flex lg:text-xl text-base'>
@@ -46,14 +46,14 @@ const Market = () => {
               selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(true)}>
-            List All Items
+            All Options
           </button>
           <button
             className={`lg:px-5 lg:py-2 px-2 rounded-r-[99px] ${
               !selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
             }`}
             onClick={() => setSelector(false)}>
-            List My Items
+            My Options
           </button>
         </div>
       </div>
@@ -82,7 +82,7 @@ const Market = () => {
                         getCollectionName(collectionOptions, item.tokenAddress)}
                     </td>
                     <td className='hidden md:table-cell'>
-                      {item.type === "Call" ? item.tokenId : "Any"}
+                      {item.type === "CALL" ? item.tokenId : "Any"}
                     </td>
                     <td className='hidden md:table-cell'>
                       {item.takeable ? "Available" : "Sold"}

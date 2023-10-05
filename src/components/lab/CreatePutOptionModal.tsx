@@ -14,13 +14,11 @@ const CreatePutOptionModal = ({
   setOpen,
   createValue,
   collections,
-  apes,
 }: {
   open: boolean;
   setOpen: any;
   collections: any;
   createValue: any;
-  apes: any;
 }) => {
   const dispatch = useDispatch();
   const { connex } = useWallet();
@@ -83,75 +81,73 @@ const CreatePutOptionModal = ({
         });
     }
   };
-
-  const data = apes?.tokens?.items?.filter(
-    (item: any) => item.tokenId === createValue.id
-  );
+  const data = collections?.filter((item: any) => {
+    return item?.collectionId === createValue?.collectionId;
+  });
 
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm z-30'
       open={open}
       onClose={() => {}}>
-      {data?.length > 0 && (
-        <div className='bg-gray-200 w-[270px] md:w-[720px] md:flex p-3 rounded-lg shadow-lg shadow-gray-500 text-gray-600'>
+      <div className='bg-gray-200 w-[270px] md:w-[720px] md:flex p-3 rounded-lg shadow-lg shadow-gray-500 text-gray-600'>
+        {data?.length > 0 && (
           <img
-            className='rounded-lg'
-            src={data[0]?.assets[1].url}
+            className='rounded-lg w-64'
+            src={data[0]?.thumbnailImageUrl}
             alt='createCall'
             onLoad={() => dispatch(setLoading(false))}
           />
-          <div className='md:ml-3 mt-2 '>
-            <div className='md:flex justify-end hidden '>
-              <XMarkIcon
-                className='w-6 cursor-pointer'
-                onClick={() => setOpen(!open)}
-              />
-            </div>
-            <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
-              Rank {data[0]?.rank}
-            </span>
+        )}
+        <div className='md:ml-3 mt-2 '>
+          <div className='md:flex justify-end hidden '>
+            <XMarkIcon
+              className='w-6 cursor-pointer'
+              onClick={() => setOpen(!open)}
+            />
+          </div>
+          {data?.length > 0 && (
             <p className='md:text-3xl text-xl mt-1 font-[700] text-black'>
               {data[0]?.name}
             </p>
-            <p className='md:text-3xl text-lg mt-2 min-w-[256px] text-center'>
-              You are about to create a Covered Put.
-            </p>
-            <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
-              <p className='md:text-xltext-sm'>Details</p>
-              <div className='md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md'>
-                <div>
-                  <p className='text-gray-500'>Strike Price</p>
-                  <p>{createValue?.strikePrice} Vet</p>
-                </div>
-                <div>
-                  <p className='text-gray-500'>Call Price</p>
-                  <p>{createValue?.putPrice} Vet</p>
-                </div>
-                <div>
-                  <p className='text-gray-500'>Duration</p>
-                  <p>{createValue?.duration} H</p>
-                </div>
+          )}
+          <p className='md:text-3xl text-lg mt-2 min-w-[256px] text-center'>
+            You are about to create a Covered Put.
+          </p>
+          <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
+            <p className='md:text-xltext-sm'>Details</p>
+            <div className='md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md'>
+              <div>
+                <p className='text-gray-500'>Strike Price</p>
+                <p>{createValue?.strikePrice} Vet</p>
+              </div>
+              <div>
+                <p className='text-gray-500'>Call Price</p>
+                <p>{createValue?.putPrice} Vet</p>
+              </div>
+              <div>
+                <p className='text-gray-500'>Duration</p>
+                <p>{createValue?.duration} H</p>
               </div>
             </div>
-            <div className='flex md:text-xl text-base justify-end mt-2 text-white'>
-              <button
-                className='bg-[#FF4200] py-1 rounded-lg mr-5 w-24'
-                onClick={() => {
-                  dispatch(setLoading(true));
-                  handleOption();
-                }}>
-                CONFIRM
-              </button>
-              <button
-                className='bg-[#FF0000] py-1 rounded-lg w-24'
-                onClick={() => setOpen(!open)}>
-                CANCEL
-              </button>
-            </div>
+          </div>
+          <div className='flex md:text-xl text-base justify-end mt-2 text-white'>
+            <button
+              className='bg-[#FF4200] py-1 rounded-lg mr-5 w-24'
+              onClick={() => {
+                dispatch(setLoading(true));
+                handleOption();
+              }}>
+              CONFIRM
+            </button>
+            <button
+              className='bg-[#FF0000] py-1 rounded-lg w-24'
+              onClick={() => setOpen(!open)}>
+              CANCEL
+            </button>
           </div>
         </div>
-      )}
+      </div>
     </Dialog>
   );
 };

@@ -1,6 +1,6 @@
 /** @format */
 import { Dialog } from "@headlessui/react";
-import { useWallet } from "hooks";
+import { useCustomQuery, useWallet } from "hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName, getEndTime, shortenAddress } from "utils";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -12,6 +12,7 @@ import EditOptionModal from "./EditOptionModal";
 import SellOptionModal from "./SellOptionModal";
 import ExercisePutModal from "./ExercisePutModal";
 import toast from "react-hot-toast";
+import { getToken } from "utils/query";
 
 const ViewOptionModal = ({
   open,
@@ -25,6 +26,7 @@ const ViewOptionModal = ({
   const dispatch = useDispatch();
   const [Button, setButton] = useState<any>();
   const [block, setBlock] = useState<number>(0);
+  const [img, setImg] = useState<string>("");
   const [openEditOption, setOpenEditOption] = useState<boolean>(false);
   const [openSellOption, setOpenSellOption] = useState<boolean>(false);
   const [openExercisePut, setOpenExercisePut] = useState<boolean>(false);
@@ -32,6 +34,14 @@ const ViewOptionModal = ({
   const { collectionOptions } = useSelector(
     (state: any) => state.collectionOptions
   );
+  const selData = useCustomQuery({
+    query: getToken({
+      tokenId: data?.tokenId,
+      smartContractAddress: data?.tokenAddress,
+    }),
+    variables: {},
+  });
+
   useEffect(() => {
     if (connex) {
       setBlock(connex.thor.status["head"]["number"]);
@@ -197,6 +207,20 @@ const ViewOptionModal = ({
     exercisePut,
   ]);
 
+  useEffect(() => {
+    if (data?.type === "CALL") {
+      setImg(selData?.getToken?.assets[1]?.url);
+    } else {
+      const temp = collectionOptions?.filter((item: any) => {
+        return (
+          item?.smartContractAddress?.toLowerCase() ===
+          data?.tokenAddress?.toLowerCase()
+        );
+      });
+      setImg(temp[0]?.thumbnailImageUrl);
+    }
+  }, [selData, data, collectionOptions]);
+
   return (
     <>
       <Dialog
@@ -206,8 +230,9 @@ const ViewOptionModal = ({
         <div className='w-[270px] md:w-[720px] bg-gray-200 p-3 rounded-lg shadow-lg text-gray-600 shadow-gray-500'>
           <div className='md:flex justify-between'>
             <img
-              className='rounded-lg'
+              className='rounded-lg w-64'
               alt='loanImg'
+              src={img}
               onLoad={() => dispatch(setLoading(false))}
             />
             <div className='pt-3 md:pt-0'>
@@ -222,7 +247,9 @@ const ViewOptionModal = ({
               </p>
               <p className='md:text-3xl text-2xl mt-1 font-[700] text-black'>
                 {collectionOptions &&
-                  getCollectionName(collectionOptions, data?.tokenAddress)}
+                  getCollectionName(collectionOptions, data?.tokenAddress) +
+                    " #" +
+                    data?.tokenId}
               </p>
               <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>
                 <span className='bg-rose-700 rounded-md p-1 px-2'>
@@ -237,7 +264,7 @@ const ViewOptionModal = ({
                 <div className='md:columns-3 columns-2 md:px-3 px-2 text-base md:text-md'>
                   <div>
                     <p className='text-gray-500'>Token</p>
-                    <p>{data?.type === "Call" ? data?.tokenId : "Any"}</p>
+                    <p>{data?.type === "CALL" ? data?.tokenId : "Any"}</p>
                   </div>
                   <div>
                     <p className='text-gray-500'>Strike Price</p>
@@ -260,7 +287,7 @@ const ViewOptionModal = ({
                   <div>
                     <p className='text-gray-500'>Taker</p>
                     <p>
-                      {data?.status !== "List"
+                      {data?.status !== "LIST"
                         ? "N/A"
                         : shortenAddress(data?.taker)}
                     </p>
