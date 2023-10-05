@@ -63,8 +63,8 @@ const Market = () => {
             <table className='w-full md:text-xl text-base mt-2'>
               <thead className='uppercase backdrop-blur-2xl bg-[#0a0b1336]'>
                 <tr className='text-center'>
-                  <th className='px-3 md:py-4 py-1 text-left'>Type</th>
-                  <th className='hidden md:table-cell'>Collection</th>
+                  <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
+                  <th className='hidden md:table-cell'>Type</th>
                   <th className='hidden md:table-cell'>Id</th>
                   <th className='hidden md:table-cell'>Status</th>
                   <th className='hidden md:table-cell'>Price(VET)</th>
@@ -76,11 +76,11 @@ const Market = () => {
                   <tr
                     key={index}
                     className='border-b text-center backdrop-blur-sm'>
-                    <td className='md:py-3 px-3 text-left'>{item.type}</td>
-                    <td className='hidden md:table-cell'>
+                    <td className='md:py-3 px-3 text-left'>
                       {collectionOptions &&
                         getCollectionName(collectionOptions, item.tokenAddress)}
                     </td>
+                    <td className='hidden md:table-cell'>{item.type}</td>
                     <td className='hidden md:table-cell'>
                       {item.type === "CALL" ? item.tokenId : "Any"}
                     </td>
