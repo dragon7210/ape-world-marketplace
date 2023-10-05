@@ -1,12 +1,13 @@
 /** @format */
 
+import { setLoading } from "actions/loading";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
-import Spinner from "components/common/Spinner";
 import CreateLoanModal from "components/pawnShop/createLoanModal";
 import { useWallet, useCustomQuery } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getCollections, searchNFTs } from "utils/query";
 
@@ -16,8 +17,8 @@ const Call = () => {
   const [idOption, setIdOption] = useState<any[]>([]);
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!address) {
@@ -55,14 +56,14 @@ const Call = () => {
   });
   useEffect(() => {
     if (!apes) {
-      setLoading(true);
+      dispatch(setLoading(true));
     } else {
-      setLoading(false);
+      dispatch(setLoading(false));
       if (apes.tokens.items.length === 0) {
         toast.error("There is no NFT.");
       }
     }
-  }, [apes]);
+  }, [apes, dispatch]);
 
   useEffect(() => {
     const objectName = Object.keys(createValue);
@@ -74,7 +75,7 @@ const Call = () => {
 
   useEffect(() => {
     if (apes) {
-      setLoading(true);
+      dispatch(setLoading(true));
       const data = apes.tokens?.items.map((item: any) => {
         return {
           label: <p className='m-0 text-white'>{item.tokenId}</p>,
@@ -82,12 +83,12 @@ const Call = () => {
         };
       });
       setIdOption(data);
-      setLoading(false);
+      dispatch(setLoading(false));
       if (createValue.collectionId === "") {
         setIdOption([]);
       }
     }
-  }, [apes, createValue]);
+  }, [apes, createValue, dispatch]);
 
   useEffect(() => {
     const data = collectionOptions?.collections?.map((item: any) => {
@@ -184,7 +185,6 @@ const Call = () => {
         apes={apes}
         setOpenModal={setOpenModal}
       />
-      <Spinner loading={loading} />
     </div>
   );
 };

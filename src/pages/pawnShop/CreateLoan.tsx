@@ -1,12 +1,13 @@
 /** @format */
 
+import { setLoading } from "actions/loading";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
-import Spinner from "components/common/Spinner";
 import CreateLoanModal from "components/pawnShop/createLoanModal";
 import { useWallet, useCustomQuery } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getCollections, searchNFTs } from "utils/query";
 
@@ -16,15 +17,14 @@ const CreateLoan = () => {
   const [idOption, setIdOption] = useState<any[]>([]);
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!address) {
       navigate("/shop");
     }
   }, [address, navigate]);
-
   const collectionOptions = useCustomQuery({
     query: getCollections,
     variables: { ownerAddress: address },
@@ -53,16 +53,17 @@ const CreateLoan = () => {
       pagination: { page: 1, perPage: 1000 },
     },
   });
+
   useEffect(() => {
     if (!apes) {
-      setLoading(true);
+      dispatch(setLoading(true));
     } else {
-      setLoading(false);
+      dispatch(setLoading(false));
       if (apes.tokens.items.length === 0) {
         toast.error("There is no NFT.");
       }
     }
-  }, [apes]);
+  }, [apes, dispatch]);
 
   useEffect(() => {
     const objectName = Object.keys(createValue);
@@ -74,7 +75,7 @@ const CreateLoan = () => {
 
   useEffect(() => {
     if (apes) {
-      setLoading(true);
+      dispatch(setLoading(true));
       const data = apes.tokens?.items.map((item: any) => {
         return {
           label: <p className='m-0 text-white'>{item.tokenId}</p>,
@@ -82,12 +83,12 @@ const CreateLoan = () => {
         };
       });
       setIdOption(data);
-      setLoading(false);
+      dispatch(setLoading(false));
       if (createValue.collectionId === "") {
         setIdOption([]);
       }
     }
-  }, [apes, createValue]);
+  }, [apes, createValue, dispatch]);
 
   useEffect(() => {
     const data = collectionOptions?.collections?.map((item: any) => {
@@ -170,6 +171,7 @@ const CreateLoan = () => {
           onClick={() => {
             if (parseInt(createValue.period) >= 1) {
               setOpenModal(true);
+              dispatch(setLoading(true));
             } else {
               toast.error("The period must be greater than 1 hours.");
             }
@@ -184,7 +186,6 @@ const CreateLoan = () => {
         apes={apes}
         setOpenModal={setOpenModal}
       />
-      <Spinner loading={loading} />
     </div>
   );
 };

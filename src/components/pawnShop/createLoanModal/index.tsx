@@ -1,17 +1,18 @@
 /** @format */
 
 import { Dialog } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   approveABI,
   createLoanABI,
   getServiceFeeABI,
   mvaApproveABI,
 } from "abi/abis";
-import Spinner from "components/common/Spinner";
+import { setLoading } from "actions/loading";
 import { mva_token_address, pawn_address } from "config/contractAddress";
 import { useWallet } from "hooks";
-import { useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const CreateLoanModal = ({
   open,
@@ -27,7 +28,7 @@ const CreateLoanModal = ({
   setOpenModal: any;
 }) => {
   const { address, connex } = useWallet();
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
   const data = apes?.tokens?.items?.filter(
     (item: any) => item.tokenId === createValue.id
   );
@@ -71,12 +72,12 @@ const CreateLoanModal = ({
         .comment("Create Listing.")
         .request()
         .then(() => {
-          setLoading(false);
+          dispatch(setLoading(false));
           setOpenModal(!open);
           toast.success("Created successfully");
         })
         .catch(() => {
-          setLoading(false);
+          dispatch(setLoading(false));
           setOpenModal(!open);
           toast.error("Could not create loan.");
         });
@@ -89,14 +90,20 @@ const CreateLoanModal = ({
       open={open}
       onClose={() => {}}>
       {data?.length > 0 && (
-        <div className='bg-gray-200 w-[270px] md:w-[720px] p-3 md:flex rounded-lg shadow-lg shadow-gray-500 text-gray-600'>
+        <div className='bg-gray-200 w-[270px] md:w-[720px] md:flex p-3 rounded-lg shadow-lg shadow-gray-500 text-gray-600'>
           <img
             className='rounded-lg'
             src={data[0]?.assets[1].url}
             alt='createLoan'
-            onLoad={() => setLoading(false)}
+            onLoad={() => dispatch(setLoading(false))}
           />
-          <div className='md:ml-[20px] md:mt-6 mt-4'>
+          <div className='md:ml-[20px] mt-2 '>
+            <div className='md:flex justify-end hidden '>
+              <XMarkIcon
+                className='w-6 cursor-pointer'
+                onClick={() => setOpenModal(!open)}
+              />
+            </div>
             <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
               Rank {data[0]?.rank}
             </span>
@@ -110,8 +117,8 @@ const CreateLoanModal = ({
               <button
                 className='bg-[#FF4200] py-1 rounded-lg mr-5 w-24'
                 onClick={() => {
+                  dispatch(setLoading(true));
                   handleCreate();
-                  setLoading(true);
                 }}>
                 CONFIRM
               </button>
@@ -124,7 +131,6 @@ const CreateLoanModal = ({
           </div>
         </div>
       )}
-      <Spinner loading={loading} />
     </Dialog>
   );
 };

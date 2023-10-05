@@ -44,3 +44,6 @@ export const months = [
   "Nov",
   "Dec",
 ];
+
+export const optionTypes = ["CALL", "PUT"];
+export const optionStatus = ["LIST", "OPEN", "CLOSED", "CANCELED"];

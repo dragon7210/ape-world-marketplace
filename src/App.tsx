@@ -3,23 +3,19 @@
 import Toast from "components/common/Toast";
 import ContextProviders from "contexts";
 import { BrowserRouter } from "react-router-dom";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import MainRoutes from "routes";
+import { useSelector } from "react-redux";
+import Spinner from "components/common/Spinner";
 
 function App() {
-  const client = new ApolloClient({
-    uri: "https://mainnet.api.worldofv.art/graphql",
-    cache: new InMemoryCache(),
-  });
-
+  const { loading } = useSelector((state: any) => state.loading);
   return (
     <ContextProviders>
-      <ApolloProvider client={client}>
-        <BrowserRouter>
-          <MainRoutes />
-          <Toast />
-        </BrowserRouter>
-      </ApolloProvider>
+      <BrowserRouter>
+        <MainRoutes />
+        <Toast />
+        <Spinner loading={loading} />
+      </BrowserRouter>
     </ContextProviders>
   );
 }

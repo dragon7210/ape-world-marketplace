@@ -7,19 +7,26 @@ import { getCollections } from "utils/query";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setCollectionOptions } from "actions/collections";
+import { setLoading } from "actions/loading";
 
 import "./apeworld.css";
 
 const ApeWorld = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const collectionOptions = useCustomQuery({
     query: getCollections,
     variables: {},
   });
 
   useEffect(() => {
-    dispatch(setCollectionOptions(collectionOptions));
+    if (collectionOptions) {
+      dispatch(setCollectionOptions(collectionOptions));
+      dispatch(setLoading(false));
+    } else {
+      dispatch(setLoading(true));
+    }
   }, [dispatch, collectionOptions]);
 
   return (

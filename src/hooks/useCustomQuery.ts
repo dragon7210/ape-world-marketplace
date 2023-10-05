@@ -1,6 +1,12 @@
 /** @format */
 
-import { useQuery } from "@apollo/client";
+import { useCallback, useEffect, useState } from "react";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+
+export const client = new ApolloClient({
+  uri: "https://mainnet.api.worldofv.art/graphql",
+  cache: new InMemoryCache(),
+});
 
 export const useCustomQuery = ({
   query,
@@ -9,14 +15,24 @@ export const useCustomQuery = ({
   query: any;
   variables: any;
 }) => {
-  const { data, error, loading } = useQuery(query, {
-    variables,
-  });
-  if (loading) {
-    return null;
-  }
-  if (error) {
-    return `Error+${error}`;
-  }
+  const [data, setData] = useState<any>()
+  const update = useCallback(async () => {
+    if (!client || !query) {
+      return
+    }
+    try {
+      const response = await client.query({
+        query,
+        variables,
+      })
+      setData(response.data)
+    } catch (err) {
+    }
+  }, [query, variables])
+
+  useEffect(() => {
+    update()
+  }, [update])
+
   return data;
 };
