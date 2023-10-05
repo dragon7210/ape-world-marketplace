@@ -97,7 +97,7 @@ const CreateLoanModal = ({
             alt='createLoan'
             onLoad={() => dispatch(setLoading(false))}
           />
-          <div className='md:ml-[20px] mt-2 '>
+          <div className='md:ml-5 mt-2 '>
             <div className='md:flex justify-end hidden '>
               <XMarkIcon
                 className='w-6 cursor-pointer'

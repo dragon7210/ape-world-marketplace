@@ -111,7 +111,6 @@ export const getAllOptionsABI = {
   stateMutability: "view",
   type: "function",
 };
-
 export const getOptionABI = {
   inputs: [{ internalType: "bytes32", name: "_hash", type: "bytes32" }],
   name: "getOption",
@@ -140,5 +139,89 @@ export const getOptionABI = {
     },
   ],
   stateMutability: "view",
+  type: "function",
+};
+export const deleteOptionABI = {
+  inputs: [{ internalType: "bytes32", name: "_hash", type: "bytes32" }],
+  name: "deleteOption",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function",
+};
+export const editOptionPriceABI = {
+  inputs: [
+    { internalType: "bytes32", name: "_hash", type: "bytes32" },
+    { internalType: "uint256", name: "_price", type: "uint256" },
+  ],
+  name: "editOptionPrice",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function",
+};
+export const sellOptionABI = {
+  inputs: [
+    { internalType: "bytes32", name: "_hash", type: "bytes32" },
+    { internalType: "uint256", name: "_price", type: "uint256" },
+  ],
+  name: "sellOption",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function",
+};
+export const getMarketFeeABI = {
+  inputs: [],
+  name: "getMarketFee",
+  outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+  stateMutability: "view",
+  type: "function",
+};
+export const buyOptionABI = {
+  inputs: [{ internalType: "bytes32", name: "_hash", type: "bytes32" }],
+  name: "buyOption",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function",
+};
+export const exerciseCallABI = {
+  inputs: [{ internalType: "bytes32", name: "_hash", type: "bytes32" }],
+  name: "exerciseCall",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function",
+};
+export const exercisePutABI = {
+  inputs: [
+    { internalType: "bytes32", name: "_hash", type: "bytes32" },
+    { internalType: "address", name: "_tokenAddress", type: "address" },
+    { internalType: "uint256", name: "_tokenId", type: "uint256" },
+  ],
+  name: "exercisePut",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function",
+};
+export const createCallABI = {
+  inputs: [
+    { internalType: "address", name: "_tokenAddress", type: "address" },
+    { internalType: "uint256", name: "_tokenId", type: "uint256" },
+    { internalType: "uint256", name: "_strike", type: "uint256" },
+    { internalType: "uint256", name: "_price", type: "uint256" },
+    { internalType: "uint256", name: "_duration", type: "uint256" },
+  ],
+  name: "createCall",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function",
+};
+export const createPutABI = {
+  inputs: [
+    { internalType: "address", name: "_tokenAddress", type: "address" },
+    { internalType: "uint256", name: "_strike", type: "uint256" },
+    { internalType: "uint256", name: "_price", type: "uint256" },
+    { internalType: "uint256", name: "_duration", type: "uint256" },
+  ],
+  name: "createPut",
+  outputs: [],
+  stateMutability: "payable",
   type: "function",
 };

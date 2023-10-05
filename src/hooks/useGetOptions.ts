@@ -38,6 +38,7 @@ export const useGetOptions = () => {
             owner: _item["decoded"]["0"][8],
             taker: _item["decoded"]["0"][9],
             takeable: _item["decoded"]["0"][10],
+            itemId: optionAddress.decoded[0][i],
           });
         }
         const _myItemList = _itemList.filter(

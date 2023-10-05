@@ -3,7 +3,7 @@
 import { setLoading } from "actions/loading";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
-import CreateLoanModal from "components/pawnShop/createLoanModal";
+import CreateLoanModal from "components/pawnShop/CreateLoanModal";
 import { useWallet, useCustomQuery } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";

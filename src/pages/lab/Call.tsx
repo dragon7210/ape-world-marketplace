@@ -3,7 +3,7 @@
 import { setLoading } from "actions/loading";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
-import CreateLoanModal from "components/pawnShop/createLoanModal";
+import CreateCallOptionModal from "components/lab/CreateCallOptionModal";
 import { useWallet, useCustomQuery } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -16,13 +16,13 @@ const Call = () => {
   const [activeButton, setActiveButton] = useState(false);
   const [idOption, setIdOption] = useState<any[]>([]);
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!address) {
-      navigate("/shop");
+      navigate("/lab");
     }
   }, [address, navigate]);
 
@@ -159,7 +159,7 @@ const Call = () => {
         <InputValue
           label='Duration'
           name='duration'
-          placeholder='day'
+          placeholder='hour'
           value={createValue.duration}
           onChange={handleChange}
         />
@@ -169,8 +169,9 @@ const Call = () => {
           } `}
           disabled={!activeButton}
           onClick={() => {
-            if (parseInt(createValue.period) >= 1) {
-              setOpenModal(true);
+            if (parseInt(createValue.duration) >= 1) {
+              setOpen(true);
+              dispatch(setLoading(true));
             } else {
               toast.error("The period must be greater than 1 hours.");
             }
@@ -178,12 +179,12 @@ const Call = () => {
           CREATE COVERED CALL
         </button>
       </div>
-      <CreateLoanModal
-        open={openModal}
-        collections={collectionOptions?.collections}
+      <CreateCallOptionModal
+        open={open}
         createValue={createValue}
+        setOpen={setOpen}
         apes={apes}
-        setOpenModal={setOpenModal}
+        collections={collectionOptions?.collections}
       />
     </div>
   );

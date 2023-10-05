@@ -4,7 +4,7 @@ import { useGetLoan, useWallet } from "hooks";
 import { useEffect, useState } from "react";
 import ViewImg from "assets/svg/apeworld/view.svg";
 import { statusArray } from "constant";
-import ViewLoanModal from "components/pawnShop/viewLoanModal";
+import ViewLoanModal from "components/pawnShop/ViewLoanModal";
 import Pagination from "components/common/Pagination";
 import { getCollectionName, getEndTime } from "utils";
 import { useDispatch, useSelector } from "react-redux";

@@ -5,7 +5,7 @@ import Pagination from "components/common/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName } from "utils";
 import { useGetOptions } from "hooks";
-import ViewOptionModal from "components/lab/viewOptionModal";
+import ViewOptionModal from "components/lab/ViewOptionModal";
 import ViewImg from "assets/svg/apeworld/view.svg";
 import { setLoading } from "actions/loading";
 
@@ -110,7 +110,7 @@ const Market = () => {
           <Pagination data={data} selPage={selPage} setSelPage={setSelPage} />
         </>
       ) : (
-        <p className='mt-5 text-2xl'>No Loan Data</p>
+        <p className='mt-5 text-2xl'>No Options Data</p>
       )}
       <ViewOptionModal
         open={openModal}

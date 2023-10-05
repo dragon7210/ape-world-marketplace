@@ -164,7 +164,7 @@ const ViewLoanModal = ({
             className='bg-[#FF0000] py-1 rounded-lg w-24'
             onClick={() => {
               removeItem({ id: loanSel?.itemId });
-              setLoading(true);
+              dispatch(setLoading(true));
             }}>
             REMOVE
           </button>
@@ -175,7 +175,7 @@ const ViewLoanModal = ({
             className='bg-[#FF0000] py-1 rounded-lg w-24'
             onClick={() => {
               grantLoan({ id: loanSel?.itemId, loanValue: loanSel?.loanValue });
-              setLoading(true);
+              dispatch(setLoading(true));
             }}>
             GRANT
           </button>
@@ -189,7 +189,7 @@ const ViewLoanModal = ({
             className='bg-[#FF0000] py-1 rounded-lg w-24'
             onClick={() => {
               settleLoan(loanSel);
-              setLoading(true);
+              dispatch(setLoading(true));
             }}>
             SETTLE
           </button>
@@ -203,7 +203,7 @@ const ViewLoanModal = ({
               if (date) {
                 if (new Date(date) < new Date()) {
                   claimLoan({ id: loanSel?.itemId });
-                  setLoading(true);
+                  dispatch(setLoading(true));
                 } else {
                   toast.error("Please wait until end time");
                 }
@@ -219,6 +219,7 @@ const ViewLoanModal = ({
   }, [
     loanSel,
     address,
+    dispatch,
     claimLoan,
     grantLoan,
     settleLoan,
@@ -294,7 +295,6 @@ const ViewLoanModal = ({
               </div>
             </div>
           </div>
-
           <div className='flex md:text-lg text-base justify-end mt-2 text-gray-100'>
             {Button}
             <button
