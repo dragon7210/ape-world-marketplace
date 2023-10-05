@@ -12,6 +12,7 @@ import {
 import { useWallet } from "hooks";
 import { shortenAddress } from "utils";
 import { emojiAvatarForAddress } from "utils/emojiAvatar";
+import WalletImage from "assets/png/header/wallet.png";
 import { ONE_ETH } from "config/chain";
 
 export const ConnectButton = () => {
@@ -61,21 +62,28 @@ export const ConnectButton = () => {
       <button
         type='button'
         disabled={isConnecting}
-        onClick={!isConnected ? handleConnect : () => setIsOpen(true)}
-        className='md:w-32 w-24 flex justify-center items-center md:py-[6px] py-1 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 rounded-xl md:text-xl text-base text-white border-2'>
+        onClick={!isConnected ? handleConnect : () => setIsOpen(true)}>
         {isConnecting ? (
-          "Connecting ..."
+          <div className='relative'>
+            <img className='md:w-40 w-24' src={WalletImage} alt='wallet' />
+            <p className='absolute md:top-[6px] md:left-8 md:text-3xl text-xl top-[2px] left-[14px] text-gray-100'>
+              isConnecting
+            </p>
+          </div>
         ) : isConnected ? (
-          <div className='flex items-center justify-center gap-2'>
-            <div
-              className='w-6 h-6 rounded-full flex justify-center items-center text-sm bg-opacity-70'
-              style={{ backgroundColor: avatar.color }}>
-              {avatar.emoji}
-            </div>
-            {shortenAddress(address)}
+          <div className='relative'>
+            <img className='md:w-40 w-24' src={WalletImage} alt='wallet' />
+            <p className='absolute md:top-[6px] md:left-8 md:text-3xl text-xl top-[2px] left-4 text-gray-100'>
+              {shortenAddress(address)}
+            </p>
           </div>
         ) : (
-          "Connect"
+          <div className='relative'>
+            <img className='md:w-40 w-24' src={WalletImage} alt='wallet' />
+            <p className='absolute md:top-[6px] md:left-12 md:text-3xl text-xl top-[2px] left-6 text-gray-100'>
+              Connect
+            </p>
+          </div>
         )}
       </button>
       <Dialog

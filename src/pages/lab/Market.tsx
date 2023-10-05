@@ -97,6 +97,7 @@ const Market = () => {
                           onClick={() => {
                             setOptionSel(index);
                             setOpenModal(true);
+                            dispatch(setLoading(true));
                           }}>
                           <img src={ViewImg} alt='view' width={25} />
                         </button>

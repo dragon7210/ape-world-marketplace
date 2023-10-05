@@ -1,8 +1,8 @@
 /** @format */
 
 import { ConnectButton } from "components/common/ConnectButton";
-import TwitterImage from "assets/svg/header/twitter.svg";
-import DiscordImage from "assets/svg/header/discord.svg";
+import TwitterImage from "assets/png/header/twiter.png";
+import DiscordImage from "assets/png/header/discord.png";
 import FaceImage from "assets/svg/header/face.svg";
 import { useNavigate } from "react-router-dom";
 import { Bars4Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -13,13 +13,13 @@ const Header = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
   return (
-    <div className='w-full h-24 bg-black shadow-lg backdrop-blur-2xl flex justify-between items-center px-[5%]'>
-      <div className='flex w-36 items-center'>
+    <div className='w-full h-24 bg-[#00000050] fixed shadow-lg backdrop-blur-2xl flex justify-between items-center px-[5%]'>
+      <div className='flex items-center'>
         <a href='https://twitter.com/madvapesnft'>
-          <img alt='twitter' src={TwitterImage} />
+          <img alt='twitter' src={TwitterImage} className='w-12 md:w-16' />
         </a>
         <a href='https://discord.gg/madvapesnft'>
-          <img alt='discord' src={DiscordImage} />
+          <img alt='discord' src={DiscordImage} className='w-12 md:w-16' />
         </a>
       </div>
       <div className='flex text-gray-200 items-center text-2xl uppercase'>
@@ -38,7 +38,7 @@ const Header = () => {
       <div className='flex items-center'>
         <ConnectButton />
         <Bars4Icon
-          className='md:hidden w-12 cursor-pointer px-2'
+          className='md:hidden w-8 cursor-pointer'
           color='white'
           onClick={() => setOpen(!open)}
         />
@@ -47,7 +47,7 @@ const Header = () => {
         open={open}
         onClose={() => {}}
         className='fixed inset-0 tracking-widest transition-all text-gray-500 text-3xl z-30'>
-        <div className='bg-black w-full h-[100vh] p-[5%]'>
+        <div className='bg-[#000000ee] w-full h-[100vh] p-[5%]'>
           <div className='flex justify-end'>
             <XMarkIcon
               onClick={() => setOpen(!open)}

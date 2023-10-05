@@ -7,30 +7,32 @@ import Market from "./Market";
 import Call from "./Call";
 import Put from "./Put";
 import LabImg from "assets/png/lab/lab.png";
+import BorderImage from "assets/png/header/border.png";
 
 const Lab = () => {
   const { pathname } = useLocation();
   const { address } = useWallet();
   const navigate = useNavigate();
   return (
-    <div className='pawnshop text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-8 pt-4'>
-      <div className='md:mb-4 mb-2'>
-        <span className='md:text-[70px] text-5xl tracking-widest ml-5 text-center md:text-left bg-green-500 px-2 rounded-lg'>
+    <div className='bg-[#2260a9] pt-28 text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-32 min-h-[100vh]'>
+      <div className='md:mb-4 mb-2 flex justify-center'>
+        <span className='text-5xl tracking-widest text-center bg-[#00000050] w-[300px] py-2 rounded-[40px]'>
           LAB
         </span>
       </div>
-      <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] md:text-5xl text-2xl relative z-20'>
+      <div className='md:rounded-3xl rounded-lg bg-[#20202050] md:text-4xl text-2xl relative z-20'>
         <div className='flex text-center'>
           <p
-            className={`w-[33%] md:pt-5 md:pb-3 pt-2 pb-1 cursor-pointer md:rounded-md rounded-sm tracking-widest ${
-              pathname === "/lab" ? "bg-[#FF4200]" : "bg-gray-700"
+            className={`w-[33%] md:pt-5 md:pb-3 pt-2 pb-1 cursor-pointer md:rounded-md rounded-sm ${
+              pathname === "/lab" ? "text-gray-100" : "text-gray-900"
             }`}
             onClick={() => navigate("/lab")}>
             OPTIONS MARKET
+            {pathname === "/lab" && <img src={BorderImage} alt='borderImg' />}
           </p>
           <p
-            className={`w-[34%] md:pt-5 cursor-pointer md:pb-3 pt-2 pb-1 mx-1 tracking-widest  md:rounded-md rounded-sm ${
-              pathname === "/lab/call" ? "bg-[#FF4200]" : "bg-gray-700"
+            className={`w-[34%] md:pt-5 cursor-pointer md:pb-3 pt-2 pb-1 mx-1  md:rounded-md rounded-sm ${
+              pathname === "/lab/call" ? "text-gray-100" : "text-gray-900"
             }`}
             onClick={() => {
               if (address) {
@@ -40,10 +42,13 @@ const Lab = () => {
               }
             }}>
             WRITE A CALL OPTION
+            {pathname === "/lab/call" && (
+              <img src={BorderImage} alt='borderImg' />
+            )}
           </p>
           <p
-            className={`w-[33%] md:pt-5 cursor-pointer md:pb-3 pt-2 pb-1 md:rounded-md rounded-sm tracking-widest ${
-              pathname === "/lab/put" ? "bg-[#FF4200]" : "bg-gray-700"
+            className={`w-[33%] md:pt-5 cursor-pointer md:pb-3 pt-2 pb-1 md:rounded-md rounded-sm ${
+              pathname === "/lab/put" ? "text-gray-100" : "text-gray-900"
             }`}
             onClick={() => {
               if (address) {
@@ -53,6 +58,9 @@ const Lab = () => {
               }
             }}>
             WRITE A PUT OPTION
+            {pathname === "/lab/put" && (
+              <img src={BorderImage} alt='borderImg' />
+            )}
           </p>
         </div>
         {pathname === "/lab" ? (
