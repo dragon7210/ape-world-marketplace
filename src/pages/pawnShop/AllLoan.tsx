@@ -53,7 +53,7 @@ const AllLoan = () => {
 
   return (
     <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[60vh]'>
-      <div className='flex justify-between items-center border-b-2 pb-1'>
+      <div className='flex justify-between items-center md:mt-3 border-b-2 pb-1'>
         <p className='md:text-4xl text-xl'>
           Here are{" "}
           <span className='text-[#FF4200]'>

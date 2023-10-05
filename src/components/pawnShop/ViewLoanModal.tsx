@@ -246,12 +246,14 @@ const ViewLoanModal = ({
               onClick={() => setOpenModal(!open)}
             />
           </div>
-          <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
-            Rank {selData?.getToken?.rank}
-          </span>
-          <p className='md:text-3xl text-2xl mt-1 font-[700] text-black'>
-            {selData?.getToken?.name}
-          </p>
+          <div className='flex justify-between items-center '>
+            <p className='md:text-3xl text-2xl mt-1 font-[700] text-black'>
+              {selData?.getToken?.name}
+            </p>
+            <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
+              Rank {selData?.getToken?.rank}
+            </span>
+          </div>
           <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>
             <span className='bg-rose-700 rounded-md p-1 px-2'>
               Item owner By {shortenAddress(loanSel?.owner)}

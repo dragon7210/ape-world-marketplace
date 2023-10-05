@@ -242,15 +242,17 @@ const ViewOptionModal = ({
                   onClick={() => setOpenModal(!open)}
                 />
               </div>
-              <p className='md:text-xl text-2xl font-[700] text-black'>
-                {data?.type}
-              </p>
-              <p className='md:text-3xl text-2xl mt-1 font-[700] text-black'>
-                {collectionOptions &&
-                  getCollectionName(collectionOptions, data?.tokenAddress) +
-                    " #" +
-                    data?.tokenId}
-              </p>
+              <div className='flex justify-between items-center'>
+                <p className='md:text-3xl text-2xl mt-1 font-[700] text-black'>
+                  {collectionOptions &&
+                    getCollectionName(collectionOptions, data?.tokenAddress) +
+                      " #" +
+                      data?.tokenId}
+                </p>
+                <p className='md:text-xl text-2xl font-[700] text-gray-600 bg-yellow-200 px-2'>
+                  {data?.type}
+                </p>
+              </div>
               <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>
                 <span className='bg-rose-700 rounded-md p-1 px-2'>
                   Item owner By {shortenAddress(data?.owner)}

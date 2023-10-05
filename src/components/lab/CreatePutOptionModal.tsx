@@ -99,7 +99,7 @@ const CreatePutOptionModal = ({
             onLoad={() => dispatch(setLoading(false))}
           />
         )}
-        <div className='md:ml-3 mt-2 '>
+        <div className='md:ml-3 mt-2 md:mt-0'>
           <div className='md:flex justify-end hidden '>
             <XMarkIcon
               className='w-6 cursor-pointer'
@@ -116,16 +116,16 @@ const CreatePutOptionModal = ({
           </p>
           <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
             <p className='md:text-xltext-sm'>Details</p>
-            <div className='md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md'>
-              <div>
+            <div className='md:columns-3 columns-1 md:px-5 px-2 text-base md:text-md'>
+              <div className='flex justify-between md:inline'>
                 <p className='text-gray-500'>Strike Price</p>
                 <p>{createValue?.strikePrice} Vet</p>
               </div>
-              <div>
+              <div className='flex justify-between md:inline'>
                 <p className='text-gray-500'>Call Price</p>
                 <p>{createValue?.putPrice} Vet</p>
               </div>
-              <div>
+              <div className='flex justify-between md:inline'>
                 <p className='text-gray-500'>Duration</p>
                 <p>{createValue?.duration} H</p>
               </div>

@@ -104,34 +104,36 @@ const CreateCallOptionModal = ({
             alt='createCall'
             onLoad={() => dispatch(setLoading(false))}
           />
-          <div className='md:ml-3 mt-2 '>
+          <div className='md:ml-3 mt-2 md:mt-0'>
             <div className='md:flex justify-end hidden '>
               <XMarkIcon
                 className='w-6 cursor-pointer'
                 onClick={() => setOpen(!open)}
               />
             </div>
-            <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
-              Rank {data[0]?.rank}
-            </span>
-            <p className='md:text-3xl text-xl mt-1 font-[700] text-black'>
-              {data[0]?.name}
-            </p>
+            <div className='flex justify-between items-center '>
+              <p className='md:text-3xl text-xl mt-1 font-[700] text-black'>
+                {data[0]?.name}
+              </p>
+              <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
+                Rank {data[0]?.rank}
+              </span>
+            </div>
             <p className='md:text-3xl text-lg mt-2 min-w-[256px] text-center'>
               You are about to create a Covered Call.
             </p>
             <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
               <p className='md:text-xltext-sm'>Details</p>
-              <div className='md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md'>
-                <div>
+              <div className='md:columns-3 columns-1 md:px-5 px-2 text-base md:text-md'>
+                <div className='flex justify-between md:inline'>
                   <p className='text-gray-500'>Strike Price</p>
                   <p>{createValue?.strikePrice} Vet</p>
                 </div>
-                <div>
+                <div className='flex justify-between md:inline'>
                   <p className='text-gray-500'>Call Price</p>
                   <p>{createValue?.callPrice} Vet</p>
                 </div>
-                <div>
+                <div className='flex justify-between md:inline'>
                   <p className='text-gray-500'>Duration</p>
                   <p>{createValue?.duration} H</p>
                 </div>
