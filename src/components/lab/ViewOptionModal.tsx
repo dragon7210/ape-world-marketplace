@@ -7,11 +7,11 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { options_address } from "config/contractAddress";
 import { buyOptionABI, deleteOptionABI, exerciseCallABI } from "abi/abis";
-import toast from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
 import EditOptionModal from "./EditOptionModal";
 import SellOptionModal from "./SellOptionModal";
 import ExercisePutModal from "./ExercisePutModal";
+import toast from "react-hot-toast";
 
 const ViewOptionModal = ({
   open,
@@ -22,12 +22,12 @@ const ViewOptionModal = ({
   setOpenModal: any;
   data: any;
 }) => {
+  const dispatch = useDispatch();
   const [Button, setButton] = useState<any>();
   const [block, setBlock] = useState<number>(0);
   const [openEditOption, setOpenEditOption] = useState<boolean>(false);
   const [openSellOption, setOpenSellOption] = useState<boolean>(false);
   const [openExercisePut, setOpenExercisePut] = useState<boolean>(false);
-  const dispatch = useDispatch();
   const { connex, address } = useWallet();
   const { collectionOptions } = useSelector(
     (state: any) => state.collectionOptions

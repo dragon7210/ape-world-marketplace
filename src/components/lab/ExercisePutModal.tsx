@@ -22,6 +22,7 @@ const ExercisePutModal = ({
   const dispatch = useDispatch();
   const [collection, setCollection] = useState<string>("");
   const { connex } = useWallet();
+
   const handleOption = () => {
     if (connex) {
       const namedMethod = connex.thor

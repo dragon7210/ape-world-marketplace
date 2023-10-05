@@ -83,6 +83,7 @@ const CreatePutOptionModal = ({
         });
     }
   };
+
   const data = apes?.tokens?.items?.filter(
     (item: any) => item.tokenId === createValue.id
   );

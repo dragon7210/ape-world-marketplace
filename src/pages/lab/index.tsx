@@ -22,14 +22,14 @@ const Lab = () => {
       <div className='md:rounded-3xl rounded-lg bg-[#7a7c9e36] md:text-5xl text-2xl relative z-20'>
         <div className='flex text-center'>
           <p
-            className={`w-[33%] md:pt-5 md:pb-3 pt-2 pb-1 cursor-pointer md:rounded-md border-2 rounded-sm tracking-widest ${
+            className={`w-[33%] md:pt-5 md:pb-3 pt-2 pb-1 cursor-pointer md:rounded-md rounded-sm tracking-widest ${
               pathname === "/lab" ? "bg-[#FF4200]" : "bg-gray-700"
             }`}
             onClick={() => navigate("/lab")}>
             OPTIONS MARKET
           </p>
           <p
-            className={`w-[34%] md:pt-5 cursor-pointer md:pb-3 pt-2 pb-1 mx-1 tracking-widest border-2  md:rounded-md rounded-sm ${
+            className={`w-[34%] md:pt-5 cursor-pointer md:pb-3 pt-2 pb-1 mx-1 tracking-widest  md:rounded-md rounded-sm ${
               pathname === "/lab/call" ? "bg-[#FF4200]" : "bg-gray-700"
             }`}
             onClick={() => {
@@ -42,7 +42,7 @@ const Lab = () => {
             WRITE A CALL OPTION
           </p>
           <p
-            className={`w-[33%] md:pt-5 cursor-pointer md:pb-3 pt-2 pb-1 md:rounded-md rounded-sm tracking-widest border-2 ${
+            className={`w-[33%] md:pt-5 cursor-pointer md:pb-3 pt-2 pb-1 md:rounded-md rounded-sm tracking-widest ${
               pathname === "/lab/put" ? "bg-[#FF4200]" : "bg-gray-700"
             }`}
             onClick={() => {

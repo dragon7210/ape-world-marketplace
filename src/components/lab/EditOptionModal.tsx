@@ -3,7 +3,7 @@
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useWallet } from "hooks";
 import { options_address } from "config/contractAddress";
@@ -23,6 +23,10 @@ const EditOptionModal = ({
   const dispatch = useDispatch();
   const [optionPrice, setOptionPrice] = useState<string>("");
   const { connex } = useWallet();
+
+  useEffect(() => {
+    setOptionPrice((Number(data?.optionPrice) / 10 ** 18).toString());
+  }, [data]);
 
   const handleOption = () => {
     if (connex) {
