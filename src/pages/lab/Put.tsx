@@ -136,8 +136,8 @@ const Put = () => {
           onChange={handleChange}
         />
         <button
-          className={`w-full md:text-2xl text-lg border-2 border-[#FF4200] rounded-[99px] md:py-2 py-1 my-4 ${
-            activeButton && "bg-[#FF4200]"
+          className={`w-full md:text-2xl text-lg border-2 border-[#006ec9] rounded-[99px] md:py-2 py-1 my-4 ${
+            activeButton && "bg-[#006ec9]"
           } `}
           disabled={!activeButton}
           onClick={() => {

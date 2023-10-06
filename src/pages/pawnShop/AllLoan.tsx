@@ -63,14 +63,14 @@ const AllLoan = () => {
         <div className='flex lg:text-xl text-base'>
           <button
             className={`lg:px-5 lg:py-2 px-2 rounded-l-[99px] ${
-              selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
+              selector ? "bg-[#ff4200]" : "bg-[#c43300]"
             }`}
             onClick={() => setSelector(true)}>
             List All Items
           </button>
           <button
             className={`lg:px-5 lg:py-2 px-2 rounded-r-[99px] ${
-              !selector ? "bg-[#FF4200]" : "bg-[#F67D53]"
+              !selector ? "bg-[#ff4200]" : "bg-[#c43300]"
             }`}
             onClick={() => setSelector(false)}>
             List My Items
@@ -122,7 +122,7 @@ const AllLoan = () => {
                     <td>
                       <div className='flex items-center justify-center md:py-1 py-[1px]'>
                         <button
-                          className='hover:bg-[#FF4200] bg-[#F67D53] md:p-[5px] p-[2px] rounded-[99px]'
+                          className='hover:bg-[#ff4200] bg-[#c43300] md:p-[5px] p-[2px] rounded-[99px]'
                           onClick={() => {
                             setLoanSel(index);
                             dispatch(setLoading(true));
