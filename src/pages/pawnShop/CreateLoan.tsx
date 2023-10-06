@@ -118,7 +118,7 @@ const CreateLoan = () => {
   };
 
   return (
-    <div className='flex justify-center items-center min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)]'>
+    <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] flex justify-center items-center rounded-xl'>
       <div className='bg-[#0a0b1336] md:rounded-3xl rounded-lg m-6 px-2 py-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
         <InputSelect
           label='Collection'

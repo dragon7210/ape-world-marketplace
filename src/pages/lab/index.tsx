@@ -14,8 +14,8 @@ const Lab = () => {
   const { address } = useWallet();
   const navigate = useNavigate();
   return (
-    <div className='bg-[#2260a9] text-gray-200 md:px-[10%] lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh]'>
-      <div className='md:rounded-3xl rounded-lg md:text-5xl text-lg relative font-700 z-20'>
+    <div className='bg-gradient-to-t from-[#003366] to-[#3366cc] text-gray-200 md:px-[10%] lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh]'>
+      <div className='md:text-5xl text-lg relative font-700 z-20'>
         <div className='flex text-center'>
           <div className={`w-[33%]`} onClick={() => navigate("/lab")}>
             <p
@@ -24,7 +24,9 @@ const Lab = () => {
               }`}>
               OPTIONS MARKET
             </p>
-            {pathname === "/lab" && <img src={BorderImage} alt='borderImg' />}
+            {pathname === "/lab" && (
+              <img className='w-full' src={BorderImage} alt='borderImg' />
+            )}
           </div>
           <div
             className={`w-[34%]`}
@@ -42,7 +44,7 @@ const Lab = () => {
               WRITE A CALL OPTION
             </p>
             {pathname === "/lab/call" && (
-              <img src={BorderImage} alt='borderImg' />
+              <img className='w-full' src={BorderImage} alt='borderImg' />
             )}
           </div>
           <div
@@ -61,7 +63,7 @@ const Lab = () => {
               WRITE A PUT OPTION
             </p>
             {pathname === "/lab/put" && (
-              <img src={BorderImage} alt='borderImg' />
+              <img className='w-full' src={BorderImage} alt='borderImg' />
             )}
           </div>
         </div>

@@ -52,7 +52,7 @@ const AllLoan = () => {
   };
 
   return (
-    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)]'>
+    <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl'>
       <div className='flex justify-between items-center md:mt-3 border-b-2 pb-1'>
         <p className='md:text-4xl text-xl'>
           Here are{" "}
@@ -81,7 +81,7 @@ const AllLoan = () => {
         <>
           <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
             <table className='w-full md:text-xl text-base mt-2'>
-              <thead className='uppercase backdrop-blur-2xl bg-[#0a0b1336]'>
+              <thead className='uppercase backdrop-blur-xl bg-[#0a0b1336]'>
                 <tr className='text-center'>
                   <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
                   <th className='hidden md:table-cell'>Value (Vet)</th>
@@ -95,7 +95,7 @@ const AllLoan = () => {
                 {pageData.map((item: any, index: number) => (
                   <tr
                     key={index}
-                    className='border-b text-center backdrop-blur-xl'>
+                    className='border-b text-center backdrop-blur-sm'>
                     <td className='md:py-3 px-3 text-left'>
                       {collectionOptions &&
                         getCollectionName(
