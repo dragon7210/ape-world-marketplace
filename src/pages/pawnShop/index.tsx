@@ -30,8 +30,8 @@ const PawnShop = () => {
         <div className='flex text-center'>
           <div className={`w-[50%]`} onClick={() => navigate("/shop")}>
             <p
-              className={`mb-2 cursor-pointer border-r-2 border-gray-900 ${
-                pathname === "/shop" ? "text-gray-100" : "text-gray-900"
+              className={`mb-2 cursor-pointer border-r-2 border-[#762e1550] ${
+                pathname === "/shop" ? "text-gray-100" : "text-[#491806]"
               }`}>
               ALL LOANS
             </p>
@@ -50,7 +50,7 @@ const PawnShop = () => {
             }}>
             <p
               className={` mb-2 cursor-pointer ${
-                pathname === "/shop/create" ? "text-gray-100" : "text-gray-900"
+                pathname === "/shop/create" ? "text-gray-100" : "text-[#491806]"
               }`}>
               CREATE LOAN
             </p>
