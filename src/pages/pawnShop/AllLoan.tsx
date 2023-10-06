@@ -60,16 +60,16 @@ const AllLoan = () => {
             {selector ? "All" : "My"} Items
           </span>
         </p>
-        <div className='flex lg:text-xl text-base'>
+        <div className='flex md:text-2xl text-base'>
           <button
-            className={`lg:px-5 lg:py-2 px-2 rounded-l-[99px] ${
+            className={`lg:px-5 md:py-1 px-2 rounded-l-[99px] ${
               selector ? "bg-[#ff4200]" : "bg-[#c43300]"
             }`}
             onClick={() => setSelector(true)}>
             List All Items
           </button>
           <button
-            className={`lg:px-5 lg:py-2 px-2 rounded-r-[99px] ${
+            className={`lg:px-5 md:py-1 px-2 rounded-r-[99px] ${
               !selector ? "bg-[#ff4200]" : "bg-[#c43300]"
             }`}
             onClick={() => setSelector(false)}>
