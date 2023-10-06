@@ -262,7 +262,7 @@ const ViewOptionModal = ({
                   {data?.takeable ? "Available" : "Sold"}
                 </span>
               </div>
-              <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
+              <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-1 rounded-xl'>
                 <p className='md:text-xltext-sm'>Details</p>
                 <div className='md:columns-3 columns-2 md:px-3 px-2 text-base md:text-md'>
                   <div>
@@ -298,7 +298,7 @@ const ViewOptionModal = ({
                 </div>
               </div>
 
-              <div className='flex md:text-lg text-base justify-end mt-2 text-gray-100'>
+              <div className='flex md:text-lg text-base justify-end mt-1 text-gray-100'>
                 <button
                   className='bg-[#FF4200] py-1 rounded-lg ml-5 w-24'
                   onClick={() => {

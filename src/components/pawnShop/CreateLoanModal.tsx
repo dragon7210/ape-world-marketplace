@@ -90,7 +90,7 @@ const CreateLoanModal = ({
       open={open}
       onClose={() => {}}>
       {data?.length > 0 && (
-        <div className='bg-gray-200 w-[270px] md:w-[720px] md:flex p-3 rounded-lg shadow-lg shadow-gray-500 text-gray-600'>
+        <div className='bg-gray-200 w-[270px] md:w-[685px] md:flex p-3 rounded-lg shadow-lg shadow-gray-500 text-gray-600'>
           <img
             className='rounded-lg'
             src={data[0]?.assets[1].url}
