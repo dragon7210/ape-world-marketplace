@@ -23,6 +23,7 @@ const AllLoan = () => {
   const { collectionOptions } = useSelector(
     (state: any) => state.collectionOptions
   );
+
   const data = selector ? loanData : myLoanData;
 
   useEffect(() => {
@@ -74,7 +75,7 @@ const AllLoan = () => {
         </div>
       </div>
       {pageData.length > 0 ? (
-        <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
+        <div className='h-[calc(100vh_-_300px)] overflow-y-auto md:h-[calc(100vh_-_450px)]'>
           <table className='w-full md:text-xl text-base mt-2'>
             <thead className='uppercase backdrop-blur-xl bg-[#0a0b1336]'>
               <tr className='text-center'>
