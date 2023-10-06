@@ -15,19 +15,15 @@ const AllLoan = () => {
   const [selector, setSelector] = useState<boolean>(true);
   const [loanSel, setLoanSel] = useState(-1);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [selPage, setSelPage] = useState(1);
   const [pageData, setPageData] = useState<any[]>([]);
   const { connex } = useWallet();
+
   const dispatch = useDispatch();
 
   const { collectionOptions } = useSelector(
     (state: any) => state.collectionOptions
   );
   const data = selector ? loanData : myLoanData;
-
-  useEffect(() => {
-    setPageData(data.slice((selPage - 1) * 10, selPage * 10));
-  }, [selPage, data]);
 
   useEffect(() => {
     dispatch(setLoading(loading));
@@ -78,74 +74,71 @@ const AllLoan = () => {
         </div>
       </div>
       {pageData.length > 0 ? (
-        <>
-          <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
-            <table className='w-full md:text-xl text-base mt-2'>
-              <thead className='uppercase backdrop-blur-xl bg-[#0a0b1336]'>
-                <tr className='text-center'>
-                  <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
-                  <th className='hidden md:table-cell'>Value (Vet)</th>
-                  <th className='hidden md:table-cell'>Interest (%)</th>
-                  <th className='hidden md:table-cell'>Duration</th>
-                  <th className='hidden md:table-cell'>Status</th>
-                  <th>Action</th>
+        <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
+          <table className='w-full md:text-xl text-base mt-2'>
+            <thead className='uppercase backdrop-blur-xl bg-[#0a0b1336]'>
+              <tr className='text-center'>
+                <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
+                <th className='hidden md:table-cell'>Value (Vet)</th>
+                <th className='hidden md:table-cell'>Interest (%)</th>
+                <th className='hidden md:table-cell'>Duration</th>
+                <th className='hidden md:table-cell'>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pageData.map((item: any, index: number) => (
+                <tr
+                  key={index}
+                  className='border-b text-center backdrop-blur-sm'>
+                  <td className='md:py-3 px-3 text-left'>
+                    {collectionOptions &&
+                      getCollectionName(collectionOptions, item.tokenAddress) +
+                        " #" +
+                        item.tokenId}
+                  </td>
+                  <td className='hidden md:table-cell'>
+                    {item.loanValue / 10 ** 18}
+                  </td>
+                  <td className='hidden md:table-cell'>{item.loanFee}</td>
+                  <td className='hidden md:table-cell'>
+                    {item.status === "1"
+                      ? "Empty Duration"
+                      : differentTime(item?.endTime)}
+                  </td>
+                  <td className='hidden md:table-cell'>
+                    <div className='flex justify-center'>
+                      <p className='py-1'>{statusArray[item.status]}</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div className='flex items-center justify-center md:py-1 py-[1px]'>
+                      <button
+                        className='hover:bg-[#ff4200] bg-[#c43300] md:p-[5px] p-[2px] rounded-[99px]'
+                        onClick={() => {
+                          setLoanSel(index);
+                          dispatch(setLoading(true));
+                          setOpenModal(true);
+                        }}>
+                        <img
+                          src={ViewImg}
+                          alt='view'
+                          className='md:w-6 md:h-6 w-4 h-4'
+                        />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {pageData.map((item: any, index: number) => (
-                  <tr
-                    key={index}
-                    className='border-b text-center backdrop-blur-sm'>
-                    <td className='md:py-3 px-3 text-left'>
-                      {collectionOptions &&
-                        getCollectionName(
-                          collectionOptions,
-                          item.tokenAddress
-                        ) +
-                          " #" +
-                          item.tokenId}
-                    </td>
-                    <td className='hidden md:table-cell'>
-                      {item.loanValue / 10 ** 18}
-                    </td>
-                    <td className='hidden md:table-cell'>{item.loanFee}</td>
-                    <td className='hidden md:table-cell'>
-                      {item.status === "1"
-                        ? "Empty Duration"
-                        : differentTime(item?.endTime)}
-                    </td>
-                    <td className='hidden md:table-cell'>
-                      <div className='flex justify-center'>
-                        <p className='py-1'>{statusArray[item.status]}</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div className='flex items-center justify-center md:py-1 py-[1px]'>
-                        <button
-                          className='hover:bg-[#ff4200] bg-[#c43300] md:p-[5px] p-[2px] rounded-[99px]'
-                          onClick={() => {
-                            setLoanSel(index);
-                            dispatch(setLoading(true));
-                            setOpenModal(true);
-                          }}>
-                          <img
-                            src={ViewImg}
-                            alt='view'
-                            className='md:w-6 md:h-6 w-4 h-4'
-                          />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <Pagination data={data} selPage={selPage} setSelPage={setSelPage} />
-        </>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
-        <p className='mt-5 text-2xl'>No Loan Data</p>
+        <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
+          <p className='pt-5 text-2xl'>No Loan Data</p>
+        </div>
       )}
+      <Pagination data={data} color='#c43300' setPageData={setPageData} />
       <ViewLoanModal
         open={openModal}
         setOpenModal={setOpenModal}

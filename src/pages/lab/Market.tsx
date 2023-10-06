@@ -12,7 +12,6 @@ import { setLoading } from "actions/loading";
 const Market = () => {
   const [selector, setSelector] = useState(true);
   const [open, setOpen] = useState(false);
-  const [selPage, setSelPage] = useState(1);
   const [pageData, setPageData] = useState<any[]>([]);
   const [optionSel, setOptionSel] = useState<number>(-1);
   const dispatch = useDispatch();
@@ -22,10 +21,6 @@ const Market = () => {
   );
   const { loading, optionData, myOptionData } = useGetOptions();
   const data = selector ? optionData : myOptionData;
-
-  useEffect(() => {
-    setPageData(data.slice((selPage - 1) * 10, selPage * 10));
-  }, [selPage, data]);
 
   useEffect(() => {
     dispatch(setLoading(loading));
@@ -58,65 +53,65 @@ const Market = () => {
         </div>
       </div>
       {pageData.length > 0 ? (
-        <>
-          <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
-            <table className='w-full md:text-xl text-base mt-2'>
-              <thead className='uppercase backdrop-blur-2xl bg-[#0a0b1336]'>
-                <tr className='text-center'>
-                  <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
-                  <th className='hidden md:table-cell'>Type</th>
-                  <th className='hidden md:table-cell'>Id</th>
-                  <th className='hidden md:table-cell'>Status</th>
-                  <th className='hidden md:table-cell'>Price(VET)</th>
-                  <th>Action</th>
+        <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
+          <table className='w-full md:text-xl text-base mt-2'>
+            <thead className='uppercase backdrop-blur-2xl bg-[#0a0b1336]'>
+              <tr className='text-center'>
+                <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
+                <th className='hidden md:table-cell'>Type</th>
+                <th className='hidden md:table-cell'>Id</th>
+                <th className='hidden md:table-cell'>Status</th>
+                <th className='hidden md:table-cell'>Price(VET)</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pageData.map((item: any, index: number) => (
+                <tr
+                  key={index}
+                  className='border-b text-center backdrop-blur-sm'>
+                  <td className='md:py-3 px-3 text-left'>
+                    {collectionOptions &&
+                      getCollectionName(collectionOptions, item.tokenAddress)}
+                  </td>
+                  <td className='hidden md:table-cell'>{item.type}</td>
+                  <td className='hidden md:table-cell'>
+                    {item.type === "CALL" ? item.tokenId : "Any"}
+                  </td>
+                  <td className='hidden md:table-cell'>
+                    {item.takeable ? "Available" : "Sold"}
+                  </td>
+                  <td className='hidden md:table-cell'>
+                    {item.optionPrice / 10 ** 18}
+                  </td>
+                  <td>
+                    <div className='flex items-center justify-center md:py-1 py-[1px]'>
+                      <button
+                        className='hover:bg-[#008cff] bg-[#006ec9] md:p-[5px] p-[2px] rounded-[99px]'
+                        onClick={() => {
+                          setOptionSel(index);
+                          setOpen(true);
+                          dispatch(setLoading(true));
+                        }}>
+                        <img
+                          src={ViewImg}
+                          alt='view'
+                          className='md:w-6 md:h-6 w-4 h-4'
+                        />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {pageData.map((item: any, index: number) => (
-                  <tr
-                    key={index}
-                    className='border-b text-center backdrop-blur-sm'>
-                    <td className='md:py-3 px-3 text-left'>
-                      {collectionOptions &&
-                        getCollectionName(collectionOptions, item.tokenAddress)}
-                    </td>
-                    <td className='hidden md:table-cell'>{item.type}</td>
-                    <td className='hidden md:table-cell'>
-                      {item.type === "CALL" ? item.tokenId : "Any"}
-                    </td>
-                    <td className='hidden md:table-cell'>
-                      {item.takeable ? "Available" : "Sold"}
-                    </td>
-                    <td className='hidden md:table-cell'>
-                      {item.optionPrice / 10 ** 18}
-                    </td>
-                    <td>
-                      <div className='flex items-center justify-center md:py-1 py-[1px]'>
-                        <button
-                          className='hover:bg-[#008cff] bg-[#006ec9] md:p-[5px] p-[2px] rounded-[99px]'
-                          onClick={() => {
-                            setOptionSel(index);
-                            setOpen(true);
-                            dispatch(setLoading(true));
-                          }}>
-                          <img
-                            src={ViewImg}
-                            alt='view'
-                            className='md:w-6 md:h-6 w-4 h-4'
-                          />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <Pagination data={data} selPage={selPage} setSelPage={setSelPage} />
-        </>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
-        <p className='mt-5 text-2xl'>No Options Data</p>
+        <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
+          <p className='pt-5 text-2xl'>No Loan Data</p>
+        </div>
       )}
+      <Pagination data={data} color='#006ec9' setPageData={setPageData} />
       <ViewOptionModal open={open} setOpen={setOpen} data={data[optionSel]} />
     </div>
   );

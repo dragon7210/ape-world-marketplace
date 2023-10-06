@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 import Market from "./Market";
 import Call from "./Call";
 import Put from "./Put";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 import LabImg from "assets/svg/apeworld/lab.svg";
 import BorderImage from "assets/png/header/border.png";
 
@@ -13,6 +15,16 @@ const Lab = () => {
   const { pathname } = useLocation();
   const { address } = useWallet();
   const navigate = useNavigate();
+  const { collectionOptions } = useSelector(
+    (state: any) => state.collectionOptions
+  );
+
+  useEffect(() => {
+    if (collectionOptions.length === 0) {
+      navigate("/");
+    }
+  }, [collectionOptions, navigate]);
+
   return (
     <div className='bg-gradient-to-t from-[#003366] to-[#3366cc] text-gray-200 md:px-[10%] lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh]'>
       <div className='md:text-5xl text-lg relative font-700 z-20'>

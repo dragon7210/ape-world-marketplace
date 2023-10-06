@@ -7,11 +7,23 @@ import { useLocation, useNavigate } from "react-router";
 import BorderImage from "assets/png/header/border.png";
 import { useWallet } from "hooks";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const PawnShop = () => {
   const { pathname } = useLocation();
   const { address } = useWallet();
   const navigate = useNavigate();
+  const { collectionOptions } = useSelector(
+    (state: any) => state.collectionOptions
+  );
+
+  useEffect(() => {
+    if (collectionOptions.length === 0) {
+      navigate("/");
+    }
+  }, [collectionOptions, navigate]);
+
   return (
     <div className='bg-gradient-to-t from-[#771f00] to-[#c64b20] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh]'>
       <div className='md:text-5xl text-2xl relative z-20'>

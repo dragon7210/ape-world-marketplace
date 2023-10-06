@@ -1,25 +1,46 @@
 /** @format */
 
+import { useEffect, useState } from "react";
+import Select from "react-select";
 const Pagination = ({
   data,
-  selPage,
-  setSelPage,
+  color,
+  setPageData,
 }: {
   data: any;
-  selPage: number;
-  setSelPage: any;
+  color: string;
+  setPageData: any;
 }) => {
-  const array = [-1, 0, 1, 2, 3];
+  const array = [-1, 0, 1];
+  const [perPage, setPerPage] = useState<number>(10);
+  const [selPage, setSelPage] = useState<number>(1);
+
+  const options = [
+    { value: 5, label: "5" },
+    { value: 10, label: "10" },
+    { value: 15, label: "15" },
+    { value: 20, label: "20" },
+    { value: 50, label: "50" },
+  ];
+
+  useEffect(() => {
+    setPageData(data.slice((selPage - 1) * perPage, selPage * perPage));
+  }, [selPage, data, perPage, setPageData]);
+
   return (
     <div className='flex items-center justify-between md:text-lg text-base border-gray-200 bg-transparent px-4 py-3 sm:px-6'>
       <div className='w-full flex md:justify-between justify-center'>
         <div className='hidden md:flex items-center'>
           <p className='text-gray-200'>
             Showing&nbsp;
-            <span className='font-medium'>{1 + 10 * (selPage - 1)}</span>
+            <span className='font-medium'>
+              {data.length === 0 ? 0 : 1 + perPage * (selPage - 1)}
+            </span>
             &nbsp;to&nbsp;
             <span className='font-medium'>
-              {data.length > 10 * selPage ? 10 * selPage : data.length}
+              {data.length > perPage * selPage
+                ? perPage * selPage
+                : data.length}
             </span>
             &nbsp;of&nbsp;
             <span className='font-medium'>{data.length}</span>
@@ -27,8 +48,57 @@ const Pagination = ({
           </p>
         </div>
         <div className='flex items-center justify-between md:w-[300px] w-[250px]'>
+          <Select
+            onChange={(e: any) => setPerPage(e.value)}
+            menuPlacement='top'
+            options={options}
+            isClearable={false}
+            defaultValue={options[1]}
+            styles={{
+              singleValue: (provided) => ({
+                ...provided,
+                color: "white",
+                padding: "0px",
+              }),
+              menu: (baseStyles) => ({
+                ...baseStyles,
+                width: "40px",
+                color: "white",
+              }),
+              control: (baseStyles) => ({
+                ...baseStyles,
+                background: "transparent",
+                border: "solid 1px white",
+                borderRadius: "4px",
+                padding: "0px",
+                outline: "none",
+                width: "65px",
+              }),
+              option: (baseStyles) => ({
+                ...baseStyles,
+                color: "black",
+                padding: "2px 10px",
+                ":hover": {
+                  background: color,
+                  cursor: "pointer",
+                },
+              }),
+              indicatorsContainer: (state) => ({
+                ...state,
+                width: "30px",
+              }),
+              valueContainer: (state) => ({
+                ...state,
+                padding: "0px 0px 0px 10px",
+                margin: "0px",
+              }),
+            }}
+            components={{
+              IndicatorSeparator: () => null,
+            }}
+          />
           <span
-            className='rounded-[99px] border-gray-100 md:p-2 p-1 border-2 items-center cursor-pointer hover:bg-[#FF4200]'
+            className={`rounded-[99px] border-gray-100 md:p-2 p-1 border-2 items-center cursor-pointer`}
             onClick={() => {
               if (selPage > 1) {
                 setSelPage(selPage - 1);
@@ -42,18 +112,38 @@ const Pagination = ({
               />
             </svg>
           </span>
+          {((data.length % perPage === 0 &&
+            data.length / perPage === selPage) ||
+            (data.length % perPage !== 0 &&
+              Math.floor(data.length / perPage) + 1 === selPage)) &&
+            selPage > 2 && (
+              <span
+                className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer`}
+                onClick={() => {
+                  if (selPage > 2) {
+                    setSelPage(selPage - 2);
+                  }
+                }}>
+                {selPage - 2}
+              </span>
+            )}
           {array.map((item: number, index: number) => {
             return (
-              selPage + item > -1 && (
+              selPage + item <=
+                (data.length % perPage === 0
+                  ? data.length / perPage
+                  : data.length / perPage + 1) && (
                 <span
                   key={index}
-                  className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer hover:bg-[#FF4200] ${
+                  className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer ${
                     selPage + item === 0 && "hidden"
-                  } ${item === 0 && "bg-[#FF4200]"}`}
+                  } ${item === 0 && `bg-[${color}]`}`}
                   onClick={() => {
                     if (
-                      selPage + item !== 0 &&
-                      selPage + item <= data.length / 10
+                      selPage + item <=
+                      (data.length % perPage === 0
+                        ? data.length / perPage
+                        : data.length / perPage + 1)
                     ) {
                       setSelPage(selPage + item);
                     }
@@ -64,20 +154,27 @@ const Pagination = ({
             );
           })}
           <span
-            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer hover:bg-[#FF4200] ${
-              selPage !== 1 && "hidden"
-            }`}
-            onClick={() => {
-              if (selPage <= data.length / 10) {
-                setSelPage(5);
-              }
-            }}>
-            {5}
+            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer ${
+              data.length === 0 ? "inline" : "hidden"
+            }`}>
+            {1}
           </span>
           <span
-            className='rounded-[99px] border-gray-100 md:p-2 p-1 border-2 cursor-pointer hover:bg-[#FF4200]'
+            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer ${
+              data.length / perPage <= 1 ? "inline" : "hidden"
+            }`}>
+            {2}
+          </span>
+          <span
+            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer ${
+              selPage === 1 || data.length / perPage < 3 ? "inline" : "hidden"
+            }`}>
+            {3}
+          </span>
+          <span
+            className={`rounded-[99px] border-gray-100 md:p-2 p-1 border-2 cursor-pointer`}
             onClick={() => {
-              if (selPage < data.length / 10) {
+              if (selPage < data.length / perPage) {
                 setSelPage(selPage + 1);
               }
             }}>
