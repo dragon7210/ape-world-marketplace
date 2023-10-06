@@ -97,14 +97,16 @@ const ViewOptionModal = ({
         .request()
         .then(() => {
           dispatch(setLoading(false));
+          setOpen(!open);
           toast.success("Success.");
         })
         .catch(() => {
           dispatch(setLoading(false));
+          setOpen(!open);
           toast.error("Could not take option.");
         });
     }
-  }, [connex, data, dispatch]);
+  }, [connex, data, dispatch, setOpen, open]);
 
   const exerciseCall = useCallback(() => {
     if (connex) {
@@ -119,14 +121,16 @@ const ViewOptionModal = ({
         .request()
         .then(() => {
           dispatch(setLoading(false));
+          setOpen(!open);
           toast.success("Success.");
         })
         .catch(() => {
           dispatch(setLoading(false));
+          setOpen(!open);
           toast.error("Could not exercise call.");
         });
     }
-  }, [connex, data, dispatch]);
+  }, [connex, data, dispatch, setOpen, open]);
 
   useEffect(() => {
     if (
