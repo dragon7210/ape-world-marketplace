@@ -91,6 +91,12 @@ const CreateLoanModal = ({
       onClose={() => {}}>
       {data?.length > 0 && (
         <div className='bg-gray-200 w-[270px] md:w-[685px] md:flex p-3 rounded-lg shadow-lg shadow-gray-500 text-gray-600'>
+          <div className='flex justify-end md:hidden'>
+            <XMarkIcon
+              className='w-6 cursor-pointer'
+              onClick={() => setOpenModal(!open)}
+            />
+          </div>
           <img
             className='rounded-lg'
             src={data[0]?.assets[1].url}

@@ -91,6 +91,12 @@ const CreatePutOptionModal = ({
       open={open}
       onClose={() => {}}>
       <div className='bg-gray-200 w-[270px] md:w-[720px] md:flex p-3 rounded-lg shadow-lg shadow-gray-500 text-gray-600'>
+        <div className='flex justify-end md:hidden'>
+          <XMarkIcon
+            className='w-6 cursor-pointer'
+            onClick={() => setOpen(!open)}
+          />
+        </div>
         {data?.length > 0 && (
           <img
             className='rounded-lg w-64'

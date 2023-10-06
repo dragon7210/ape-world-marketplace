@@ -58,7 +58,7 @@ const ExercisePutModal = ({
       open={openExercisePut}
       onClose={() => {}}>
       <div className=' bg-gray-200 p-3 rounded-lg shadow-lg text-gray-700 shadow-gray-500'>
-        <div className='md:flex hidden justify-end '>
+        <div className='flex justify-end '>
           <XMarkIcon
             className='w-6 cursor-pointer'
             onClick={() => setOpenExercisePut(!openExercisePut)}

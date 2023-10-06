@@ -233,6 +233,12 @@ const ViewOptionModal = ({
         open={open}
         onClose={() => {}}>
         <div className='w-[270px] md:w-[720px] bg-gray-200 p-3 rounded-lg shadow-lg text-gray-600 shadow-gray-500'>
+          <div className='flex justify-end md:hidden'>
+            <XMarkIcon
+              className='w-6 cursor-pointer'
+              onClick={() => setOpen(!open)}
+            />
+          </div>
           <div className='md:flex justify-between'>
             <img
               className='rounded-lg w-64'
