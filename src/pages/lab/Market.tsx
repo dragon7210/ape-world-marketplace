@@ -36,21 +36,21 @@ const Market = () => {
       <div className='flex justify-between items-center md:mt-3 border-b-2 pb-1'>
         <p className='md:text-4xl text-md'>
           Here are{" "}
-          <span className='text-[#008cff]'>
+          <span className='text-[#006ec9]'>
             {selector ? "All" : "My"} Options
           </span>
         </p>
         <div className='flex md:text-2xl text-base'>
           <button
             className={`lg:px-5 md:py-1 px-2 rounded-l-[99px] ${
-              selector ? "bg-[#006ec9]" : "bg-[#008cff]"
+              selector ? "bg-[#008cff]" : "bg-[#006ec9]"
             }`}
             onClick={() => setSelector(true)}>
             All Options
           </button>
           <button
             className={`lg:px-5 md:py-1 px-2 rounded-r-[99px] ${
-              !selector ? "bg-[#006ec9]" : "bg-[#008cff]"
+              !selector ? "bg-[#008cff]" : "bg-[#006ec9]"
             }`}
             onClick={() => setSelector(false)}>
             My Options
