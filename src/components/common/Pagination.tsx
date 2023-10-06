@@ -74,9 +74,10 @@ const Pagination = ({
                 outline: "none",
                 width: "65px",
               }),
-              option: (baseStyles) => ({
+              option: (baseStyles, state) => ({
                 ...baseStyles,
                 color: "black",
+                background: state.isSelected ? color : "white",
                 padding: "2px 10px",
                 ":hover": {
                   background: color,
