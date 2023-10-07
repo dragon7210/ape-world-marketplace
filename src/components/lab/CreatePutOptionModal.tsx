@@ -93,7 +93,7 @@ const CreatePutOptionModal = ({
       <div className='bg-gray-200 w-[270px] md:w-[720px] md:flex p-3 rounded-lg shadow-lg shadow-gray-500 text-gray-600'>
         <div className='flex justify-end md:hidden'>
           <XMarkIcon
-            className='w-6 cursor-pointer'
+            className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
             onClick={() => setOpen(!open)}
           />
         </div>
@@ -108,7 +108,7 @@ const CreatePutOptionModal = ({
         <div className='md:ml-3 mt-2 md:mt-0'>
           <div className='md:flex justify-end hidden '>
             <XMarkIcon
-              className='w-6 cursor-pointer'
+              className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
               onClick={() => setOpen(!open)}
             />
           </div>

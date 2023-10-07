@@ -80,7 +80,7 @@ const SellOptionModal = ({
       <div className=' bg-gray-200 p-3 rounded-lg shadow-lg text-gray-700 shadow-gray-500'>
         <div className='flex justify-end '>
           <XMarkIcon
-            className='w-6 cursor-pointer'
+            className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
             onClick={() => setOpenSellOption(!openSellOption)}
           />
         </div>

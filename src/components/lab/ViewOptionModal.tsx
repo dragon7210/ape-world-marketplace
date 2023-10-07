@@ -250,7 +250,7 @@ const ViewOptionModal = ({
         <div className='w-[270px] md:w-[720px] bg-gray-200 p-3 rounded-lg shadow-lg text-gray-600 shadow-gray-500'>
           <div className='flex justify-end md:hidden'>
             <XMarkIcon
-              className='w-6 cursor-pointer'
+              className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
               onClick={() => setOpen(!open)}
             />
           </div>
@@ -264,7 +264,7 @@ const ViewOptionModal = ({
             <div className='pt-3 md:pt-0'>
               <div className='md:flex justify-end hidden'>
                 <XMarkIcon
-                  className='w-6 cursor-pointer'
+                  className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
                   onClick={() => setOpen(!open)}
                 />
               </div>

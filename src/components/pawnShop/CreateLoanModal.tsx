@@ -93,7 +93,7 @@ const CreateLoanModal = ({
         <div className='bg-gray-200 w-[270px] md:w-[685px] md:flex p-3 rounded-lg shadow-lg shadow-gray-500 text-gray-600'>
           <div className='flex justify-end md:hidden'>
             <XMarkIcon
-              className='w-6 cursor-pointer'
+              className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
               onClick={() => setOpenModal(!open)}
             />
           </div>
@@ -106,7 +106,7 @@ const CreateLoanModal = ({
           <div className='md:ml-5 mt-2 '>
             <div className='md:flex justify-end hidden '>
               <XMarkIcon
-                className='w-6 cursor-pointer'
+                className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
                 onClick={() => setOpenModal(!open)}
               />
             </div>
