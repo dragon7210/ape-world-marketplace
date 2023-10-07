@@ -125,11 +125,11 @@ const CreatePutOptionModal = ({
             <div className='md:columns-3 columns-1 md:px-5 px-2 text-base md:text-md'>
               <div className='flex justify-between md:inline'>
                 <p className='text-gray-500'>Strike Price</p>
-                <p>{createValue?.strikePrice} Vet</p>
+                <p>{createValue?.strikePrice} VET</p>
               </div>
               <div className='flex justify-between md:inline'>
                 <p className='text-gray-500'>Call Price</p>
-                <p>{createValue?.putPrice} Vet</p>
+                <p>{createValue?.putPrice} VET</p>
               </div>
               <div className='flex justify-between md:inline'>
                 <p className='text-gray-500'>Duration</p>

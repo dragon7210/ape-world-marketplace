@@ -117,21 +117,21 @@ const Put = () => {
         <InputValue
           label='Strike Price'
           name='strikePrice'
-          placeholder='Vet'
+          placeholder='VET'
           value={createValue.strikePrice}
           onChange={handleChange}
         />
         <InputValue
           label='Put Price'
           name='putPrice'
-          placeholder='Vet'
+          placeholder='VET'
           value={createValue.putPrice}
           onChange={handleChange}
         />
         <InputValue
           label='Duration'
           name='duration'
-          placeholder='hour'
+          placeholder='Hour'
           value={createValue.duration}
           onChange={handleChange}
         />

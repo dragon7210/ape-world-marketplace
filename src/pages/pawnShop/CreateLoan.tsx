@@ -145,7 +145,7 @@ const CreateLoan = () => {
         <InputValue
           label='Value'
           name='vet'
-          placeholder='Vet'
+          placeholder='VET'
           value={createValue.vet}
           onChange={handleChange}
         />

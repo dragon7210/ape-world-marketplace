@@ -257,8 +257,7 @@ const ViewOptionModal = ({
                 <p className='md:text-3xl text-2xl mt-1 font-[700] text-black'>
                   {collectionOptions &&
                     getCollectionName(collectionOptions, data?.tokenAddress) +
-                      " #" +
-                      data?.tokenId}
+                      (data?.tokenId === "0" ? "" : " #" + data?.tokenId)}
                 </p>
                 <p className='md:text-xl text-2xl font-[700] text-gray-600 bg-yellow-200 px-2'>
                   {data?.type}
@@ -281,7 +280,7 @@ const ViewOptionModal = ({
                   </div>
                   <div>
                     <p className='text-gray-500'>Strike Price</p>
-                    <p>{data?.strikePrice / 10 ** 18} Vet</p>
+                    <p>{data?.strikePrice / 10 ** 18} VET</p>
                   </div>
                   <div>
                     <p className='text-gray-500'>Expiration</p>
@@ -289,7 +288,7 @@ const ViewOptionModal = ({
                   </div>
                   <div>
                     <p className='text-gray-500'>Option Price</p>
-                    <p>{data?.optionPrice / 10 ** 18} Vet</p>
+                    <p>{data?.optionPrice / 10 ** 18} VET</p>
                   </div>
                   <div>
                     <p className='text-gray-500'>Excercise Date</p>
