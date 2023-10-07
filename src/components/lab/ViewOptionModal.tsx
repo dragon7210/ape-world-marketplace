@@ -18,14 +18,16 @@ const ViewOptionModal = ({
   open,
   setOpen,
   data,
+  block,
 }: {
   open: boolean;
   setOpen: any;
   data: any;
+  block: number;
 }) => {
   const dispatch = useDispatch();
   const [Button, setButton] = useState<any>();
-  const [block, setBlock] = useState<number>(0);
+
   const [img, setImg] = useState<string>("");
   const [openEditOption, setOpenEditOption] = useState<boolean>(false);
   const [openSellOption, setOpenSellOption] = useState<boolean>(false);
@@ -42,32 +44,31 @@ const ViewOptionModal = ({
     variables: {},
   });
 
-  useEffect(() => {
-    if (connex) {
-      setBlock(connex.thor.status["head"]["number"]);
-    }
-  }, [connex]);
-
-  const removeItem = (tokenId: string) => {
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(options_address)
-        .method(deleteOptionABI);
-      const clause = namedMethod.asClause(tokenId);
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Remove Option.")
-        .request()
-        .then(() => {
-          toast.success("Success");
-          dispatch(setLoading(false));
-        })
-        .catch(() => {
-          toast.error("Could not remove Option.");
-          dispatch(setLoading(false));
-        });
-    }
-  };
+  const removeItem = useCallback(
+    (tokenId: string) => {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(options_address)
+          .method(deleteOptionABI);
+        const clause = namedMethod.asClause(tokenId);
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Remove Option.")
+          .request()
+          .then(() => {
+            toast.success("Success");
+            setOpen(!open);
+            dispatch(setLoading(false));
+          })
+          .catch(() => {
+            toast.error("Could not remove Option.");
+            setOpen(!open);
+            dispatch(setLoading(false));
+          });
+      }
+    },
+    [connex, dispatch, setOpen, open]
+  );
 
   const editOption = useCallback(() => {
     setOpen(!open);
@@ -133,7 +134,18 @@ const ViewOptionModal = ({
   }, [connex, data, dispatch, setOpen, open]);
 
   useEffect(() => {
-    if (
+    if (data?.status === "LIST" && data?.owner === address) {
+      setButton(
+        <button
+          className='bg-[#006ec9] py-1 rounded-lg ml-5 w-24'
+          onClick={() => {
+            removeItem(data?.itemId);
+            dispatch(setLoading(true));
+          }}>
+          Remove This {data?.type}
+        </button>
+      );
+    } else if (
       (data?.status === "LIST" || data?.status === "OPEN") &&
       block < Number(data?.expirationDate)
     ) {
@@ -141,7 +153,7 @@ const ViewOptionModal = ({
         if (!data?.takeable) {
           setButton(
             <button
-              className='bg-[#FF0000] py-1 ml-4 rounded-lg w-24'
+              className='bg-[#006ec9] py-1 ml-4 rounded-lg w-24'
               onClick={sellOption}>
               Sell this Option
             </button>
@@ -149,7 +161,7 @@ const ViewOptionModal = ({
         } else {
           setButton(
             <button
-              className='bg-[#FF0000] py-1 ml-4 rounded-lg w-24'
+              className='bg-[#006ec9] py-1 ml-4 rounded-lg w-24'
               onClick={editOption}>
               Edit Option Price
             </button>
@@ -159,7 +171,7 @@ const ViewOptionModal = ({
         if (data?.takeable) {
           setButton(
             <button
-              className='bg-[#FF0000] py-1 ml-4 rounded-lg w-24'
+              className='bg-[#006ec9] py-1 ml-4 rounded-lg w-24'
               onClick={() => {
                 buyOption();
                 dispatch(setLoading(true));
@@ -167,6 +179,8 @@ const ViewOptionModal = ({
               Buy This {data?.type}
             </button>
           );
+        } else {
+          setButton("");
         }
       }
     } else if (
@@ -177,7 +191,7 @@ const ViewOptionModal = ({
       if (data?.type === "CALL") {
         setButton(
           <button
-            className='bg-[#FF0000] py-1 ml-4 rounded-lg w-24'
+            className='bg-[#006ec9] py-1 ml-4 rounded-lg w-24'
             onClick={() => {
               exerciseCall();
               dispatch(setLoading(true));
@@ -188,7 +202,7 @@ const ViewOptionModal = ({
       } else {
         setButton(
           <button
-            className='bg-[#FF0000] py-1 ml-4 rounded-lg w-24'
+            className='bg-[#006ec9] py-1 ml-4 rounded-lg w-24'
             onClick={exercisePut}>
             Exercise Put (Click to select any
             {getCollectionName(collectionOptions, data?.tokenAddress)}
@@ -201,8 +215,8 @@ const ViewOptionModal = ({
     }
   }, [
     data,
-    address,
     block,
+    address,
     collectionOptions,
     dispatch,
     editOption,
@@ -210,6 +224,7 @@ const ViewOptionModal = ({
     buyOption,
     exerciseCall,
     exercisePut,
+    removeItem,
   ]);
 
   useEffect(() => {
@@ -259,7 +274,7 @@ const ViewOptionModal = ({
                     getCollectionName(collectionOptions, data?.tokenAddress) +
                       (data?.tokenId === "0" ? "" : " #" + data?.tokenId)}
                 </p>
-                <p className='md:text-xl text-2xl font-[700] text-gray-600 bg-yellow-200 px-2'>
+                <p className='md:text-xl text-base font-[700] text-gray-600 bg-yellow-200 px-2'>
                   {data?.type}
                 </p>
               </div>
@@ -268,7 +283,11 @@ const ViewOptionModal = ({
                   Item owner By {shortenAddress(data?.owner)}
                 </span>
                 <span className='bg-violet-700 rounded-md p-1 px-2'>
-                  {data?.takeable ? "Available" : "Sold"}
+                  {Number(data?.expirationDate) > block
+                    ? data?.takeable
+                      ? "Available"
+                      : "Sold"
+                    : "Expired"}
                 </span>
               </div>
               <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-1 rounded-xl'>
@@ -308,15 +327,14 @@ const ViewOptionModal = ({
               </div>
 
               <div className='flex md:text-lg text-base justify-end mt-1 text-gray-100'>
-                <button
-                  className='bg-[#FF4200] py-1 rounded-lg ml-5 w-24'
-                  onClick={() => {
-                    removeItem(data?.itemId);
-                    dispatch(setLoading(true));
-                  }}>
-                  Remove This {data?.type}
-                </button>
                 {Button}
+                <button
+                  className='bg-[#FF0000] py-1 rounded-lg ml-5 w-24'
+                  onClick={() => {
+                    setOpen(!open);
+                  }}>
+                  CANCEL
+                </button>
               </div>
             </div>
           </div>

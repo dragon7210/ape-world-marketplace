@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Pagination from "components/common/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName } from "utils";
-import { useGetOptions } from "hooks";
+import { useGetOptions, useWallet } from "hooks";
 import ViewOptionModal from "components/lab/ViewOptionModal";
 import ViewImg from "assets/svg/apeworld/view.svg";
 import { setLoading } from "actions/loading";
@@ -14,7 +14,15 @@ const Market = () => {
   const [open, setOpen] = useState(false);
   const [pageData, setPageData] = useState<any[]>([]);
   const [optionSel, setOptionSel] = useState<number>(-1);
+  const [block, setBlock] = useState<number>(0);
   const dispatch = useDispatch();
+  const { connex } = useWallet();
+
+  useEffect(() => {
+    if (connex) {
+      setBlock(connex.thor.status["head"]["number"]);
+    }
+  }, [connex]);
 
   const { collectionOptions } = useSelector(
     (state: any) => state.collectionOptions
@@ -79,7 +87,11 @@ const Market = () => {
                     {item.type === "CALL" ? item.tokenId : "Any"}
                   </td>
                   <td className='hidden md:table-cell'>
-                    {item.takeable ? "Available" : "Sold"}
+                    {Number(item.expirationDate) > block
+                      ? item.takeable
+                        ? "Available"
+                        : "Sold"
+                      : "Expired"}
                   </td>
                   <td className='hidden md:table-cell'>
                     {item.optionPrice / 10 ** 18}
@@ -112,7 +124,12 @@ const Market = () => {
         </div>
       )}
       <Pagination data={data} color='#006ec9' setPageData={setPageData} />
-      <ViewOptionModal open={open} setOpen={setOpen} data={data[optionSel]} />
+      <ViewOptionModal
+        open={open}
+        setOpen={setOpen}
+        data={data[optionSel]}
+        block={block}
+      />
     </div>
   );
 };
