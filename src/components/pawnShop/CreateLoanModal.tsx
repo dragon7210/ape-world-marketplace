@@ -19,24 +19,20 @@ const CreateLoanModal = ({
   createValue,
   collections,
   apes,
-  setOpenModal,
+  setOpen,
 }: {
   open: boolean;
   createValue: any;
   collections: any;
   apes: any;
-  setOpenModal: any;
+  setOpen: any;
 }) => {
-  const { address, connex } = useWallet();
+  const { connex } = useWallet();
   const dispatch = useDispatch();
   const data = apes?.tokens?.items?.filter(
     (item: any) => item.tokenId === createValue.id
   );
   const handleCreate = async () => {
-    if (!address) {
-      toast.error("Please connect the wallet");
-      return;
-    }
     if (connex) {
       const data = collections.filter(
         (item: any) => item.collectionId === createValue.collectionId
@@ -73,12 +69,12 @@ const CreateLoanModal = ({
         .request()
         .then(() => {
           dispatch(setLoading(false));
-          setOpenModal(!open);
+          setOpen(!open);
           toast.success("Created successfully");
         })
         .catch(() => {
           dispatch(setLoading(false));
-          setOpenModal(!open);
+          setOpen(!open);
           toast.error("Could not create loan.");
         });
     }
@@ -94,7 +90,7 @@ const CreateLoanModal = ({
           <div className='flex justify-end md:hidden'>
             <XMarkIcon
               className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
-              onClick={() => setOpenModal(!open)}
+              onClick={() => setOpen(!open)}
             />
           </div>
           <img
@@ -107,7 +103,7 @@ const CreateLoanModal = ({
             <div className='md:flex justify-end hidden '>
               <XMarkIcon
                 className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
-                onClick={() => setOpenModal(!open)}
+                onClick={() => setOpen(!open)}
               />
             </div>
             <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
@@ -130,7 +126,7 @@ const CreateLoanModal = ({
               </button>
               <button
                 className='bg-[#FF0000] py-1 rounded-lg w-24'
-                onClick={() => setOpenModal(!open)}>
+                onClick={() => setOpen(!open)}>
                 CANCEL
               </button>
             </div>

@@ -225,3 +225,24 @@ export const createPutABI = {
   stateMutability: "payable",
   type: "function",
 };
+export const createRaffleABI = {
+  inputs: [
+    { internalType: "address", name: "_tokenAddress", type: "address" },
+    { internalType: "uint256", name: "_tokenId", type: "uint256" },
+    { internalType: "uint256", name: "_ticketValue", type: "uint256" },
+    { internalType: "uint256", name: "_ticketNumber", type: "uint256" },
+    { internalType: "uint256", name: "_duration", type: "uint256" },
+  ],
+  name: "createItem",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function",
+};
+
+export const getFeeABI = {
+  inputs: [],
+  name: "getServiceFee",
+  outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+  stateMutability: "view",
+  type: "function",
+};

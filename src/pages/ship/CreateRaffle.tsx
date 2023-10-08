@@ -3,7 +3,7 @@
 import { setLoading } from "actions/loading";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
-import CreateLoanModal from "components/pawnShop/CreateLoanModal";
+import CreateRaffleModal from "components/ship/CreateRaffleModal";
 import { useWallet, useCustomQuery } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getCollections, searchNFTs } from "utils/query";
 
-const CreateLoan = () => {
+const CreateRaffle = () => {
   const { address } = useWallet();
   const [activeButton, setActiveButton] = useState(false);
   const [idOption, setIdOption] = useState<any[]>([]);
@@ -26,11 +26,11 @@ const CreateLoan = () => {
     }
   }, [address, navigate]);
   const [createValue, setCreateValue] = useState<{ [key: string]: string }>({
-    id: "",
     collectionId: "",
+    id: "",
     vet: "",
-    period: "",
-    interest: "",
+    duration: "",
+    number: "",
   });
 
   const collectionOptions = useCustomQuery({
@@ -150,17 +150,17 @@ const CreateLoan = () => {
           onChange={handleChange}
         />
         <InputValue
-          label='Period'
-          name='period'
-          placeholder='Hours'
-          value={createValue.period}
+          label='Number'
+          name='number'
+          placeholder='%'
+          value={createValue.number}
           onChange={handleChange}
         />
         <InputValue
-          label='Interest'
-          name='interest'
-          placeholder='%'
-          value={createValue.interest}
+          label='Duration'
+          name='duration'
+          placeholder='Hours'
+          value={createValue.duration}
           onChange={handleChange}
         />
         <button
@@ -169,17 +169,17 @@ const CreateLoan = () => {
           } `}
           disabled={!activeButton}
           onClick={() => {
-            if (parseInt(createValue.period) >= 1) {
+            if (parseInt(createValue.duration) >= 1) {
               setOpen(true);
               dispatch(setLoading(true));
             } else {
               toast.error("The period must be greater than 1 hours.");
             }
           }}>
-          CREATE LOAN
+          CREATE RAFFLE
         </button>
       </div>
-      <CreateLoanModal
+      <CreateRaffleModal
         open={open}
         collections={collectionOptions?.collections}
         createValue={createValue}
@@ -189,4 +189,4 @@ const CreateLoan = () => {
     </div>
   );
 };
-export default CreateLoan;
+export default CreateRaffle;

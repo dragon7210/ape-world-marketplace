@@ -82,7 +82,7 @@ const SellOptionModal = ({
         </div>
         <div className='px-5'>
           <p className='text-4xl'>Please specify the new option Price in VET</p>
-          <div className='bg-black m-5 px-4 rounded-lg'>
+          <div className='bg-gray-800 text-gray-200 m-5 px-4 rounded-lg'>
             <InputValue
               label='Option price'
               name='optionPrice'

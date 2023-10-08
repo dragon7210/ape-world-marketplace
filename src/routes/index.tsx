@@ -28,7 +28,7 @@ const MainRoutes = () => {
       <Route path='/bar' element={<Layout />}>
         <Route index element={<Bar />} />
       </Route>
-      <Route path='/bar/fighter' element={<Layout />}>
+      <Route path='/bar/info' element={<Layout />}>
         <Route index element={<Bar />} />
       </Route>
       <Route path='/lab' element={<Layout />}>
@@ -47,6 +47,9 @@ const MainRoutes = () => {
         <Route index element={<RealState />} />
       </Route>
       <Route path='/ship' element={<Layout />}>
+        <Route index element={<Ship />} />
+      </Route>
+      <Route path='/ship/create' element={<Layout />}>
         <Route index element={<Ship />} />
       </Route>
       <Route path='/casino' element={<Layout />}>
