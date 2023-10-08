@@ -3,7 +3,7 @@
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useWallet } from "hooks";
 import { mva_token_address, options_address } from "config/contractAddress";
@@ -23,10 +23,6 @@ const SellOptionModal = ({
   const dispatch = useDispatch();
   const [sellPrice, setSellPrice] = useState<string>("");
   const { connex } = useWallet();
-
-  useEffect(() => {
-    setSellPrice((Number(data?.sellPrice) / 10 ** 18).toString());
-  }, [data]);
 
   const getMarketFee = async () => {
     if (connex) {
