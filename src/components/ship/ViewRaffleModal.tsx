@@ -100,7 +100,7 @@ const ViewRaffleModal = ({
     if (selData?.status === "1" && block < selData?.endTime) {
       setButton(
         <button
-          className='bg-[#FF0000] py-1 rounded-lg w-24'
+          className='bg-blue-700 py-1 rounded-lg w-24'
           onClick={() => {
             if (count > 0 && count <= selData?.ticketNumber) {
               buyTickets();
@@ -115,7 +115,7 @@ const ViewRaffleModal = ({
     } else if (selData?.status === "1" && block >= selData?.endTime) {
       setButton(
         <button
-          className='bg-[#FF0000] py-1 rounded-lg w-24'
+          className='bg-blue-700 py-1 rounded-lg w-24'
           onClick={() => {
             removeItem();
             dispatch(setLoading(true));
@@ -201,7 +201,7 @@ const ViewRaffleModal = ({
           <div className='md:flex md:text-xl text-base justify-between mt-2 text-white'>
             {selData?.status === "1" && block < selData?.endTime && (
               <input
-                className='border-2 border-gray-400 rounded-md px-7 text-gray-800 w-full mr-5 text-right'
+                className='border-2 border-gray-400 rounded-md px-7 text-gray-800 w-full mr-5 text-right focus:outline-none'
                 value={count}
                 onChange={(e) => setCount(Number(e.target.value))}
                 placeholder='Tickets'
