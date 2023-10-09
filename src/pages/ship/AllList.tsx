@@ -4,7 +4,7 @@ import { setLoading } from "actions/loading";
 import { useGetRaffle, useWallet } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { differentTime, getCollectionName } from "utils";
+import { differentTime, getCollectionName, shortenAddress } from "utils";
 import Pagination from "components/common/Pagination";
 import ViewImg from "assets/svg/apeworld/view.svg";
 import ViewRaffleModal from "components/ship/ViewRaffleModal";
@@ -68,9 +68,20 @@ const AllList = () => {
             <thead className='uppercase backdrop-blur-xl bg-[#0a0b1336]'>
               <tr className='text-center'>
                 <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
-                <th className='hidden md:table-cell'>Price (Vet)</th>
-                <th className='hidden md:table-cell'>Sold</th>
-                <th className='hidden md:table-cell'>Duration</th>
+                <th className='hidden md:table-cell'>Price</th>
+                <th className={`hidden ${tab !== 2 && "md:table-cell"} `}>
+                  Sold
+                </th>
+                <th className={`hidden ${tab !== 2 && "md:table-cell"} `}>
+                  Duration
+                </th>
+                {tab === 2 && (
+                  <>
+                    <th className='hidden md:table-cell'>Owner</th>
+                    <th className='hidden md:table-cell'>Pot</th>
+                    <th className='hidden md:table-cell'>Winning Ticket</th>
+                  </>
+                )}
                 <th>Action</th>
               </tr>
             </thead>
@@ -85,14 +96,33 @@ const AllList = () => {
                       item.tokenId}
                   </td>
                   <td className='hidden md:table-cell'>
-                    {item.ticketValue / 10 ** 18}
+                    {item.ticketValue / 10 ** 18 +
+                      (item?.paymentToken ===
+                      "0xc3fd50a056dc4025875fa164ced1524c93053f29"
+                        ? "MVA"
+                        : "VET")}
                   </td>
-                  <td className='hidden md:table-cell'>
+                  <td className={`hidden ${tab !== 2 && "md:table-cell"} `}>
                     {item.nTickets + "/" + item.ticketNumber}
                   </td>
-                  <td className='hidden md:table-cell'>
+                  <td className={`hidden ${tab !== 2 && "md:table-cell"} `}>
                     {differentTime(item.endTime, connex)}
                   </td>
+                  {tab === 2 && (
+                    <>
+                      <td className='hidden md:table-cell'>
+                        {shortenAddress(item.owner)}
+                      </td>
+                      <td className='hidden md:table-cell'>
+                        {(item.nTickets * item.ticketValue) / 10 ** 18 +
+                          (item?.paymentToken ===
+                          "0xc3fd50a056dc4025875fa164ced1524c93053f29"
+                            ? "MVA"
+                            : "VET")}
+                      </td>
+                      <td className='hidden md:table-cell'>{item.winner}</td>
+                    </>
+                  )}
                   <td>
                     <div className='flex items-center justify-center md:py-1 py-[1px]'>
                       <button
