@@ -196,7 +196,7 @@ const CreateRaffle = () => {
               setOpen(true);
               dispatch(setLoading(true));
             } else if (Number(createValue.duration) < 24) {
-              toast.error("The period must be greater than 24 hours.");
+              toast.error("The Duration must be greater than 24 hours.");
             } else {
               toast.error("The Count must be greater than 0.");
             }

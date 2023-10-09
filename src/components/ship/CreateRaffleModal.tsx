@@ -129,7 +129,11 @@ const CreateRaffleModal = ({
               <div className='md:columns-3 columns-1 md:px-5 px-2 text-base md:text-md'>
                 <div className='flex justify-between md:inline'>
                   <p className='text-gray-500'>Ticket Value</p>
-                  <p>{createValue?.value} VET</p>
+                  <p>
+                    {createValue?.value +
+                      " " +
+                      (createValue.token === "false" ? "VET" : "MVA")}{" "}
+                  </p>
                 </div>
                 <div className='flex justify-between md:inline'>
                   <p className='text-gray-500'>Number Of Tickets</p>
