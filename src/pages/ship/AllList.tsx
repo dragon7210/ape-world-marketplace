@@ -11,7 +11,7 @@ import ViewRaffleModal from "components/ship/ViewRaffleModal";
 
 const AllList = () => {
   const [tab, setTab] = useState<number>(0);
-  const { raffles, myRaffles, oldRaffles } = useGetRaffle();
+  const { raffles, myRaffles, oldRaffles, loading } = useGetRaffle();
   const [data, setData] = useState<any>([]);
   const [pageData, setPageData] = useState<any[]>([]);
   const { connex } = useWallet();
@@ -22,6 +22,11 @@ const AllList = () => {
   const { collectionOptions } = useSelector(
     (state: any) => state.collectionOptions
   );
+
+  useEffect(() => {
+    dispatch(setLoading(loading));
+  }, [loading, dispatch]);
+
   useEffect(() => {
     if (tab === 0) {
       setData(raffles);

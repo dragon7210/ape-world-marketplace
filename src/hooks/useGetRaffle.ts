@@ -30,6 +30,7 @@ export const useGetRaffle = () => {
 
                 const tempRaffle: any = [];
                 const tempOldRaffle: any = []
+
                 for (let i of raffleAddress.decoded[0]) {
                     const raffleData = await raffleMethod.call(i);
                     const item = {
