@@ -57,7 +57,8 @@ const CreateRaffleModal = ({
         createValue.id,
         createValue.value,
         createValue.count,
-        createValue.duration
+        createValue.duration,
+        createValue.token
       );
       const fee = await getServiceFee();
       const yetAnotherMethod = connex.thor

@@ -48,3 +48,7 @@ export const months = [
 export const optionTypes = ["CALL", "PUT"];
 export const optionStatus = ["LIST", "OPEN", "CLOSED", "CANCELED"];
 export const raffleStatus = ["INVALID", "LIVE", "SETTLED", "CANCEL"];
+export const TokenOption = [
+  { label: <p className='text-white'>$VET</p>, value: "false" },
+  { label: <p className='text-white'>$MVA</p>, value: "true" },
+];

@@ -1,6 +1,6 @@
 /** @format */
 
-import { raffle_address } from "config/contractAddress";
+import { item_address } from "config/contractAddress";
 import { useWallet } from "./useWallet";
 import { useEffect, useState } from "react";
 import { getAllRaffleABI, getOldRaffleABI, getRaffleABI } from "abi/abis";
@@ -16,18 +16,17 @@ export const useGetRaffle = () => {
         if (connex && isConnected && address) {
             (async () => {
                 const raffleAddressMethod = connex.thor
-                    .account(raffle_address)
+                    .account(item_address)
                     .method(getAllRaffleABI);
                 const oldRaffleAddressMethod = connex.thor
-                    .account(raffle_address)
+                    .account(item_address)
                     .method(getOldRaffleABI);
                 const raffleMethod = connex.thor
-                    .account(raffle_address)
+                    .account(item_address)
                     .method(getRaffleABI);
 
                 const raffleAddress = await raffleAddressMethod.call();
                 const oldRaffleAddress = await oldRaffleAddressMethod.call()
-
                 const tempRaffle: any = [];
                 const tempOldRaffle: any = []
 
@@ -44,7 +43,8 @@ export const useGetRaffle = () => {
                         endTime: raffleData["decoded"]["0"][7],
                         nTickets: raffleData["decoded"]["0"][8].length,
                         winner: raffleData["decoded"]["0"][9],
-                        status: raffleData["decoded"]["0"][10],
+                        paymentToken: raffleData["decoded"]["0"][10],
+                        status: raffleData["decoded"]["0"][11],
                         itemId: i,
                     };
                     tempRaffle.push(item)
@@ -52,7 +52,6 @@ export const useGetRaffle = () => {
                 const tempMyRaffle = tempRaffle.filter(
                     (item: any) => item.owner?.toLowerCase() === address?.toLowerCase()
                 );
-
                 for (let i of oldRaffleAddress.decoded[0]) {
                     const oldraffleData = await raffleMethod.call(i);
                     const item = {
@@ -66,7 +65,8 @@ export const useGetRaffle = () => {
                         endTime: oldraffleData["decoded"]["0"][7],
                         nTickets: oldraffleData["decoded"]["0"][8].length,
                         winner: oldraffleData["decoded"]["0"][9],
-                        status: oldraffleData["decoded"]["0"][10],
+                        paymentToken: oldraffleData["decoded"]["0"][10],
+                        status: oldraffleData["decoded"]["0"][11],
                         itemId: i,
                     };
                     tempOldRaffle.push(item)

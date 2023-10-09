@@ -4,6 +4,7 @@ import { setLoading } from "actions/loading";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
 import CreateRaffleModal from "components/ship/CreateRaffleModal";
+import { TokenOption } from "constant";
 import { useWallet, useCustomQuery } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -22,15 +23,17 @@ const CreateRaffle = () => {
 
   useEffect(() => {
     if (!address) {
-      navigate("/shop");
+      navigate("/ship");
     }
   }, [address, navigate]);
+
   const [createValue, setCreateValue] = useState<{ [key: string]: string }>({
     collectionId: "",
     id: "",
     value: "",
     duration: "",
     count: "",
+    token: "",
   });
 
   const collectionOptions = useCustomQuery({
@@ -162,6 +165,16 @@ const CreateRaffle = () => {
           placeholder='Hours'
           value={createValue.duration}
           onChange={handleChange}
+        />
+        <InputSelect
+          label='Token'
+          onChange={(e) => {
+            setCreateValue({
+              ...createValue,
+              token: e ? e.value : "",
+            });
+          }}
+          options={TokenOption}
         />
         <button
           className={`w-full md:text-2xl text-lg border-2 border-[#ff9933] rounded-[99px] md:py-2 md:mb-4 py-1 mt-3 ${

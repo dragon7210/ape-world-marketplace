@@ -232,10 +232,11 @@ export const createRaffleABI = {
     { internalType: "uint256", name: "_ticketValue", type: "uint256" },
     { internalType: "uint256", name: "_ticketNumber", type: "uint256" },
     { internalType: "uint256", name: "_duration", type: "uint256" },
+    { internalType: "bool", name: "_mva", type: "bool" },
   ],
   name: "createItem",
   outputs: [],
-  stateMutability: "payable",
+  stateMutability: "nonpayable",
   type: "function",
 };
 export const getFeeABI = {
@@ -247,14 +248,14 @@ export const getFeeABI = {
 };
 export const getAllRaffleABI = {
   inputs: [],
-  name: "getItemList",
+  name: "all",
   outputs: [{ internalType: "bytes32[]", name: "", type: "bytes32[]" }],
   stateMutability: "view",
   type: "function",
 };
 export const getRaffleABI = {
-  inputs: [{ internalType: "bytes32", name: "_hash", type: "bytes32" }],
-  name: "getItem",
+  inputs: [{ internalType: "bytes32", name: "_id", type: "bytes32" }],
+  name: "get",
   outputs: [
     {
       components: [
@@ -268,13 +269,10 @@ export const getRaffleABI = {
         { internalType: "uint256", name: "endTime", type: "uint256" },
         { internalType: "address[]", name: "tickets", type: "address[]" },
         { internalType: "uint256", name: "winner", type: "uint256" },
-        {
-          internalType: "enum RaffleShop.TYPES",
-          name: "status",
-          type: "uint8",
-        },
+        { internalType: "address", name: "paymentToken", type: "address" },
+        { internalType: "enum IITEM.TYPES", name: "status", type: "uint8" },
       ],
-      internalType: "struct RaffleShop._item",
+      internalType: "struct IITEM.ItemObj",
       name: "",
       type: "tuple",
     },
@@ -284,7 +282,7 @@ export const getRaffleABI = {
 };
 export const getOldRaffleABI = {
   inputs: [],
-  name: "getSettledList",
+  name: "settled",
   outputs: [{ internalType: "bytes32[]", name: "", type: "bytes32[]" }],
   stateMutability: "view",
   type: "function",
@@ -297,7 +295,10 @@ export const removeRaffleABI = {
   type: "function",
 };
 export const buyTicketsABI = {
-  inputs: [{ internalType: "bytes32", name: "_hash", type: "bytes32" }],
+  inputs: [
+    { internalType: "bytes32", name: "_id", type: "bytes32" },
+    { internalType: "uint256", name: "_tickets", type: "uint256" },
+  ],
   name: "buyTickets",
   outputs: [],
   stateMutability: "payable",

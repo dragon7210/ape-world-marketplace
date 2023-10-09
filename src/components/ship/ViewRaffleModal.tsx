@@ -2,9 +2,9 @@
 
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { buyTicketsABI, getRaffleABI, removeRaffleABI } from "abi/abis";
+import { buyTicketsABI, mvaApproveABI, removeRaffleABI } from "abi/abis";
 import { setLoading } from "actions/loading";
-import { raffle_address } from "config/contractAddress";
+import { mva_token_address, raffle_address } from "config/contractAddress";
 import { raffleStatus } from "constant";
 import { useCustomQuery, useWallet } from "hooks";
 import { useCallback, useEffect, useState } from "react";
@@ -66,21 +66,32 @@ const ViewRaffleModal = ({
 
   const buyTickets = useCallback(async () => {
     if (connex) {
-      const anotherNamedMethod = connex.thor
-        .account(raffle_address)
-        .method(getRaffleABI);
-      const output = await anotherNamedMethod.call(selData?.itemId);
-      const ticketValue = output["decoded"]["0"][3];
-
       const namedMethod = connex.thor
         .account(raffle_address)
         .method(buyTicketsABI);
-      var clause = namedMethod.asClause(selData?.itemId);
 
-      clause["value"] = (Number(ticketValue) * count).toString();
+      const yetAnotherMethod = connex.thor
+        .account(mva_token_address)
+        .method(mvaApproveABI);
+
+      let clauses = [];
+
+      let clause1 = namedMethod.asClause(selData?.itemId, count);
+      let value = (Number(selData?.ticketValue) * count).toString();
+      if (
+        selData?.paymentToken === "0x0000000000000000000000000000000000000000"
+      ) {
+        clause1["value"] = value;
+        clauses.push(clause1);
+      } else {
+        clauses.push(
+          yetAnotherMethod.asClause(raffle_address, value.toString())
+        );
+        clauses.push(clause1);
+      }
 
       connex.vendor
-        .sign("tx", [clause])
+        .sign("tx", clauses)
         .comment("Buy Tickets.")
         .request()
         .then(() => {
