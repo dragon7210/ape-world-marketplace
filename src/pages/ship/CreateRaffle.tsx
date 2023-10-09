@@ -145,10 +145,26 @@ const CreateRaffle = () => {
           }}
           options={idOption}
         />
+        <InputSelect
+          label='Token'
+          onChange={(e) => {
+            setCreateValue({
+              ...createValue,
+              token: e ? e.value : "",
+            });
+          }}
+          options={TokenOption}
+        />
         <InputValue
           label='Value'
           name='value'
-          placeholder='VET'
+          placeholder={
+            createValue.token !== ""
+              ? createValue.token === "false"
+                ? "VET"
+                : "MVA"
+              : ""
+          }
           value={createValue.value}
           onChange={handleChange}
         />
@@ -166,16 +182,7 @@ const CreateRaffle = () => {
           value={createValue.duration}
           onChange={handleChange}
         />
-        <InputSelect
-          label='Token'
-          onChange={(e) => {
-            setCreateValue({
-              ...createValue,
-              token: e ? e.value : "",
-            });
-          }}
-          options={TokenOption}
-        />
+
         <button
           className={`w-full md:text-2xl text-lg border-2 border-[#ff9933] rounded-[99px] md:py-2 md:mb-4 py-1 mt-3 ${
             activeButton && "bg-[#ff9933]"
