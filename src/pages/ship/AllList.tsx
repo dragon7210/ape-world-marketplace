@@ -48,7 +48,7 @@ const AllList = () => {
           Live Auctions
         </button>
         <button
-          className={`md:py-1 px-2 w-[160px] border-x-2 ${
+          className={`md:py-1 px-2 w-[160px] border-x-2 border-[#ff9933] ${
             tab === 1 ? "bg-[#ff9933]" : "bg-[#cb6500]"
           }`}
           onClick={() => setTab(1)}>

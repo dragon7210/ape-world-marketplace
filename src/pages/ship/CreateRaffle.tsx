@@ -169,11 +169,16 @@ const CreateRaffle = () => {
           } `}
           disabled={!activeButton}
           onClick={() => {
-            if (parseInt(createValue.duration) >= 24) {
+            if (
+              Number(createValue.duration) >= 24 &&
+              Number(createValue.count) > 0
+            ) {
               setOpen(true);
               dispatch(setLoading(true));
-            } else {
+            } else if (Number(createValue.duration) < 24) {
               toast.error("The period must be greater than 24 hours.");
+            } else {
+              toast.error("The Count must be greater than 0.");
             }
           }}>
           CREATE RAFFLE
