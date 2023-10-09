@@ -25,7 +25,7 @@ const Ship = () => {
   }, [collectionOptions, navigate]);
 
   return (
-    <div className='bg-gradient-to-t from-[#944200] to-[#f8a866] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh]'>
+    <div className='bg-gradient-to-t from-[#944200] to-[#f8a866] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh] relative'>
       <div className='md:text-5xl text-2xl relative z-20'>
         <div className='flex text-center'>
           <div className={`w-[50%]`} onClick={() => navigate("/ship")}>
@@ -64,7 +64,7 @@ const Ship = () => {
       <img
         className='absolute bottom-5 right-5 z-10 hidden md:inline opacity-50'
         src={ShipImg}
-        alt='pawnship'
+        alt='ship'
       />
     </div>
   );
