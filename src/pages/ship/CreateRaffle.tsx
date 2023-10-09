@@ -164,8 +164,8 @@ const CreateRaffle = () => {
           onChange={handleChange}
         />
         <button
-          className={`w-full md:text-2xl text-lg border-2 border-[#FF4200] rounded-[99px] md:py-2 md:mb-4 py-1 mt-3 ${
-            activeButton && "bg-[#FF4200]"
+          className={`w-full md:text-2xl text-lg border-2 border-[#ff9933] rounded-[99px] md:py-2 md:mb-4 py-1 mt-3 ${
+            activeButton && "bg-[#ff9933]"
           } `}
           disabled={!activeButton}
           onClick={() => {
@@ -173,7 +173,7 @@ const CreateRaffle = () => {
               setOpen(true);
               dispatch(setLoading(true));
             } else {
-              toast.error("The period must be greater than 1 hours.");
+              toast.error("The period must be greater than 24 hours.");
             }
           }}>
           CREATE RAFFLE

@@ -47,3 +47,4 @@ export const months = [
 
 export const optionTypes = ["CALL", "PUT"];
 export const optionStatus = ["LIST", "OPEN", "CLOSED", "CANCELED"];
+export const raffleStatus = ["INVALID", "LIVE", "SETTLED", "CANCEL"];

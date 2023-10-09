@@ -44,6 +44,7 @@ export const useGetRaffle = () => {
                         nTickets: raffleData["decoded"]["0"][8].length,
                         winner: raffleData["decoded"]["0"][9],
                         status: raffleData["decoded"]["0"][10],
+                        itemId: i,
                     };
                     tempRaffle.push(item)
                 }
@@ -65,6 +66,7 @@ export const useGetRaffle = () => {
                         nTickets: oldraffleData["decoded"]["0"][8].length,
                         winner: oldraffleData["decoded"]["0"][9],
                         status: oldraffleData["decoded"]["0"][10],
+                        itemId: i,
                     };
                     tempOldRaffle.push(item)
                 }

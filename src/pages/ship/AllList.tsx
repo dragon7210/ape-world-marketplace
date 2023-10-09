@@ -37,21 +37,21 @@ const AllList = () => {
       <div className='flex justify-end items-center md:mt-3 border-b-2 pb-1 md:text-2xl text-base'>
         <button
           className={`md:py-1 px-2 rounded-l-[99px] w-[160px] ${
-            tab === 0 ? "bg-[#ff4200]" : "bg-[#c43300]"
+            tab === 0 ? "bg-[#ff9933]" : "bg-[#cb6500]"
           }`}
           onClick={() => setTab(0)}>
           Live Auctions
         </button>
         <button
           className={`md:py-1 px-2 w-[160px] border-x-2 ${
-            tab === 1 ? "bg-[#ff4200]" : "bg-[#c43300]"
+            tab === 1 ? "bg-[#ff9933]" : "bg-[#cb6500]"
           }`}
           onClick={() => setTab(1)}>
           All My Auctions
         </button>
         <button
           className={`md:py-1 px-2 rounded-r-[99px] w-[160px] ${
-            tab === 2 ? "bg-[#ff4200]" : "bg-[#c43300]"
+            tab === 2 ? "bg-[#ff9933]" : "bg-[#cb6500]"
           }`}
           onClick={() => setTab(2)}>
           Concluded Auctions
@@ -91,11 +91,11 @@ const AllList = () => {
                   <td>
                     <div className='flex items-center justify-center md:py-1 py-[1px]'>
                       <button
-                        className='hover:bg-[#ff4200] bg-[#c43300] md:p-[5px] p-[2px] rounded-[99px]'
+                        className='hover:bg-[#ff9933] bg-[#cb6500] md:p-[5px] p-[2px] rounded-[99px]'
                         onClick={() => {
                           setSelData(item);
                           setOpen(!open);
-                          // dispatch(setLoading(true));
+                          dispatch(setLoading(true));
                         }}>
                         <img
                           src={ViewImg}
@@ -115,13 +115,8 @@ const AllList = () => {
           <p className='pt-5 text-2xl'>No Raffle Data</p>
         </div>
       )}
-      <Pagination data={data} color='#c43300' setPageData={setPageData} />
-      <ViewRaffleModal
-        open={open}
-        setOpen={setOpen}
-        selData={selData}
-        collections={collectionOptions}
-      />
+      <Pagination data={data} color='#cb6500' setPageData={setPageData} />
+      <ViewRaffleModal open={open} setOpen={setOpen} selData={selData} />
     </div>
   );
 };

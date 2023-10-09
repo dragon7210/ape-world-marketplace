@@ -289,3 +289,17 @@ export const getOldRaffleABI = {
   stateMutability: "view",
   type: "function",
 };
+export const removeRaffleABI = {
+  inputs: [{ internalType: "bytes32", name: "_hash", type: "bytes32" }],
+  name: "removeItem",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function",
+};
+export const buyTicketsABI = {
+  inputs: [{ internalType: "bytes32", name: "_hash", type: "bytes32" }],
+  name: "buyTickets",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function",
+};

@@ -25,13 +25,13 @@ const Ship = () => {
   }, [collectionOptions, navigate]);
 
   return (
-    <div className='bg-gradient-to-t from-[#322630] to-[#32263050] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh]'>
+    <div className='bg-gradient-to-t from-[#944200] to-[#f8a866] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh]'>
       <div className='md:text-5xl text-2xl relative z-20'>
         <div className='flex text-center'>
           <div className={`w-[50%]`} onClick={() => navigate("/ship")}>
             <p
-              className={`mb-2 cursor-pointer border-r-2 border-[#762e1550] ${
-                pathname === "/ship" ? "text-gray-100" : "text-[#491806]"
+              className={`mb-2 cursor-pointer border-r-2 border-[#653300] ${
+                pathname === "/ship" ? "text-gray-100" : "text-[#653300]"
               }`}>
               ALL LISTS
             </p>
@@ -50,7 +50,7 @@ const Ship = () => {
             }}>
             <p
               className={` mb-2 cursor-pointer ${
-                pathname === "/ship/create" ? "text-gray-100" : "text-[#491806]"
+                pathname === "/ship/create" ? "text-gray-100" : "text-[#653300]"
               }`}>
               CREATE RAFFLE
             </p>
