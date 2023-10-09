@@ -79,8 +79,7 @@ const Market = () => {
                   key={index}
                   className='border-b text-center backdrop-blur-sm'>
                   <td className='md:py-3 px-3 text-left'>
-                    {collectionOptions &&
-                      getCollectionName(collectionOptions, item.tokenAddress)}
+                    {getCollectionName(collectionOptions, item.tokenAddress)}
                   </td>
                   <td className='hidden md:table-cell'>{item.type}</td>
                   <td className='hidden md:table-cell'>

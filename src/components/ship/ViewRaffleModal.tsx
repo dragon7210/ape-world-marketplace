@@ -14,23 +14,23 @@ import { useWallet } from "hooks";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 
-const CreateRaffleModal = ({
+const ViewRaffleModal = ({
   open,
-  createValue,
+  selData,
   collections,
-  apes,
   setOpen,
 }: {
   open: boolean;
-  createValue: any;
+  selData: any;
   collections: any;
-  apes: any;
   setOpen: any;
 }) => {
   const { connex } = useWallet();
   const dispatch = useDispatch();
-  const data = apes?.tokens?.items?.filter(
-    (item: any) => item.tokenId === createValue.id
+  const data = collections?.filter(
+    (item: any) =>
+      item?.smartContractAddress?.toLowerCase() ===
+      selData?.tokenAddress?.toLowerCase()
   );
   const getServiceFee = async () => {
     if (connex) {
@@ -40,52 +40,8 @@ const CreateRaffleModal = ({
     }
   };
 
-  const handleCreate = async () => {
-    if (connex) {
-      const data = collections.filter(
-        (item: any) => item.collectionId === createValue.collectionId
-      );
-      const selAddress = data[0].smartContractAddress;
-      const namedMethod = connex.thor.account(selAddress).method(approveABI);
-      var clause1 = namedMethod.asClause(raffle_address, createValue.id);
-
-      const anotherNamedMethod = connex.thor
-        .account(raffle_address)
-        .method(createRaffleABI);
-      var clause2 = anotherNamedMethod.asClause(
-        selAddress,
-        createValue.id,
-        createValue.value,
-        createValue.count,
-        createValue.duration
-      );
-      const fee = await getServiceFee();
-      const yetAnotherMethod = connex.thor
-        .account(mva_token_address)
-        .method(mvaApproveABI);
-      if (fee) {
-        const clause3 = yetAnotherMethod.asClause(
-          raffle_address,
-          fee.toString()
-        );
-        connex.vendor
-          .sign("tx", [clause1, clause3, clause2])
-          .comment("Create Raffle.")
-          .request()
-          .then(() => {
-            dispatch(setLoading(false));
-            setOpen(!open);
-            toast.success("Success");
-          })
-          .catch(() => {
-            dispatch(setLoading(false));
-            setOpen(!open);
-            toast.error("Could not create raffle.");
-          });
-      }
-    }
-  };
-
+  const handleCreate = async () => {};
+  console.log(data);
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm z-30'
@@ -99,12 +55,12 @@ const CreateRaffleModal = ({
               onClick={() => setOpen(!open)}
             />
           </div>
-          <img
+          {/* <img
             className='rounded-lg'
             src={data[0]?.assets[1].url}
             alt='createLoan'
             onLoad={() => dispatch(setLoading(false))}
-          />
+          /> */}
           <div className='md:ml-3 mt-2 '>
             <div className='md:flex justify-end hidden '>
               <XMarkIcon
@@ -128,15 +84,15 @@ const CreateRaffleModal = ({
               <div className='md:columns-3 columns-1 md:px-5 px-2 text-base md:text-md'>
                 <div className='flex justify-between md:inline'>
                   <p className='text-gray-500'>Ticket Value</p>
-                  <p>{createValue?.value} VET</p>
+                  <p>{selData?.value} VET</p>
                 </div>
                 <div className='flex justify-between md:inline'>
                   <p className='text-gray-500'>Number Of Tickets</p>
-                  <p>{createValue?.count}</p>
+                  <p>{selData?.count}</p>
                 </div>
                 <div className='flex justify-between md:inline'>
                   <p className='text-gray-500'>Duration</p>
-                  <p>{createValue?.duration} H</p>
+                  <p>{selData?.duration} H</p>
                 </div>
               </div>
             </div>
@@ -162,4 +118,4 @@ const CreateRaffleModal = ({
   );
 };
 
-export default CreateRaffleModal;
+export default ViewRaffleModal;

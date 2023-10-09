@@ -238,11 +238,54 @@ export const createRaffleABI = {
   stateMutability: "payable",
   type: "function",
 };
-
 export const getFeeABI = {
   inputs: [],
   name: "getServiceFee",
   outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+  stateMutability: "view",
+  type: "function",
+};
+export const getAllRaffleABI = {
+  inputs: [],
+  name: "getItemList",
+  outputs: [{ internalType: "bytes32[]", name: "", type: "bytes32[]" }],
+  stateMutability: "view",
+  type: "function",
+};
+export const getRaffleABI = {
+  inputs: [{ internalType: "bytes32", name: "_hash", type: "bytes32" }],
+  name: "getItem",
+  outputs: [
+    {
+      components: [
+        { internalType: "address", name: "owner", type: "address" },
+        { internalType: "address", name: "tokenAddress", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+        { internalType: "uint256", name: "ticketValue", type: "uint256" },
+        { internalType: "uint256", name: "ticketNumber", type: "uint256" },
+        { internalType: "uint256", name: "duration", type: "uint256" },
+        { internalType: "uint256", name: "startTime", type: "uint256" },
+        { internalType: "uint256", name: "endTime", type: "uint256" },
+        { internalType: "address[]", name: "tickets", type: "address[]" },
+        { internalType: "uint256", name: "winner", type: "uint256" },
+        {
+          internalType: "enum RaffleShop.TYPES",
+          name: "status",
+          type: "uint8",
+        },
+      ],
+      internalType: "struct RaffleShop._item",
+      name: "",
+      type: "tuple",
+    },
+  ],
+  stateMutability: "view",
+  type: "function",
+};
+export const getOldRaffleABI = {
+  inputs: [],
+  name: "getSettledList",
+  outputs: [{ internalType: "bytes32[]", name: "", type: "bytes32[]" }],
   stateMutability: "view",
   type: "function",
 };

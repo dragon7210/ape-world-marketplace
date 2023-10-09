@@ -38,3 +38,21 @@ export const getEndTime = (end_block: string, connex: any) => {
     return timeConverter(end_unixtimestamp);
   }
 };
+
+export const differentTime = (time: string, connex: any) => {
+  let endTime = getEndTime(time, connex);
+  let returnTime;
+  if (endTime) {
+    let temp =
+      (new Date(endTime).getTime() - new Date().getTime()) / 1000 / 60;
+    returnTime =
+      temp > 0
+        ? Math.floor(temp / 60) + "h " + Math.floor(temp % 60) + "min"
+        : "-" +
+        Math.abs(Math.floor(temp / 60 + 1)) +
+        "h " +
+        Math.abs(Math.floor(temp % 60)) +
+        "min";
+  }
+  return returnTime;
+};

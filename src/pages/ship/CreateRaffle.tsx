@@ -28,9 +28,9 @@ const CreateRaffle = () => {
   const [createValue, setCreateValue] = useState<{ [key: string]: string }>({
     collectionId: "",
     id: "",
-    vet: "",
+    value: "",
     duration: "",
-    number: "",
+    count: "",
   });
 
   const collectionOptions = useCustomQuery({
@@ -144,16 +144,16 @@ const CreateRaffle = () => {
         />
         <InputValue
           label='Value'
-          name='vet'
+          name='value'
           placeholder='VET'
-          value={createValue.vet}
+          value={createValue.value}
           onChange={handleChange}
         />
         <InputValue
-          label='Number'
-          name='number'
-          placeholder='%'
-          value={createValue.number}
+          label='Count'
+          name='count'
+          placeholder=''
+          value={createValue.count}
           onChange={handleChange}
         />
         <InputValue
@@ -169,7 +169,7 @@ const CreateRaffle = () => {
           } `}
           disabled={!activeButton}
           onClick={() => {
-            if (parseInt(createValue.duration) >= 1) {
+            if (parseInt(createValue.duration) >= 24) {
               setOpen(true);
               dispatch(setLoading(true));
             } else {

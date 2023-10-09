@@ -6,7 +6,7 @@ import ViewImg from "assets/svg/apeworld/view.svg";
 import { statusArray } from "constant";
 import ViewLoanModal from "components/pawnShop/ViewLoanModal";
 import Pagination from "components/common/Pagination";
-import { getCollectionName, getEndTime } from "utils";
+import { differentTime, getCollectionName, getEndTime } from "utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "actions/loading";
 
@@ -29,24 +29,6 @@ const AllLoan = () => {
   useEffect(() => {
     dispatch(setLoading(loading));
   }, [loading, dispatch]);
-
-  const differentTime = (time: string) => {
-    let endTime = getEndTime(time, connex);
-    let returnTime;
-    if (endTime) {
-      let temp =
-        (new Date(endTime).getTime() - new Date().getTime()) / 1000 / 60;
-      returnTime =
-        temp > 0
-          ? Math.floor(temp / 60) + "h " + Math.floor(temp % 60) + "min"
-          : "-" +
-            Math.abs(Math.floor(temp / 60 + 1)) +
-            "h " +
-            Math.abs(Math.floor(temp % 60)) +
-            "min";
-    }
-    return returnTime;
-  };
 
   return (
     <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl'>
@@ -93,10 +75,9 @@ const AllLoan = () => {
                   key={index}
                   className='border-b text-center backdrop-blur-sm'>
                   <td className='md:py-3 px-3 text-left'>
-                    {collectionOptions &&
-                      getCollectionName(collectionOptions, item.tokenAddress) +
-                        " #" +
-                        item.tokenId}
+                    {getCollectionName(collectionOptions, item.tokenAddress) +
+                      " #" +
+                      item.tokenId}
                   </td>
                   <td className='hidden md:table-cell'>
                     {item.loanValue / 10 ** 18}
@@ -105,7 +86,7 @@ const AllLoan = () => {
                   <td className='hidden md:table-cell'>
                     {item.status === "1"
                       ? "Empty Duration"
-                      : differentTime(item?.endTime)}
+                      : differentTime(item?.endTime, connex)}
                   </td>
                   <td className='hidden md:table-cell'>
                     <div className='flex justify-center'>
