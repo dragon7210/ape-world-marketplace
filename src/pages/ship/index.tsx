@@ -14,9 +14,7 @@ const Ship = () => {
   const { pathname } = useLocation();
   const { address } = useWallet();
   const navigate = useNavigate();
-  const { collectionOptions } = useSelector(
-    (state: any) => state.collectionOptions
-  );
+  const { collectionOptions } = useSelector((state: any) => state.collections);
 
   useEffect(() => {
     if (collectionOptions.length === 0) {

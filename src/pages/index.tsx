@@ -22,7 +22,7 @@ const ApeWorld = () => {
 
   useEffect(() => {
     if (collectionOptions) {
-      dispatch(setCollectionOptions(collectionOptions));
+      dispatch(setCollectionOptions(collectionOptions.collections));
       dispatch(setLoading(false));
     } else {
       dispatch(setLoading(true));

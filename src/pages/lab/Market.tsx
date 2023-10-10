@@ -24,9 +24,7 @@ const Market = () => {
     }
   }, [connex]);
 
-  const { collectionOptions } = useSelector(
-    (state: any) => state.collectionOptions
-  );
+  const { collectionOptions } = useSelector((state: any) => state.collections);
   const { loading, optionData, myOptionData } = useGetOptions();
   const data = selector ? optionData : myOptionData;
 

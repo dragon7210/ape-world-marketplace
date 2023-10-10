@@ -33,9 +33,7 @@ const ViewOptionModal = ({
   const [openSellOption, setOpenSellOption] = useState<boolean>(false);
   const [openExercisePut, setOpenExercisePut] = useState<boolean>(false);
   const { connex, address } = useWallet();
-  const { collectionOptions } = useSelector(
-    (state: any) => state.collectionOptions
-  );
+  const { collectionOptions } = useSelector((state: any) => state.collections);
   const selData = useCustomQuery({
     query: getToken({
       tokenId: data?.tokenId,

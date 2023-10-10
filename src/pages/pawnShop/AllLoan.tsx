@@ -20,9 +20,7 @@ const AllLoan = () => {
 
   const dispatch = useDispatch();
 
-  const { collectionOptions } = useSelector(
-    (state: any) => state.collectionOptions
-  );
+  const { collectionOptions } = useSelector((state: any) => state.collections);
 
   const data = selector ? loanData : myLoanData;
 

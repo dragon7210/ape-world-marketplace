@@ -8,9 +8,9 @@ import { TokenOption } from "constant";
 import { useWallet, useCustomQuery } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { getCollections, searchNFTs } from "utils/query";
+import { searchNFTs } from "utils/query";
 
 const CreateRaffle = () => {
   const { address } = useWallet();
@@ -36,14 +36,14 @@ const CreateRaffle = () => {
     token: "",
   });
 
-  const collectionOptions = useCustomQuery({
-    query: getCollections,
-    variables: { ownerAddress: address },
-  });
+  const { connectedCollections } = useSelector(
+    (state: any) => state.collections
+  );
 
   const filters = {
     ownerAddress: address,
   };
+
   const collectionFilter = {
     ownerAddress: address,
     collectionId: createValue.collectionId,
@@ -94,7 +94,7 @@ const CreateRaffle = () => {
   }, [apes, createValue, dispatch]);
 
   useEffect(() => {
-    const data = collectionOptions?.collections?.map((item: any) => {
+    const data = connectedCollections?.map((item: any) => {
       return {
         value: item.collectionId,
         label: (
@@ -110,7 +110,7 @@ const CreateRaffle = () => {
       };
     });
     setCollectionOption(data);
-  }, [collectionOptions]);
+  }, [connectedCollections]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -125,14 +125,12 @@ const CreateRaffle = () => {
       <div className='bg-[#0a0b1336] md:rounded-3xl rounded-lg m-6 px-2 py-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
         <InputSelect
           label='Collection'
-          onChange={(e) => {
-            address
-              ? setCreateValue({
-                  ...createValue,
-                  collectionId: e ? e.value : "",
-                })
-              : toast.error("Please connect the wallet");
-          }}
+          onChange={(e) =>
+            setCreateValue({
+              ...createValue,
+              collectionId: e ? e.value : "",
+            })
+          }
           options={collectionOption}
         />
         <InputSelect
@@ -206,7 +204,7 @@ const CreateRaffle = () => {
       </div>
       <CreateRaffleModal
         open={open}
-        collections={collectionOptions?.collections}
+        collections={connectedCollections}
         createValue={createValue}
         apes={apes}
         setOpen={setOpen}

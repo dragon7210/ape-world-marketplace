@@ -19,9 +19,7 @@ const AllList = () => {
   const [selData, setSelData] = useState<any>();
   const dispatch = useDispatch();
 
-  const { collectionOptions } = useSelector(
-    (state: any) => state.collectionOptions
-  );
+  const { collectionOptions } = useSelector((state: any) => state.collections);
 
   useEffect(() => {
     dispatch(setLoading(loading));

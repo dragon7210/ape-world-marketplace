@@ -7,9 +7,9 @@ import CreateCallOptionModal from "components/lab/CreateCallOptionModal";
 import { useWallet, useCustomQuery } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { getCollections, searchNFTs } from "utils/query";
+import { searchNFTs } from "utils/query";
 
 const Call = () => {
   const { address } = useWallet();
@@ -26,10 +26,9 @@ const Call = () => {
     }
   }, [address, navigate]);
 
-  const collectionOptions = useCustomQuery({
-    query: getCollections,
-    variables: { ownerAddress: address },
-  });
+  const { connectedCollections } = useSelector(
+    (state: any) => state.collections
+  );
 
   const [createValue, setCreateValue] = useState<{ [key: string]: string }>({
     id: "",
@@ -54,6 +53,7 @@ const Call = () => {
       pagination: { page: 1, perPage: 1000 },
     },
   });
+
   useEffect(() => {
     if (!apes) {
       dispatch(setLoading(true));
@@ -91,7 +91,7 @@ const Call = () => {
   }, [apes, createValue, dispatch]);
 
   useEffect(() => {
-    const data = collectionOptions?.collections?.map((item: any) => {
+    const data = connectedCollections?.map((item: any) => {
       return {
         value: item.collectionId,
         label: (
@@ -107,7 +107,7 @@ const Call = () => {
       };
     });
     setCollectionOption(data);
-  }, [collectionOptions]);
+  }, [connectedCollections]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -122,14 +122,12 @@ const Call = () => {
       <div className='bg-[#0a0b1336] md:rounded-3xl rounded-lg p-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
         <InputSelect
           label='Collection'
-          onChange={(e) => {
-            address
-              ? setCreateValue({
-                  ...createValue,
-                  collectionId: e ? e.value : "",
-                })
-              : toast.error("Please connect the wallet");
-          }}
+          onChange={(e) =>
+            setCreateValue({
+              ...createValue,
+              collectionId: e ? e.value : "",
+            })
+          }
           options={collectionOption}
         />
         <InputSelect
@@ -184,7 +182,7 @@ const Call = () => {
         createValue={createValue}
         setOpen={setOpen}
         apes={apes}
-        collections={collectionOptions?.collections}
+        collections={connectedCollections}
       />
     </div>
   );

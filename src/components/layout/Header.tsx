@@ -6,12 +6,28 @@ import DiscordImage from "assets/png/header/discord.png";
 import FaceImage from "assets/svg/header/face.svg";
 import { useNavigate } from "react-router-dom";
 import { Bars4Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
+import { useCustomQuery, useWallet } from "hooks";
+import { getCollections } from "utils/query";
+import { useDispatch } from "react-redux";
+import { setconnectedCollections } from "actions/collections";
 
 const Header = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
+  const { address } = useWallet();
+  const dispatch = useDispatch();
+
+  const collectionOptions = useCustomQuery({
+    query: getCollections,
+    variables: { ownerAddress: address },
+  });
+
+  useEffect(() => {
+    dispatch(setconnectedCollections(collectionOptions?.collections));
+  }, [dispatch, collectionOptions]);
+
   return (
     <div className='w-full h-24 bg-[#00000050] fixed shadow-lg backdrop-blur-2xl flex justify-between items-center px-[5%] z-30'>
       <div className='flex items-center'>

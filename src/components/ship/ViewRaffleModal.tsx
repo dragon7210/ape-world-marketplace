@@ -126,7 +126,7 @@ const ViewRaffleModal = ({
     } else if (selData?.status === "1" && block >= selData?.endTime) {
       setButton(
         <button
-          className='bg-blue-700 py-1 rounded-lg w-24'
+          className='bg-blue-700 py-1 rounded-lg w-32'
           onClick={() => {
             removeItem();
             dispatch(setLoading(true));
@@ -218,11 +218,17 @@ const ViewRaffleModal = ({
                 placeholder='Tickets'
               />
             )}
-            <div className='flex mt-2 md:mt-0 justify-end'>
+            <div
+              className={`flex mt-2 md:mt-0 justify-between ${
+                selData?.status === "1" &&
+                selData?.owner === address &&
+                "w-full"
+              } 
+              `}>
               {Button}
               {selData?.status === "1" && selData?.owner === address && (
                 <button
-                  className='bg-[#FF0000] py-1 rounded-lg w-24 ml-5'
+                  className='bg-[#FF0000] py-1 rounded-lg w-24'
                   onClick={() => {
                     removeItem();
                     dispatch(setLoading(true));

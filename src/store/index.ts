@@ -4,7 +4,7 @@ import loadingSlice from 'actions/loading'
 
 export const store = configureStore({
     reducer: {
-        collectionOptions: collectionSlice,
+        collections: collectionSlice,
         loading: loadingSlice
     },
 })
