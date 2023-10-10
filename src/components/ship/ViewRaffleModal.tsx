@@ -116,8 +116,10 @@ const ViewRaffleModal = ({
             if (count > 0 && count <= selData?.ticketNumber) {
               buyTickets();
               dispatch(setLoading(true));
-            } else {
+            } else if (count < 0) {
               toast.error("The Count must be greater than 1");
+            } else {
+              toast.error("The Count must be smaller than Ticket Targets");
             }
           }}>
           I want to buy
