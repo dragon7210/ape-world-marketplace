@@ -185,7 +185,13 @@ const ViewRaffleModal = ({
             <div className='md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md'>
               <div>
                 <p className='text-gray-500'>Ticket Price</p>
-                <p>{selData?.ticketValue / 10 ** 18} VET</p>
+                <p>
+                  {selData?.ticketValue / 10 ** 18 +
+                    (selData?.paymentToken ===
+                    "0xc3fd50a056dc4025875fa164ced1524c93053f29"
+                      ? " MVA"
+                      : " VET")}
+                </p>
               </div>
               <div>
                 <p className='text-gray-500'>Ticket Targets</p>

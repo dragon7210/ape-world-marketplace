@@ -97,8 +97,8 @@ const AllList = () => {
                     {item.ticketValue / 10 ** 18 +
                       (item?.paymentToken ===
                       "0xc3fd50a056dc4025875fa164ced1524c93053f29"
-                        ? "MVA"
-                        : "VET")}
+                        ? " MVA"
+                        : " VET")}
                   </td>
                   <td className={`hidden ${tab !== 2 && "md:table-cell"} `}>
                     {item.nTickets + "/" + item.ticketNumber}
@@ -115,8 +115,8 @@ const AllList = () => {
                         {(item.nTickets * item.ticketValue) / 10 ** 18 +
                           (item?.paymentToken ===
                           "0xc3fd50a056dc4025875fa164ced1524c93053f29"
-                            ? "MVA"
-                            : "VET")}
+                            ? " MVA"
+                            : " VET")}
                       </td>
                       <td className='hidden md:table-cell'>{item.winner}</td>
                     </>
