@@ -215,7 +215,12 @@ const ViewRaffleModal = ({
               </div>
             </div>
           </div>
-          <div className='md:flex md:text-xl text-base justify-between mt-2 text-white'>
+          <div
+            className={`md:flex md:text-xl text-base  mt-2 text-white ${
+              selData?.status === "1" && block < selData?.endTime
+                ? "justify-between"
+                : "justify-end"
+            }`}>
             {selData?.status === "1" && block < selData?.endTime && (
               <input
                 className='border-2 border-gray-400 rounded-md px-7 text-gray-800 w-full mr-5 text-right focus:outline-none'
@@ -224,13 +229,7 @@ const ViewRaffleModal = ({
                 placeholder='Tickets'
               />
             )}
-            <div
-              className={`flex mt-2 md:mt-0 justify-end ${
-                selData?.status === "1" &&
-                selData?.owner === address &&
-                "w-full"
-              } 
-              `}>
+            <div className={`flex mt-2 md:mt-0 justify-end`}>
               {Button}
               {selData?.status === "1" && selData?.owner === address && (
                 <button
