@@ -171,7 +171,7 @@ const Pagination = ({
           </button>
           <button
             className={`rounded-[99px] border-gray-500 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center  ${
-              selPage === 1 || data.length / perPage < 3 ? "inline" : "hidden"
+              selPage === 1 || data.length / perPage <= 2 ? "inline" : "hidden"
             }`}
             disabled>
             {3}
