@@ -33,17 +33,17 @@ const Pagination = ({
         <div className='hidden md:flex items-center'>
           <p className='text-gray-200'>
             Showing&nbsp;
-            <span className='font-medium'>
+            <button className='font-medium'>
               {data.length === 0 ? 0 : 1 + perPage * (selPage - 1)}
-            </span>
+            </button>
             &nbsp;to&nbsp;
-            <span className='font-medium'>
+            <button className='font-medium'>
               {data.length > perPage * selPage
                 ? perPage * selPage
                 : data.length}
-            </span>
+            </button>
             &nbsp;of&nbsp;
-            <span className='font-medium'>{data.length}</span>
+            <button className='font-medium'>{data.length}</button>
             &nbsp;results
           </p>
         </div>
@@ -98,13 +98,12 @@ const Pagination = ({
               IndicatorSeparator: () => null,
             }}
           />
-          <span
-            className={`rounded-[99px] border-gray-100 md:p-2 p-1 border-2 items-center cursor-pointer`}
+          <button
+            className={`rounded-[99px] border-gray-100 md:p-2 p-1 border-2 items-center `}
             onClick={() => {
-              if (selPage > 1) {
-                setSelPage(selPage - 1);
-              }
-            }}>
+              setSelPage(selPage - 1);
+            }}
+            disabled={selPage === 1 ? true : false}>
             <svg className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
               <path
                 fillRule='evenodd'
@@ -112,21 +111,21 @@ const Pagination = ({
                 clipRule='evenodd'
               />
             </svg>
-          </span>
+          </button>
           {((data.length % perPage === 0 &&
             data.length / perPage === selPage) ||
             (data.length % perPage !== 0 &&
               Math.floor(data.length / perPage) + 1 === selPage)) &&
             selPage > 2 && (
-              <span
-                className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer`}
+              <button
+                className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center `}
                 onClick={() => {
                   if (selPage > 2) {
                     setSelPage(selPage - 2);
                   }
                 }}>
                 {selPage - 2}
-              </span>
+              </button>
             )}
           {array.map((item: number, index: number) => {
             return (
@@ -134,9 +133,9 @@ const Pagination = ({
                 (data.length % perPage === 0
                   ? data.length / perPage
                   : data.length / perPage + 1) && (
-                <span
+                <button
                   key={index}
-                  className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer ${
+                  className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center  ${
                     selPage + item === 0 && "hidden"
                   } ${item === 0 && `bg-[${color}]`}`}
                   onClick={() => {
@@ -150,35 +149,37 @@ const Pagination = ({
                     }
                   }}>
                   {selPage + item}
-                </span>
+                </button>
               )
             );
           })}
-          <span
-            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer ${
+          <button
+            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center  ${
               data.length === 0 ? "inline" : "hidden"
-            }`}>
+            }`}
+            disabled>
             {1}
-          </span>
-          <span
-            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer ${
+          </button>
+          <button
+            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center  ${
               data.length / perPage <= 1 ? "inline" : "hidden"
-            }`}>
+            }`}
+            disabled>
             {2}
-          </span>
-          <span
-            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center cursor-pointer ${
+          </button>
+          <button
+            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center  ${
               selPage === 1 || data.length / perPage < 3 ? "inline" : "hidden"
-            }`}>
+            }`}
+            disabled>
             {3}
-          </span>
-          <span
-            className={`rounded-[99px] border-gray-100 md:p-2 p-1 border-2 cursor-pointer`}
+          </button>
+          <button
+            className={`rounded-[99px] border-gray-100 md:p-2 p-1 border-2 `}
             onClick={() => {
-              if (selPage < data.length / perPage) {
-                setSelPage(selPage + 1);
-              }
-            }}>
+              setSelPage(selPage + 1);
+            }}
+            disabled={selPage * perPage < data.length ? false : true}>
             <svg className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
               <path
                 fillRule='evenodd'
@@ -186,7 +187,7 @@ const Pagination = ({
                 clipRule='evenodd'
               />
             </svg>
-          </span>
+          </button>
         </div>
       </div>
     </div>
