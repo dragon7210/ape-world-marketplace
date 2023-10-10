@@ -225,7 +225,7 @@ const ViewRaffleModal = ({
               />
             )}
             <div
-              className={`flex mt-2 md:mt-0 justify-between ${
+              className={`flex mt-2 md:mt-0 justify-end ${
                 selData?.status === "1" &&
                 selData?.owner === address &&
                 "w-full"
@@ -234,7 +234,7 @@ const ViewRaffleModal = ({
               {Button}
               {selData?.status === "1" && selData?.owner === address && (
                 <button
-                  className='bg-[#FF0000] py-1 rounded-lg w-24'
+                  className='bg-[#FF0000] py-1 rounded-lg w-24 ml-5'
                   onClick={() => {
                     removeItem();
                     dispatch(setLoading(true));
