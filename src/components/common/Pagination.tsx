@@ -99,7 +99,9 @@ const Pagination = ({
             }}
           />
           <button
-            className={`rounded-[99px] border-gray-100 md:p-2 p-1 border-2 items-center `}
+            className={`rounded-[99px]  md:p-2 p-1 border-2 items-center ${
+              selPage === 1 ? "border-gray-500" : "border-gray-100"
+            }`}
             onClick={() => {
               setSelPage(selPage - 1);
             }}
@@ -154,28 +156,32 @@ const Pagination = ({
             );
           })}
           <button
-            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center  ${
+            className={`rounded-[99px] border-gray-500 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center  ${
               data.length === 0 ? "inline" : "hidden"
             }`}
             disabled>
             {1}
           </button>
           <button
-            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center  ${
+            className={`rounded-[99px] border-gray-500 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center  ${
               data.length / perPage <= 1 ? "inline" : "hidden"
             }`}
             disabled>
             {2}
           </button>
           <button
-            className={`rounded-[99px] border-gray-100 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center  ${
+            className={`rounded-[99px] border-gray-500 p-1 w-8 h-8 md:w-[38px] md:h-[38px] pt-[3px] md:pt-[4px] border-2 text-center  ${
               selPage === 1 || data.length / perPage < 3 ? "inline" : "hidden"
             }`}
             disabled>
             {3}
           </button>
           <button
-            className={`rounded-[99px] border-gray-100 md:p-2 p-1 border-2 `}
+            className={`rounded-[99px]  md:p-2 p-1 border-2 ${
+              selPage * perPage < data.length
+                ? "border-gray-100"
+                : "border-gray-500"
+            } `}
             onClick={() => {
               setSelPage(selPage + 1);
             }}
