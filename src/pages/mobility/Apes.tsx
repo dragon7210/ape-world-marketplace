@@ -4,13 +4,12 @@ import RegisterModal from "components/mobility/RegisterModal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName } from "utils";
-import ViewImg from "assets/svg/apeworld/view.svg";
 import { setLoading } from "actions/loading";
 import ViewModal from "components/mobility/ViewModal";
 import { useGetApes } from "hooks/useGetApes";
 import Pagination from "components/common/Pagination";
 import MoveModal from "components/mobility/MoveModal";
-import { ArrowUpOnSquareStackIcon } from "@heroicons/react/24/outline";
+import { ArrowUpOnSquareStackIcon, EyeIcon } from "@heroicons/react/24/outline";
 
 const Apes = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -72,11 +71,7 @@ const Apes = () => {
                             tokenId: item?.tokenId,
                           });
                         }}>
-                        <img
-                          src={ViewImg}
-                          alt='view'
-                          className='md:w-6 md:h-6 w-4 h-4'
-                        />
+                        <EyeIcon className='md:w-6 w-4' />
                       </button>
                       <button
                         className='bg-[#00a4c7] hover:bg-[#00d2ff] md:p-[5px] p-[2px] rounded-[99px] ml-2'

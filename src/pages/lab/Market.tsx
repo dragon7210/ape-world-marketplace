@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName } from "utils";
 import { useGetOptions, useWallet } from "hooks";
 import ViewOptionModal from "components/lab/ViewOptionModal";
-import ViewImg from "assets/svg/apeworld/view.svg";
 import { setLoading } from "actions/loading";
+import { EyeIcon } from "@heroicons/react/24/outline";
 
 const Market = () => {
   const [selector, setSelector] = useState(true);
@@ -102,11 +102,7 @@ const Market = () => {
                           setOpen(true);
                           dispatch(setLoading(true));
                         }}>
-                        <img
-                          src={ViewImg}
-                          alt='view'
-                          className='md:w-6 md:h-6 w-4 h-4'
-                        />
+                        <EyeIcon className='md:w-6 w-4' />
                       </button>
                     </div>
                   </td>

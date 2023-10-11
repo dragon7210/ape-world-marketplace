@@ -2,13 +2,13 @@
 
 import { useGetLoan, useWallet } from "hooks";
 import { useEffect, useState } from "react";
-import ViewImg from "assets/svg/apeworld/view.svg";
 import { statusArray } from "constant";
 import ViewLoanModal from "components/pawnShop/ViewLoanModal";
 import Pagination from "components/common/Pagination";
 import { differentTime, getCollectionName, getEndTime } from "utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "actions/loading";
+import { EyeIcon } from "@heroicons/react/24/outline";
 
 const AllLoan = () => {
   let { loanData, myLoanData, loading } = useGetLoan();
@@ -100,11 +100,7 @@ const AllLoan = () => {
                           dispatch(setLoading(true));
                           setOpenModal(true);
                         }}>
-                        <img
-                          src={ViewImg}
-                          alt='view'
-                          className='md:w-6 md:h-6 w-4 h-4'
-                        />
+                        <EyeIcon className='md:w-6 w-4' />
                       </button>
                     </div>
                   </td>

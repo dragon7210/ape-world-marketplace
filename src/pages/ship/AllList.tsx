@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { differentTime, getCollectionName, shortenAddress } from "utils";
 import Pagination from "components/common/Pagination";
-import ViewImg from "assets/svg/apeworld/view.svg";
 import ViewRaffleModal from "components/ship/ViewRaffleModal";
+import { EyeIcon } from "@heroicons/react/24/outline";
 
 const AllList = () => {
   const [tab, setTab] = useState<number>(0);
@@ -130,11 +130,7 @@ const AllList = () => {
                           setOpen(!open);
                           dispatch(setLoading(true));
                         }}>
-                        <img
-                          src={ViewImg}
-                          alt='view'
-                          className='md:w-6 md:h-6 w-4 h-4'
-                        />
+                        <EyeIcon className='md:w-6 w-4' />
                       </button>
                     </div>
                   </td>
