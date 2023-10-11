@@ -145,14 +145,14 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30 '
       open={open}
       onClose={() => {}}>
-      <div className='p-3 rounded-lg shadow-lg bg-blue-500 shadow-gray-500 w-[350px] md:w-[450px]'>
+      <div className='p-3 rounded-lg shadow-lg bg-gray-200 shadow-gray-500 w-[350px] md:w-[450px]'>
         <div className='flex justify-end '>
           <XMarkIcon
             className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
             onClick={() => setOpen(!open)}
           />
         </div>
-        <div className='text-gray-200 bg-[#00000050] md:p-8 p-4 rounded-lg mt-2'>
+        <div className='text-gray-200 bg-gray-800 md:p-8 p-4 rounded-lg mt-1'>
           <p className='text-center md:text-5xl text-3xl text-gray-200 mb-2'>
             Welcome to the APE-world!
           </p>

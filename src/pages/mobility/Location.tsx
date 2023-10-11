@@ -86,7 +86,7 @@ const Location = () => {
             <thead className='uppercase backdrop-blur-xl bg-[#0a0b1336]'>
               <tr className='text-center'>
                 <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
-                <th className='hidden md:table-cell'>Id</th>
+                <th className='table-cell'>Id</th>
               </tr>
             </thead>
             <tbody>
@@ -97,7 +97,7 @@ const Location = () => {
                   <td className='md:py-3 px-3 text-left'>
                     {getCollectionName(collectionOptions, item?.tokenAddress)}
                   </td>
-                  <td className='hidden md:table-cell'>{item?.tokenId}</td>
+                  <td className='table-cell'>{item?.tokenId}</td>
                 </tr>
               ))}
             </tbody>

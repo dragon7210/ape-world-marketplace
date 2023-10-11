@@ -1,5 +1,4 @@
 /** @format */
-import Select from "react-select";
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { getApeABI, getWorldInfoABI, moveToABI, mvaApproveABI } from "abi/abis";
@@ -9,6 +8,7 @@ import { positions } from "constant";
 import { useWallet } from "hooks";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import InputSelect from "components/common/InputSelect";
 
 const MoveModal = ({
   open,
@@ -35,10 +35,11 @@ const MoveModal = ({
           .account(mobility_address)
           .method(getApeABI);
         const _ape = await apeMethod.call(ape?.tokenAddress, ape?.tokenId);
-
+        console.log(_ape);
         const namedMethod = connex.thor
           .account(mobility_address)
           .method(moveToABI);
+
         const anotherMethod = connex.thor
           .account(mva_token_address)
           .method(mvaApproveABI);
@@ -50,7 +51,7 @@ const MoveModal = ({
         );
         let payClause: any;
 
-        if (_ape["decoded"]["0"]["3"] > 0) {
+        if (Number(_ape["decoded"]["0"]["3"]) > 0) {
           clause["value"] = "0";
         } else {
           payClause = anotherMethod.asClause(mobility_address, _price);
@@ -66,7 +67,7 @@ const MoveModal = ({
       })();
     }
   };
-  console.log(ape);
+
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30 '
@@ -79,55 +80,27 @@ const MoveModal = ({
             onClick={() => setOpen(!open)}
           />
         </div>
-        <div className='px-5'>
-          <p className='text-4xl'>Please select the position</p>
-          <div className='bg-gray-800 text-gray-200 m-5 p-4 rounded-lg'>
-            <Select
-              onChange={(e: any) => {
-                setPosition(e ? e.value : "");
-              }}
-              options={positions}
-              isClearable={true}
-              styles={{
-                menu: (baseStyles) => ({
-                  ...baseStyles,
-                  background: "#373953",
-                }),
-                control: (baseStyles) => ({
-                  ...baseStyles,
-                  background: "transparent",
-                  border: "solid 1px #BEBEBE",
-                  borderRadius: "8px",
-                  padding: "0px 10px",
-                  outline: "none",
-                }),
-                option: (baseStyles, state) => ({
-                  ...baseStyles,
-                  background: state.isSelected ? "#4D4D4D" : "#373953",
-                  padding: "4px 24px",
-                  ":hover": {
-                    background: "#4D4D4D",
-                    cursor: "pointer",
-                  },
-                }),
-                valueContainer: (baseStyles) => ({
-                  ...baseStyles,
-                  padding: "0px 8px",
-                }),
-              }}
-              components={{
-                DropdownIndicator: () => null,
-                IndicatorSeparator: () => null,
-              }}
-            />
-          </div>
+        <div className='bg-gray-800 md:p-8 p-4 rounded-lg mt-1 text-gray-200'>
+          <p className='md:text-5xl text-3xl text-center'>
+            Please select the position
+          </p>
+          <InputSelect
+            label='Position'
+            onChange={(e: any) => {
+              setPosition(e ? e.value : "");
+            }}
+            options={positions}
+          />
           <div className='flex md:text-xl text-base justify-end mt-2 text-white'>
             <button
-              className='bg-[#FF4200] py-1 rounded-lg mr-5 w-24'
+              className={`border-[#FF4200] border-2 py-1 rounded-lg mr-5 w-24 ${
+                position ? "bg-[#FF4200]" : ""
+              }`}
               onClick={() => {
                 dispatch(setLoading(true));
                 handle();
-              }}>
+              }}
+              disabled={position ? false : true}>
               MOVE TO
             </button>
             <button

@@ -32,7 +32,7 @@ const Apes = () => {
     <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl'>
       <div className='flex justify-end items-center md:mt-3 border-b-2 border-[#FF420050] pb-1'>
         <button
-          className='bg-[#FF4200] py-[7px] md:py-[5px] rounded-lg ml-5 w-24 md:text-xl text-base'
+          className='bg-[#FF4200] py-[1px] md:py-[5px] rounded-lg w-24 md:text-xl text-base'
           onClick={() => {
             setOpen(!open);
           }}>
