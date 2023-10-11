@@ -1,26 +1,36 @@
 /** @format */
 
 import { getApesFromLocationABI } from "abi/abis";
+import { setLoading } from "actions/loading";
+import Pagination from "components/common/Pagination";
 import { mobility_address } from "config/contractAddress";
 import { positions } from "constant";
 import { useWallet } from "hooks";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+import { getCollectionName } from "utils";
 
 const Location = () => {
   const { connex } = useWallet();
   const [position, setPosition] = useState<string>("");
+  const [apes, setApes] = useState<any[]>([]);
+  const { collectionOptions } = useSelector((state: any) => state.collections);
+  const [pageData, setPageData] = useState<any[]>([]);
+  const dispatch = useDispatch();
 
   const show = async () => {
     if (connex) {
+      dispatch(setLoading(true));
       const namedMethod = connex.thor
         .account(mobility_address)
         .method(getApesFromLocationABI);
-
       const output = await namedMethod.call(position);
-      console.log(output);
+      setApes(output.decoded["0"]);
+      dispatch(setLoading(false));
     }
   };
+
   return (
     <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl'>
       <div className='flex justify-end items-center md:mt-3 border-b-2 border-[#FF420050] pb-1 text-gray-200'>
@@ -70,6 +80,35 @@ const Location = () => {
           SHOW
         </button>
       </div>
+      {apes.length > 0 ? (
+        <div className='h-[calc(100vh_-_300px)] overflow-y-auto md:h-[calc(100vh_-_450px)]'>
+          <table className='w-full md:text-xl text-base mt-2'>
+            <thead className='uppercase backdrop-blur-xl bg-[#0a0b1336]'>
+              <tr className='text-center'>
+                <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
+                <th className='hidden md:table-cell'>Id</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pageData.map((item: any, index: number) => (
+                <tr
+                  key={index}
+                  className='border-b text-center backdrop-blur-sm'>
+                  <td className='md:py-3 px-3 text-left'>
+                    {getCollectionName(collectionOptions, item?.tokenAddress)}
+                  </td>
+                  <td className='hidden md:table-cell'>{item?.tokenId}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
+          <p className='pt-5 text-2xl'>No Apes Data</p>
+        </div>
+      )}
+      <Pagination data={apes} color='#006ec9' setPageData={setPageData} />
     </div>
   );
 };

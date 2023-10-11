@@ -66,21 +66,21 @@ const ViewModal = ({
             onClick={() => setOpen(!open)}
           />
         </div>
-        <div className='flex justify-between'>
+        <div className='md:flex justify-between'>
           <img
             className='rounded-lg'
             src={selData?.getToken?.assets[1]?.url}
             alt='apeImg'
             onLoad={() => dispatch(setLoading(false))}
           />
-          <div>
+          <div className='mt-2 md:mt-0'>
             <div className='md:flex justify-end hidden'>
               <XMarkIcon
                 className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
                 onClick={() => setOpen(!open)}
               />
             </div>
-            <div className='flex justify-between items-center '>
+            <div className='flex justify-between items-center'>
               <p className='md:text-3xl text-2xl mt-1 font-[700] text-black'>
                 {selData?.getToken?.name}
               </p>
@@ -88,7 +88,7 @@ const ViewModal = ({
                 Rank {selData?.getToken?.rank}
               </span>
             </div>
-            <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-1 rounded-xl'>
+            <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
               <p className='md:text-xltext-sm'>Details</p>
               <div className='md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md'>
                 <div>
@@ -117,7 +117,7 @@ const ViewModal = ({
                 </div>
               </div>
             </div>
-            <div className='flex md:text-lg text-base justify-end mt-1 text-gray-100'>
+            <div className='flex md:text-lg text-base justify-end mt-2 text-gray-100'>
               <button
                 className='bg-[#FF4200] py-1 rounded-lg ml-5 w-24'
                 onClick={() => {

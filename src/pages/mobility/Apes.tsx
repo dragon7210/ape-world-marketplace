@@ -8,10 +8,14 @@ import ViewImg from "assets/svg/apeworld/view.svg";
 import { setLoading } from "actions/loading";
 import ViewModal from "components/mobility/ViewModal";
 import { useGetApes } from "hooks/useGetApes";
+import Pagination from "components/common/Pagination";
+import MoveModal from "components/mobility/MoveModal";
 
 const Apes = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [openView, setOpenView] = useState<boolean>(false);
+  const [openMove, setOpenMove] = useState<boolean>(false);
+  const [pageData, setPageData] = useState<any[]>([]);
   const [ape, setApe] = useState<{ [key: string]: string }>({
     tokenAddress: "",
     tokenId: "",
@@ -46,7 +50,7 @@ const Apes = () => {
               </tr>
             </thead>
             <tbody>
-              {apes.map((item: any, index: number) => (
+              {pageData.map((item: any, index: number) => (
                 <tr
                   key={index}
                   className='border-b text-center backdrop-blur-sm'>
@@ -59,7 +63,7 @@ const Apes = () => {
                       <button
                         className='hover:bg-[#ff4200] bg-[#c43300] md:p-[5px] p-[2px] rounded-[99px]'
                         onClick={() => {
-                          dispatch(setLoading(true));
+                          // dispatch(setLoading(true));
                           setOpenView(!openView);
                           setApe({
                             ...ape,
@@ -73,6 +77,18 @@ const Apes = () => {
                           className='md:w-6 md:h-6 w-4 h-4'
                         />
                       </button>
+                      <button
+                        className='bg-blue-400 px-2 rounded-lg'
+                        onClick={() => {
+                          setOpenMove(!openMove);
+                          setApe({
+                            ...ape,
+                            tokenAddress: item?.tokenAddress,
+                            tokenId: item?.tokenId,
+                          });
+                        }}>
+                        Move to
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -85,8 +101,10 @@ const Apes = () => {
           <p className='pt-5 text-2xl'>No Apes Data</p>
         </div>
       )}
+      <Pagination data={apes} color='#006ec9' setPageData={setPageData} />
       <RegisterModal open={open} setOpen={setOpen} />
       <ViewModal open={openView} setOpen={setOpenView} ape={ape} />
+      <MoveModal open={openMove} setOpen={setOpenMove} ape={ape} />
     </div>
   );
 };
