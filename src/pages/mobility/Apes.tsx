@@ -19,6 +19,7 @@ const Apes = () => {
   const dispatch = useDispatch();
   const { collectionOptions } = useSelector((state: any) => state.collections);
   const { apes, loading } = useGetApes();
+
   useEffect(() => {
     dispatch(setLoading(loading));
   }, [dispatch, loading]);
@@ -61,6 +62,7 @@ const Apes = () => {
                           dispatch(setLoading(true));
                           setOpenView(!openView);
                           setApe({
+                            ...ape,
                             tokenAddress: item?.tokenAddress,
                             tokenId: item?.tokenId,
                           });

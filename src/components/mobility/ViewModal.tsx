@@ -54,8 +54,6 @@ const ViewModal = ({
     }
   }, [ape, connex]);
 
-  console.log(selData);
-
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30 '
@@ -71,9 +69,9 @@ const ViewModal = ({
         <div className='flex justify-between'>
           <img
             className='rounded-lg'
-            // src={selData?.getToken?.assets[1]?.url}
+            src={selData?.getToken?.assets[1]?.url}
             alt='apeImg'
-            // onLoad={() => dispatch(setLoading(false))}
+            onLoad={() => dispatch(setLoading(false))}
           />
           <div>
             <div className='md:flex justify-end hidden'>
