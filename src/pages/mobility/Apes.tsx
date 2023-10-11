@@ -10,6 +10,7 @@ import ViewModal from "components/mobility/ViewModal";
 import { useGetApes } from "hooks/useGetApes";
 import Pagination from "components/common/Pagination";
 import MoveModal from "components/mobility/MoveModal";
+import { ArrowUpOnSquareStackIcon } from "@heroicons/react/24/outline";
 
 const Apes = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -30,9 +31,9 @@ const Apes = () => {
 
   return (
     <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl'>
-      <div className='flex justify-end items-center md:mt-3 border-b-2 border-[#FF420050] pb-1'>
+      <div className='flex justify-end items-center md:mt-3 border-b-2 border-[#00d2ff50] pb-1'>
         <button
-          className='bg-[#FF4200] py-[1px] md:py-[5px] rounded-lg w-24 md:text-xl text-base'
+          className='bg-[#00a4c7] hover:bg-[#00d2ff] py-[1px] md:py-[5px] rounded-lg w-24 md:text-xl text-base'
           onClick={() => {
             setOpen(!open);
           }}>
@@ -61,7 +62,7 @@ const Apes = () => {
                   <td>
                     <div className='flex items-center justify-center md:py-1 py-[1px]'>
                       <button
-                        className='hover:bg-[#ff4200] bg-[#c43300] md:p-[5px] p-[2px] rounded-[99px]'
+                        className='bg-[#00a4c7] hover:bg-[#00d2ff] md:p-[5px] p-[2px] rounded-[99px]'
                         onClick={() => {
                           // dispatch(setLoading(true));
                           setOpenView(!openView);
@@ -78,7 +79,7 @@ const Apes = () => {
                         />
                       </button>
                       <button
-                        className='bg-blue-400 px-2 rounded-lg'
+                        className='bg-[#00a4c7] hover:bg-[#00d2ff] md:p-[5px] p-[2px] rounded-[99px] ml-2'
                         onClick={() => {
                           setOpenMove(!openMove);
                           setApe({
@@ -87,7 +88,7 @@ const Apes = () => {
                             tokenId: item?.tokenId,
                           });
                         }}>
-                        Move to
+                        <ArrowUpOnSquareStackIcon className='md:w-6 w-4' />
                       </button>
                     </div>
                   </td>
@@ -101,7 +102,7 @@ const Apes = () => {
           <p className='pt-5 text-2xl'>No Apes Data</p>
         </div>
       )}
-      <Pagination data={apes} color='#006ec9' setPageData={setPageData} />
+      <Pagination data={apes} color='#00a4c7' setPageData={setPageData} />
       <RegisterModal open={open} setOpen={setOpen} />
       <ViewModal open={openView} setOpen={setOpenView} ape={ape} />
       <MoveModal open={openMove} setOpen={setOpenMove} ape={ape} />

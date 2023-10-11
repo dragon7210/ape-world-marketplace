@@ -33,7 +33,7 @@ const Location = () => {
 
   return (
     <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl'>
-      <div className='flex justify-end items-center md:mt-3 border-b-2 border-[#FF420050] pb-1 text-gray-200'>
+      <div className='flex justify-end items-center md:mt-3 border-b-2 border-[#00d2ff50] pb-1 text-gray-200'>
         <div className='w-[120px] md:text-xl text-sm'>
           <Select
             onChange={(e: any) => {
@@ -49,7 +49,7 @@ const Location = () => {
               control: (baseStyles) => ({
                 ...baseStyles,
                 background: "transparent",
-                border: "solid 1px #BEBEBE",
+                border: "solid 1px #00a4c7",
                 borderRadius: "8px",
                 padding: "0px 10px",
                 outline: "none",
@@ -75,7 +75,7 @@ const Location = () => {
           />
         </div>
         <button
-          className='bg-[#FF4200] py-[7px] md:py-[5px] rounded-lg ml-5 w-24 md:text-xl text-base'
+          className='bg-[#00a4c7] hover:bg-[#00d2ff] py-[7px] md:py-[5px] rounded-lg ml-5 w-24 md:text-xl text-base'
           onClick={show}>
           SHOW
         </button>
@@ -108,7 +108,7 @@ const Location = () => {
           <p className='pt-5 text-2xl'>No Apes Data</p>
         </div>
       )}
-      <Pagination data={apes} color='#006ec9' setPageData={setPageData} />
+      <Pagination data={apes} color='#00a4c7' setPageData={setPageData} />
     </div>
   );
 };

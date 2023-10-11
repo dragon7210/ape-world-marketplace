@@ -152,34 +152,36 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
             onClick={() => setOpen(!open)}
           />
         </div>
-        <div className='text-gray-200 bg-gray-800 md:p-8 p-4 rounded-lg mt-1'>
-          <p className='text-center md:text-5xl text-3xl text-gray-200 mb-2'>
+        <div className='text-gray-200'>
+          <p className='text-center md:text-5xl text-3xl text-gray-800 mb-2'>
             Welcome to the APE-world!
           </p>
-          <InputSelect
-            label='Collection'
-            onChange={(e) => {
-              setRegisterValue({
-                ...registerValue,
-                collectionId: e ? e.value : "",
-              });
-            }}
-            options={collectionOption}
-          />
-          <InputSelect
-            label='Id'
-            onChange={(e) => {
-              setRegisterValue({
-                ...registerValue,
-                id: e ? e.value : "",
-              });
-            }}
-            options={idOption}
-          />
+          <div className='bg-gray-800 md:p-4 p-2 rounded-lg'>
+            <InputSelect
+              label='Collection'
+              onChange={(e) => {
+                setRegisterValue({
+                  ...registerValue,
+                  collectionId: e ? e.value : "",
+                });
+              }}
+              options={collectionOption}
+            />
+            <InputSelect
+              label='Id'
+              onChange={(e) => {
+                setRegisterValue({
+                  ...registerValue,
+                  id: e ? e.value : "",
+                });
+              }}
+              options={idOption}
+            />
+          </div>
           <div className='flex md:text-xl text-base justify-end mt-2 text-white'>
             <button
-              className={` border-2 border-[#FF4200] py-1 rounded-lg mr-5 w-24  ${
-                activeButton && "bg-[#FF4200]"
+              className={`border-2 border-[#00a4c7]  py-1 rounded-lg mr-5 w-24  ${
+                activeButton ? "bg-[#00a4c7] text-white" : "text-[#00a4c7]"
               }`}
               onClick={handle}
               disabled={!activeButton}>
@@ -196,5 +198,4 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
     </Dialog>
   );
 };
-
 export default RegisterModal;
