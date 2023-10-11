@@ -145,15 +145,15 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30 '
       open={open}
       onClose={() => {}}>
-      <div className=' bg-gray-200 p-3 rounded-lg shadow-lg shadow-gray-500 w-[350px] md:w-[450px]'>
+      <div className='p-3 rounded-lg shadow-lg bg-blue-500 shadow-gray-500 w-[350px] md:w-[450px]'>
         <div className='flex justify-end '>
           <XMarkIcon
             className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
             onClick={() => setOpen(!open)}
           />
         </div>
-        <div className='text-gray-200 bg-gray-600 md:p-8 p-4 rounded-lg'>
-          <p className='text-center md:text-5xl text-3xl text-black'>
+        <div className='text-gray-200 bg-[#00000050] md:p-8 p-4 rounded-lg mt-2'>
+          <p className='text-center md:text-5xl text-3xl text-gray-200 mb-2'>
             Welcome to the APE-world!
           </p>
           <InputSelect
@@ -167,7 +167,7 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
             options={collectionOption}
           />
           <InputSelect
-            label='id'
+            label='Id'
             onChange={(e) => {
               setRegisterValue({
                 ...registerValue,
@@ -178,12 +178,11 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
           />
           <div className='flex md:text-xl text-base justify-end mt-2 text-white'>
             <button
-              className={` border-2 py-1 rounded-lg mr-5 w-24  ${
-                activeButton
-                  ? "text-gray-200 bg-[#FF4200]"
-                  : "text-[#FF4200] border-[#FF4200]"
+              className={` border-2 border-[#FF4200] py-1 rounded-lg mr-5 w-24  ${
+                activeButton && "bg-[#FF4200]"
               }`}
-              onClick={handle}>
+              onClick={handle}
+              disabled={!activeButton}>
               REGISTER
             </button>
             <button

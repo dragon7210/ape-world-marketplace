@@ -1,22 +1,12 @@
 /** @format */
 
 import BorderImage from "assets/png/header/border.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Apes from "./Apes";
 import Location from "./Location";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const Mobility = () => {
   const [tab, setTab] = useState<number>(0);
-  const navigate = useNavigate();
-  const { collectionOptions } = useSelector((state: any) => state.collections);
-
-  useEffect(() => {
-    if (collectionOptions.length === 0) {
-      navigate("/");
-    }
-  }, [collectionOptions, navigate]);
 
   return (
     <div className='bg-gradient-to-t from-[#771f00] to-[#c64b20] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh] relative'>
