@@ -7,6 +7,7 @@ import Casino from "pages/casino";
 import Gym from "pages/gym";
 import Jungle from "pages/jungle";
 import Lab from "pages/lab";
+import Mobility from "pages/mobility";
 import PawnShop from "pages/pawnShop";
 import RealState from "pages/realState";
 import Ship from "pages/ship";
@@ -60,6 +61,9 @@ const MainRoutes = () => {
       </Route>
       <Route path='/gym' element={<Layout />}>
         <Route index element={<Gym />} />
+      </Route>
+      <Route path='/mobility' element={<Layout />}>
+        <Route index element={<Mobility />} />
       </Route>
     </Routes>
   );

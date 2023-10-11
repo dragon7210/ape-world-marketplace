@@ -14,6 +14,7 @@ import { shortenAddress } from "utils";
 import { emojiAvatarForAddress } from "utils/emojiAvatar";
 import WalletImage from "assets/png/header/wallet.png";
 import { ONE_ETH } from "config/chain";
+import { useNavigate } from "react-router-dom";
 
 export const ConnectButton = () => {
   const {
@@ -26,6 +27,7 @@ export const ConnectButton = () => {
     disconnect,
   } = useWallet();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const avatar = useMemo(() => emojiAvatarForAddress(address!), [address]);
 
@@ -129,6 +131,14 @@ export const ConnectButton = () => {
               Disconnect
             </button>
           </div>
+          <button
+            className='rounded-md border border-blue-900 bg-blue-100 py-2 text-blue-900 hover:bg-blue-200 w-full mt-2 tracking-wider'
+            onClick={() => {
+              navigate("/mobility");
+              setIsOpen(!isOpen);
+            }}>
+            GO TO MOBILITY PAGE
+          </button>
         </div>
       </Dialog>
     </>

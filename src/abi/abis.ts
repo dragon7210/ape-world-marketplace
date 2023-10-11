@@ -304,3 +304,103 @@ export const buyTicketsABI = {
   stateMutability: "payable",
   type: "function",
 };
+export const getApeABI = {
+  inputs: [
+    { internalType: "address", name: "_collection", type: "address" },
+    { internalType: "uint256", name: "_id", type: "uint256" },
+  ],
+  name: "getApe",
+  outputs: [
+    {
+      components: [
+        { internalType: "address", name: "currentRegistry", type: "address" },
+        { internalType: "string", name: "location", type: "string" },
+        { internalType: "uint256", name: "lastMoveOn", type: "uint256" },
+        { internalType: "uint256", name: "freeMoves", type: "uint256" },
+        { internalType: "uint256", name: "paidMoves", type: "uint256" },
+        { internalType: "uint256", name: "lastReset", type: "uint256" },
+        { internalType: "bool", name: "registered", type: "bool" },
+      ],
+      internalType: "struct Mobility._ape",
+      name: "",
+      type: "tuple",
+    },
+  ],
+  stateMutability: "view",
+  type: "function",
+};
+export const getUserApesABI = {
+  inputs: [{ internalType: "address", name: "_userAddress", type: "address" }],
+  name: "getUserApes",
+  outputs: [
+    {
+      components: [
+        { internalType: "address", name: "tokenAddress", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+      ],
+      internalType: "struct Locations.hash[]",
+      name: "",
+      type: "tuple[]",
+    },
+  ],
+  stateMutability: "view",
+  type: "function",
+};
+export const moveToABI = {
+  inputs: [
+    { internalType: "address", name: "_collection", type: "address" },
+    { internalType: "uint256", name: "_id", type: "uint256" },
+    { internalType: "string", name: "_location", type: "string" },
+  ],
+  name: "moveTo",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function",
+};
+export const worldRegisterABI = {
+  inputs: [
+    { internalType: "address", name: "_collection", type: "address" },
+    { internalType: "uint256", name: "_id", type: "uint256" },
+  ],
+  name: "registerApe",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function",
+};
+export const getApesFromLocationABI = {
+  inputs: [{ internalType: "string", name: "_location", type: "string" }],
+  name: "getApesFromLocation",
+  outputs: [
+    {
+      components: [
+        { internalType: "address", name: "tokenAddress", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+      ],
+      internalType: "struct Locations.hash[]",
+      name: "",
+      type: "tuple[]",
+    },
+  ],
+  stateMutability: "view",
+  type: "function",
+};
+export const getWorldInfoABI = {
+  inputs: [],
+  name: "getMobilityConf",
+  outputs: [
+    {
+      components: [
+        { internalType: "uint256", name: "movePrice", type: "uint256" },
+        { internalType: "uint256", name: "freeMoves", type: "uint256" },
+        { internalType: "uint256", name: "paidMoves", type: "uint256" },
+        { internalType: "uint256", name: "resetBlocks", type: "uint256" },
+        { internalType: "address", name: "casinoAddress", type: "address" },
+      ],
+      internalType: "struct Mobility._mob",
+      name: "",
+      type: "tuple",
+    },
+  ],
+  stateMutability: "view",
+  type: "function",
+};
