@@ -50,7 +50,7 @@ const AllList = () => {
             tab === 1 ? "bg-[#ff9933]" : "bg-[#cb6500]"
           }`}
           onClick={() => setTab(1)}>
-          All My Auctions
+          My Auctions
         </button>
         <button
           className={`md:py-1 px-2 rounded-r-[99px] w-[160px] ${
