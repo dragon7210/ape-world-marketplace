@@ -63,7 +63,7 @@ const Apes = () => {
                       <button
                         className='bg-[#00a4c7] hover:bg-[#00d2ff] md:p-[5px] p-[2px] rounded-[99px]'
                         onClick={() => {
-                          // dispatch(setLoading(true));
+                          dispatch(setLoading(true));
                           setOpenView(!openView);
                           setApe({
                             ...ape,
