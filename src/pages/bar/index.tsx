@@ -7,8 +7,8 @@ import { useWallet } from "hooks";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import Register from "./Register";
 import Fighter from "./Fighter";
+import Player from "./Player";
 
 const Bar = () => {
   const { pathname } = useLocation();
@@ -57,7 +57,7 @@ const Bar = () => {
             )}
           </div>
         </div>
-        {pathname === "/bar" ? <Register /> : <Fighter />}
+        {pathname === "/bar" ? <Player /> : <Fighter />}
       </div>
       <img
         className='absolute bottom-5 right-5 z-10 hidden md:inline opacity-50'
