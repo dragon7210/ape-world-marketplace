@@ -88,7 +88,7 @@ const MoveModal = ({
         </div>
         <div className='rounded-lg mt-1 text-gray-800'>
           <p className='md:text-5xl text-3xl text-center mb-2'>
-            Please Select the Position test
+            Please Select the Position
           </p>
           <div className='bg-gray-800 md:p-4 p-2 rounded-lg mt-2 text-gray-200'>
             <InputSelect
