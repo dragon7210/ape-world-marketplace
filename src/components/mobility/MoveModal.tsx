@@ -9,6 +9,7 @@ import { useWallet } from "hooks";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import InputSelect from "components/common/InputSelect";
+import toast from "react-hot-toast";
 
 const MoveModal = ({
   open,
@@ -35,6 +36,7 @@ const MoveModal = ({
           .account(mobility_address)
           .method(getApeABI);
         const _ape = await apeMethod.call(ape?.tokenAddress, ape?.tokenId);
+
         const namedMethod = connex.thor
           .account(mobility_address)
           .method(moveToABI);
@@ -49,7 +51,6 @@ const MoveModal = ({
           position
         );
         let payClause: any;
-
         if (Number(_ape["decoded"]["0"]["3"]) > 0) {
           clause["value"] = "0";
         } else {
@@ -59,10 +60,16 @@ const MoveModal = ({
           .sign("tx", [payClause, clause])
           .comment("Moving Ape.")
           .request()
-          .then((result) => {
-            console.log(result);
+          .then(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            toast.success("Success");
           })
-          .catch(() => alert("Could not move."));
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            toast.error("Could not move.");
+          });
       })();
     }
   };
@@ -81,7 +88,7 @@ const MoveModal = ({
         </div>
         <div className='rounded-lg mt-1 text-gray-800'>
           <p className='md:text-5xl text-3xl text-center mb-2'>
-            Please Select the Position
+            Please Select the Position test
           </p>
           <div className='bg-gray-800 md:p-4 p-2 rounded-lg mt-2 text-gray-200'>
             <InputSelect
