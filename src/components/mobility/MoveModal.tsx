@@ -50,26 +50,33 @@ const MoveModal = ({
           ape?.tokenId,
           position
         );
-        let payClause: any;
-        if (Number(_ape["decoded"]["0"]["3"]) > 0) {
-          clause["value"] = "0";
-        } else {
-          payClause = anotherMethod.asClause(mobility_address, _price);
+        let clauses = [];
+        try {
+          if (_ape["decoded"]["0"]["3"] > 0) {
+            clause["value"] = "0";
+          } else {
+            let payClause = anotherMethod.asClause(mobility_address, _price);
+            clauses.push(payClause);
+          }
+          clauses.push(clause);
+          connex.vendor
+            .sign("tx", clauses)
+            .comment("Moving Ape.")
+            .request()
+            .then(() => {
+              dispatch(setLoading(false));
+              setOpen(!open);
+              toast.success("Success");
+            })
+            .catch(() => {
+              dispatch(setLoading(false));
+              setOpen(!open);
+              toast.error("Could not move.");
+            });
+        } catch (error) {
+          dispatch(setLoading(false));
+          toast.error("NFT can't move");
         }
-        connex.vendor
-          .sign("tx", [payClause, clause])
-          .comment("Moving Ape.")
-          .request()
-          .then(() => {
-            dispatch(setLoading(false));
-            setOpen(!open);
-            toast.success("Success");
-          })
-          .catch(() => {
-            dispatch(setLoading(false));
-            setOpen(!open);
-            toast.error("Could not move.");
-          });
       })();
     }
   };
