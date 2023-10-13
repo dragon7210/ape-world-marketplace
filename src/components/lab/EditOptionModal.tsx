@@ -65,7 +65,7 @@ const EditOptionModal = ({
         </div>
         <div className='px-5'>
           <p className='text-4xl'>Please specify the new option Price in VET</p>
-          <div className='bg-gray-800 text-gray-200 m-5 px-4 rounded-lg'>
+          <div className='bg-gray-800 text-gray-200 m-5 px-4 rounded-lg md:mx-[30px]'>
             <InputValue
               label='Option price'
               name='optionPrice'

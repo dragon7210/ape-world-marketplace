@@ -153,10 +153,10 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
           />
         </div>
         <div className='text-gray-200'>
-          <p className='text-center md:text-5xl text-3xl text-gray-800 mb-2'>
+          <p className='text-center md:text-5xl text-4xl text-gray-800 mb-2'>
             Welcome to the APE-world!
           </p>
-          <div className='bg-gray-800 md:p-4 p-2 rounded-lg'>
+          <div className='bg-gray-800 md:p-4 p-2 rounded-lg md:mx-[30px]'>
             <InputSelect
               label='Collection'
               onChange={(e) => {
@@ -178,7 +178,7 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
               options={idOption}
             />
           </div>
-          <div className='flex md:text-xl text-base justify-end mt-2 text-white'>
+          <div className='flex md:text-xl text-base justify-end mt-2 text-white md:px-[30px]'>
             <button
               className={`border-2 border-[#00a4c7]  py-1 rounded-lg mr-5 w-24  ${
                 activeButton ? "bg-[#00a4c7] text-white" : "text-[#00a4c7]"

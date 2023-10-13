@@ -66,7 +66,7 @@ const ExercisePutModal = ({
         </div>
         <div className='px-5'>
           <p className='text-4xl'>Please select id of Collection</p>
-          <div className='bg-gray-800 text-gray-200 m-5 px-4 rounded-lg'>
+          <div className='bg-gray-800 text-gray-200 m-5 px-4 rounded-lg md:px-[30px]'>
             <InputValue
               label='Option price'
               name='optionPrice'

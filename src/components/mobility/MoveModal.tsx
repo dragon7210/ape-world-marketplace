@@ -94,10 +94,11 @@ const MoveModal = ({
           />
         </div>
         <div className='rounded-lg mt-1 text-gray-800'>
-          <p className='md:text-5xl text-3xl text-center mb-2'>
+          <p className='md:text-5xl text-4xl text-center mb-2'>
             Please Select the Position
           </p>
-          <div className='bg-gray-800 md:p-4 p-2 rounded-lg mt-2 text-gray-200'>
+
+          <div className='bg-gray-800 md:p-4 p-2 rounded-lg mt-2 text-gray-200 md:mx-[30px]'>
             <InputSelect
               label='Position'
               onChange={(e: any) => {
@@ -106,8 +107,7 @@ const MoveModal = ({
               options={positions}
             />
           </div>
-
-          <div className='flex md:text-xl text-base justify-end mt-2 text-white'>
+          <div className='flex md:text-xl text-base justify-end mt-2 text-white md:px-[30px]'>
             <button
               className={`border-[#00a4c7] border-2 py-1 rounded-lg mr-5 w-24 ${
                 position ? "bg-[#00a4c7] text-white" : "text-[#00a4c7]"
