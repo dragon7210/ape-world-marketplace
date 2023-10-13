@@ -309,7 +309,7 @@ const ViewOptionModal = ({
                     <p>{data?.optionPrice / 10 ** 18} VET</p>
                   </div>
                   <div>
-                    <p className='text-gray-500'>Excercise Date</p>
+                    <p className='text-gray-500'>Exercise Date</p>
                     <p>
                       {data?.exerciseDate === "0" ? "N/A" : data?.exerciseDate}
                     </p>
