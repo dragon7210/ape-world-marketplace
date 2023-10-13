@@ -113,13 +113,20 @@ const ViewRaffleModal = ({
         <button
           className='bg-blue-700 py-1 rounded-lg w-24'
           onClick={() => {
-            if (count > 0 && count <= selData?.ticketNumber) {
+            if (
+              count > 0 &&
+              count <= selData?.ticketNumber - selData?.nTickets
+            ) {
               buyTickets();
               dispatch(setLoading(true));
             } else if (count < 0) {
               toast.error("The Count must be greater than 1");
             } else {
-              toast.error("The Count must be smaller than Ticket Targets");
+              toast.error(
+                `The Count must be smaller than ${
+                  selData?.ticketNumber - selData?.nTickets + 1
+                }`
+              );
             }
           }}>
           I want to buy
