@@ -14,19 +14,17 @@ import { useCustomQuery, useWallet } from "hooks";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { shortenAddress } from "utils";
+import { getEndTime, shortenAddress } from "utils";
 import { getToken } from "utils/query";
 
 const ViewLoanModal = ({
   open,
   setOpenModal,
   loanSel,
-  getEndTime,
 }: {
   open: boolean;
   setOpenModal: any;
   loanSel: any;
-  getEndTime: any;
 }) => {
   const { address, connex } = useWallet();
   const [state, setState] = useState<string>("Available for Loan");
@@ -199,7 +197,7 @@ const ViewLoanModal = ({
           <button
             className='bg-[#FF0000] py-1 rounded-lg w-24'
             onClick={() => {
-              let date = getEndTime(loanSel?.endTime);
+              let date = getEndTime(loanSel?.endTime, connex);
               if (date) {
                 if (new Date(date) < new Date()) {
                   claimLoan({ id: loanSel?.itemId });
@@ -219,12 +217,12 @@ const ViewLoanModal = ({
   }, [
     loanSel,
     address,
+    connex,
     dispatch,
     claimLoan,
     grantLoan,
     settleLoan,
     removeItem,
-    getEndTime,
   ]);
 
   return (

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { statusArray } from "constant";
 import ViewLoanModal from "components/pawnShop/ViewLoanModal";
 import Pagination from "components/common/Pagination";
-import { differentTime, getCollectionName, getEndTime } from "utils";
+import { differentTime, getCollectionName } from "utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "actions/loading";
 import { EyeIcon } from "@heroicons/react/24/outline";
@@ -119,7 +119,6 @@ const AllLoan = () => {
         open={openModal}
         setOpenModal={setOpenModal}
         loanSel={data[loanSel]}
-        getEndTime={getEndTime}
       />
     </div>
   );
