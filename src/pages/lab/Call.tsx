@@ -39,15 +39,10 @@ const Call = () => {
 
   const { myApes } = useMyApes({ createValue });
   useEffect(() => {
-    if (myApes) {
-      dispatch(setLoading(false));
-      if (myApes?.length === 0) {
-        toast.error("There is no NFT.");
-      }
-    } else {
-      dispatch(setLoading(true));
+    if (myApes?.length === 0) {
+      toast.error("There is no NFT.");
     }
-  }, [myApes, dispatch]);
+  }, [myApes]);
 
   useEffect(() => {
     const objectName = Object.keys(createValue);
@@ -59,7 +54,6 @@ const Call = () => {
 
   useEffect(() => {
     if (myApes) {
-      dispatch(setLoading(true));
       const data = myApes?.map((item: any) => {
         return {
           label: <p className='m-0 text-white'>{item.tokenId}</p>,
@@ -67,7 +61,6 @@ const Call = () => {
         };
       });
       setIdOption(data);
-      dispatch(setLoading(false));
       if (createValue.collectionId === "") {
         setIdOption([]);
       }
@@ -106,12 +99,13 @@ const Call = () => {
       <div className='bg-[#0a0b1336] md:rounded-3xl rounded-lg p-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
         <InputSelect
           label='Collection'
-          onChange={(e) =>
+          onChange={(e) => {
             setCreateValue({
               ...createValue,
               collectionId: e ? e.value : "",
-            })
-          }
+            });
+            dispatch(setLoading(true));
+          }}
           options={collectionOption}
         />
         <InputSelect

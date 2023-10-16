@@ -1,13 +1,12 @@
 /** @format */
 
-import { setLoading } from "actions/loading";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
 import CreatePutOptionModal from "components/lab/CreatePutOptionModal";
 import { useWallet, useMyApes } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 const Put = () => {
@@ -16,7 +15,6 @@ const Put = () => {
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!address) {
@@ -37,15 +35,10 @@ const Put = () => {
 
   const { myApes } = useMyApes({ createValue });
   useEffect(() => {
-    if (myApes) {
-      dispatch(setLoading(false));
-      if (myApes?.length === 0) {
-        toast.error("There is no NFT.");
-      }
-    } else {
-      dispatch(setLoading(true));
+    if (myApes?.length === 0) {
+      toast.error("There is no NFT.");
     }
-  }, [myApes, dispatch]);
+  }, [myApes]);
 
   useEffect(() => {
     const objectName = Object.keys(createValue);

@@ -31,15 +31,10 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
 
   const { myApes } = useMyApes({ createValue: registerValue });
   useEffect(() => {
-    if (myApes) {
-      dispatch(setLoading(false));
-      if (myApes?.length === 0) {
-        toast.error("There is no NFT.");
-      }
-    } else {
-      dispatch(setLoading(true));
+    if (myApes?.length === 0) {
+      toast.error("There is no NFT.");
     }
-  }, [myApes, dispatch]);
+  }, [myApes]);
 
   useEffect(() => {
     const objectName = Object.keys(registerValue);
@@ -51,7 +46,6 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
 
   useEffect(() => {
     if (myApes) {
-      dispatch(setLoading(true));
       const data = myApes?.map((item: any) => {
         return {
           label: <p className='m-0 text-white'>{item.tokenId}</p>,
@@ -59,7 +53,6 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
         };
       });
       setIdOption(data);
-      dispatch(setLoading(false));
       if (registerValue.collectionId === "") {
         setIdOption([]);
       }
@@ -147,6 +140,7 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
                   ...registerValue,
                   collectionId: e ? e.value : "",
                 });
+                dispatch(setLoading(true));
               }}
               options={collectionOption}
             />
