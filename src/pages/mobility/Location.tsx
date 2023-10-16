@@ -50,14 +50,21 @@ const Location = () => {
                 ...baseStyles,
                 background: "transparent",
                 border: "solid 1px #00a4c7",
-                borderRadius: "8px",
-                padding: "0px 10px",
+                borderRadius: "4px",
+                minHeight: "22px",
                 outline: "none",
+                "@media(min-width: 768px)": {
+                  padding: "0px 10px",
+                  borderRadius: "8px",
+                },
               }),
               option: (baseStyles, state) => ({
                 ...baseStyles,
                 background: state.isSelected ? "#4D4D4D" : "#373953",
-                padding: "4px 24px",
+                padding: "1px 12px",
+                "@media(min-width: 768px)": {
+                  padding: "4px 24px",
+                },
                 ":hover": {
                   background: "#4D4D4D",
                   cursor: "pointer",
@@ -67,6 +74,13 @@ const Location = () => {
                 ...baseStyles,
                 padding: "0px 8px",
               }),
+              indicatorsContainer: (base) => ({
+                ...base,
+                height: "28px",
+                "@media(min-width: 768px)": {
+                  height: "36px",
+                },
+              }),
             }}
             components={{
               DropdownIndicator: () => null,
@@ -75,7 +89,7 @@ const Location = () => {
           />
         </div>
         <button
-          className='bg-[#00a4c7] hover:bg-[#00d2ff] py-[7px] md:py-[5px] rounded-lg ml-5 w-24 md:text-xl text-base'
+          className='bg-[#00a4c7] hover:bg-[#00d2ff] py-[2px] md:py-[5px] rounded-lg ml-5 w-24 md:text-xl text-base'
           onClick={show}>
           SHOW
         </button>
