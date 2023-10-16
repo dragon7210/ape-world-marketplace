@@ -73,6 +73,7 @@ const Pagination = ({
                 padding: "0px",
                 outline: "none",
                 width: "65px",
+                minHeight: "22px",
               }),
               option: (baseStyles, state) => ({
                 ...baseStyles,
@@ -84,14 +85,18 @@ const Pagination = ({
                   cursor: "pointer",
                 },
               }),
-              indicatorsContainer: (state) => ({
-                ...state,
-                width: "30px",
-              }),
               valueContainer: (state) => ({
                 ...state,
                 padding: "0px 0px 0px 10px",
                 margin: "0px",
+              }),
+              indicatorsContainer: (base) => ({
+                ...base,
+                height: "32px",
+                width: "30px",
+                "@media(min-width: 768px)": {
+                  height: "36px",
+                },
               }),
             }}
             components={{
