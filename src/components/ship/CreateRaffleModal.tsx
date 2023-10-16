@@ -29,9 +29,7 @@ const CreateRaffleModal = ({
 }) => {
   const { connex } = useWallet();
   const dispatch = useDispatch();
-  const data = apes?.tokens?.items?.filter(
-    (item: any) => item.tokenId === createValue.id
-  );
+  const data = apes?.filter((item: any) => item.tokenId === createValue.id);
   const getServiceFee = async () => {
     if (connex) {
       const namedMethod = connex.thor.account(raffle_address).method(getFeeABI);

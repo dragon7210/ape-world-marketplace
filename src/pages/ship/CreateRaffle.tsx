@@ -5,12 +5,11 @@ import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
 import CreateRaffleModal from "components/ship/CreateRaffleModal";
 import { TokenOption } from "constant";
-import { useWallet, useCustomQuery } from "hooks";
+import { useWallet, useMyApes } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { searchNFTs } from "utils/query";
 
 const CreateRaffle = () => {
   const { address } = useWallet();
@@ -40,33 +39,17 @@ const CreateRaffle = () => {
     (state: any) => state.collections
   );
 
-  const filters = {
-    ownerAddress: address,
-  };
-
-  const collectionFilter = {
-    ownerAddress: address,
-    collectionId: createValue.collectionId,
-  };
-
-  const apes = useCustomQuery({
-    query: searchNFTs,
-    variables: {
-      filters: createValue.collectionId === "" ? filters : collectionFilter,
-      pagination: { page: 1, perPage: 1000 },
-    },
-  });
-
+  const { myApes } = useMyApes({ createValue });
   useEffect(() => {
-    if (!apes) {
-      dispatch(setLoading(true));
-    } else {
+    if (myApes) {
       dispatch(setLoading(false));
-      if (apes.tokens.items.length === 0) {
+      if (myApes?.length === 0) {
         toast.error("There is no NFT.");
       }
+    } else {
+      dispatch(setLoading(true));
     }
-  }, [apes, dispatch]);
+  }, [myApes, dispatch]);
 
   useEffect(() => {
     const objectName = Object.keys(createValue);
@@ -77,9 +60,9 @@ const CreateRaffle = () => {
   }, [createValue]);
 
   useEffect(() => {
-    if (apes) {
+    if (myApes) {
       dispatch(setLoading(true));
-      const data = apes.tokens?.items.map((item: any) => {
+      const data = myApes?.map((item: any) => {
         return {
           label: <p className='m-0 text-white'>{item.tokenId}</p>,
           value: item.tokenId,
@@ -91,7 +74,7 @@ const CreateRaffle = () => {
         setIdOption([]);
       }
     }
-  }, [apes, createValue, dispatch]);
+  }, [myApes, createValue, dispatch]);
 
   useEffect(() => {
     const data = connectedCollections?.map((item: any) => {
@@ -206,7 +189,7 @@ const CreateRaffle = () => {
         open={open}
         collections={connectedCollections}
         createValue={createValue}
-        apes={apes}
+        apes={myApes}
         setOpen={setOpen}
       />
     </div>

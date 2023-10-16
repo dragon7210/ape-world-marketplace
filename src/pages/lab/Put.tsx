@@ -4,12 +4,11 @@ import { setLoading } from "actions/loading";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
 import CreatePutOptionModal from "components/lab/CreatePutOptionModal";
-import { useWallet, useCustomQuery } from "hooks";
+import { useWallet, useMyApes } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { searchNFTs } from "utils/query";
 
 const Put = () => {
   const { address } = useWallet();
@@ -36,33 +35,17 @@ const Put = () => {
     duration: "",
   });
 
-  const filters = {
-    ownerAddress: address,
-  };
-
-  const collectionFilter = {
-    ownerAddress: address,
-    collectionId: createValue.collectionId,
-  };
-
-  const apes = useCustomQuery({
-    query: searchNFTs,
-    variables: {
-      filters: createValue.collectionId === "" ? filters : collectionFilter,
-      pagination: { page: 1, perPage: 1000 },
-    },
-  });
-
+  const { myApes } = useMyApes({ createValue });
   useEffect(() => {
-    if (!apes) {
-      dispatch(setLoading(true));
-    } else {
+    if (myApes) {
       dispatch(setLoading(false));
-      if (apes.tokens.items.length === 0) {
+      if (myApes?.length === 0) {
         toast.error("There is no NFT.");
       }
+    } else {
+      dispatch(setLoading(true));
     }
-  }, [apes, dispatch]);
+  }, [myApes, dispatch]);
 
   useEffect(() => {
     const objectName = Object.keys(createValue);

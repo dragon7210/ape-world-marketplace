@@ -29,9 +29,7 @@ const CreateLoanModal = ({
 }) => {
   const { connex } = useWallet();
   const dispatch = useDispatch();
-  const data = apes?.tokens?.items?.filter(
-    (item: any) => item.tokenId === createValue.id
-  );
+  const data = apes?.filter((item: any) => item.tokenId === createValue.id);
   const handleCreate = async () => {
     if (connex) {
       const data = collections.filter(
