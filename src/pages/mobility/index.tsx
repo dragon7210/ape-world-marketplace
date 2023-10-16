@@ -21,7 +21,7 @@ const Mobility = () => {
 
   return (
     <div className='bg-gradient-to-t from-[#005365] to-[#00d2ff] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh] relative'>
-      <div className='md:text-5xl text-base tracking-normal relative z-20'>
+      <div className='md:text-5xl text-2xl tracking-normal relative z-20'>
         <div className='flex text-center'>
           <div className={`w-[50%]`} onClick={() => setTab(0)}>
             <p
