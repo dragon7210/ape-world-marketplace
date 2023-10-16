@@ -12,6 +12,7 @@ export const useGetLoan = () => {
 
   const { connex, isConnected, address } = useWallet();
   useEffect(() => {
+    setLoading(true)
     if (connex && isConnected && address) {
       (async () => {
         const pawnShop = connex.thor.account(pawn_address);

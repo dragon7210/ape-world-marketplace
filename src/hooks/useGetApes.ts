@@ -11,6 +11,7 @@ export const useGetApes = () => {
 
   const { connex, isConnected, address } = useWallet();
   useEffect(() => {
+    setLoading(true)
     if (connex && isConnected && address) {
       (async () => {
         const namedMethod = connex.thor

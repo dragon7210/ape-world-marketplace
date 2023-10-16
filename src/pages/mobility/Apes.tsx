@@ -23,7 +23,6 @@ const Apes = () => {
   const dispatch = useDispatch();
   const { collectionOptions } = useSelector((state: any) => state.collections);
   const { apes, loading } = useGetApes();
-
   useEffect(() => {
     dispatch(setLoading(loading));
   }, [dispatch, loading]);
@@ -64,7 +63,7 @@ const Apes = () => {
                         className='bg-[#00a4c7] hover:bg-[#00d2ff] md:p-[5px] p-[2px] rounded-[99px]'
                         onClick={() => {
                           dispatch(setLoading(true));
-                          setOpenView(!openView);
+                          setOpenView(true);
                           setApe({
                             ...ape,
                             tokenAddress: item?.tokenAddress,
@@ -76,7 +75,7 @@ const Apes = () => {
                       <button
                         className='bg-[#00a4c7] hover:bg-[#00d2ff] md:p-[5px] p-[2px] rounded-[99px] ml-2'
                         onClick={() => {
-                          setOpenMove(!openMove);
+                          setOpenMove(true);
                           setApe({
                             ...ape,
                             tokenAddress: item?.tokenAddress,
@@ -98,9 +97,9 @@ const Apes = () => {
         </div>
       )}
       <Pagination data={apes} color='#00a4c7' setPageData={setPageData} />
-      <RegisterModal open={open} setOpen={setOpen} />
       <ViewModal open={openView} setOpen={setOpenView} ape={ape} />
       <MoveModal open={openMove} setOpen={setOpenMove} ape={ape} />
+      <RegisterModal open={open} setOpen={setOpen} />
     </div>
   );
 };
