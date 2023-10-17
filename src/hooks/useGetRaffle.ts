@@ -81,6 +81,8 @@ export const useGetRaffle = () => {
 		} else {
 			setLoading(false);
 			setRaffles([]);
+			setMyRaffles([])
+			setOldRaffles([])
 		}
 	}, [connex, isConnected, address]);
 

@@ -21,13 +21,13 @@ const Casino = () => {
   }, [collectionOptions, navigate]);
 
   return (
-    <div className='bg-gradient-to-t from-[#9b9e18] to-[#9b9e18cc] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh] relative'>
+    <div className='bg-gradient-to-t from-[#268297] to-[#00c4ee] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh] relative'>
       <div className='md:text-5xl text-2xl relative z-20'>
         <div className='flex text-center'>
           <div className={`w-[50%]`} onClick={() => navigate("/casino")}>
             <p
               className={`mb-2 cursor-pointer border-r-2 border-[#762e1550] ${
-                pathname === "/casino" ? "text-gray-100" : "text-[#491806]"
+                pathname === "/casino" ? "text-gray-100" : "text-gray-800"
               }`}>
               BAR
             </p>
@@ -46,7 +46,7 @@ const Casino = () => {
             }}>
             <p
               className={` mb-2 cursor-pointer ${
-                pathname === "/casino/info" ? "text-gray-100" : "text-[#491806]"
+                pathname === "/casino/info" ? "text-gray-100" : "text-gray-800"
               }`}>
               FIGHTER INFO
             </p>

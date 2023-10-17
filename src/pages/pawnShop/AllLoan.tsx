@@ -23,7 +23,6 @@ const AllLoan = () => {
   const { collectionOptions } = useSelector((state: any) => state.collections);
 
   const data = selector ? loanData : myLoanData;
-
   useEffect(() => {
     dispatch(setLoading(loading));
   }, [loading, dispatch]);

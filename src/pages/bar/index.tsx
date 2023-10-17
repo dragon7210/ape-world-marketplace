@@ -28,8 +28,8 @@ const Bar = () => {
         <div className='flex text-center'>
           <div className={`w-[50%]`} onClick={() => navigate("/bar")}>
             <p
-              className={`mb-2 cursor-pointer border-r-2 border-[#762e1550] ${
-                pathname === "/bar" ? "text-gray-100" : "text-[#491806]"
+              className={`mb-2 cursor-pointer border-r-2 border-gray-500 ${
+                pathname === "/bar" ? "text-gray-100" : "text-gray-800"
               }`}>
               BAR
             </p>
@@ -48,7 +48,7 @@ const Bar = () => {
             }}>
             <p
               className={` mb-2 cursor-pointer ${
-                pathname === "/bar/info" ? "text-gray-100" : "text-[#491806]"
+                pathname === "/bar/info" ? "text-gray-100" : "text-gray-800"
               }`}>
               FIGHTER INFO
             </p>

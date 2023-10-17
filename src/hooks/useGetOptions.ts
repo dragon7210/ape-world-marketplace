@@ -52,6 +52,7 @@ export const useGetOptions = () => {
     } else {
       setLoading(false);
       setOptionData([]);
+      setMyOptionData([])
     }
   }, [connex, isConnected, address]);
 

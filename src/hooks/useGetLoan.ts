@@ -53,6 +53,7 @@ export const useGetLoan = () => {
     } else {
       setLoading(false);
       setLoanData([]);
+      setMyLoanData([])
     }
   }, [connex, isConnected, address]);
 
