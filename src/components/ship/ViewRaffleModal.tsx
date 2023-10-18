@@ -165,7 +165,10 @@ const ViewRaffleModal = ({
         <div className='flex justify-end md:hidden'>
           <XMarkIcon
             className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              setOpen(!open);
+              setImgUrl("");
+            }}
           />
         </div>
         <img
@@ -178,7 +181,10 @@ const ViewRaffleModal = ({
           <div className='md:flex justify-end hidden '>
             <XMarkIcon
               className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
-              onClick={() => setOpen(!open)}
+              onClick={() => {
+                setOpen(!open);
+                setImgUrl("");
+              }}
             />
           </div>
           <div className='flex justify-between items-center'>

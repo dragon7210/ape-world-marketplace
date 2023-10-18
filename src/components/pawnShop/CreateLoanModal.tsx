@@ -96,7 +96,10 @@ const CreateLoanModal = ({
           <div className='flex justify-end md:hidden'>
             <XMarkIcon
               className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
-              onClick={() => setOpen(!open)}
+              onClick={() => {
+                setOpen(!open);
+                setImgUrl("");
+              }}
             />
           </div>
           <img
@@ -109,7 +112,10 @@ const CreateLoanModal = ({
             <div className='md:flex justify-end hidden '>
               <XMarkIcon
                 className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
-                onClick={() => setOpen(!open)}
+                onClick={() => {
+                  setOpen(!open);
+                  setImgUrl("");
+                }}
               />
             </div>
             <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>

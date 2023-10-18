@@ -67,7 +67,10 @@ const ViewModal = ({
         <div className='flex justify-end '>
           <XMarkIcon
             className='md:hidden w-6 cursor-pointer hover:bg-gray-500 rounded-md'
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              setOpen(!open);
+              setImgUrl("");
+            }}
           />
         </div>
         <div className='md:flex justify-between'>
@@ -81,7 +84,10 @@ const ViewModal = ({
             <div className='md:flex justify-end hidden'>
               <XMarkIcon
                 className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
-                onClick={() => setOpen(!open)}
+                onClick={() => {
+                  setOpen(!open);
+                  setImgUrl("");
+                }}
               />
             </div>
             <div className='flex justify-between items-center'>
