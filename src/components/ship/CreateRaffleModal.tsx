@@ -11,6 +11,7 @@ import {
 import { setLoading } from "actions/loading";
 import { mva_token_address, raffle_address } from "config/contractAddress";
 import { useWallet } from "hooks";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 
@@ -29,7 +30,9 @@ const CreateRaffleModal = ({
 }) => {
   const { connex } = useWallet();
   const dispatch = useDispatch();
+  const [imgUrl, setImgUrl] = useState<string>("");
   const data = apes?.filter((item: any) => item.tokenId === createValue.id);
+
   const getServiceFee = async () => {
     if (connex) {
       const namedMethod = connex.thor.account(raffle_address).method(getFeeABI);
@@ -74,16 +77,22 @@ const CreateRaffleModal = ({
           .then(() => {
             dispatch(setLoading(false));
             setOpen(!open);
+            setImgUrl("");
             toast.success("Success");
           })
           .catch(() => {
             dispatch(setLoading(false));
             setOpen(!open);
+            setImgUrl("");
             toast.error("Could not create raffle.");
           });
       }
     }
   };
+
+  useEffect(() => {
+    setImgUrl(data[0]?.assets[1].url);
+  }, [data]);
 
   return (
     <Dialog
@@ -100,7 +109,7 @@ const CreateRaffleModal = ({
           </div>
           <img
             className='rounded-lg'
-            src={data[0]?.assets[1].url}
+            src={imgUrl}
             alt='createLoan'
             onLoad={() => dispatch(setLoading(false))}
           />
@@ -154,7 +163,10 @@ const CreateRaffleModal = ({
               </button>
               <button
                 className='bg-[#FF0000] py-1 rounded-lg w-24'
-                onClick={() => setOpen(!open)}>
+                onClick={() => {
+                  setOpen(!open);
+                  setImgUrl("");
+                }}>
                 CANCEL
               </button>
             </div>

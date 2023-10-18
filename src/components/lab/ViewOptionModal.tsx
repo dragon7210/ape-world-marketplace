@@ -57,11 +57,13 @@ const ViewOptionModal = ({
           .then(() => {
             toast.success("Success");
             setOpen(!open);
+            setImg("");
             dispatch(setLoading(false));
           })
           .catch(() => {
             toast.error("Could not remove Option.");
             setOpen(!open);
+            setImg("");
             dispatch(setLoading(false));
           });
       }
@@ -97,12 +99,14 @@ const ViewOptionModal = ({
         .request()
         .then(() => {
           dispatch(setLoading(false));
+          setImg("");
           setOpen(!open);
           toast.success("Success.");
         })
         .catch(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setImg("");
           toast.error("Could not take option.");
         });
     }
@@ -122,11 +126,13 @@ const ViewOptionModal = ({
         .then(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setImg("");
           toast.success("Success.");
         })
         .catch(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setImg("");
           toast.error("Could not exercise call.");
         });
     }
@@ -331,6 +337,7 @@ const ViewOptionModal = ({
                   className='bg-[#FF0000] py-1 rounded-lg ml-5 w-24'
                   onClick={() => {
                     setOpen(!open);
+                    setImg("");
                   }}>
                   CANCEL
                 </button>

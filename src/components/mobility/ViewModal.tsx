@@ -28,8 +28,10 @@ const ViewModal = ({
     variables: {},
   });
   const { connex } = useWallet();
+  const [imgUrl, setImgUrl] = useState<string>("");
   const [apeDetail, setApeDetail] = useState<{ [key: string]: string }>({});
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (connex && ape?.tokenAddress) {
       (async () => {
@@ -52,6 +54,10 @@ const ViewModal = ({
     }
   }, [ape, connex]);
 
+  useEffect(() => {
+    setImgUrl(selData?.getToken?.assets[1]?.url);
+  }, [selData]);
+
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30 '
@@ -67,7 +73,7 @@ const ViewModal = ({
         <div className='md:flex justify-between'>
           <img
             className='rounded-lg'
-            src={selData?.getToken?.assets[1]?.url}
+            src={imgUrl}
             alt='apeImg'
             onLoad={() => dispatch(setLoading(false))}
           />
@@ -120,6 +126,7 @@ const ViewModal = ({
                 className='bg-[#FF4200] py-1 rounded-lg ml-5 w-24'
                 onClick={() => {
                   setOpen(!open);
+                  setImgUrl("");
                 }}>
                 CANCEL
               </button>

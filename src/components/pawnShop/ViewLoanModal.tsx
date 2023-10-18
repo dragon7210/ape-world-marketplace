@@ -30,6 +30,7 @@ const ViewLoanModal = ({
   const [state, setState] = useState<string>("Available for Loan");
   const [Button, setButton] = useState<any>();
   const dispatch = useDispatch();
+  const [imgUrl, setImgUrl] = useState<string>("");
 
   const selData = useCustomQuery({
     query: getToken({
@@ -53,11 +54,13 @@ const ViewLoanModal = ({
           .then(() => {
             dispatch(setLoading(false));
             setOpenModal(!open);
+            setImgUrl("");
             toast.success("Removed successfully");
           })
           .catch(() => {
             dispatch(setLoading(false));
             setOpenModal(!open);
+            setImgUrl("");
             toast.error("Could not remove Item.");
           });
       }
@@ -79,12 +82,14 @@ const ViewLoanModal = ({
           .request()
           .then(() => {
             toast.success("Success");
+            setImgUrl("");
             dispatch(setLoading(false));
             setOpenModal(!open);
           })
           .catch(() => {
             dispatch(setLoading(false));
             setOpenModal(!open);
+            setImgUrl("");
             toast.error("Could not Claim Loan.");
           });
       }
@@ -111,12 +116,14 @@ const ViewLoanModal = ({
           .request()
           .then(() => {
             setOpenModal(!open);
+            setImgUrl("");
             dispatch(setLoading(false));
             toast.success("Success");
           })
           .catch(() => {
             setOpenModal(!open);
             dispatch(setLoading(false));
+            setImgUrl("");
             toast.error("Could not Settle Loan.");
           });
       }
@@ -141,11 +148,13 @@ const ViewLoanModal = ({
           .then(() => {
             toast.success("Grant loan successfully");
             dispatch(setLoading(false));
+            setImgUrl("");
             setOpenModal(!open);
           })
           .catch(() => {
             toast.error("Could not grant Loan.");
             dispatch(setLoading(false));
+            setImgUrl("");
             setOpenModal(!open);
           });
       }
@@ -225,6 +234,10 @@ const ViewLoanModal = ({
     removeItem,
   ]);
 
+  useEffect(() => {
+    setImgUrl(selData?.getToken?.assets[1]?.url);
+  }, [selData]);
+
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30'
@@ -239,7 +252,7 @@ const ViewLoanModal = ({
         </div>
         <img
           className='rounded-lg'
-          src={selData?.getToken?.assets[1]?.url}
+          src={imgUrl}
           alt='loanImg'
           onLoad={() => dispatch(setLoading(false))}
         />
@@ -307,6 +320,7 @@ const ViewLoanModal = ({
               className='bg-[#FF4200] py-1 rounded-lg ml-5 w-24'
               onClick={() => {
                 setOpenModal(!open);
+                setImgUrl("");
               }}>
               CANCEL
             </button>

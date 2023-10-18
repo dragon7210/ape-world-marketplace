@@ -40,7 +40,7 @@ const ViewRaffleModal = ({
     }),
     variables: {},
   });
-
+  const [imgUrl, setImgUrl] = useState<string>("");
   const removeItem = useCallback(async () => {
     if (connex) {
       const namedMethod = connex.thor
@@ -54,11 +54,13 @@ const ViewRaffleModal = ({
         .then(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setImgUrl("");
           toast.success("Success");
         })
         .catch(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setImgUrl("");
           toast.error("Could not remove Item.");
         });
     }
@@ -97,11 +99,13 @@ const ViewRaffleModal = ({
         .then(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setImgUrl("");
           toast.success("Success");
         })
         .catch(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setImgUrl("");
           toast.error("Could not Buy Tickets.");
         });
     }
@@ -148,6 +152,10 @@ const ViewRaffleModal = ({
     }
   }, [selData, address, dispatch, removeItem, buyTickets, block, count]);
 
+  useEffect(() => {
+    setImgUrl(data?.getToken?.assets[1].url);
+  }, [data]);
+
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm z-30'
@@ -162,7 +170,7 @@ const ViewRaffleModal = ({
         </div>
         <img
           className='rounded-lg'
-          src={data?.getToken?.assets[1].url}
+          src={imgUrl}
           alt='createLoan'
           onLoad={() => dispatch(setLoading(false))}
         />

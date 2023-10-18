@@ -11,6 +11,7 @@ import {
 import { setLoading } from "actions/loading";
 import { mva_token_address, pawn_address } from "config/contractAddress";
 import { useWallet } from "hooks";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 
@@ -77,6 +78,13 @@ const CreateLoanModal = ({
         });
     }
   };
+  const [imgUrl, setImgUrl] = useState<string>("");
+
+  useEffect(() => {
+    if (data) {
+      setImgUrl(data[0]?.assets[1].url);
+    }
+  }, [data]);
 
   return (
     <Dialog
@@ -93,7 +101,7 @@ const CreateLoanModal = ({
           </div>
           <img
             className='rounded-lg'
-            src={data[0]?.assets[1].url}
+            src={imgUrl}
             alt='createLoan'
             onLoad={() => dispatch(setLoading(false))}
           />
@@ -119,12 +127,16 @@ const CreateLoanModal = ({
                 onClick={() => {
                   dispatch(setLoading(true));
                   handleCreate();
+                  setImgUrl("");
                 }}>
                 CONFIRM
               </button>
               <button
                 className='bg-[#FF0000] py-1 rounded-lg w-24'
-                onClick={() => setOpen(!open)}>
+                onClick={() => {
+                  setOpen(!open);
+                  setImgUrl("");
+                }}>
                 CANCEL
               </button>
             </div>

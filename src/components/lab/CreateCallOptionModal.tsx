@@ -13,6 +13,7 @@ import {
   mvaApproveABI,
 } from "abi/abis";
 import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 const CreateCallOptionModal = ({
   open,
@@ -29,6 +30,7 @@ const CreateCallOptionModal = ({
 }) => {
   const dispatch = useDispatch();
   const { connex } = useWallet();
+  const [imgUrl, setImgUrl] = useState<string>("");
 
   const getMarketFee = async () => {
     if (connex) {
@@ -76,11 +78,13 @@ const CreateCallOptionModal = ({
         .request()
         .then(() => {
           setOpen(!open);
+          setImgUrl("");
           dispatch(setLoading(false));
           toast.success("Success.");
         })
         .catch(() => {
           setOpen(!open);
+          setImgUrl("");
           dispatch(setLoading(false));
           toast.error("Could not create call.");
         });
@@ -88,6 +92,12 @@ const CreateCallOptionModal = ({
   };
 
   const data = apes?.filter((item: any) => item.tokenId === createValue.id);
+
+  useEffect(() => {
+    if (data) {
+      setImgUrl(data[0]?.assets[1].url);
+    }
+  }, [data]);
 
   return (
     <Dialog
@@ -104,7 +114,7 @@ const CreateCallOptionModal = ({
           </div>
           <img
             className='rounded-lg'
-            src={data[0]?.assets[1].url}
+            src={imgUrl}
             alt='createCall'
             onLoad={() => dispatch(setLoading(false))}
           />
@@ -154,7 +164,10 @@ const CreateCallOptionModal = ({
               </button>
               <button
                 className='bg-[#FF0000] py-1 rounded-lg w-24'
-                onClick={() => setOpen(!open)}>
+                onClick={() => {
+                  setOpen(!open);
+                  setImgUrl("");
+                }}>
                 CANCEL
               </button>
             </div>
