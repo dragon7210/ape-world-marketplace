@@ -91,7 +91,9 @@ const CreateRaffleModal = ({
   };
 
   useEffect(() => {
-    setImgUrl(data[0]?.assets[1].url);
+    if (data) {
+      setImgUrl(data[0]?.assets[1].url);
+    }
   }, [data]);
 
   return (
