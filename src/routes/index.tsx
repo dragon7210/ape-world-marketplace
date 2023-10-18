@@ -44,6 +44,9 @@ const MainRoutes = () => {
       <Route path='/store' element={<Layout />}>
         <Route index element={<Store />} />
       </Route>
+      <Route path='/store/create' element={<Layout />}>
+        <Route index element={<Store />} />
+      </Route>
       <Route path='/realState' element={<Layout />}>
         <Route index element={<RealState />} />
       </Route>

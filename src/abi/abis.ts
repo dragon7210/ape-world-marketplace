@@ -404,3 +404,111 @@ export const getWorldInfoABI = {
   stateMutability: "view",
   type: "function",
 };
+export const getAllTradingABI = {
+  inputs: [],
+  name: "getAllItems",
+  outputs: [{ internalType: "bytes32[]", name: "", type: "bytes32[]" }],
+  stateMutability: "view",
+  type: "function",
+};
+export const getTradingABI = {
+  inputs: [{ internalType: "bytes32", name: "_id", type: "bytes32" }],
+  name: "getItem",
+  outputs: [
+    {
+      components: [
+        { internalType: "address", name: "owner", type: "address" },
+        {
+          internalType: "enum TradeMarket.types",
+          name: "itemType",
+          type: "uint8",
+        },
+        { internalType: "uint256", name: "num", type: "uint256" },
+        {
+          components: [
+            { internalType: "address", name: "tokenAddress", type: "address" },
+            { internalType: "uint256", name: "tokenId", type: "uint256" },
+          ],
+          internalType: "struct TradeMarket.nft[]",
+          name: "nfts",
+          type: "tuple[]",
+        },
+        { internalType: "bytes32[]", name: "linkedItem", type: "bytes32[]" },
+      ],
+      internalType: "struct TradeMarket.item",
+      name: "",
+      type: "tuple",
+    },
+  ],
+  stateMutability: "view",
+  type: "function",
+};
+export const getItemOffersABI = {
+  inputs: [{ internalType: "bytes32", name: "_id", type: "bytes32" }],
+  name: "getItemOffers",
+  outputs: [{ internalType: "bytes32[]", name: "", type: "bytes32[]" }],
+  stateMutability: "view",
+  type: "function",
+};
+export const createTradingABI = {
+  inputs: [
+    {
+      components: [
+        { internalType: "address", name: "tokenAddress", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+      ],
+      internalType: "struct TradeMarket.nft[]",
+      name: "_nfts",
+      type: "tuple[]",
+    },
+  ],
+  name: "createListing",
+  outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
+  stateMutability: "payable",
+  type: "function",
+};
+export const createTradingOfferABI = {
+  inputs: [
+    { internalType: "bytes32", name: "_targetId", type: "bytes32" },
+    {
+      components: [
+        { internalType: "address", name: "tokenAddress", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+      ],
+      internalType: "struct TradeMarket.nft[]",
+      name: "_nfts",
+      type: "tuple[]",
+    },
+  ],
+  name: "createOffer",
+  outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
+  stateMutability: "payable",
+  type: "function",
+};
+export const acceptOfferABI = {
+  inputs: [
+    { internalType: "bytes32", name: "_id", type: "bytes32" },
+    { internalType: "bytes32", name: "_offerID", type: "bytes32" },
+  ],
+  name: "acceptOffer",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function",
+};
+export const removeTradingABI = {
+  inputs: [{ internalType: "bytes32", name: "_id", type: "bytes32" }],
+  name: "removeItem",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function",
+};
+export const getTradingFeeABI = {
+  inputs: [],
+  name: "getFees",
+  outputs: [
+    { internalType: "uint256", name: "", type: "uint256" },
+    { internalType: "uint256", name: "", type: "uint256" },
+  ],
+  stateMutability: "view",
+  type: "function",
+};

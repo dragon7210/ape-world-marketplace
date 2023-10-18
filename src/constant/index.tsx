@@ -65,3 +65,4 @@ export const positions = [
   { label: <p className='text-white'>Casino</p>, value: "Casino" },
   { label: <p className='text-white'>Jungle</p>, value: "Jungle" },
 ];
+export const tradingTypes = ["LIST", "OFFER"];

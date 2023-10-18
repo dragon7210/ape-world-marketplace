@@ -56,3 +56,26 @@ export const differentTime = (time: string, connex: any) => {
   }
   return returnTime;
 };
+
+export const get_image = async (_collection: string, _tokenId: string) => {
+  const payload = `query { getToken( tokenId: "${_tokenId}" smartContractAddress: "${_collection}") { assets {url} name rank }}`;
+  let data;
+  try {
+    const response = await fetch(
+      "https://mainnet.api.worldofv.art/graphql/",
+      {
+        method: "POST",
+        body: JSON.stringify({ query: payload }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const temp = await response.json();
+    data = { img: temp.data.getToken.assets[1].url, name: temp.data.getToken.name, rank: temp.data.getToken.rank, }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+  return data;
+};
