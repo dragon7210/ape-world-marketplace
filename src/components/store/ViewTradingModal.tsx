@@ -2,11 +2,11 @@
 
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { removeTradingABI } from "abi/abis";
+import { acceptOfferABI, getTradingABI, removeTradingABI } from "abi/abis";
 import { setLoading } from "actions/loading";
 import { trade_address } from "config/contractAddress";
 import { useWallet } from "hooks";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { get_image, shortenAddress } from "utils";
 import toast from "react-hot-toast";
@@ -28,20 +28,24 @@ const ViewTradingModal = ({
 }) => {
   const dispatch = useDispatch();
   const { address, connex } = useWallet();
+  const [offerList, setOfferList] = useState<any>([]);
 
   useEffect(() => {
-    Promise.all(
-      selData?.nfts?.map(async (item: any) => {
-        return await get_image(item[0], item[1]);
-      })
-    )
-      .then((result) => {
-        setViewData(result);
-      })
-      .catch((error) => {
-        dispatch(setLoading(false));
-        console.error(error);
-      });
+    if (selData) {
+      Promise.all(
+        selData?.nfts?.map(async (item: any) => {
+          return await get_image(item[0], item[1]);
+        })
+      )
+        .then((result) => {
+          dispatch(setLoading(false));
+          setViewData(result);
+        })
+        .catch((error) => {
+          dispatch(setLoading(false));
+          console.error(error);
+        });
+    }
   }, [dispatch, setViewData, selData]);
 
   const removeItem = useCallback(async () => {
@@ -67,6 +71,52 @@ const ViewTradingModal = ({
     }
   }, [selData, dispatch, setOpen, open, connex]);
 
+  useEffect(() => {
+    (async () => {
+      if (connex) {
+        let tempArray: any[] = [];
+        const namedMethod = connex.thor
+          .account(trade_address)
+          .method(getTradingABI);
+        for (const item of selData?.linked ?? []) {
+          const temp = await namedMethod.call(item);
+          const tokenId = temp["decoded"][0][3][0][1];
+          const tokenAddress = temp["decoded"][0][3][0][0];
+          const temp1 = await get_image(tokenAddress, tokenId);
+          tempArray.push({
+            ...temp1,
+            owner: temp["decoded"][0][0],
+          });
+        }
+        setOfferList(tempArray);
+        dispatch(setLoading(false));
+      }
+    })();
+  }, [selData, connex, dispatch]);
+
+  const acceptOffer = (param: string) => {
+    dispatch(setLoading(true));
+    if (connex) {
+      const namedMethod = connex.thor
+        .account(trade_address)
+        .method(acceptOfferABI);
+      const clause = namedMethod.asClause(selData?.itemId, param);
+      connex.vendor
+        .sign("tx", [clause])
+        .comment("Accept Offer.")
+        .request()
+        .then(() => {
+          dispatch(setLoading(false));
+          setOpen(!open);
+          toast.success("Success");
+        })
+        .catch(() => {
+          dispatch(setLoading(false));
+          toast.error("Could not accept offer.");
+        });
+    }
+  };
+
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm z-30'
@@ -79,63 +129,101 @@ const ViewTradingModal = ({
             onClick={() => {
               setOpen(!open);
               setViewData([]);
+              setOfferList([]);
             }}
           />
         </div>
-        <div
-          className={`grid grid-col-1 h-[300px] overflow-y-auto ${
-            viewData.length === 1 ? "" : "md:grid-cols-2"
-          }`}>
-          {viewData.map((item: any, index: number) => (
-            <div key={index} className='mx-1'>
-              <img
-                className='rounded-lg'
-                src={item?.img}
-                onLoad={() => dispatch(setLoading(false))}
-                alt='createLoan'
-              />
-              <div className='flex justify-between px-3 text-xl my-2'>
-                <p>{item.name}</p>
-                <p>Rank : {item.rank ? item.rank : "Any"}</p>
-              </div>
+        <div className='md:flex'>
+          <div className='mr-2'>
+            <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 text-center'>
+              {selData?.linked?.length > 0 ? "These NFTS" : ""}
+            </p>
+            <div className={`h-[300px] overflow-y-auto`}>
+              {viewData.map((item: any, index: number) => (
+                <div key={index} className='mx-1'>
+                  <img
+                    className='rounded-lg'
+                    src={item?.img}
+                    alt='createLoan'
+                  />
+                  <div className='flex justify-between px-3 text-xl my-2'>
+                    <p>{item.name}</p>
+                    <p>Rank : {item.rank ? item.rank : "Any"}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+            <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>
+              <span className='bg-rose-700 rounded-md p-1 px-2'>
+                Item owner By {shortenAddress(selData?.owner)}
+              </span>
+              <span className='bg-violet-700 rounded-md p-1 px-2'>
+                {selData?.type}
+              </span>
+            </div>
+          </div>
+          <div className='flex items-center'>
+            {selData?.linked?.length > 0 ? (
+              <div className='w-68'>
+                <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 text-center'>
+                  HAS OFFERS
+                </p>
+                <div className={`h-[300px] overflow-y-auto`}>
+                  {offerList.map((item: any, index: number) => (
+                    <div key={index} className='mx-1'>
+                      <img
+                        className='rounded-lg'
+                        src={item?.img}
+                        alt='createLoan'
+                      />
+                      <div className='flex justify-between items-center px-3 text-xl my-2'>
+                        <p>{item.name}</p>
+                        {selData?.owner === address && (
+                          <button
+                            className='bg-blue-500 hover:bg-blue-700 rounded-md px-2 text-gray-200'
+                            onClick={() => acceptOffer(selData?.linked[index])}>
+                            Accept this Offer
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className='flex justify-end md:mt-1 md:text-base text-sm text-gray-100'>
+                  <span className='bg-rose-700 rounded-md p-1 px-2'>
+                    Item owner By {shortenAddress(offerList[0]?.owner)}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 mb-4 text-center w-64'>
+                No Offers for this Item
+              </p>
+            )}
+          </div>
         </div>
-        <div>
-          <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>
-            <span className='bg-rose-700 rounded-md p-1 px-2'>
-              Item owner By {shortenAddress(selData?.owner)}
-            </span>
-            <span className='bg-violet-700 rounded-md p-1 px-2'>
-              {selData?.type}
-            </span>
-          </div>
-          <div className='bg-gray-900 text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
-            <p className='md:text-xltext-sm'>Details</p>
-          </div>
-          <div
-            className={`flex mt-2 justify-end text-gray-200 md:text-xl text-base`}>
-            {selData?.type === "LIST" && (
-              <button
-                className='bg-[#44a1b5] hover:bg-[#40bcd7] py-1 rounded-lg w-28 ml-5'
-                onClick={() => {
-                  setOpen(!open);
-                  setOpenOffer(true);
-                }}>
-                Create New Offer
-              </button>
-            )}
-            {selData?.owner === address && (
-              <button
-                className='bg-[#FF0000] py-1 rounded-lg w-28 ml-5'
-                onClick={() => {
-                  removeItem();
-                  dispatch(setLoading(true));
-                }}>
-                Remove This {selData?.type}
-              </button>
-            )}
-          </div>
+        <div
+          className={`flex mt-2 justify-end text-gray-200 md:text-xl text-base`}>
+          {selData?.type === "LIST" && (
+            <button
+              className='bg-[#44a1b5] hover:bg-[#40bcd7] py-1 rounded-lg w-28 ml-5'
+              onClick={() => {
+                setOpen(!open);
+                setOpenOffer(true);
+              }}>
+              Create New Offer
+            </button>
+          )}
+          {selData?.owner === address && (
+            <button
+              className='bg-[#FF0000] py-1 rounded-lg w-28 ml-5'
+              onClick={() => {
+                removeItem();
+                dispatch(setLoading(true));
+              }}>
+              Remove This {selData?.type}
+            </button>
+          )}
         </div>
       </div>
     </Dialog>

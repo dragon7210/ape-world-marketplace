@@ -17,11 +17,18 @@ const AllList = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [selData, setSelData] = useState<any>();
   const [viewData, setViewData] = useState<any>([]);
-  const dispatch = useDispatch();
   const [openOffer, setOpenOffer] = useState<boolean>(false);
+  const [data, setData] = useState<any>([]);
   const { collectionOptions } = useSelector((state: any) => state.collections);
+  const dispatch = useDispatch();
 
-  const data = tab === 0 ? trading : myTrading;
+  useEffect(() => {
+    if (tab === 0) {
+      setData(trading);
+    } else {
+      setData(myTrading);
+    }
+  }, [tab, trading, myTrading]);
 
   useEffect(() => {
     dispatch(setLoading(loading));
@@ -113,11 +120,11 @@ const AllList = () => {
       <CreateOfferModal
         open={openOffer}
         setOpen={setOpenOffer}
+        selData={selData}
         data={viewData}
         setData={setViewData}
       />
     </div>
   );
 };
-// 40bcd7
 export default AllList;
