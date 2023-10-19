@@ -85,7 +85,10 @@ const ViewTradingModal = ({
             }}
           />
         </div>
-        <div className='grid md:grid-cols-2 grid-col-1 h-[300px] overflow-y-auto'>
+        <div
+          className={`grid grid-col-1 h-[300px] overflow-y-auto ${
+            data.length === 1 ? "" : "md:grid-cols-2"
+          }`}>
           {data.map((item: any, index: number) => (
             <div key={index}>
               <img
@@ -96,7 +99,7 @@ const ViewTradingModal = ({
               />
               <div className='flex justify-between px-3 text-xl my-2'>
                 <p>{item.name}</p>
-                <p>Rank : {item.rank}</p>
+                <p>Rank : {item.rank ? item.rank : "Any"}</p>
               </div>
             </div>
           ))}

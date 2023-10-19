@@ -95,7 +95,7 @@ const ViewModal = ({
                 {selData?.getToken?.name}
               </p>
               <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
-                Rank {selData?.getToken?.rank}
+                Rank {selData?.getToken?.rank ? selData?.getToken?.rank : "Any"}
               </span>
             </div>
             <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>

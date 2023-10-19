@@ -119,7 +119,7 @@ const CreateLoanModal = ({
               />
             </div>
             <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
-              Rank {data[0]?.rank}
+              Rank {data[0]?.rank ? data[0]?.rank : "Any"}
             </span>
             <p className='md:text-5xl text-2xl mt-1 font-[700] text-black'>
               {data[0]?.name}

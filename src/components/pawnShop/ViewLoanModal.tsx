@@ -274,7 +274,7 @@ const ViewLoanModal = ({
               {selData?.getToken?.name}
             </p>
             <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
-              Rank {selData?.getToken?.rank}
+              Rank {selData?.getToken?.rank ? selData?.getToken?.rank : "Any"}
             </span>
           </div>
           <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>

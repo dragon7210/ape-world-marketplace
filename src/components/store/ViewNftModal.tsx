@@ -49,7 +49,7 @@ const ViewNftModal = ({
 
   useEffect(() => {
     if (myApes) {
-      const data = myApes.map((item: any) => {
+      const data = myApes?.map((item: any) => {
         return {
           label: <p className='m-0 text-white'>{item.tokenId}</p>,
           value: item.tokenId,
@@ -63,7 +63,7 @@ const ViewNftModal = ({
   }, [myApes, createValue, dispatch]);
 
   useEffect(() => {
-    const data = connectedCollections.map((item: any) => {
+    const data = connectedCollections?.map((item: any) => {
       return {
         value: item.collectionId,
         label: (

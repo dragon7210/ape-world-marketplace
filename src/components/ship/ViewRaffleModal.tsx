@@ -192,7 +192,7 @@ const ViewRaffleModal = ({
               {data?.getToken?.name}
             </p>
             <p className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
-              Rank {data?.getToken?.rank}
+              Rank {data?.getToken?.rank ? data?.getToken?.rank : "Any"}
             </p>
           </div>
           <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>

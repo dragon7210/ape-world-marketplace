@@ -130,7 +130,10 @@ const CreateTradingModal = ({
             }}
           />
         </div>
-        <div className='grid md:grid-cols-2 grid-col-1 h-[300px] overflow-y-auto'>
+        <div
+          className={`grid grid-col-1 h-[300px] overflow-y-auto ${
+            allData.length === 1 ? "" : "md:grid-cols-2"
+          }`}>
           {allData.map((item: any, index: number) => (
             <div key={index}>
               <img
@@ -141,12 +144,12 @@ const CreateTradingModal = ({
               />
               <div className='flex justify-between px-3 text-xl my-2'>
                 <p>{item.name}</p>
-                <p>Rank : {item.rank}</p>
+                <p>Rank : {item.rank ? item.rank : "Any"}</p>
               </div>
             </div>
           ))}
         </div>
-        <div className='flex justify-end md:text-xl text-base text-gray-200'>
+        <div className='flex justify-end md:text-xl text-base text-gray-200 mt-2'>
           <button
             className='bg-[#44a1b5] hover:bg-[#40bcd7] py-1 rounded-lg w-28 ml-5'
             onClick={() => {

@@ -133,7 +133,7 @@ const CreateRaffleModal = ({
                 {data[0]?.name}
               </p>
               <p className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
-                Rank {data[0]?.rank}
+                Rank {data[0]?.rank ? data[0]?.rank : "Any"}
               </p>
             </div>
             <p className='md:text-3xl text-lg mt-2 min-w-[256px] text-center'>
