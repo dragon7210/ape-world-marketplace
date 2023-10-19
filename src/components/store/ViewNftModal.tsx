@@ -132,6 +132,7 @@ const ViewNftModal = ({
                 toast.error("Already exit the NFT");
               } else {
                 setData(data?.concat(createValue));
+                dispatch(setLoading(true));
               }
             }}>
             Add

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName, shortenAddress } from "utils";
 import Pagination from "components/common/Pagination";
 import ViewTradingModal from "components/store/ViewTradingModal";
+import CreateOfferModal from "components/store/CreateOfferModal";
 
 const AllList = () => {
   const [tab, setTab] = useState<number>(0);
@@ -15,7 +16,9 @@ const AllList = () => {
   const [pageData, setPageData] = useState<any[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [selData, setSelData] = useState<any>();
+  const [viewData, setViewData] = useState<any>([]);
   const dispatch = useDispatch();
+  const [openOffer, setOpenOffer] = useState<boolean>(false);
   const { collectionOptions } = useSelector((state: any) => state.collections);
 
   const data = tab === 0 ? trading : myTrading;
@@ -99,7 +102,20 @@ const AllList = () => {
         </div>
       )}
       <Pagination data={data} color='#44a1b5' setPageData={setPageData} />
-      <ViewTradingModal open={open} setOpen={setOpen} selData={selData} />
+      <ViewTradingModal
+        open={open}
+        setOpen={setOpen}
+        selData={selData}
+        viewData={viewData}
+        setViewData={setViewData}
+        setOpenOffer={setOpenOffer}
+      />
+      <CreateOfferModal
+        open={openOffer}
+        setOpen={setOpenOffer}
+        data={viewData}
+        setData={setViewData}
+      />
     </div>
   );
 };

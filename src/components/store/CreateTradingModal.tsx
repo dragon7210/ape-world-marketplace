@@ -130,6 +130,9 @@ const CreateTradingModal = ({
             }}
           />
         </div>
+        <p className='text-2xl md:text-4xl font-bold text-gray-800 px-2 mb-1'>
+          You are about to LIST
+        </p>
         <div
           className={`grid grid-col-1 h-[300px] overflow-y-auto ${
             allData.length === 1 ? "" : "md:grid-cols-2"

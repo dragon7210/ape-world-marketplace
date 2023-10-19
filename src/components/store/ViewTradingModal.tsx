@@ -6,7 +6,7 @@ import { removeTradingABI } from "abi/abis";
 import { setLoading } from "actions/loading";
 import { trade_address } from "config/contractAddress";
 import { useWallet } from "hooks";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { get_image, shortenAddress } from "utils";
 import toast from "react-hot-toast";
@@ -15,31 +15,34 @@ const ViewTradingModal = ({
   open,
   selData,
   setOpen,
+  setViewData,
+  viewData,
+  setOpenOffer,
 }: {
   open: boolean;
   selData: any;
   setOpen: any;
+  setViewData: any;
+  viewData: any;
+  setOpenOffer: any;
 }) => {
   const dispatch = useDispatch();
   const { address, connex } = useWallet();
-  const [data, setData] = useState<any>([]);
 
   useEffect(() => {
-    if (selData?.nfts?.length > 0) {
-      Promise.all(
-        selData.nfts.map(async (item: any) => {
-          return await get_image(item[0], item[1]);
-        })
-      )
-        .then((result) => {
-          setData(result);
-        })
-        .catch((error) => {
-          dispatch(setLoading(false));
-          console.error(error);
-        });
-    }
-  }, [dispatch, setData, selData]);
+    Promise.all(
+      selData?.nfts?.map(async (item: any) => {
+        return await get_image(item[0], item[1]);
+      })
+    )
+      .then((result) => {
+        setViewData(result);
+      })
+      .catch((error) => {
+        dispatch(setLoading(false));
+        console.error(error);
+      });
+  }, [dispatch, setViewData, selData]);
 
   const removeItem = useCallback(async () => {
     if (connex) {
@@ -64,12 +67,6 @@ const ViewTradingModal = ({
     }
   }, [selData, dispatch, setOpen, open, connex]);
 
-  const createOffer = async () => {
-    setOpen(!open);
-    if (connex) {
-    }
-  };
-
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm z-30'
@@ -81,15 +78,15 @@ const ViewTradingModal = ({
             className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
             onClick={() => {
               setOpen(!open);
-              setData([]);
+              setViewData([]);
             }}
           />
         </div>
         <div
           className={`grid grid-col-1 h-[300px] overflow-y-auto ${
-            data.length === 1 ? "" : "md:grid-cols-2"
+            viewData.length === 1 ? "" : "md:grid-cols-2"
           }`}>
-          {data.map((item: any, index: number) => (
+          {viewData.map((item: any, index: number) => (
             <div key={index}>
               <img
                 className='rounded-lg'
@@ -122,8 +119,8 @@ const ViewTradingModal = ({
               <button
                 className='bg-[#44a1b5] hover:bg-[#40bcd7] py-1 rounded-lg w-28 ml-5'
                 onClick={() => {
-                  createOffer();
-                  dispatch(setLoading(true));
+                  setOpen(!open);
+                  setOpenOffer(true);
                 }}>
                 Create New Offer
               </button>

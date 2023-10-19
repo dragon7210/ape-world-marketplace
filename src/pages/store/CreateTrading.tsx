@@ -4,7 +4,7 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import CreateTradingModal from "components/store/CreateTradingModal";
 import ViewNftModal from "components/store/ViewNftModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreateTrading = () => {
@@ -13,6 +13,12 @@ const CreateTrading = () => {
   const [data, setData] = useState<any>([]);
   const { collectionOptions } = useSelector((state: any) => state.collections);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setLoading(false));
+    }
+  }, [data, dispatch]);
 
   return (
     <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl'>
