@@ -78,7 +78,7 @@ const CreateOfferModal = ({
                       alt='createLoan'
                     />
                     <TrashIcon
-                      className='absolute w-6 fill-red-800 border-red-800 top-4 right-4 cursor-pointer'
+                      className='absolute w-6 text-red-700 top-4 right-4 cursor-pointer'
                       onClick={() => {
                         offerList.splice(index, 1);
                         setOfferList([...offerList]);

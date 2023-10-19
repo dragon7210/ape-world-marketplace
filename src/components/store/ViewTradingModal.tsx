@@ -87,7 +87,7 @@ const ViewTradingModal = ({
             viewData.length === 1 ? "" : "md:grid-cols-2"
           }`}>
           {viewData.map((item: any, index: number) => (
-            <div key={index}>
+            <div key={index} className='mx-1'>
               <img
                 className='rounded-lg'
                 src={item?.img}
