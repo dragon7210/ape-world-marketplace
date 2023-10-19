@@ -139,7 +139,7 @@ const CreateOfferModal = ({
               You are about to OFFER
             </p>
             <div
-              className={`md:h-[300px] h-[200px] overflow-y-auto md:w-64 w-36`}>
+              className={`md:h-[292px] h-[200px] overflow-y-auto md:w-64 w-36`}>
               {offerData.map((item: any, index: number) => (
                 <div key={index}>
                   <div className='relative'>
@@ -164,7 +164,7 @@ const CreateOfferModal = ({
                 </div>
               ))}
             </div>
-            <div className='flex justify-between md:text-xl text-base text-gray-200 mt-2'>
+            <div className='flex justify-between md:text-xl text-base text-gray-200 mt-1'>
               <button
                 className='bg-blue-600  py-1 rounded-lg md:w-28 w-20'
                 onClick={() => {
@@ -178,7 +178,7 @@ const CreateOfferModal = ({
             <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 md:mb-4 mb-1'>
               FOR the following items
             </p>
-            <div className={`md:h-[300px] h-[200px] overflow-y-auto`}>
+            <div className={`md:h-[292px] h-[200px] overflow-y-auto`}>
               {data.map((item: any, index: number) => (
                 <div key={index}>
                   <img
@@ -193,7 +193,7 @@ const CreateOfferModal = ({
                 </div>
               ))}
             </div>
-            <div className='flex justify-between md:text-xl text-base text-gray-200 mt-2'>
+            <div className='flex justify-between md:text-xl text-base text-gray-200 mt-1'>
               <button
                 className='bg-[#44a1b5] hover:bg-[#40bcd7] py-1 rounded-lg md:w-28 w-20'
                 onClick={() => {

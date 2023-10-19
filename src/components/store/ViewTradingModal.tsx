@@ -138,7 +138,7 @@ const ViewTradingModal = ({
             <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 text-center'>
               {selData?.linked?.length > 0 ? "These NFTS" : ""}
             </p>
-            <div className={`h-[300px] overflow-y-auto`}>
+            <div className={`md:h-[292px] h-[200px] overflow-y-auto`}>
               {viewData.map((item: any, index: number) => (
                 <div key={index} className='mx-1'>
                   <img
@@ -146,14 +146,14 @@ const ViewTradingModal = ({
                     src={item?.img}
                     alt='createLoan'
                   />
-                  <div className='flex justify-between px-3 text-xl my-2'>
+                  <div className='flex justify-between px-3 text-xl my-1'>
                     <p>{item.name}</p>
                     <p>Rank : {item.rank ? item.rank : "Any"}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>
+            <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100 my-1'>
               <span className='bg-rose-700 rounded-md p-1 px-2'>
                 Item owner By {shortenAddress(selData?.owner)}
               </span>
@@ -168,7 +168,7 @@ const ViewTradingModal = ({
                 <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 text-center'>
                   HAS OFFERS
                 </p>
-                <div className={`h-[300px] overflow-y-auto`}>
+                <div className={`md:h-[292px] h-[200px] overflow-y-auto`}>
                   {offerList.map((item: any, index: number) => (
                     <div key={index} className='mx-1'>
                       <img
@@ -176,7 +176,7 @@ const ViewTradingModal = ({
                         src={item?.img}
                         alt='createLoan'
                       />
-                      <div className='flex justify-between items-center px-3 text-xl my-2'>
+                      <div className='flex justify-between items-center px-3 text-xl my-1'>
                         <p>{item.name}</p>
                         {selData?.owner === address && (
                           <button
@@ -189,21 +189,21 @@ const ViewTradingModal = ({
                     </div>
                   ))}
                 </div>
-                <div className='flex justify-end md:mt-1 md:text-base text-sm text-gray-100'>
+                <div className='flex justify-end md:mt-1 md:text-base text-sm text-gray-100 my-1'>
                   <span className='bg-rose-700 rounded-md p-1 px-2'>
                     Item owner By {shortenAddress(offerList[0]?.owner)}
                   </span>
                 </div>
               </div>
             ) : (
-              <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 mb-4 text-center w-64'>
+              <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 text-center w-64'>
                 No Offers for this Item
               </p>
             )}
           </div>
         </div>
         <div
-          className={`flex mt-2 justify-end text-gray-200 md:text-xl text-base`}>
+          className={`flex mt-1 justify-end text-gray-200 md:text-xl text-base`}>
           {selData?.type === "LIST" && (
             <button
               className='bg-[#44a1b5] hover:bg-[#40bcd7] py-1 rounded-lg w-28 ml-5'
