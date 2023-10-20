@@ -185,6 +185,7 @@ const CreateOfferModal = ({
                     className='rounded-lg w-64'
                     src={item?.img}
                     alt='createLoan'
+                    onLoad={() => dispatch(setLoading(false))}
                   />
                   <div className='flex justify-between px-3 md:text-xl text-sm my-2'>
                     <p>{item.name}</p>
