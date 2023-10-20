@@ -210,6 +210,7 @@ const ViewTradingModal = ({
               onClick={() => {
                 setOpen(!open);
                 setOpenOffer(true);
+                setOfferList([]);
               }}>
               Create New Offer
             </button>
