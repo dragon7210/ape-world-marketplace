@@ -38,7 +38,6 @@ const ViewTradingModal = ({
         })
       )
         .then((result) => {
-          dispatch(setLoading(false));
           setViewData(result);
         })
         .catch((error) => {
@@ -89,7 +88,6 @@ const ViewTradingModal = ({
           });
         }
         setOfferList(tempArray);
-        dispatch(setLoading(false));
       }
     })();
   }, [selData, connex, dispatch]);
@@ -145,6 +143,7 @@ const ViewTradingModal = ({
                     className='rounded-lg'
                     src={item?.img}
                     alt='createLoan'
+                    onLoad={() => dispatch(setLoading(false))}
                   />
                   <div className='flex justify-between px-3 text-xl my-1'>
                     <p>{item.name}</p>
@@ -175,6 +174,7 @@ const ViewTradingModal = ({
                         className='rounded-lg'
                         src={item?.img}
                         alt='createLoan'
+                        onLoad={() => dispatch(setLoading(false))}
                       />
                       <div className='flex justify-between items-center px-3 text-xl my-1'>
                         <p>{item.name}</p>
