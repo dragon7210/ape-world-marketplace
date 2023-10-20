@@ -135,7 +135,7 @@ const CreateOfferModal = ({
         </div>
         <div className='md:flex justify-between'>
           <div className='md:mr-4 mr-1'>
-            <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 md:mb-4 mb-1'>
+            <p className='text-xl md:text-4xl font-bold text-gray-800 px-2'>
               You are about to OFFER
             </p>
             <div
@@ -175,7 +175,7 @@ const CreateOfferModal = ({
             </div>
           </div>
           <div>
-            <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 md:mb-4 mb-1'>
+            <p className='text-xl md:text-4xl font-bold text-gray-800 px-2'>
               FOR the following items
             </p>
             <div className={`md:h-[292px] h-[200px] overflow-y-auto`}>

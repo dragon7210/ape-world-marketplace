@@ -133,6 +133,11 @@ const ViewTradingModal = ({
         </div>
         <div className='md:flex'>
           <div className='mr-2'>
+            <div className='flex justify-between md:mt-1 px-2 md:text-base text-sm text-gray-100'>
+              <span className='text-rose-700 rounded-md'>
+                Item owner By {shortenAddress(selData?.owner)}
+              </span>
+            </div>
             <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 text-center'>
               {selData?.linked?.length > 0 ? "These NFTS" : ""}
             </p>
@@ -152,18 +157,15 @@ const ViewTradingModal = ({
                 </div>
               ))}
             </div>
-            <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100 my-1'>
-              <span className='bg-rose-700 rounded-md p-1 px-2'>
-                Item owner By {shortenAddress(selData?.owner)}
-              </span>
-              <span className='bg-violet-700 rounded-md p-1 px-2'>
-                {selData?.type}
-              </span>
-            </div>
           </div>
           <div className='flex items-center'>
             {selData?.linked?.length > 0 ? (
               <div className='w-68'>
+                <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>
+                  <span className='text-rose-700 rounded-md'>
+                    Item owner By {shortenAddress(offerList[0]?.owner)}
+                  </span>
+                </div>
                 <p className='text-xl md:text-4xl font-bold text-gray-800 px-2 text-center'>
                   HAS OFFERS
                 </p>
@@ -180,19 +182,14 @@ const ViewTradingModal = ({
                         <p>{item.name}</p>
                         {selData?.owner === address && (
                           <button
-                            className='bg-blue-500 hover:bg-blue-700 rounded-md px-2 text-gray-200'
+                            className='bg-blue-500 hover:bg-blue-700 rounded-md px-2 text-gray-200 text-base'
                             onClick={() => acceptOffer(selData?.linked[index])}>
-                            Accept this Offer
+                            Accept This Offer
                           </button>
                         )}
                       </div>
                     </div>
                   ))}
-                </div>
-                <div className='flex justify-end md:mt-1 md:text-base text-sm text-gray-100 my-1'>
-                  <span className='bg-rose-700 rounded-md p-1 px-2'>
-                    Item owner By {shortenAddress(offerList[0]?.owner)}
-                  </span>
                 </div>
               </div>
             ) : (
@@ -203,7 +200,7 @@ const ViewTradingModal = ({
           </div>
         </div>
         <div
-          className={`flex mt-1 justify-end text-gray-200 md:text-xl text-base`}>
+          className={`flex mt-2 justify-end text-gray-200 md:text-xl text-base`}>
           {selData?.type === "LIST" && (
             <button
               className='bg-[#44a1b5] hover:bg-[#40bcd7] py-1 rounded-lg w-28 ml-5'
