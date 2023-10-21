@@ -103,9 +103,9 @@ const ViewLoanModal = ({
         const { itemId, loanValue, loanFee } = loanSel;
         const realLoanValue =
           Math.round(
-            ((parseInt(loanValue) / 10 ** 18) * (100 + parseInt(loanFee))) / 100
+            (parseInt(loanValue) / 10 ** 18) * (100 + parseInt(loanFee))
           ) *
-          10 ** 18;
+          10 ** 16;
         const namedMethod = connex.thor
           .account(pawn_address)
           .method(settleLoanABI);
