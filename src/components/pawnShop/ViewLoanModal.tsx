@@ -101,9 +101,9 @@ const ViewLoanModal = ({
     async (loanSel: { itemId: string; loanValue: string; loanFee: string }) => {
       if (connex) {
         const { itemId, loanValue, loanFee } = loanSel;
-        const realLoanValue =
-          (parseInt(loanValue) * (100 + parseInt(loanFee))) / 100;
-
+        const realLoanValue = Math.round(
+          (parseInt(loanValue) * (100 + parseInt(loanFee))) / 100
+        );
         const namedMethod = connex.thor
           .account(pawn_address)
           .method(settleLoanABI);

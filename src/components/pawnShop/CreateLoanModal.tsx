@@ -31,6 +31,7 @@ const CreateLoanModal = ({
   const { connex } = useWallet();
   const dispatch = useDispatch();
   const data = apes?.filter((item: any) => item.tokenId === createValue.id);
+
   const handleCreate = async () => {
     if (connex) {
       const data = collections.filter(
@@ -69,11 +70,13 @@ const CreateLoanModal = ({
         .then(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setImgUrl("");
           toast.success("Created successfully");
         })
         .catch(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setImgUrl("");
           toast.error("Could not create loan.");
         });
     }
@@ -133,7 +136,6 @@ const CreateLoanModal = ({
                 onClick={() => {
                   dispatch(setLoading(true));
                   handleCreate();
-                  setImgUrl("");
                 }}>
                 CONFIRM
               </button>
