@@ -117,7 +117,7 @@ const AllLoan = () => {
       <ViewLoanModal
         open={openModal}
         setOpenModal={setOpenModal}
-        loanSel={data[loanSel]}
+        loanSel={pageData[loanSel]}
       />
     </div>
   );

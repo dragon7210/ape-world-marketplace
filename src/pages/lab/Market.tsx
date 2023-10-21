@@ -120,7 +120,7 @@ const Market = () => {
       <ViewOptionModal
         open={open}
         setOpen={setOpen}
-        data={data[optionSel]}
+        data={pageData[optionSel]}
         block={block}
       />
     </div>
