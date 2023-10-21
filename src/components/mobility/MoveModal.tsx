@@ -52,10 +52,11 @@ const MoveModal = ({
         );
         let clauses = [];
         try {
-          if (_ape["decoded"]["0"]["3"] > 0) {
-            clause["value"] = "0";
-          } else {
-            let payClause = anotherMethod.asClause(mobility_address, _price);
+          if (_ape["decoded"]["0"]["3"] < 1) {
+            let payClause = anotherMethod.asClause(
+              mobility_address,
+              _price["decoded"]["0"][0]
+            );
             clauses.push(payClause);
           }
           clauses.push(clause);
