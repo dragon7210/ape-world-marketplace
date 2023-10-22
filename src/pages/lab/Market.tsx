@@ -121,8 +121,8 @@ const Market = () => {
         open={open}
         setOpen={setOpen}
         data={optionSel}
-        setOptionSel={setOptionSel}
         block={block}
+        setOptionSel={setOptionSel}
       />
     </div>
   );

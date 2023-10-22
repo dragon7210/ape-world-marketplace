@@ -66,10 +66,7 @@ const ViewModal = ({
             className='md:hidden w-6 cursor-pointer hover:bg-gray-500 rounded-md'
             onClick={() => {
               setOpen(!open);
-              setApe({
-                tokenAddress: "",
-                tokenId: "",
-              });
+              setApe();
             }}
           />
         </div>
@@ -86,10 +83,7 @@ const ViewModal = ({
                 className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
                 onClick={() => {
                   setOpen(!open);
-                  setApe({
-                    tokenAddress: "",
-                    tokenId: "",
-                  });
+                  setApe();
                 }}
               />
             </div>
@@ -135,10 +129,7 @@ const ViewModal = ({
                 className='bg-[#FF4200] py-1 rounded-lg ml-5 w-24'
                 onClick={() => {
                   setOpen(!open);
-                  setApe({
-                    tokenAddress: "",
-                    tokenId: "",
-                  });
+                  setApe();
                 }}>
                 CANCEL
               </button>

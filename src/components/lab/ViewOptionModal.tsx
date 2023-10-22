@@ -105,8 +105,8 @@ const ViewOptionModal = ({
         .request()
         .then(() => {
           dispatch(setLoading(false));
-          setOptionSel();
           setOpen(!open);
+          setOptionSel();
           toast.success("Success.");
         })
         .catch(() => {
@@ -132,17 +132,15 @@ const ViewOptionModal = ({
         .then(() => {
           dispatch(setLoading(false));
           setOpen(!open);
-          setOptionSel();
           toast.success("Success.");
         })
         .catch(() => {
           dispatch(setLoading(false));
           setOpen(!open);
-          setOptionSel();
           toast.error("Could not exercise call.");
         });
     }
-  }, [connex, data, dispatch, setOpen, open, setOptionSel]);
+  }, [connex, data, dispatch, setOpen, open]);
 
   useEffect(() => {
     if (data?.status === "LIST" && data?.owner === address) {

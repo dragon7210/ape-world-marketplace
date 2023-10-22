@@ -113,18 +113,18 @@ const AllList = () => {
         open={open}
         setOpen={setOpen}
         selData={selData}
-        setSelData={setSelData}
         viewData={viewData}
         setViewData={setViewData}
         setOpenOffer={setOpenOffer}
+        setSelData={setSelData}
       />
       <CreateOfferModal
         open={openOffer}
         setOpen={setOpenOffer}
         selData={selData}
-        setSelData={setSelData}
         data={viewData}
         setData={setViewData}
+        setSelData={setSelData}
       />
     </div>
   );

@@ -58,11 +58,3 @@ export const getCollections = gql`
   }
 `;
 
-export const getToken = ({ tokenId, smartContractAddress }: { tokenId: String, smartContractAddress: String }) => gql`
-query { getToken( tokenId: "${tokenId}" smartContractAddress: "${smartContractAddress}") { 
-  assets {url}
-  rank
-  name
-  }
-}
-`;

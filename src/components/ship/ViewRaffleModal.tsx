@@ -56,15 +56,17 @@ const ViewRaffleModal = ({
         .then(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setSelData();
           toast.success("Success");
         })
         .catch(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setSelData();
           toast.error("Could not remove Item.");
         });
     }
-  }, [selData, dispatch, setOpen, open, connex]);
+  }, [selData, dispatch, setOpen, open, connex, setSelData]);
 
   const buyTickets = useCallback(async () => {
     if (connex) {

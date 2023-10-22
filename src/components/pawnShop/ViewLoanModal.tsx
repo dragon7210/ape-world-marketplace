@@ -128,7 +128,7 @@ const ViewLoanModal = ({
           });
       }
     },
-    [connex, open, setOpenModal, setLoanSel, dispatch]
+    [connex, open, setOpenModal, dispatch, setLoanSel]
   );
 
   const grantLoan = useCallback(
@@ -159,7 +159,7 @@ const ViewLoanModal = ({
           });
       }
     },
-    [connex, open, setOpenModal, setLoanSel, dispatch]
+    [connex, open, setOpenModal, dispatch, setLoanSel]
   );
 
   useEffect(() => {
