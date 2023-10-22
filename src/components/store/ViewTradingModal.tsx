@@ -108,10 +108,12 @@ const ViewTradingModal = ({
         .then(() => {
           dispatch(setLoading(false));
           setOpen(!open);
+          setSelData();
           toast.success("Success");
         })
         .catch(() => {
           dispatch(setLoading(false));
+          setSelData();
           toast.error("Could not accept offer.");
         });
     }
