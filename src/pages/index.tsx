@@ -19,7 +19,6 @@ const ApeWorld = () => {
     query: getCollections,
     variables: {},
   });
-
   useEffect(() => {
     if (collectionOptions) {
       dispatch(setCollectionOptions(collectionOptions.collections));

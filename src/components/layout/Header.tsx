@@ -25,7 +25,10 @@ const Header = () => {
   });
 
   useEffect(() => {
-    dispatch(setconnectedCollections(collectionOptions?.collections));
+    const temp = collectionOptions?.collections.filter((item: any) => {
+      return item.name !== ("Lickers" || "StonerPunksOfficialNFT");
+    });
+    dispatch(setconnectedCollections(temp));
   }, [dispatch, collectionOptions]);
 
   return (
