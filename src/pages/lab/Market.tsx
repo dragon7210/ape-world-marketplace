@@ -13,7 +13,7 @@ const Market = () => {
   const [selector, setSelector] = useState(true);
   const [open, setOpen] = useState(false);
   const [pageData, setPageData] = useState<any[]>([]);
-  const [optionSel, setOptionSel] = useState<number>(-1);
+  const [optionSel, setOptionSel] = useState<any>();
   const [block, setBlock] = useState<number>(0);
   const dispatch = useDispatch();
   const { connex } = useWallet();
@@ -98,7 +98,7 @@ const Market = () => {
                       <button
                         className='hover:bg-[#008cff] bg-[#006ec9] md:p-[5px] p-[2px] rounded-[99px]'
                         onClick={() => {
-                          setOptionSel(index);
+                          setOptionSel(item);
                           setOpen(true);
                           dispatch(setLoading(true));
                         }}>
@@ -120,7 +120,8 @@ const Market = () => {
       <ViewOptionModal
         open={open}
         setOpen={setOpen}
-        data={pageData[optionSel]}
+        data={optionSel}
+        setOptionSel={setOptionSel}
         block={block}
       />
     </div>

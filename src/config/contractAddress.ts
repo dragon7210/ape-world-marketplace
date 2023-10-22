@@ -7,4 +7,4 @@ export const options_address = "0x7D96228A189c79dce4a005E49B39911159613747"
 export const raffle_address = '0x516d50DeA070F7d1A9Bc87cE74fB5118B1cC25Ed';
 export const item_address = '0x0e1bEb06b1454E37c9479940F44f318f343faE31';
 export const mobility_address = "0xA2FA4dDe43dBAfDf7974354ee82789171DDBc8D5";
-export const trade_address = "0xFf997F8b8de2296E2A0a49e6b1A141ED6e14b80B";
+export const trade_address = "0x3b4D05e284D5fc7600FB4738f2f89a9ac5787843";

@@ -97,7 +97,12 @@ const Apes = () => {
         </div>
       )}
       <Pagination data={apes} color='#00a4c7' setPageData={setPageData} />
-      <ViewModal open={openView} setOpen={setOpenView} ape={ape} />
+      <ViewModal
+        open={openView}
+        setOpen={setOpenView}
+        ape={ape}
+        setApe={setApe}
+      />
       <MoveModal open={openMove} setOpen={setOpenMove} ape={ape} />
       <RegisterModal open={open} setOpen={setOpen} />
     </div>

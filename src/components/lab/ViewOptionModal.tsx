@@ -1,8 +1,13 @@
 /** @format */
 import { Dialog } from "@headlessui/react";
-import { useCustomQuery, useWallet } from "hooks";
+import { useWallet } from "hooks";
 import { useDispatch, useSelector } from "react-redux";
-import { getCollectionName, getEndTime, shortenAddress } from "utils";
+import {
+  getCollectionName,
+  getEndTime,
+  get_image,
+  shortenAddress,
+} from "utils";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { options_address } from "config/contractAddress";
@@ -12,36 +17,39 @@ import EditOptionModal from "./EditOptionModal";
 import SellOptionModal from "./SellOptionModal";
 import ExercisePutModal from "./ExercisePutModal";
 import toast from "react-hot-toast";
-import { getToken } from "utils/query";
 
 const ViewOptionModal = ({
   open,
   setOpen,
   data,
   block,
+  setOptionSel,
 }: {
   open: boolean;
   setOpen: any;
   data: any;
   block: number;
+  setOptionSel: any;
 }) => {
   const dispatch = useDispatch();
   const [Button, setButton] = useState<any>();
 
-  const [img, setImg] = useState<string>("");
   const [openEditOption, setOpenEditOption] = useState<boolean>(false);
   const [openSellOption, setOpenSellOption] = useState<boolean>(false);
   const [openExercisePut, setOpenExercisePut] = useState<boolean>(false);
   const { connex, address } = useWallet();
   const { collectionOptions } = useSelector((state: any) => state.collections);
+  const [selData, setSelData] = useState<any>();
+  const [img, setImg] = useState<string>("");
 
-  const selData = useCustomQuery({
-    query: getToken({
-      tokenId: data?.tokenId,
-      smartContractAddress: data?.tokenAddress,
-    }),
-    variables: {},
-  });
+  useEffect(() => {
+    (async () => {
+      if (data?.type !== "PUT") {
+        const temp = await get_image(data?.tokenAddress, data?.tokenId);
+        setSelData(temp);
+      }
+    })();
+  }, [dispatch, data]);
 
   const removeItem = useCallback(
     (tokenId: string) => {
@@ -57,13 +65,11 @@ const ViewOptionModal = ({
           .then(() => {
             toast.success("Success");
             setOpen(!open);
-            setImg("");
             dispatch(setLoading(false));
           })
           .catch(() => {
             toast.error("Could not remove Option.");
             setOpen(!open);
-            setImg("");
             dispatch(setLoading(false));
           });
       }
@@ -99,18 +105,18 @@ const ViewOptionModal = ({
         .request()
         .then(() => {
           dispatch(setLoading(false));
-          setImg("");
+          setOptionSel();
           setOpen(!open);
           toast.success("Success.");
         })
         .catch(() => {
           dispatch(setLoading(false));
           setOpen(!open);
-          setImg("");
+          setOptionSel();
           toast.error("Could not take option.");
         });
     }
-  }, [connex, data, dispatch, setOpen, open]);
+  }, [connex, data, dispatch, setOpen, open, setOptionSel]);
 
   const exerciseCall = useCallback(() => {
     if (connex) {
@@ -126,17 +132,17 @@ const ViewOptionModal = ({
         .then(() => {
           dispatch(setLoading(false));
           setOpen(!open);
-          setImg("");
+          setOptionSel();
           toast.success("Success.");
         })
         .catch(() => {
           dispatch(setLoading(false));
           setOpen(!open);
-          setImg("");
+          setOptionSel();
           toast.error("Could not exercise call.");
         });
     }
-  }, [connex, data, dispatch, setOpen, open]);
+  }, [connex, data, dispatch, setOpen, open, setOptionSel]);
 
   useEffect(() => {
     if (data?.status === "LIST" && data?.owner === address) {
@@ -234,7 +240,7 @@ const ViewOptionModal = ({
 
   useEffect(() => {
     if (data?.type === "CALL") {
-      setImg(selData?.getToken?.assets[1]?.url);
+      setImg(selData?.img);
     } else {
       const temp = collectionOptions?.filter((item: any) => {
         return (
@@ -258,7 +264,7 @@ const ViewOptionModal = ({
               className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
               onClick={() => {
                 setOpen(!open);
-                setImg("");
+                setOptionSel();
               }}
             />
           </div>
@@ -275,7 +281,7 @@ const ViewOptionModal = ({
                   className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
                   onClick={() => {
                     setOpen(!open);
-                    setImg("");
+                    setOptionSel();
                   }}
                 />
               </div>
@@ -343,7 +349,7 @@ const ViewOptionModal = ({
                   className='bg-[#FF0000] py-1 rounded-lg ml-5 w-24'
                   onClick={() => {
                     setOpen(!open);
-                    setImg("");
+                    setOptionSel();
                   }}>
                   CANCEL
                 </button>

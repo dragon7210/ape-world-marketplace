@@ -6,41 +6,43 @@ import { buyTicketsABI, mvaApproveABI, removeRaffleABI } from "abi/abis";
 import { setLoading } from "actions/loading";
 import { mva_token_address, raffle_address } from "config/contractAddress";
 import { raffleStatus } from "constant";
-import { useCustomQuery, useWallet } from "hooks";
+import { useWallet } from "hooks";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getEndTime, shortenAddress } from "utils";
-import { getToken } from "utils/query";
+import { getEndTime, get_image, shortenAddress } from "utils";
 import toast from "react-hot-toast";
 
 const ViewRaffleModal = ({
   open,
   selData,
   setOpen,
+  setSelData,
 }: {
   open: boolean;
   selData: any;
   setOpen: any;
+  setSelData: any;
 }) => {
   const dispatch = useDispatch();
   const [Button, setButton] = useState<any>();
   const { address, connex } = useWallet();
   const [block, setBlock] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
+  const [data, setData] = useState<any>();
 
   useEffect(() => {
     if (connex) {
       setBlock(connex.thor.status["head"]["number"]);
     }
   }, [connex]);
-  const data = useCustomQuery({
-    query: getToken({
-      tokenId: selData?.tokenId,
-      smartContractAddress: selData?.tokenAddress,
-    }),
-    variables: {},
-  });
-  const [imgUrl, setImgUrl] = useState<string>("");
+
+  useEffect(() => {
+    (async () => {
+      const temp = await get_image(selData?.tokenAddress, selData?.tokenId);
+      setData(temp);
+    })();
+  }, [dispatch, selData]);
+
   const removeItem = useCallback(async () => {
     if (connex) {
       const namedMethod = connex.thor
@@ -54,13 +56,11 @@ const ViewRaffleModal = ({
         .then(() => {
           dispatch(setLoading(false));
           setOpen(!open);
-          setImgUrl("");
           toast.success("Success");
         })
         .catch(() => {
           dispatch(setLoading(false));
           setOpen(!open);
-          setImgUrl("");
           toast.error("Could not remove Item.");
         });
     }
@@ -99,17 +99,17 @@ const ViewRaffleModal = ({
         .then(() => {
           dispatch(setLoading(false));
           setOpen(!open);
-          setImgUrl("");
+          setSelData();
           toast.success("Success");
         })
         .catch(() => {
           dispatch(setLoading(false));
           setOpen(!open);
-          setImgUrl("");
+          setSelData();
           toast.error("Could not Buy Tickets.");
         });
     }
-  }, [connex, count, selData, dispatch, setOpen, open]);
+  }, [connex, count, selData, dispatch, setOpen, open, setSelData]);
 
   useEffect(() => {
     if (selData?.status === "1" && block < selData?.endTime) {
@@ -152,10 +152,6 @@ const ViewRaffleModal = ({
     }
   }, [selData, address, dispatch, removeItem, buyTickets, block, count]);
 
-  useEffect(() => {
-    setImgUrl(data?.getToken?.assets[1].url);
-  }, [data]);
-
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm z-30'
@@ -167,13 +163,13 @@ const ViewRaffleModal = ({
             className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
             onClick={() => {
               setOpen(!open);
-              setImgUrl("");
+              setSelData();
             }}
           />
         </div>
         <img
           className='rounded-lg'
-          src={imgUrl}
+          src={data?.img}
           alt='createLoan'
           onLoad={() => dispatch(setLoading(false))}
         />
@@ -183,16 +179,16 @@ const ViewRaffleModal = ({
               className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
               onClick={() => {
                 setOpen(!open);
-                setImgUrl("");
+                setSelData();
               }}
             />
           </div>
           <div className='flex justify-between items-center'>
             <p className='md:text-3xl text-xl mt-1 font-[700] text-black'>
-              {data?.getToken?.name}
+              {data?.name}
             </p>
             <p className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
-              Rank {data?.getToken?.rank ? data?.getToken?.rank : "Any"}
+              Rank {data?.rank ? data?.rank : "Any"}
             </p>
           </div>
           <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>

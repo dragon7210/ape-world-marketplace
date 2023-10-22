@@ -10,35 +10,35 @@ import {
 } from "abi/abis";
 import { setLoading } from "actions/loading";
 import { pawn_address } from "config/contractAddress";
-import { useCustomQuery, useWallet } from "hooks";
+import { useWallet } from "hooks";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { getEndTime, shortenAddress } from "utils";
-import { getToken } from "utils/query";
+import { getEndTime, get_image, shortenAddress } from "utils";
 
 const ViewLoanModal = ({
   open,
   setOpenModal,
   loanSel,
+  setLoanSel,
 }: {
   open: boolean;
   setOpenModal: any;
   loanSel: any;
+  setLoanSel: any;
 }) => {
   const { address, connex } = useWallet();
   const [state, setState] = useState<string>("Available for Loan");
   const [Button, setButton] = useState<any>();
   const dispatch = useDispatch();
-  const [imgUrl, setImgUrl] = useState<string>("");
+  const [selData, setSelData] = useState<any>();
 
-  const selData = useCustomQuery({
-    query: getToken({
-      tokenId: loanSel?.tokenId,
-      smartContractAddress: loanSel?.tokenAddress,
-    }),
-    variables: {},
-  });
+  useEffect(() => {
+    (async () => {
+      const temp = await get_image(loanSel?.tokenAddress, loanSel?.tokenId);
+      setSelData(temp);
+    })();
+  }, [dispatch, loanSel]);
 
   const removeItem = useCallback(
     async ({ id }: { id: string }) => {
@@ -54,13 +54,11 @@ const ViewLoanModal = ({
           .then(() => {
             dispatch(setLoading(false));
             setOpenModal(!open);
-            setImgUrl("");
             toast.success("Removed successfully");
           })
           .catch(() => {
             dispatch(setLoading(false));
             setOpenModal(!open);
-            setImgUrl("");
             toast.error("Could not remove Item.");
           });
       }
@@ -82,19 +80,19 @@ const ViewLoanModal = ({
           .request()
           .then(() => {
             toast.success("Success");
-            setImgUrl("");
             dispatch(setLoading(false));
+            setLoanSel();
             setOpenModal(!open);
           })
           .catch(() => {
             dispatch(setLoading(false));
             setOpenModal(!open);
-            setImgUrl("");
+            setLoanSel();
             toast.error("Could not Claim Loan.");
           });
       }
     },
-    [connex, open, setOpenModal, dispatch]
+    [connex, open, setOpenModal, dispatch, setLoanSel]
   );
 
   const settleLoan = useCallback(
@@ -118,19 +116,19 @@ const ViewLoanModal = ({
           .request()
           .then(() => {
             setOpenModal(!open);
-            setImgUrl("");
             dispatch(setLoading(false));
+            setLoanSel();
             toast.success("Success");
           })
           .catch(() => {
             setOpenModal(!open);
             dispatch(setLoading(false));
-            setImgUrl("");
+            setLoanSel();
             toast.error("Could not Settle Loan.");
           });
       }
     },
-    [connex, open, setOpenModal, dispatch]
+    [connex, open, setOpenModal, setLoanSel, dispatch]
   );
 
   const grantLoan = useCallback(
@@ -150,18 +148,18 @@ const ViewLoanModal = ({
           .then(() => {
             toast.success("Grant loan successfully");
             dispatch(setLoading(false));
-            setImgUrl("");
+            setLoanSel();
             setOpenModal(!open);
           })
           .catch(() => {
             toast.error("Could not grant Loan.");
             dispatch(setLoading(false));
-            setImgUrl("");
+            setLoanSel();
             setOpenModal(!open);
           });
       }
     },
-    [connex, open, setOpenModal, dispatch]
+    [connex, open, setOpenModal, setLoanSel, dispatch]
   );
 
   useEffect(() => {
@@ -236,10 +234,6 @@ const ViewLoanModal = ({
     removeItem,
   ]);
 
-  useEffect(() => {
-    setImgUrl(selData?.getToken?.assets[1]?.url);
-  }, [selData]);
-
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30'
@@ -251,13 +245,13 @@ const ViewLoanModal = ({
             className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
             onClick={() => {
               setOpenModal(!open);
-              setImgUrl("");
+              setLoanSel();
             }}
           />
         </div>
         <img
           className='rounded-lg'
-          src={imgUrl}
+          src={selData?.img}
           alt='loanImg'
           onLoad={() => dispatch(setLoading(false))}
         />
@@ -267,16 +261,16 @@ const ViewLoanModal = ({
               className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
               onClick={() => {
                 setOpenModal(!open);
-                setImgUrl("");
+                setLoanSel();
               }}
             />
           </div>
           <div className='flex justify-between items-center '>
             <p className='md:text-3xl text-2xl mt-1 font-[700] text-black'>
-              {selData?.getToken?.name}
+              {selData?.name}
             </p>
             <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
-              Rank {selData?.getToken?.rank ? selData?.getToken?.rank : "Any"}
+              Rank {selData?.rank ? selData?.rank : "Any"}
             </span>
           </div>
           <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>
@@ -328,7 +322,7 @@ const ViewLoanModal = ({
               className='bg-[#FF4200] py-1 rounded-lg ml-5 w-24'
               onClick={() => {
                 setOpenModal(!open);
-                setImgUrl("");
+                setLoanSel();
               }}>
               CANCEL
             </button>

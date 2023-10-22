@@ -22,18 +22,21 @@ const CreateOfferModal = ({
   data,
   setData,
   selData,
+  setSelData,
 }: {
   open: boolean;
   setOpen: any;
   data: any;
   setData: any;
   selData: any;
+  setSelData: any;
 }) => {
   const dispatch = useDispatch();
   const [offerList, setOfferList] = useState<any>([]);
   const [openNft, setOpenNft] = useState<boolean>(false);
   const { collectionOptions } = useSelector((state: any) => state.collections);
   const [offerData, setOfferData] = useState<any>([]);
+  const [offerValue, setOfferValue] = useState<number>(0);
   const { connex } = useWallet();
 
   useEffect(() => {
@@ -76,7 +79,7 @@ const CreateOfferModal = ({
         .account(trade_address)
         .method(createTradingOfferABI);
       let last_clause = namedMethod.asClause(selData?.itemId, nftPayload);
-
+      last_clause["value"] = (offerValue * 10 ** 18).toString();
       const yetAnotherMethod = connex.thor
         .account(mva_token_address)
         .method(mvaApproveABI);
@@ -105,6 +108,7 @@ const CreateOfferModal = ({
           setOpen(!open);
           setOfferList([]);
           setData([]);
+          setSelData();
           dispatch(setLoading(false));
         })
         .catch(() => {
@@ -112,6 +116,7 @@ const CreateOfferModal = ({
           setOpen(!open);
           setOfferList([]);
           setData([]);
+          setSelData();
           dispatch(setLoading(false));
         });
     }
@@ -130,6 +135,7 @@ const CreateOfferModal = ({
               setOpen(!open);
               setOfferList([]);
               setData([]);
+              setSelData();
             }}
           />
         </div>
@@ -164,7 +170,7 @@ const CreateOfferModal = ({
                 </div>
               ))}
             </div>
-            <div className='flex justify-between md:text-xl text-base text-gray-200 mt-1'>
+            <div className='flex justify-between items-center md:text-xl text-base text-gray-200 mt-1'>
               <button
                 className='bg-blue-600  py-1 rounded-lg md:w-28 w-20'
                 onClick={() => {
@@ -172,6 +178,14 @@ const CreateOfferModal = ({
                 }}>
                 ADD NFT
               </button>
+              <div className='relative'>
+                <input
+                  className='text-gray-800 py-[2px] px-3 w-24 border-gray-500 border-2 outline-none rounded-md'
+                  value={offerValue}
+                  onChange={(e) => setOfferValue(Number(e.target.value))}
+                />
+                <p className='absolute text-gray-500 top-1 right-1'>VET</p>
+              </div>
             </div>
           </div>
           <div>
@@ -213,6 +227,7 @@ const CreateOfferModal = ({
                   setOpen(!open);
                   setData([]);
                   setOfferList([]);
+                  setSelData();
                 }}>
                 Cancel
               </button>

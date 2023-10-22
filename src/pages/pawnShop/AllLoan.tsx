@@ -13,7 +13,7 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 const AllLoan = () => {
   let { loanData, myLoanData, loading } = useGetLoan();
   const [selector, setSelector] = useState<boolean>(true);
-  const [loanSel, setLoanSel] = useState(-1);
+  const [loanSel, setLoanSel] = useState<any>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [pageData, setPageData] = useState<any[]>([]);
   const { connex } = useWallet();
@@ -95,7 +95,7 @@ const AllLoan = () => {
                       <button
                         className='hover:bg-[#ff4200] bg-[#c43300] md:p-[5px] p-[2px] rounded-[99px]'
                         onClick={() => {
-                          setLoanSel(index);
+                          setLoanSel(item);
                           dispatch(setLoading(true));
                           setOpenModal(true);
                         }}>
@@ -117,7 +117,8 @@ const AllLoan = () => {
       <ViewLoanModal
         open={openModal}
         setOpenModal={setOpenModal}
-        loanSel={pageData[loanSel]}
+        loanSel={loanSel}
+        setLoanSel={setLoanSel}
       />
     </div>
   );

@@ -145,7 +145,12 @@ const AllList = () => {
         </div>
       )}
       <Pagination data={data} color='#cb6500' setPageData={setPageData} />
-      <ViewRaffleModal open={open} setOpen={setOpen} selData={selData} />
+      <ViewRaffleModal
+        open={open}
+        setOpen={setOpen}
+        selData={selData}
+        setSelData={setSelData}
+      />
     </div>
   );
 };

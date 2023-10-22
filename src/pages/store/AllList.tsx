@@ -113,6 +113,7 @@ const AllList = () => {
         open={open}
         setOpen={setOpen}
         selData={selData}
+        setSelData={setSelData}
         viewData={viewData}
         setViewData={setViewData}
         setOpenOffer={setOpenOffer}
@@ -121,6 +122,7 @@ const AllList = () => {
         open={openOffer}
         setOpen={setOpenOffer}
         selData={selData}
+        setSelData={setSelData}
         data={viewData}
         setData={setViewData}
       />

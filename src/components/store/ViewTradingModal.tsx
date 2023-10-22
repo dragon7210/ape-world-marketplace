@@ -18,6 +18,7 @@ const ViewTradingModal = ({
   setViewData,
   viewData,
   setOpenOffer,
+  setSelData,
 }: {
   open: boolean;
   selData: any;
@@ -25,6 +26,7 @@ const ViewTradingModal = ({
   setViewData: any;
   viewData: any;
   setOpenOffer: any;
+  setSelData: any;
 }) => {
   const dispatch = useDispatch();
   const { address, connex } = useWallet();
@@ -128,6 +130,7 @@ const ViewTradingModal = ({
               setOpen(!open);
               setViewData([]);
               setOfferList([]);
+              setSelData();
             }}
           />
         </div>

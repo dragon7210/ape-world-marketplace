@@ -5,32 +5,33 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { getApeABI } from "abi/abis";
 import { setLoading } from "actions/loading";
 import { mobility_address } from "config/contractAddress";
-import { useCustomQuery, useWallet } from "hooks";
+import { useWallet } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getEndTime, shortenAddress } from "utils";
-import { getToken } from "utils/query";
+import { getEndTime, get_image, shortenAddress } from "utils";
 
 const ViewModal = ({
   open,
   setOpen,
   ape,
+  setApe,
 }: {
   open: boolean;
   setOpen: any;
   ape: any;
+  setApe: any;
 }) => {
-  const selData = useCustomQuery({
-    query: getToken({
-      tokenId: ape?.tokenId,
-      smartContractAddress: ape?.tokenAddress,
-    }),
-    variables: {},
-  });
+  const [selData, setSelData] = useState<any>();
   const { connex } = useWallet();
-  const [imgUrl, setImgUrl] = useState<string>("");
   const [apeDetail, setApeDetail] = useState<{ [key: string]: string }>({});
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    (async () => {
+      const temp = await get_image(ape?.tokenAddress, ape?.tokenId);
+      setSelData(temp);
+    })();
+  }, [dispatch, ape]);
 
   useEffect(() => {
     if (connex && ape?.tokenAddress) {
@@ -54,10 +55,6 @@ const ViewModal = ({
     }
   }, [ape, connex]);
 
-  useEffect(() => {
-    setImgUrl(selData?.getToken?.assets[1]?.url);
-  }, [selData]);
-
   return (
     <Dialog
       className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30 '
@@ -69,14 +66,17 @@ const ViewModal = ({
             className='md:hidden w-6 cursor-pointer hover:bg-gray-500 rounded-md'
             onClick={() => {
               setOpen(!open);
-              setImgUrl("");
+              setApe({
+                tokenAddress: "",
+                tokenId: "",
+              });
             }}
           />
         </div>
         <div className='md:flex justify-between'>
           <img
             className='rounded-lg'
-            src={imgUrl}
+            src={selData?.img}
             alt='apeImg'
             onLoad={() => dispatch(setLoading(false))}
           />
@@ -86,16 +86,19 @@ const ViewModal = ({
                 className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
                 onClick={() => {
                   setOpen(!open);
-                  setImgUrl("");
+                  setApe({
+                    tokenAddress: "",
+                    tokenId: "",
+                  });
                 }}
               />
             </div>
             <div className='flex justify-between items-center'>
               <p className='md:text-3xl text-2xl mt-1 font-[700] text-black'>
-                {selData?.getToken?.name}
+                {selData?.name}
               </p>
               <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
-                Rank {selData?.getToken?.rank ? selData?.getToken?.rank : "Any"}
+                Rank {selData?.rank ? selData?.rank : "Any"}
               </span>
             </div>
             <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
@@ -132,7 +135,10 @@ const ViewModal = ({
                 className='bg-[#FF4200] py-1 rounded-lg ml-5 w-24'
                 onClick={() => {
                   setOpen(!open);
-                  setImgUrl("");
+                  setApe({
+                    tokenAddress: "",
+                    tokenId: "",
+                  });
                 }}>
                 CANCEL
               </button>
