@@ -26,7 +26,9 @@ const Header = () => {
 
   useEffect(() => {
     const temp = collectionOptions?.collections.filter((item: any) => {
-      return item.name !== ("Lickers" || "StonerPunksOfficialNFT");
+      return (
+        item.name !== ("Lickers" || "StonerPunksOfficialNFT" || "MVA The HiVe")
+      );
     });
     dispatch(setconnectedCollections(temp));
   }, [dispatch, collectionOptions]);
