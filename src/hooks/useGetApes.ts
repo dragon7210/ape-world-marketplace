@@ -20,8 +20,8 @@ export const useGetApes = () => {
         const temp = await namedMethod.call(address);
         if (temp) {
           setApes(temp.decoded["0"]);
+          setLoading(false);
         }
-        setLoading(false);
       })();
     } else {
       setLoading(false);

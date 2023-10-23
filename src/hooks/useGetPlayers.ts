@@ -8,11 +8,12 @@ import { useSelector } from "react-redux";
 
 export const useGetPlayers = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [info, setInfo] = useState<any>({});
+  const [info, setInfo] = useState<any>();
   const [players, setPlayers] = useState<any[]>([])
 
   const { connex, isConnected, address } = useWallet();
   const { collectionOptions } = useSelector((state: any) => state.collections);
+
   useEffect(() => {
     setLoading(true)
     if (connex && isConnected && address) {
@@ -33,15 +34,13 @@ export const useGetPlayers = () => {
         const temp2 = await playerMethod.call();
         let playerList = [];
         for (let p of temp2["decoded"]["0"]) {
-          playerList.push({ owner: p[0], collection: collectionOptions[p[1]], id: p[2] });
+          playerList.push({ owner: p[0], collection: collectionOptions.filter((item: any) => item?.smartContractAddress?.toLowerCase() === p[1]?.toLowerCase())[0]?.name, id: p[2] });
         }
         setPlayers(playerList);
         setLoading(false);
       })();
     } else {
       setLoading(false);
-      setPlayers([])
-      setInfo({})
     }
   }, [connex, isConnected, address, collectionOptions]);
 

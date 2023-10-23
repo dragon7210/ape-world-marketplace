@@ -4,12 +4,12 @@ import RegisterModal from "components/mobility/RegisterModal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName } from "utils";
-import { setLoading } from "actions/loading";
 import ViewModal from "components/mobility/ViewModal";
 import { useGetApes } from "hooks/useGetApes";
 import Pagination from "components/common/Pagination";
 import MoveModal from "components/mobility/MoveModal";
 import { ArrowUpOnSquareStackIcon, EyeIcon } from "@heroicons/react/24/outline";
+import { setLoading } from "actions/loading";
 
 const Apes = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -23,9 +23,10 @@ const Apes = () => {
   const dispatch = useDispatch();
   const { collectionOptions } = useSelector((state: any) => state.collections);
   const { apes, loading } = useGetApes();
+
   useEffect(() => {
     dispatch(setLoading(loading));
-  }, [dispatch, loading]);
+  }, [loading, dispatch]);
 
   return (
     <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl'>

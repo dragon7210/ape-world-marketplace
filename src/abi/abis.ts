@@ -569,3 +569,29 @@ export const fightUnregisterABI = {
   stateMutability: "nonpayable",
   type: "function",
 };
+export const getRecordABI = {
+  inputs: [
+    { internalType: "address", name: "_collection", type: "address" },
+    { internalType: "uint256", name: "_id", type: "uint256" },
+  ],
+  name: "getRecord",
+  outputs: [
+    {
+      components: [
+        { internalType: "bool", name: "valid", type: "bool" },
+        { internalType: "uint256", name: "win", type: "uint256" },
+        { internalType: "uint256", name: "loss", type: "uint256" },
+        { internalType: "uint256", name: "tournamentWins", type: "uint256" },
+        { internalType: "uint256", name: "trainingDays", type: "uint256" },
+        { internalType: "uint256", name: "lastFightOn", type: "uint256" },
+        { internalType: "uint256", name: "score", type: "uint256" },
+        { internalType: "uint256", name: "level", type: "uint256" },
+      ],
+      internalType: "struct vnftFightScores.record",
+      name: "",
+      type: "tuple",
+    },
+  ],
+  stateMutability: "view",
+  type: "function",
+};
