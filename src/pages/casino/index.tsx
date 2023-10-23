@@ -1,7 +1,69 @@
 /** @format */
 
+import CasinoImg from "assets/svg/apeworld/casino.svg";
+import { useLocation, useNavigate } from "react-router";
+import BorderImage from "assets/png/header/border.png";
+import { useWallet } from "hooks";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+
 const Casino = () => {
-  return <div className='md:pt-8 pt-4'>Casino</div>;
+  const { pathname } = useLocation();
+  const { address } = useWallet();
+  const navigate = useNavigate();
+  const { collectionOptions } = useSelector((state: any) => state.collections);
+
+  useEffect(() => {
+    if (collectionOptions.length === 0) {
+      navigate("/");
+    }
+  }, [collectionOptions, navigate]);
+
+  return (
+    <div className='bg-gradient-to-t from-[#56958a] to-[#4f7169] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh] relative'>
+      <div className='md:text-5xl text-2xl relative z-20'>
+        <div className='flex text-center'>
+          <div className={`w-[50%]`} onClick={() => navigate("/bar")}>
+            <p
+              className={`mb-2 cursor-pointer border-r-2 border-gray-500 ${
+                pathname === "/casino" ? "text-gray-100" : "text-gray-800"
+              }`}>
+              CASINO
+            </p>
+            {pathname === "/casino" && (
+              <img className='w-full' src={BorderImage} alt='borderImg' />
+            )}
+          </div>
+          <div
+            className={`w-[50%]`}
+            onClick={() => {
+              if (address) {
+                navigate("/casino/info");
+              } else {
+                toast.error("Please connect the Wallet");
+              }
+            }}>
+            <p
+              className={` mb-2 cursor-pointer ${
+                pathname === "/casino/info" ? "text-gray-100" : "text-gray-800"
+              }`}>
+              INFO
+            </p>
+            {pathname === "/casino/info" && (
+              <img className='w-full' src={BorderImage} alt='borderImg' />
+            )}
+          </div>
+        </div>
+        {/* {pathname === "/casino" ? <Player /> : <Fighter />} */}
+      </div>
+      <img
+        className='absolute bottom-5 right-5 z-10 hidden md:inline opacity-50'
+        src={CasinoImg}
+        alt='pawnShop'
+      />
+    </div>
+  );
 };
 
 export default Casino;

@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/static/css/main.9881a416.css",
-    "main.js": "/static/js/main.9875adeb.js",
+    "main.css": "/static/css/main.0ee2013e.css",
+    "main.js": "/static/js/main.bf137c3d.js",
     "static/js/725.b51b00b2.chunk.js": "/static/js/725.b51b00b2.chunk.js",
     "static/media/realstate.svg": "/static/media/realstate.babe15b6143c4bf6874f.svg",
     "static/media/store.svg": "/static/media/store.a3e05bd5a53d62690ce3683dd39adaaf.svg",
     "static/media/bar.svg": "/static/media/bar.d4f4d5cef5b6692002cb9996ad38b1ae.svg",
-    "static/media/casino.svg": "/static/media/casino.f0f06d256f216c6c12fd.svg",
+    "static/media/casino.svg": "/static/media/casino.f0f06d256f216c6c12fdbd856c2ca8d8.svg",
     "static/media/ship.svg": "/static/media/ship.d579046eb40594c3e7d7fd7495fe07b5.svg",
     "static/media/lab.svg": "/static/media/lab.f50019fc63ce04108d99177d4366cd5e.svg",
     "static/media/shop.svg": "/static/media/shop.74b5129e62afd5e2f7c9cf167f9e14d3.svg",
@@ -25,12 +25,12 @@
     "static/media/discord.png": "/static/media/discord.56479a9ed98341a1580c.png",
     "static/media/twiter.png": "/static/media/twiter.e6f93bac7f42c01cd8de.png",
     "index.html": "/index.html",
-    "main.9881a416.css.map": "/static/css/main.9881a416.css.map",
-    "main.9875adeb.js.map": "/static/js/main.9875adeb.js.map",
+    "main.0ee2013e.css.map": "/static/css/main.0ee2013e.css.map",
+    "main.bf137c3d.js.map": "/static/js/main.bf137c3d.js.map",
     "725.b51b00b2.chunk.js.map": "/static/js/725.b51b00b2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9881a416.css",
-    "static/js/main.9875adeb.js"
+    "static/css/main.0ee2013e.css",
+    "static/js/main.bf137c3d.js"
   ]
 }

@@ -1,6 +1,6 @@
 /** @format */
 
-import BarImg from "assets/svg/apeworld//bar.svg";
+import BarImg from "assets/svg/apeworld/bar.svg";
 import { useLocation, useNavigate } from "react-router";
 import BorderImage from "assets/png/header/border.png";
 import { useWallet } from "hooks";

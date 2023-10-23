@@ -7,5 +7,6 @@ import { useGetOptions } from "./useGetOptions";
 import { useGetRaffle } from "./useGetRaffle";
 import { useMyApes } from "./useMyApes";
 import { useGetTrading } from "./useGetTrading";
+import { useGetPlayers } from "./useGetPlayers";
 
-export { useWallet, useCustomQuery, useGetLoan, useGetOptions, useGetRaffle, useMyApes, useGetTrading };
+export { useWallet, useCustomQuery, useGetLoan, useGetOptions, useGetRaffle, useMyApes, useGetTrading, useGetPlayers };

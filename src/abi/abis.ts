@@ -512,3 +512,60 @@ export const getTradingFeeABI = {
   stateMutability: "view",
   type: "function",
 };
+export const tournamentInfoABI = {
+  inputs: [],
+  name: "getTournamentInfo",
+  outputs: [
+    {
+      components: [
+        { internalType: "uint256", name: "fee", type: "uint256" },
+        { internalType: "uint256", name: "nPlayers", type: "uint256" },
+        { internalType: "bool", name: "official", type: "bool" },
+        { internalType: "bool", name: "running", type: "bool" },
+        { internalType: "uint256", name: "prizePool", type: "uint256" },
+        { internalType: "bool", name: "timeToPay", type: "bool" },
+      ],
+      internalType: "struct Tournament._info",
+      name: "",
+      type: "tuple",
+    },
+  ],
+  stateMutability: "view",
+  type: "function",
+};
+export const playersABI = {
+  inputs: [],
+  name: "getRegistered",
+  outputs: [
+    {
+      components: [
+        { internalType: "address payable", name: "owner", type: "address" },
+        { internalType: "address", name: "tokenAddress", type: "address" },
+        { internalType: "uint256", name: "tokenId", type: "uint256" },
+        { internalType: "uint256", name: "place", type: "uint256" },
+      ],
+      internalType: "struct Tournament.player[]",
+      name: "",
+      type: "tuple[]",
+    },
+  ],
+  stateMutability: "view",
+  type: "function",
+};
+export const fightRegisterABI = {
+  inputs: [
+    { internalType: "address", name: "_tokenAddress", type: "address" },
+    { internalType: "uint256", name: "_tokenId", type: "uint256" },
+  ],
+  name: "Register",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function",
+};
+export const fightUnregisterABI = {
+  inputs: [],
+  name: "Unregister",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function",
+};
