@@ -122,6 +122,7 @@ const Fighter = () => {
           level: output["decoded"]["0"]["7"],
         };
         setApe(ape);
+        dispatch(setLoading(false));
       })();
     }
   };
@@ -256,14 +257,13 @@ const Fighter = () => {
       <div className='mt-5 md:flex'>
         {info ? (
           <>
-            <div className='md:mr-5 flex md:flex-col bg-blue-400 rounded-md items-center'>
+            <div className='md:mr-5 flex md:flex-col bg-[#ddaeae] rounded-md items-center p-2'>
               <img
                 className='md:rounded-t-md md:rounded-bl-none rounded-l-md w-24 md:w-64 mr-0'
-                onLoad={() => dispatch(setLoading(false))}
                 alt='nft'
                 src={info?.img}
               />
-              <div className='text-center md:mt-2 w-full'>
+              <div className='text-center md:mt-2 w-full text-gray-800'>
                 <p className='text-2xl'>{info?.name}</p>
                 <p className='text-3xl'>Rank : {info?.rank}</p>
               </div>

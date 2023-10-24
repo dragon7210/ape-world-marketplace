@@ -15,8 +15,6 @@ import { emojiAvatarForAddress } from "utils/emojiAvatar";
 import WalletImage from "assets/png/header/wallet.png";
 import { ONE_ETH } from "config/chain";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setLoading } from "actions/loading";
 
 export const ConnectButton = () => {
   const {
@@ -30,7 +28,6 @@ export const ConnectButton = () => {
   } = useWallet();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const avatar = useMemo(() => emojiAvatarForAddress(address!), [address]);
 
@@ -138,7 +135,6 @@ export const ConnectButton = () => {
             className='rounded-md border bg-blue-100 py-2 text-blue-900 hover:bg-blue-400 w-full mt-2 tracking-wider'
             onClick={() => {
               navigate("/mobility");
-              dispatch(setLoading(true));
               setIsOpen(!isOpen);
             }}>
             GO TO MOBILITY PAGE
