@@ -93,8 +93,8 @@ const ViewNftModal = ({
             onClick={() => setOpen(!open)}
           />
         </div>
-        <p className='text-center text-4xl px-20'>Please Select the NFT</p>
-        <div className='px-2 bg-gray-800 rounded-lg mt-2'>
+        <p className='text-center text-4xl md:px-20'>Please Select the NFT</p>
+        <div className='px-2 bg-gray-800 py-2 rounded-lg mt-2'>
           <InputSelect
             label='Collection'
             onChange={(e) => {
