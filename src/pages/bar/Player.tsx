@@ -56,7 +56,7 @@ const Player = () => {
           Register
         </button>
       </div>
-      {info ? (
+      {players.length !== 0 ? (
         <div className='h-[calc(100vh_-_300px)] overflow-y-auto md:h-[calc(100vh_-_450px)]'>
           <p className='mt-2 text-3xl'>
             Current Players : {info?.registered + "/" + info?.players}
