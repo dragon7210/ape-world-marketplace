@@ -89,7 +89,7 @@ const Location = () => {
           />
         </div>
         <button
-          className='bg-[#00a4c7] hover:bg-[#00d2ff] py-[2px] md:py-[5px] rounded-lg ml-5 w-24 md:text-xl text-base'
+          className='bg-[#00a4c7] hover:bg-[#00d2ff] py-[2px] md:py-[5px] md:rounded-lg rounded-sm ml-5 w-24 md:text-xl text-base'
           onClick={show}>
           SHOW
         </button>

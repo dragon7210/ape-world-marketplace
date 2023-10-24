@@ -256,14 +256,14 @@ const Fighter = () => {
       <div className='mt-5 md:flex'>
         {info ? (
           <>
-            <div className='mr-5 flex md:flex-col'>
+            <div className='mr-5 flex md:flex-col bg-blue-400 rounded-md items-center'>
               <img
-                className='rounded-md w-24 md:w-full mr-5 md:mr-0'
+                className='md:rounded-t-md md:rounded-bl-none rounded-l-md w-24 md:w-full mr-5 md:mr-0'
                 onLoad={() => dispatch(setLoading(false))}
                 alt='nft'
                 src={info?.img}
               />
-              <div className='text-center mt-2'>
+              <div className='text-center md:mt-2'>
                 <p className='text-2xl'>{info?.name}</p>
                 <p className='text-3xl'>Rank : {info?.rank}</p>
               </div>
