@@ -213,7 +213,7 @@ const Fighter = () => {
               outline: "none",
               marginTop: "4px",
               "@media(min-width: 768px)": {
-                width: "100px",
+                width: "120px",
                 padding: "0px 10px",
                 borderRadius: "8px",
                 marginTop: "0px",
