@@ -255,10 +255,10 @@ const Fighter = () => {
           Get On-chain Fight Info
         </button>
       </div>
-      <div className='mt-5 md:flex'>
+      <div className='md:mt-5 mt-2 md:flex justify-between'>
         {info ? (
           <>
-            <div className='md:mr-5 flex md:flex-col bg-[#ddaeae] rounded-md items-center p-2'>
+            <div className='flex md:flex-col bg-[#ddaeae] rounded-md items-center p-2'>
               <img
                 className='md:rounded-t-md md:rounded-bl-none rounded-l-md w-24 md:w-64 mr-0'
                 alt='nft'
@@ -269,16 +269,24 @@ const Fighter = () => {
                 <p className='text-3xl'>Rank : {info?.rank}</p>
               </div>
             </div>
-            <div className='md:w-[calc(100%_-_276px)]'>
+            <div className='md:w-[calc(100%_-_300px)] md:h-[352px] flex items-center justify-center bg-[#00000050] rounded-md md:mt-0 mt-2 p-5 md:p-0'>
               {ape?.valid ? (
-                <div className='grid md:grid-cols-3 grid-cols-2'>
-                  <p>Win : {ape?.win}</p>
-                  <p>Win : {ape["last fight on"]}</p>
-                  <p>Win : {ape?.level}</p>
-                  <p>Win : {ape?.loss}</p>
-                  <p>Win : {ape?.score}</p>
-                  <p>Win : {ape["tournament wins"]}</p>
-                  <p>Win : {ape["training days"]}</p>
+                <div className='w-full lg:px-20 md:px-10 lg:text-3xl md:text-2xl text-base'>
+                  <div className='grid grid-cols-2 text-gray-100'>
+                    <p className='md:py-2 py-1'>Win : {ape?.win}</p>
+                    <p className='md:py-2 py-1'>
+                      Last Fight On : {ape["last fight on"]}
+                    </p>
+                    <p className='md:py-2 py-1'>Level : {ape?.level}</p>
+                    <p className='md:py-2 py-1'>
+                      Tournament Wins : {ape["tournament wins"]}
+                    </p>
+                    <p className='md:py-2 py-1'>Loss : {ape?.loss}</p>
+                    <p className='md:py-2 py-1'>
+                      Training Days : {ape["training days"]}
+                    </p>
+                    <p className='md:py-2 py-1'>Score : {ape?.score}</p>
+                  </div>
                 </div>
               ) : (
                 <p className='text-center mt-2 md:mt-0'>No Fight History</p>
