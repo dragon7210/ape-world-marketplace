@@ -143,6 +143,7 @@ const Fighter = () => {
             menu: (baseStyles) => ({
               ...baseStyles,
               background: "#373953",
+              width: "250px",
             }),
             control: (baseStyles) => ({
               ...baseStyles,
@@ -201,6 +202,7 @@ const Fighter = () => {
             menu: (baseStyles) => ({
               ...baseStyles,
               background: "#373953",
+              width: "120px",
             }),
             control: (baseStyles) => ({
               ...baseStyles,
