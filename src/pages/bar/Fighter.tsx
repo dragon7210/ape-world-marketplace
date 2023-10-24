@@ -195,6 +195,7 @@ const Fighter = () => {
               id: e ? e.value : "",
             });
           }}
+          isClearable={true}
           options={idOption}
           styles={{
             menu: (baseStyles) => ({
