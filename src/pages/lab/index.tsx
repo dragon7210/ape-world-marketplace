@@ -24,8 +24,8 @@ const Lab = () => {
   }, [collectionOptions, navigate]);
 
   return (
-    <div className='bg-gradient-to-t from-[#003366] to-[#3366cc] text-gray-200 md:px-[10%] lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh] relative'>
-      <div className='md:text-5xl text-lg relative font-700 z-20'>
+    <div className='bg-gradient-to-t from-[#003366] to-[#3366cc] text-gray-200 md:px-[10%] lg:px-[13%] p-3 pt-24 flex items-center min-h-[100vh] relative'>
+      <div className='md:text-5xl text-lg relative font-700 z-20 w-full'>
         <div className='flex text-center'>
           <div className={`w-[33%]`} onClick={() => navigate("/lab")}>
             <p

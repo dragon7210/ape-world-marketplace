@@ -23,8 +23,8 @@ const PawnShop = () => {
   }, [collectionOptions, navigate]);
 
   return (
-    <div className='bg-gradient-to-t from-[#771f00] to-[#c64b20] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 md:pt-40 pt-28 min-h-[100vh] relative'>
-      <div className='md:text-5xl text-2xl relative z-20'>
+    <div className='bg-gradient-to-t from-[#771f00] to-[#c64b20] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 pt-24 flex items-center min-h-[100vh] relative'>
+      <div className='md:text-5xl text-2xl relative z-20 w-full'>
         <div className='flex text-center'>
           <div className={`w-[50%]`} onClick={() => navigate("/shop")}>
             <p
