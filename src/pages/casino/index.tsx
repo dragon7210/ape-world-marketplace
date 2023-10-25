@@ -45,7 +45,7 @@ const Casino = () => {
 
   return (
     <div className='bg-gradient-to-t from-[#56958a] to-[#4f7169] text-gray-200 md:px-[10%] tracking-widest lg:px-[13%] p-3 min-h-[100vh] pt-24 relative flex items-center'>
-      <div className='md:text-5xl text-2xl relative z-20 bg-[#00000050] lg:px-10 md:px-5 px-3 py-8 w-full'>
+      <div className='md:text-5xl text-2xl relative z-20 bg-[#00000050] rounded-xl lg:px-10 md:px-5 px-3 py-8 w-full'>
         {apes.length > 0 ? (
           <div className='h-[calc(100vh_-_300px)] overflow-y-auto md:h-[calc(100vh_-_450px)]'>
             <table className='w-full md:text-xl text-base mt-2 tracking-wider'>
