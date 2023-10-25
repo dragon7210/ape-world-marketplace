@@ -4,7 +4,6 @@ import { fight_address, } from "config/contractAddress";
 import { useWallet } from "./useWallet";
 import { useEffect, useState } from "react";
 import { playersABI, tournamentInfoABI } from "abi/abis";
-import { useSelector } from "react-redux";
 
 export const useGetPlayers = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -12,7 +11,6 @@ export const useGetPlayers = () => {
   const [players, setPlayers] = useState<any[]>([])
 
   const { connex, isConnected, address } = useWallet();
-  const { collectionOptions } = useSelector((state: any) => state.collections);
 
   useEffect(() => {
     setLoading(true)
@@ -34,7 +32,7 @@ export const useGetPlayers = () => {
         const temp2 = await playerMethod.call();
         let playerList = [];
         for (let p of temp2["decoded"]["0"]) {
-          playerList.push({ owner: p[0], collection: collectionOptions.filter((item: any) => item?.smartContractAddress?.toLowerCase() === p[1]?.toLowerCase())[0]?.name, id: p[2] });
+          playerList.push({ owner: p[0], tokenAddress: p[1], tokenId: p[2] });
         }
         setPlayers(playerList);
         setLoading(false);
@@ -42,7 +40,7 @@ export const useGetPlayers = () => {
     } else {
       setLoading(false);
     }
-  }, [connex, isConnected, address, collectionOptions]);
+  }, [connex, isConnected, address]);
 
   return { info, players, loading };
 };

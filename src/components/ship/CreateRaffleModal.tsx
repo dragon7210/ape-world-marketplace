@@ -2,18 +2,18 @@
 
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { setLoading } from "actions/loading";
+import { useWallet } from "hooks";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { mva_token_address, raffle_address } from "config/contractAddress";
 import {
   approveABI,
   createRaffleABI,
   getFeeABI,
   mvaApproveABI,
 } from "abi/abis";
-import { setLoading } from "actions/loading";
-import { mva_token_address, raffle_address } from "config/contractAddress";
-import { useWallet } from "hooks";
-import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
 
 const CreateRaffleModal = ({
   open,

@@ -2,11 +2,11 @@
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
-import InputSelect from "components/common/InputSelect";
 import { useMyApes } from "hooks";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import InputSelect from "components/common/InputSelect";
 
 const ViewNftModal = ({
   open,

@@ -6,8 +6,8 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { options_address } from "config/contractAddress";
 import { exercisePutABI } from "abi/abis";
-import toast from "react-hot-toast";
 import InputValue from "components/common/InputValue";
+import toast from "react-hot-toast";
 import { useState } from "react";
 
 const ExercisePutModal = ({

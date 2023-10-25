@@ -1,13 +1,13 @@
 /** @format */
 
 import { useEffect, useState } from "react";
-import Pagination from "components/common/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName } from "utils";
 import { useGetOptions, useWallet } from "hooks";
-import ViewOptionModal from "components/lab/ViewOptionModal";
 import { setLoading } from "actions/loading";
 import { EyeIcon } from "@heroicons/react/24/outline";
+import Pagination from "components/common/Pagination";
+import ViewOptionModal from "components/lab/ViewOptionModal";
 
 const Market = () => {
   const [selector, setSelector] = useState(true);

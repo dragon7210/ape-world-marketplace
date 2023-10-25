@@ -1,6 +1,5 @@
 /** @format */
 
-import CasinoImg from "assets/svg/apeworld/casino.svg";
 import { useNavigate } from "react-router";
 import { useWallet } from "hooks";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,9 +8,10 @@ import { setLoading } from "actions/loading";
 import { mobility_address } from "config/contractAddress";
 import { getApesFromLocationABI } from "abi/abis";
 import { getCollectionName } from "utils";
-import Pagination from "components/common/Pagination";
 import { EyeIcon } from "@heroicons/react/24/outline";
+import Pagination from "components/common/Pagination";
 import ViewModal from "components/mobility/ViewModal";
+import CasinoImg from "assets/svg/apeworld/casino.svg";
 
 const Casino = () => {
   const { connex } = useWallet();

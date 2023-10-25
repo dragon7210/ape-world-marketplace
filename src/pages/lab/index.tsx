@@ -2,14 +2,14 @@
 
 import { useLocation, useNavigate } from "react-router";
 import { useWallet } from "hooks";
-import toast from "react-hot-toast";
-import Market from "./Market";
-import Call from "./Call";
-import Put from "./Put";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import LabImg from "assets/svg/apeworld/lab.svg";
 import BorderImage from "assets/png/header/border.png";
+import toast from "react-hot-toast";
+import Market from "./Market";
+import Call from "./Call";
+import Put from "./Put";
 
 const Lab = () => {
   const { pathname } = useLocation();

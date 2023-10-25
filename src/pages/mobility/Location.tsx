@@ -1,15 +1,17 @@
 /** @format */
 
-import { getApesFromLocationABI } from "abi/abis";
+import { EyeIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
-import Pagination from "components/common/Pagination";
-import { mobility_address } from "config/contractAddress";
 import { positions } from "constant";
 import { useWallet } from "hooks";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "react-select";
 import { getCollectionName } from "utils";
+import { mobility_address } from "config/contractAddress";
+import { getApesFromLocationABI } from "abi/abis";
+import Select from "react-select";
+import Pagination from "components/common/Pagination";
+import ViewModal from "components/mobility/ViewModal";
 
 const Location = () => {
   const { connex } = useWallet();
@@ -17,6 +19,8 @@ const Location = () => {
   const [apes, setApes] = useState<any[]>([]);
   const { collectionOptions } = useSelector((state: any) => state.collections);
   const [pageData, setPageData] = useState<any[]>([]);
+  const [ape, setApe] = useState<any>();
+  const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const show = async () => {
@@ -101,6 +105,7 @@ const Location = () => {
               <tr className='text-center'>
                 <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
                 <th className='table-cell'>Id</th>
+                <th className='table-cell'>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -112,6 +117,17 @@ const Location = () => {
                     {getCollectionName(collectionOptions, item?.tokenAddress)}
                   </td>
                   <td className='table-cell'>{item?.tokenId}</td>
+                  <td>
+                    <button
+                      className='bg-[#00a4c7] hover:bg-[#00d2ff] md:p-[5px] p-[2px] rounded-[99px]'
+                      onClick={() => {
+                        setOpen(!open);
+                        dispatch(setLoading(true));
+                        setApe(item);
+                      }}>
+                      <EyeIcon className='md:w-6 w-4' />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -123,6 +139,7 @@ const Location = () => {
         </div>
       )}
       <Pagination data={apes} color='#00a4c7' setPageData={setPageData} />
+      <ViewModal open={open} setOpen={setOpen} ape={ape} setApe={setApe} />
     </div>
   );
 };

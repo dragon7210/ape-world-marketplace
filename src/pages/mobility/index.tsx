@@ -1,12 +1,12 @@
 /** @format */
 
-import BorderImage from "assets/png/header/border.png";
 import { useEffect, useState } from "react";
-import Apes from "./Apes";
-import Location from "./Location";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Apes from "./Apes";
+import Location from "./Location";
 import MobilityImg from "assets/png/mobility.png";
+import BorderImage from "assets/png/header/border.png";
 
 const Mobility = () => {
   const [tab, setTab] = useState<number>(0);

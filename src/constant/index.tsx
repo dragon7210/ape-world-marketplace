@@ -66,3 +66,11 @@ export const positions = [
   { label: <p className='text-white'>Jungle</p>, value: "Jungle" },
 ];
 export const tradingTypes = ["LIST", "OFFER"];
+export const array = [-1, 0, 1];
+export const options = [
+  { value: 5, label: "5" },
+  { value: 10, label: "10" },
+  { value: 15, label: "15" },
+  { value: 20, label: "20" },
+  { value: 50, label: "50" },
+];

@@ -4,10 +4,9 @@ import { TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ViewNftModal from "./ViewNftModal";
-import { get_image } from "utils";
-import toast from "react-hot-toast";
 import { useWallet } from "hooks";
+import toast from "react-hot-toast";
+import { get_image } from "utils";
 import { mva_token_address, trade_address } from "config/contractAddress";
 import {
   approveABI,
@@ -15,6 +14,7 @@ import {
   getTradingFeeABI,
   mvaApproveABI,
 } from "abi/abis";
+import ViewNftModal from "./ViewNftModal";
 
 const CreateOfferModal = ({
   open,

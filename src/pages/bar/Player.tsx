@@ -1,21 +1,25 @@
 /** @format */
 
-import RegisterModal from "components/bar/RegisterModal";
 import { setLoading } from "actions/loading";
 import { useGetPlayers, useWallet } from "hooks";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { shortenAddress } from "utils";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { useDispatch, useSelector } from "react-redux";
+import { getCollectionName, shortenAddress } from "utils";
+import { EyeIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { fight_address } from "config/contractAddress";
-import { fightUnregisterABI } from "abi/abis";
 import toast from "react-hot-toast";
+import { fightUnregisterABI } from "abi/abis";
+import ViewModal from "components/mobility/ViewModal";
+import RegisterModal from "components/bar/RegisterModal";
 
 const Player = () => {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { connex, address } = useWallet();
   const { players, loading, info } = useGetPlayers();
+  const [openView, setOpenView] = useState<boolean>(false);
+  const [ape, setApe] = useState<any>();
+  const { collectionOptions } = useSelector((state: any) => state.collections);
 
   useEffect(() => {
     dispatch(setLoading(loading));
@@ -75,16 +79,27 @@ const Player = () => {
                 <tr
                   key={index}
                   className='border-b text-center backdrop-blur-sm'>
-                  <td className='md:py-3 px-3 text-left'>{item?.collection}</td>
-                  <td className='hidden md:table-cell'>{item?.id}</td>
+                  <td className='md:py-3 px-3 text-left'>
+                    {getCollectionName(collectionOptions, item?.tokenAddress)}
+                  </td>
+                  <td className='hidden md:table-cell'>{item?.tokenId}</td>
                   <td className='hidden md:table-cell'>
                     {shortenAddress(item?.owner)}
                   </td>
                   <td>
                     <div className='flex items-center justify-center md:py-1 py-[1px]'>
+                      <button
+                        className='bg-[#b13535] hover:bg-[#ec5151] md:p-[5px] p-[2px] rounded-[99px]'
+                        onClick={() => {
+                          setOpenView(!openView);
+                          dispatch(setLoading(true));
+                          setApe(item);
+                        }}>
+                        <EyeIcon className='md:w-6 w-4' />
+                      </button>
                       {item?.owner === address && (
                         <button
-                          className='bg-[#b13535] hover:bg-[#ec5151] md:p-[5px] p-[2px] rounded-[99px]'
+                          className='bg-[#b13535] hover:bg-[#ec5151] md:p-[5px] p-[2px] rounded-[99px] ml-2'
                           onClick={unRegister}>
                           <TrashIcon className='md:w-6 w-4' />
                         </button>
@@ -102,6 +117,12 @@ const Player = () => {
         </div>
       )}
       <RegisterModal open={open} setOpen={setOpen} />
+      <ViewModal
+        open={openView}
+        setOpen={setOpenView}
+        ape={ape}
+        setApe={setApe}
+      />
     </div>
   );
 };

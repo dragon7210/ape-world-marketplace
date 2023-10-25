@@ -2,13 +2,13 @@
 
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { buyTicketsABI, mvaApproveABI, removeRaffleABI } from "abi/abis";
 import { setLoading } from "actions/loading";
-import { mva_token_address, raffle_address } from "config/contractAddress";
-import { raffleStatus } from "constant";
 import { useWallet } from "hooks";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { mva_token_address, raffle_address } from "config/contractAddress";
+import { raffleStatus } from "constant";
+import { buyTicketsABI, mvaApproveABI, removeRaffleABI } from "abi/abis";
 import { getEndTime, get_image, shortenAddress } from "utils";
 import toast from "react-hot-toast";
 

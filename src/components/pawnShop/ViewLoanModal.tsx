@@ -2,19 +2,19 @@
 
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { setLoading } from "actions/loading";
+import { pawn_address } from "config/contractAddress";
+import { useWallet } from "hooks";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { getEndTime, get_image, shortenAddress } from "utils";
 import {
   claimLoanABI,
   grantLoanABI,
   removeItemABI,
   settleLoanABI,
 } from "abi/abis";
-import { setLoading } from "actions/loading";
-import { pawn_address } from "config/contractAddress";
-import { useWallet } from "hooks";
-import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { getEndTime, get_image, shortenAddress } from "utils";
 
 const ViewLoanModal = ({
   open,

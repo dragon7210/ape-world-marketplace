@@ -1,15 +1,15 @@
 /** @format */
 
-import RegisterModal from "components/mobility/RegisterModal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName } from "utils";
-import ViewModal from "components/mobility/ViewModal";
 import { useGetApes } from "hooks/useGetApes";
-import Pagination from "components/common/Pagination";
-import MoveModal from "components/mobility/MoveModal";
 import { ArrowUpOnSquareStackIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
+import RegisterModal from "components/mobility/RegisterModal";
+import ViewModal from "components/mobility/ViewModal";
+import Pagination from "components/common/Pagination";
+import MoveModal from "components/mobility/MoveModal";
 
 const Apes = () => {
   const [open, setOpen] = useState<boolean>(false);

@@ -2,13 +2,13 @@
 
 import { useGetLoan, useWallet } from "hooks";
 import { useEffect, useState } from "react";
-import { statusArray } from "constant";
-import ViewLoanModal from "components/pawnShop/ViewLoanModal";
-import Pagination from "components/common/Pagination";
-import { differentTime, getCollectionName } from "utils";
 import { useDispatch, useSelector } from "react-redux";
+import { statusArray } from "constant";
+import { differentTime, getCollectionName } from "utils";
 import { setLoading } from "actions/loading";
 import { EyeIcon } from "@heroicons/react/24/outline";
+import ViewLoanModal from "components/pawnShop/ViewLoanModal";
+import Pagination from "components/common/Pagination";
 
 const AllLoan = () => {
   let { loanData, myLoanData, loading } = useGetLoan();

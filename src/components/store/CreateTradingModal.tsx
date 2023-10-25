@@ -2,19 +2,19 @@
 
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { setLoading } from "actions/loading";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useWallet } from "hooks";
+import { mva_token_address, trade_address } from "config/contractAddress";
 import {
   approveABI,
   createTradingABI,
   getTradingFeeABI,
   mvaApproveABI,
 } from "abi/abis";
-import { setLoading } from "actions/loading";
-import { mva_token_address, trade_address } from "config/contractAddress";
-import { useWallet } from "hooks";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
 import { get_image } from "utils";
+import toast from "react-hot-toast";
 
 const CreateTradingModal = ({
   open,

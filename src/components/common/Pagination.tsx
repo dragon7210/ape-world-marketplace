@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Select from "react-select";
+import { array, options } from "constant";
+
 const Pagination = ({
   data,
   color,
@@ -11,17 +13,8 @@ const Pagination = ({
   color: string;
   setPageData: any;
 }) => {
-  const array = [-1, 0, 1];
   const [perPage, setPerPage] = useState<number>(10);
   const [selPage, setSelPage] = useState<number>(1);
-
-  const options = [
-    { value: 5, label: "5" },
-    { value: 10, label: "10" },
-    { value: 15, label: "15" },
-    { value: 20, label: "20" },
-    { value: 50, label: "50" },
-  ];
 
   useEffect(() => {
     setPageData(data.slice((selPage - 1) * perPage, selPage * perPage));

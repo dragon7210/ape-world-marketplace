@@ -2,12 +2,6 @@
 import { Dialog } from "@headlessui/react";
 import { useWallet } from "hooks";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCollectionName,
-  getEndTime,
-  get_image,
-  shortenAddress,
-} from "utils";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { options_address } from "config/contractAddress";
@@ -16,6 +10,12 @@ import { useCallback, useEffect, useState } from "react";
 import EditOptionModal from "./EditOptionModal";
 import SellOptionModal from "./SellOptionModal";
 import ExercisePutModal from "./ExercisePutModal";
+import {
+  getCollectionName,
+  getEndTime,
+  get_image,
+  shortenAddress,
+} from "utils";
 import toast from "react-hot-toast";
 
 const ViewOptionModal = ({

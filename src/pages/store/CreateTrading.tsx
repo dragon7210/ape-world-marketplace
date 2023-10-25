@@ -2,10 +2,10 @@
 
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
-import CreateTradingModal from "components/store/CreateTradingModal";
-import ViewNftModal from "components/store/ViewNftModal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CreateTradingModal from "components/store/CreateTradingModal";
+import ViewNftModal from "components/store/ViewNftModal";
 
 const CreateTrading = () => {
   const [open, setOpen] = useState<boolean>(false);

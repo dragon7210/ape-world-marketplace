@@ -1,7 +1,6 @@
 /** @format */
 
 import { setLoading } from "actions/loading";
-import InputSelect from "components/common/InputSelect";
 import { useWallet, useMyApes } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +9,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { mobility_address } from "config/contractAddress";
 import { worldRegisterABI } from "abi/abis";
 import { MVACollectionId } from "constant";
+import InputSelect from "components/common/InputSelect";
 import toast from "react-hot-toast";
 
 const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {

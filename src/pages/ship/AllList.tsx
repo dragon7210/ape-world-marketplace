@@ -5,9 +5,9 @@ import { useGetRaffle, useWallet } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { differentTime, getCollectionName, shortenAddress } from "utils";
+import { EyeIcon } from "@heroicons/react/24/outline";
 import Pagination from "components/common/Pagination";
 import ViewRaffleModal from "components/ship/ViewRaffleModal";
-import { EyeIcon } from "@heroicons/react/24/outline";
 
 const AllList = () => {
   const [tab, setTab] = useState<number>(0);

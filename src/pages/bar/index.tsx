@@ -2,13 +2,13 @@
 
 import BarImg from "assets/svg/apeworld/bar.svg";
 import { useLocation, useNavigate } from "react-router";
-import BorderImage from "assets/png/header/border.png";
 import { useWallet } from "hooks";
-import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Fighter from "./Fighter";
 import Player from "./Player";
+import toast from "react-hot-toast";
+import BorderImage from "assets/png/header/border.png";
 
 const Bar = () => {
   const { pathname } = useLocation();

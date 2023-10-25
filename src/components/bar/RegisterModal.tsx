@@ -1,7 +1,6 @@
 /** @format */
 
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import InputSelect from "components/common/InputSelect";
 import { Dialog } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -22,6 +21,7 @@ import {
   worldRegisterABI,
 } from "abi/abis";
 import toast from "react-hot-toast";
+import InputSelect from "components/common/InputSelect";
 
 const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
   const dispatch = useDispatch();
@@ -37,10 +37,11 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
   });
   const { apes, loading } = useGetApes();
   const { info } = useGetPlayers();
+  const { collectionOptions } = useSelector((state: any) => state.collections);
+
   useEffect(() => {
     dispatch(setLoading(loading));
   }, [dispatch, loading]);
-  const { collectionOptions } = useSelector((state: any) => state.collections);
 
   useEffect(() => {
     const objectName = Object.keys(registerValue);

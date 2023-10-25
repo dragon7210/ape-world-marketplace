@@ -1,9 +1,6 @@
 /** @format */
 
 import { ConnectButton } from "components/common/ConnectButton";
-import TwitterImage from "assets/png/header/twiter.png";
-import DiscordImage from "assets/png/header/discord.png";
-import FaceImage from "assets/svg/header/face.svg";
 import { useNavigate } from "react-router-dom";
 import { Bars4Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
@@ -12,6 +9,9 @@ import { useCustomQuery, useWallet } from "hooks";
 import { getCollections } from "utils/query";
 import { useDispatch } from "react-redux";
 import { setconnectedCollections } from "actions/collections";
+import TwitterImage from "assets/png/header/twiter.png";
+import DiscordImage from "assets/png/header/discord.png";
+import FaceImage from "assets/svg/header/face.svg";
 
 const Header = () => {
   const navigate = useNavigate();

@@ -2,13 +2,13 @@
 
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { acceptOfferABI, getTradingABI, removeTradingABI } from "abi/abis";
 import { setLoading } from "actions/loading";
-import { trade_address } from "config/contractAddress";
-import { useWallet } from "hooks";
 import { useCallback, useEffect, useState } from "react";
+import { useWallet } from "hooks";
+import { trade_address } from "config/contractAddress";
 import { useDispatch } from "react-redux";
 import { get_image, shortenAddress } from "utils";
+import { acceptOfferABI, getTradingABI, removeTradingABI } from "abi/abis";
 import toast from "react-hot-toast";
 
 const ViewTradingModal = ({
