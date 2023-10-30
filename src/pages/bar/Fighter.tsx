@@ -257,7 +257,7 @@ const Fighter = () => {
           Get On-chain Fight Info
         </button>
       </div>
-      <div className='md:mt-5 mt-2 md:flex justify-between'>
+      <div className='mt-2 md:flex justify-between'>
         {info ? (
           <>
             <div className='flex md:flex-col bg-[#ddaeae] rounded-md items-center p-2'>
