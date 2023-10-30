@@ -81,7 +81,7 @@ const Header = () => {
               navigate("/");
               setOpen(!open);
             }}>
-            Ape World
+            Ape World test
           </p>
           <p className='py-2 cursor-pointer hover:text-gray-100'>
             <a
