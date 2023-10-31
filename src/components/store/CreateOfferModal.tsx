@@ -123,7 +123,6 @@ const CreateOfferModal = ({
       }
     } catch (error) {
       console.log(error);
-      dispatch(setLoading(false));
     }
   };
 

@@ -90,7 +90,6 @@ const CreatePutOptionModal = ({
           });
       }
     } catch (error) {
-      dispatch(setLoading(false));
       console.log(error);
     }
   };

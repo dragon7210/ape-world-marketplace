@@ -52,7 +52,6 @@ const ViewOptionModal = ({
       })();
     } catch (error) {
       console.log(error);
-      dispatch(setLoading(false));
     }
   }, [dispatch, data]);
 
@@ -128,7 +127,6 @@ const ViewOptionModal = ({
       }
     } catch (error) {
       console.log(error);
-      dispatch(setLoading(false));
     }
   }, [connex, data, dispatch, setOpen, open, setOptionSel]);
 
@@ -157,7 +155,6 @@ const ViewOptionModal = ({
       }
     } catch (error) {
       console.log(error);
-      dispatch(setLoading(false));
     }
   }, [connex, data, dispatch, setOpen, open]);
 

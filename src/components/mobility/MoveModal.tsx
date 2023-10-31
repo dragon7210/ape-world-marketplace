@@ -78,8 +78,6 @@ const MoveModal = ({
         })();
       }
     } catch (error) {
-      dispatch(setLoading(false));
-      toast.error("NFT can't move");
       console.log(error);
     }
   };

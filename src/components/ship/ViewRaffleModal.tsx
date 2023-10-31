@@ -70,7 +70,6 @@ const ViewRaffleModal = ({
           });
       }
     } catch (error) {
-      dispatch(setLoading(false));
       console.log(error);
     }
   }, [selData, dispatch, setOpen, open, connex]);
@@ -120,7 +119,6 @@ const ViewRaffleModal = ({
           });
       }
     } catch (error) {
-      dispatch(setLoading(false));
       console.log(error);
     }
   }, [connex, count, selData, dispatch, setOpen, open, setSelData]);

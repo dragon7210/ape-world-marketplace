@@ -217,7 +217,6 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
       }
     } catch (error) {
       console.log(error);
-      dispatch(setLoading(false));
     }
   };
 

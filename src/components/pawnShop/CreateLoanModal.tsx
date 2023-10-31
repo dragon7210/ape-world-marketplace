@@ -83,7 +83,6 @@ const CreateLoanModal = ({
       }
     } catch (error) {
       console.log(error);
-      dispatch(setLoading(false));
     }
   };
 

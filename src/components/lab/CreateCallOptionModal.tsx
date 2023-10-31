@@ -96,7 +96,6 @@ const CreateCallOptionModal = ({
       }
     } catch (error) {
       console.log(error);
-      dispatch(setLoading(false));
     }
   };
 

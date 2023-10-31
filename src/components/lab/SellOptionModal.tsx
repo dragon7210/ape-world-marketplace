@@ -34,7 +34,6 @@ const SellOptionModal = ({
         return rawOutput["decoded"]["0"] * 10 ** 18;
       }
     } catch (error) {
-      dispatch(setLoading(false));
       console.log(error);
     }
   };
@@ -73,7 +72,6 @@ const SellOptionModal = ({
           });
       }
     } catch (error) {
-      dispatch(setLoading(false));
       console.log(error);
     }
   };
