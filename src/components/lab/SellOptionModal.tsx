@@ -25,46 +25,56 @@ const SellOptionModal = ({
   const { connex } = useWallet();
 
   const getMarketFee = async () => {
-    if (connex) {
-      const getMarketFeeMethod = connex.thor
-        .account(options_address)
-        .method(getMarketFeeABI);
-      const rawOutput = await getMarketFeeMethod.call();
-      return rawOutput["decoded"]["0"] * 10 ** 18;
+    try {
+      if (connex) {
+        const getMarketFeeMethod = connex.thor
+          .account(options_address)
+          .method(getMarketFeeABI);
+        const rawOutput = await getMarketFeeMethod.call();
+        return rawOutput["decoded"]["0"] * 10 ** 18;
+      }
+    } catch (error) {
+      dispatch(setLoading(false));
+      console.log(error);
     }
   };
 
   const handleOption = async () => {
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(options_address)
-        .method(sellOptionABI);
-      const yetAnotherMethod = connex.thor
-        .account(mva_token_address)
-        .method(mvaApproveABI);
+    try {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(options_address)
+          .method(sellOptionABI);
+        const yetAnotherMethod = connex.thor
+          .account(mva_token_address)
+          .method(mvaApproveABI);
 
-      var clauses = [];
-      const fee = await getMarketFee();
-      if (fee) {
-        clauses.push(
-          yetAnotherMethod.asClause(options_address, fee.toString())
-        );
-        clauses.push(namedMethod.asClause(data?.itemId, sellPrice));
+        var clauses = [];
+        const fee = await getMarketFee();
+        if (fee) {
+          clauses.push(
+            yetAnotherMethod.asClause(options_address, fee.toString())
+          );
+          clauses.push(namedMethod.asClause(data?.itemId, sellPrice));
+        }
+        connex.vendor
+          .sign("tx", clauses)
+          .comment("Sell option.")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            setOpenSellOption(!openSellOption);
+            toast.success("Success");
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpenSellOption(!openSellOption);
+            toast.error("Could not list option for sale.");
+          });
       }
-      connex.vendor
-        .sign("tx", clauses)
-        .comment("Sell option.")
-        .request()
-        .then(() => {
-          dispatch(setLoading(false));
-          setOpenSellOption(!openSellOption);
-          toast.success("Success");
-        })
-        .catch(() => {
-          dispatch(setLoading(false));
-          setOpenSellOption(!openSellOption);
-          toast.error("Could not list option for sale.");
-        });
+    } catch (error) {
+      dispatch(setLoading(false));
+      console.log(error);
     }
   };
 

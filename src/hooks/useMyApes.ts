@@ -13,13 +13,17 @@ export const useMyApes = ({ createValue }: { createValue: any }) => {
   const { address } = useWallet();
 
   useEffect(() => {
-    if (createValue.collectionId === "") {
-      setFilters({ ownerAddress: address })
-    } else {
-      setFilters({
-        ownerAddress: address,
-        collectionId: createValue.collectionId,
-      })
+    try {
+      if (createValue.collectionId === "") {
+        setFilters({ ownerAddress: address })
+      } else {
+        setFilters({
+          ownerAddress: address,
+          collectionId: createValue.collectionId,
+        })
+      }
+    } catch (error) {
+      console.log(error)
     }
   }, [createValue, address])
 

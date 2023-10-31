@@ -42,51 +42,56 @@ const CreateRaffleModal = ({
   };
 
   const handleCreate = async () => {
-    if (connex) {
-      const data = collections.filter(
-        (item: any) => item.collectionId === createValue.collectionId
-      );
-      const selAddress = data[0].smartContractAddress;
-      const namedMethod = connex.thor.account(selAddress).method(approveABI);
-      var clause1 = namedMethod.asClause(raffle_address, createValue.id);
-
-      const anotherNamedMethod = connex.thor
-        .account(raffle_address)
-        .method(createRaffleABI);
-      var clause2 = anotherNamedMethod.asClause(
-        selAddress,
-        createValue.id,
-        createValue.value,
-        createValue.count,
-        createValue.duration,
-        createValue.token
-      );
-      const fee = await getServiceFee();
-      const yetAnotherMethod = connex.thor
-        .account(mva_token_address)
-        .method(mvaApproveABI);
-      if (fee) {
-        const clause3 = yetAnotherMethod.asClause(
-          raffle_address,
-          fee.toString()
+    try {
+      if (connex) {
+        const data = collections.filter(
+          (item: any) => item.collectionId === createValue.collectionId
         );
-        connex.vendor
-          .sign("tx", [clause1, clause3, clause2])
-          .comment("Create Raffle.")
-          .request()
-          .then(() => {
-            dispatch(setLoading(false));
-            setOpen(!open);
-            setImgUrl("");
-            toast.success("Success");
-          })
-          .catch(() => {
-            dispatch(setLoading(false));
-            setOpen(!open);
-            setImgUrl("");
-            toast.error("Could not create raffle.");
-          });
+        const selAddress = data[0].smartContractAddress;
+        const namedMethod = connex.thor.account(selAddress).method(approveABI);
+        var clause1 = namedMethod.asClause(raffle_address, createValue.id);
+
+        const anotherNamedMethod = connex.thor
+          .account(raffle_address)
+          .method(createRaffleABI);
+        var clause2 = anotherNamedMethod.asClause(
+          selAddress,
+          createValue.id,
+          createValue.value,
+          createValue.count,
+          createValue.duration,
+          createValue.token
+        );
+        const fee = await getServiceFee();
+        const yetAnotherMethod = connex.thor
+          .account(mva_token_address)
+          .method(mvaApproveABI);
+        if (fee) {
+          const clause3 = yetAnotherMethod.asClause(
+            raffle_address,
+            fee.toString()
+          );
+          connex.vendor
+            .sign("tx", [clause1, clause3, clause2])
+            .comment("Create Raffle.")
+            .request()
+            .then(() => {
+              dispatch(setLoading(false));
+              setOpen(!open);
+              setImgUrl("");
+              toast.success("Success");
+            })
+            .catch(() => {
+              dispatch(setLoading(false));
+              setOpen(!open);
+              setImgUrl("");
+              toast.error("Could not create raffle.");
+            });
+        }
       }
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
     }
   };
 

@@ -11,21 +11,25 @@ export const useGetApes = () => {
 
   const { connex, isConnected, address } = useWallet();
   useEffect(() => {
-    setLoading(true)
-    if (connex && isConnected && address) {
-      (async () => {
-        const namedMethod = connex.thor
-          .account(mobility_address)
-          .method(getUserApesABI);
-        const temp = await namedMethod.call(address);
-        if (temp) {
-          setApes(temp.decoded["0"]);
-          setLoading(false);
-        }
-      })();
-    } else {
-      setLoading(false);
-      setApes([]);
+    try {
+      setLoading(true)
+      if (connex && isConnected && address) {
+        (async () => {
+          const namedMethod = connex.thor
+            .account(mobility_address)
+            .method(getUserApesABI);
+          const temp = await namedMethod.call(address);
+          if (temp) {
+            setApes(temp.decoded["0"]);
+            setLoading(false);
+          }
+        })();
+      } else {
+        setLoading(false);
+        setApes([]);
+      }
+    } catch (error) {
+      console.log(error)
     }
   }, [connex, isConnected, address]);
 

@@ -29,25 +29,30 @@ const EditOptionModal = ({
   }, [data]);
 
   const handleOption = () => {
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(options_address)
-        .method(editOptionPriceABI);
-      var clause = namedMethod.asClause(data?.itemId, optionPrice);
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Edit option price.")
-        .request()
-        .then(() => {
-          setOpenEditOption(!openEditOption);
-          dispatch(setLoading(false));
-          toast.success("Success");
-        })
-        .catch(() => {
-          setOpenEditOption(!openEditOption);
-          dispatch(setLoading(false));
-          toast.error("Could not edit option price.");
-        });
+    try {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(options_address)
+          .method(editOptionPriceABI);
+        var clause = namedMethod.asClause(data?.itemId, optionPrice);
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Edit option price.")
+          .request()
+          .then(() => {
+            setOpenEditOption(!openEditOption);
+            dispatch(setLoading(false));
+            toast.success("Success");
+          })
+          .catch(() => {
+            setOpenEditOption(!openEditOption);
+            dispatch(setLoading(false));
+            toast.error("Could not edit option price.");
+          });
+      }
+    } catch (error) {
+      dispatch(setLoading(false));
+      console.log(error);
     }
   };
 

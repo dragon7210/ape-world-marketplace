@@ -26,63 +26,72 @@ const CreatePutOptionModal = ({
   const [imgUrl, setImgUrl] = useState<string>("");
 
   const getMarketFee = async () => {
-    if (connex) {
-      const getMarketFeeMethod = connex.thor
-        .account(options_address)
-        .method(getMarketFeeABI);
-      const rawOutput = await getMarketFeeMethod.call();
-      return rawOutput["decoded"]["0"] * 10 ** 18;
+    try {
+      if (connex) {
+        const getMarketFeeMethod = connex.thor
+          .account(options_address)
+          .method(getMarketFeeABI);
+        const rawOutput = await getMarketFeeMethod.call();
+        return rawOutput["decoded"]["0"] * 10 ** 18;
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const handleOption = async () => {
-    if (connex) {
-      const data = collections.filter(
-        (item: any) => item.collectionId === createValue.collectionId
-      );
-      const _tokenAddress = data[0].smartContractAddress;
-      const _strike = createValue?.strikePrice;
-      const _price = createValue?.putPrice;
-      const _duration = createValue?.duration;
-
-      const namedMethod = connex.thor
-        .account(options_address)
-        .method(createPutABI);
-      const yetAnotherMethod = connex.thor
-        .account(mva_token_address)
-        .method(mvaApproveABI);
-
-      var last_clause = namedMethod.asClause(
-        _tokenAddress,
-        _strike,
-        _price,
-        _duration
-      );
-      last_clause["value"] = (Number(_strike) * 10 ** 18).toString();
-      var clauses = [];
-      const fee = await getMarketFee();
-      if (fee) {
-        clauses.push(
-          yetAnotherMethod.asClause(options_address, fee.toString())
+    try {
+      if (connex) {
+        const data = collections.filter(
+          (item: any) => item.collectionId === createValue.collectionId
         );
+        const _tokenAddress = data[0].smartContractAddress;
+        const _strike = createValue?.strikePrice;
+        const _price = createValue?.putPrice;
+        const _duration = createValue?.duration;
+
+        const namedMethod = connex.thor
+          .account(options_address)
+          .method(createPutABI);
+        const yetAnotherMethod = connex.thor
+          .account(mva_token_address)
+          .method(mvaApproveABI);
+
+        var last_clause = namedMethod.asClause(
+          _tokenAddress,
+          _strike,
+          _price,
+          _duration
+        );
+        last_clause["value"] = (Number(_strike) * 10 ** 18).toString();
+        var clauses = [];
+        const fee = await getMarketFee();
+        if (fee) {
+          clauses.push(
+            yetAnotherMethod.asClause(options_address, fee.toString())
+          );
+        }
+        clauses.push(last_clause);
+        connex.vendor
+          .sign("tx", clauses)
+          .comment("Create Put.")
+          .request()
+          .then(() => {
+            setOpen(!open);
+            setImgUrl("");
+            dispatch(setLoading(false));
+            toast.success("Success.");
+          })
+          .catch(() => {
+            setOpen(!open);
+            setImgUrl("");
+            dispatch(setLoading(false));
+            toast.error("Could not create call.");
+          });
       }
-      clauses.push(last_clause);
-      connex.vendor
-        .sign("tx", clauses)
-        .comment("Create Put.")
-        .request()
-        .then(() => {
-          setOpen(!open);
-          setImgUrl("");
-          dispatch(setLoading(false));
-          toast.success("Success.");
-        })
-        .catch(() => {
-          setOpen(!open);
-          setImgUrl("");
-          dispatch(setLoading(false));
-          toast.error("Could not create call.");
-        });
+    } catch (error) {
+      dispatch(setLoading(false));
+      console.log(error);
     }
   };
 

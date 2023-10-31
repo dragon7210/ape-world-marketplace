@@ -43,35 +43,44 @@ const ViewOptionModal = ({
   const [img, setImg] = useState<string>("");
 
   useEffect(() => {
-    (async () => {
-      if (data?.type !== "PUT") {
-        const temp = await get_image(data?.tokenAddress, data?.tokenId);
-        setSelData(temp);
-      }
-    })();
+    try {
+      (async () => {
+        if (data?.type !== "PUT") {
+          const temp = await get_image(data?.tokenAddress, data?.tokenId);
+          setSelData(temp);
+        }
+      })();
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
+    }
   }, [dispatch, data]);
 
   const removeItem = useCallback(
     (tokenId: string) => {
-      if (connex) {
-        const namedMethod = connex.thor
-          .account(options_address)
-          .method(deleteOptionABI);
-        const clause = namedMethod.asClause(tokenId);
-        connex.vendor
-          .sign("tx", [clause])
-          .comment("Remove Option.")
-          .request()
-          .then(() => {
-            toast.success("Success");
-            setOpen(!open);
-            dispatch(setLoading(false));
-          })
-          .catch(() => {
-            toast.error("Could not remove Option.");
-            setOpen(!open);
-            dispatch(setLoading(false));
-          });
+      try {
+        if (connex) {
+          const namedMethod = connex.thor
+            .account(options_address)
+            .method(deleteOptionABI);
+          const clause = namedMethod.asClause(tokenId);
+          connex.vendor
+            .sign("tx", [clause])
+            .comment("Remove Option.")
+            .request()
+            .then(() => {
+              toast.success("Success");
+              setOpen(!open);
+              dispatch(setLoading(false));
+            })
+            .catch(() => {
+              toast.error("Could not remove Option.");
+              setOpen(!open);
+              dispatch(setLoading(false));
+            });
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     [connex, dispatch, setOpen, open]
@@ -93,52 +102,62 @@ const ViewOptionModal = ({
   }, [setOpen, open, openExercisePut]);
 
   const buyOption = useCallback(() => {
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(options_address)
-        .method(buyOptionABI);
-      var clause = namedMethod.asClause(data?.itemId);
-      clause["value"] = data?.optionPrice;
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Take option.")
-        .request()
-        .then(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          setOptionSel();
-          toast.success("Success.");
-        })
-        .catch(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          setOptionSel();
-          toast.error("Could not take option.");
-        });
+    try {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(options_address)
+          .method(buyOptionABI);
+        var clause = namedMethod.asClause(data?.itemId);
+        clause["value"] = data?.optionPrice;
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Take option.")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            setOptionSel();
+            toast.success("Success.");
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            setOptionSel();
+            toast.error("Could not take option.");
+          });
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
     }
   }, [connex, data, dispatch, setOpen, open, setOptionSel]);
 
   const exerciseCall = useCallback(() => {
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(options_address)
-        .method(exerciseCallABI);
-      var clause = namedMethod.asClause(data?.itemId);
-      clause["value"] = data?.strikePrice;
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Exercise Call.")
-        .request()
-        .then(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          toast.success("Success.");
-        })
-        .catch(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          toast.error("Could not exercise call.");
-        });
+    try {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(options_address)
+          .method(exerciseCallABI);
+        var clause = namedMethod.asClause(data?.itemId);
+        clause["value"] = data?.strikePrice;
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Exercise Call.")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            toast.success("Success.");
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            toast.error("Could not exercise call.");
+          });
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
     }
   }, [connex, data, dispatch, setOpen, open]);
 

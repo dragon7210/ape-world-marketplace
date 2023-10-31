@@ -26,26 +26,30 @@ const Player = () => {
   }, [loading, dispatch]);
 
   const unRegister = () => {
-    if (connex) {
-      dispatch(setLoading(true));
-      const namedMethod = connex.thor
-        .account(fight_address)
-        .method(fightUnregisterABI);
+    try {
+      if (connex) {
+        dispatch(setLoading(true));
+        const namedMethod = connex.thor
+          .account(fight_address)
+          .method(fightUnregisterABI);
 
-      var clause = namedMethod.asClause();
+        var clause = namedMethod.asClause();
 
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Fight Unregister")
-        .request()
-        .then(() => {
-          dispatch(setLoading(false));
-          toast.success("Success");
-        })
-        .catch(() => {
-          dispatch(setLoading(false));
-          toast.error("Could not unregister.");
-        });
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Fight Unregister")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            toast.success("Success");
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            toast.error("Could not unregister.");
+          });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

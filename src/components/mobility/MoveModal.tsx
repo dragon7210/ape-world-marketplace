@@ -25,33 +25,34 @@ const MoveModal = ({
   const dispatch = useDispatch();
 
   const handle = () => {
-    if (connex) {
-      (async () => {
-        const infoMethod = connex.thor
-          .account(mobility_address)
-          .method(getWorldInfoABI);
-        const _price = await infoMethod.call();
+    try {
+      if (connex) {
+        (async () => {
+          const infoMethod = connex.thor
+            .account(mobility_address)
+            .method(getWorldInfoABI);
+          const _price = await infoMethod.call();
 
-        const apeMethod = connex.thor
-          .account(mobility_address)
-          .method(getApeABI);
-        const _ape = await apeMethod.call(ape?.tokenAddress, ape?.tokenId);
+          const apeMethod = connex.thor
+            .account(mobility_address)
+            .method(getApeABI);
+          const _ape = await apeMethod.call(ape?.tokenAddress, ape?.tokenId);
 
-        const namedMethod = connex.thor
-          .account(mobility_address)
-          .method(moveToABI);
+          const namedMethod = connex.thor
+            .account(mobility_address)
+            .method(moveToABI);
 
-        const anotherMethod = connex.thor
-          .account(mva_token_address)
-          .method(mvaApproveABI);
+          const anotherMethod = connex.thor
+            .account(mva_token_address)
+            .method(mvaApproveABI);
 
-        let clause = namedMethod.asClause(
-          ape?.tokenAddress,
-          ape?.tokenId,
-          position
-        );
-        let clauses = [];
-        try {
+          let clause = namedMethod.asClause(
+            ape?.tokenAddress,
+            ape?.tokenId,
+            position
+          );
+
+          let clauses = [];
           if (_ape["decoded"]["0"]["3"] < 1) {
             let payClause = anotherMethod.asClause(
               mobility_address,
@@ -74,11 +75,12 @@ const MoveModal = ({
               setOpen(!open);
               toast.error("Could not move.");
             });
-        } catch (error) {
-          dispatch(setLoading(false));
-          toast.error("NFT can't move");
-        }
-      })();
+        })();
+      }
+    } catch (error) {
+      dispatch(setLoading(false));
+      toast.error("NFT can't move");
+      console.log(error);
     }
   };
 

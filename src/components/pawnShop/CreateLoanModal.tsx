@@ -33,54 +33,60 @@ const CreateLoanModal = ({
   const data = apes?.filter((item: any) => item.tokenId === createValue.id);
 
   const handleCreate = async () => {
-    if (connex) {
-      const data = collections.filter(
-        (item: any) => item.collectionId === createValue.collectionId
-      );
-      const selAddress = data[0].smartContractAddress;
+    try {
+      if (connex) {
+        const data = collections.filter(
+          (item: any) => item.collectionId === createValue.collectionId
+        );
+        const selAddress = data[0].smartContractAddress;
 
-      const pawnShop = connex.thor.account(pawn_address);
+        const pawnShop = connex.thor.account(pawn_address);
 
-      const getFeeMethod = pawnShop.method(getServiceFeeABI);
-      const namedMethod = connex.thor.account(selAddress).method(approveABI);
-      const anotherNamedMethod = connex.thor
-        .account(pawn_address)
-        .method(createLoanABI);
-      const yetAnotherMethod = connex.thor
-        .account(mva_token_address)
-        .method(mvaApproveABI);
+        const getFeeMethod = pawnShop.method(getServiceFeeABI);
+        const namedMethod = connex.thor.account(selAddress).method(approveABI);
+        const anotherNamedMethod = connex.thor
+          .account(pawn_address)
+          .method(createLoanABI);
+        const yetAnotherMethod = connex.thor
+          .account(mva_token_address)
+          .method(mvaApproveABI);
 
-      const fee = await getFeeMethod.call();
-      const clause1 = namedMethod.asClause(pawn_address, createValue.id);
-      const clause2 = anotherNamedMethod.asClause(
-        selAddress,
-        createValue.id,
-        createValue.vet,
-        createValue.interest,
-        createValue.period
-      );
-      const clause3 = yetAnotherMethod.asClause(
-        pawn_address,
-        (fee.decoded[0] * 10 ** 18).toString()
-      );
-      connex.vendor
-        .sign("tx", [clause1, clause3, clause2])
-        .comment("Create Listing.")
-        .request()
-        .then(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          setImgUrl("");
-          toast.success("Created successfully");
-        })
-        .catch(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          setImgUrl("");
-          toast.error("Could not create loan.");
-        });
+        const fee = await getFeeMethod.call();
+        const clause1 = namedMethod.asClause(pawn_address, createValue.id);
+        const clause2 = anotherNamedMethod.asClause(
+          selAddress,
+          createValue.id,
+          createValue.vet,
+          createValue.interest,
+          createValue.period
+        );
+        const clause3 = yetAnotherMethod.asClause(
+          pawn_address,
+          (fee.decoded[0] * 10 ** 18).toString()
+        );
+        connex.vendor
+          .sign("tx", [clause1, clause3, clause2])
+          .comment("Create Listing.")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            setImgUrl("");
+            toast.success("Created successfully");
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            setImgUrl("");
+            toast.error("Could not create loan.");
+          });
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
     }
   };
+
   const [imgUrl, setImgUrl] = useState<string>("");
 
   useEffect(() => {

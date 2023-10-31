@@ -37,77 +37,91 @@ const ViewRaffleModal = ({
   }, [connex]);
 
   useEffect(() => {
-    (async () => {
-      const temp = await get_image(selData?.tokenAddress, selData?.tokenId);
-      setData(temp);
-    })();
+    try {
+      (async () => {
+        const temp = await get_image(selData?.tokenAddress, selData?.tokenId);
+        setData(temp);
+      })();
+    } catch (error) {
+      console.log(error);
+    }
   }, [dispatch, selData]);
 
   const removeItem = useCallback(async () => {
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(raffle_address)
-        .method(removeRaffleABI);
-      const clause = namedMethod.asClause(selData?.itemId);
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Remove Item.")
-        .request()
-        .then(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          toast.success("Success");
-        })
-        .catch(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          toast.error("Could not remove Item.");
-        });
+    try {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(raffle_address)
+          .method(removeRaffleABI);
+        const clause = namedMethod.asClause(selData?.itemId);
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Remove Item.")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            toast.success("Success");
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            toast.error("Could not remove Item.");
+          });
+      }
+    } catch (error) {
+      dispatch(setLoading(false));
+      console.log(error);
     }
   }, [selData, dispatch, setOpen, open, connex]);
 
   const buyTickets = useCallback(async () => {
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(raffle_address)
-        .method(buyTicketsABI);
+    try {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(raffle_address)
+          .method(buyTicketsABI);
 
-      const yetAnotherMethod = connex.thor
-        .account(mva_token_address)
-        .method(mvaApproveABI);
+        const yetAnotherMethod = connex.thor
+          .account(mva_token_address)
+          .method(mvaApproveABI);
 
-      let clauses = [];
+        let clauses = [];
 
-      let clause1 = namedMethod.asClause(selData?.itemId, count);
-      let value = (Number(selData?.ticketValue) * count).toString();
-      if (
-        selData?.paymentToken === "0x0000000000000000000000000000000000000000"
-      ) {
-        clause1["value"] = value;
-        clauses.push(clause1);
-      } else {
-        clauses.push(
-          yetAnotherMethod.asClause(raffle_address, value.toString())
-        );
-        clauses.push(clause1);
+        let clause1 = namedMethod.asClause(selData?.itemId, count);
+        let value = (Number(selData?.ticketValue) * count).toString();
+        if (
+          selData?.paymentToken === "0x0000000000000000000000000000000000000000"
+        ) {
+          clause1["value"] = value;
+          clauses.push(clause1);
+        } else {
+          clauses.push(
+            yetAnotherMethod.asClause(raffle_address, value.toString())
+          );
+          clauses.push(clause1);
+        }
+
+        connex.vendor
+          .sign("tx", clauses)
+          .comment("Buy Tickets.")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            setSelData();
+            toast.success("Success");
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            setSelData();
+            toast.error("Could not Buy Tickets.");
+          });
       }
-
-      connex.vendor
-        .sign("tx", clauses)
-        .comment("Buy Tickets.")
-        .request()
-        .then(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          setSelData();
-          toast.success("Success");
-        })
-        .catch(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          setSelData();
-          toast.error("Could not Buy Tickets.");
-        });
+    } catch (error) {
+      dispatch(setLoading(false));
+      console.log(error);
     }
   }, [connex, count, selData, dispatch, setOpen, open, setSelData]);
 

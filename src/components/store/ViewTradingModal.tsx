@@ -95,27 +95,32 @@ const ViewTradingModal = ({
   }, [selData, connex, dispatch]);
 
   const acceptOffer = (param: string) => {
-    dispatch(setLoading(true));
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(trade_address)
-        .method(acceptOfferABI);
-      const clause = namedMethod.asClause(selData?.itemId, param);
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Accept Offer.")
-        .request()
-        .then(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          setSelData();
-          toast.success("Success");
-        })
-        .catch(() => {
-          dispatch(setLoading(false));
-          setSelData();
-          toast.error("Could not accept offer.");
-        });
+    try {
+      dispatch(setLoading(true));
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(trade_address)
+          .method(acceptOfferABI);
+        const clause = namedMethod.asClause(selData?.itemId, param);
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Accept Offer.")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            setSelData();
+            toast.success("Success");
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setSelData();
+            toast.error("Could not accept offer.");
+          });
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
     }
   };
 

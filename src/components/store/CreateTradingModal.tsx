@@ -53,65 +53,70 @@ const CreateTradingModal = ({
   }, [dispatch, data, setAllData, collectionOptions]);
 
   const createTradingList = async () => {
-    if (connex) {
-      const feeMethod = connex.thor
-        .account(trade_address)
-        .method(getTradingFeeABI);
-      const fee = await feeMethod.call();
-      const offerFee = fee["decoded"]["1"] * 10 ** 18;
+    try {
+      if (connex) {
+        const feeMethod = connex.thor
+          .account(trade_address)
+          .method(getTradingFeeABI);
+        const fee = await feeMethod.call();
+        const offerFee = fee["decoded"]["1"] * 10 ** 18;
 
-      const namedMethod = connex.thor
-        .account(trade_address)
-        .method(createTradingABI);
+        const namedMethod = connex.thor
+          .account(trade_address)
+          .method(createTradingABI);
 
-      let nftPayload: any[] = [];
+        let nftPayload: any[] = [];
 
-      for (const item of data) {
-        nftPayload.push([
-          collectionOptions.filter(
-            (i: any) => i?.collectionId === item?.collectionId
-          )[0]?.smartContractAddress,
-          item?.id,
-        ]);
-      }
-      const last_clause = namedMethod.asClause(nftPayload);
+        for (const item of data) {
+          nftPayload.push([
+            collectionOptions.filter(
+              (i: any) => i?.collectionId === item?.collectionId
+            )[0]?.smartContractAddress,
+            item?.id,
+          ]);
+        }
+        const last_clause = namedMethod.asClause(nftPayload);
 
-      const yetAnotherMethod = connex.thor
-        .account(mva_token_address)
-        .method(mvaApproveABI);
+        const yetAnotherMethod = connex.thor
+          .account(mva_token_address)
+          .method(mvaApproveABI);
 
-      var clauses = [];
-      clauses.push(
-        yetAnotherMethod.asClause(trade_address, offerFee.toString())
-      );
-
-      var anotherNamedMethod;
-      for (let j = 0; j < nftPayload.length; j++) {
-        anotherNamedMethod = connex.thor
-          .account(nftPayload[j][0])
-          .method(approveABI);
+        var clauses = [];
         clauses.push(
-          anotherNamedMethod.asClause(trade_address, nftPayload[j][1])
+          yetAnotherMethod.asClause(trade_address, offerFee.toString())
         );
-      }
-      clauses.push(last_clause);
 
-      connex.vendor
-        .sign("tx", clauses)
-        .comment("Create Listing.")
-        .request()
-        .then(() => {
-          dispatch(setLoading(false));
-          toast.success("Success");
-          setOpen(!open);
-          setAllData([]);
-        })
-        .catch(() => {
-          dispatch(setLoading(false));
-          setOpen(!open);
-          setAllData([]);
-          toast.error("Could not create list.");
-        });
+        var anotherNamedMethod;
+        for (let j = 0; j < nftPayload.length; j++) {
+          anotherNamedMethod = connex.thor
+            .account(nftPayload[j][0])
+            .method(approveABI);
+          clauses.push(
+            anotherNamedMethod.asClause(trade_address, nftPayload[j][1])
+          );
+        }
+        clauses.push(last_clause);
+
+        connex.vendor
+          .sign("tx", clauses)
+          .comment("Create Listing.")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            toast.success("Success");
+            setOpen(!open);
+            setAllData([]);
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            setAllData([]);
+            toast.error("Could not create list.");
+          });
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
     }
   };
 

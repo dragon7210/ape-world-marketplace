@@ -30,6 +30,7 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
   );
 
   const { myApes } = useMyApes({ createValue: registerValue });
+
   useEffect(() => {
     if (myApes?.length === 0) {
       toast.error("There is no NFT.");
@@ -80,39 +81,43 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
   }, [connectedCollections]);
 
   const handle = () => {
-    if (!MVACollectionId.includes(registerValue.collectionId)) {
-      toast.error("This is not MVA NFT");
-      return;
-    }
+    try {
+      if (!MVACollectionId.includes(registerValue.collectionId)) {
+        toast.error("This is not MVA NFT");
+        return;
+      }
+      dispatch(setLoading(true));
+      if (connex) {
+        const data = connectedCollections?.filter(
+          (item: any) => item.collectionId === registerValue.collectionId
+        );
+        const namedMethod = connex.thor
+          .account(mobility_address)
+          .method(worldRegisterABI);
 
-    dispatch(setLoading(true));
-    if (connex) {
-      const data = connectedCollections?.filter(
-        (item: any) => item.collectionId === registerValue.collectionId
-      );
-      const namedMethod = connex.thor
-        .account(mobility_address)
-        .method(worldRegisterABI);
+        var clause = namedMethod.asClause(
+          data[0].smartContractAddress,
+          registerValue.id
+        );
 
-      var clause = namedMethod.asClause(
-        data[0].smartContractAddress,
-        registerValue.id
-      );
-
-      connex.vendor
-        .sign("tx", [clause])
-        .comment("Ape World Register")
-        .request()
-        .then(() => {
-          setOpen(!open);
-          dispatch(setLoading(false));
-          toast.success("Success");
-        })
-        .catch(() => {
-          setOpen(!open);
-          dispatch(setLoading(false));
-          toast.error("Could not register.");
-        });
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Ape World Register")
+          .request()
+          .then(() => {
+            setOpen(!open);
+            dispatch(setLoading(false));
+            toast.success("Success");
+          })
+          .catch(() => {
+            setOpen(!open);
+            dispatch(setLoading(false));
+            toast.error("Could not register.");
+          });
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
     }
   };
 

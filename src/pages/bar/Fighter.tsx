@@ -93,37 +93,42 @@ const Fighter = () => {
   }, [registerValue, apes, collectionOptions]);
 
   const getInfo = () => {
-    dispatch(setLoading(true));
-    if (connex) {
-      (async () => {
-        const contractAddress = collectionOptions.filter(
-          (item: any) => item?.collectionId === registerValue.collectionId
-        )[0]?.smartContractAddress;
+    try {
+      dispatch(setLoading(true));
+      if (connex) {
+        (async () => {
+          const contractAddress = collectionOptions.filter(
+            (item: any) => item?.collectionId === registerValue.collectionId
+          )[0]?.smartContractAddress;
 
-        const temp = await get_image(contractAddress, registerValue?.id);
-        setInfo(temp);
+          const temp = await get_image(contractAddress, registerValue?.id);
+          setInfo(temp);
 
-        const namedMethod = connex.thor
-          .account(stats_address)
-          .method(getRecordABI);
+          const namedMethod = connex.thor
+            .account(stats_address)
+            .method(getRecordABI);
 
-        const output = await namedMethod.call(
-          contractAddress,
-          registerValue?.id
-        );
-        const ape = {
-          valid: output["decoded"]["0"]["0"],
-          win: output["decoded"]["0"]["1"],
-          loss: output["decoded"]["0"]["2"],
-          "tournament wins": output["decoded"]["0"]["3"],
-          "training days": output["decoded"]["0"]["4"],
-          "last fight on": output["decoded"]["0"]["5"],
-          score: output["decoded"]["0"]["6"],
-          level: output["decoded"]["0"]["7"],
-        };
-        setApe(ape);
-        dispatch(setLoading(false));
-      })();
+          const output = await namedMethod.call(
+            contractAddress,
+            registerValue?.id
+          );
+          const ape = {
+            valid: output["decoded"]["0"]["0"],
+            win: output["decoded"]["0"]["1"],
+            loss: output["decoded"]["0"]["2"],
+            "tournament wins": output["decoded"]["0"]["3"],
+            "training days": output["decoded"]["0"]["4"],
+            "last fight on": output["decoded"]["0"]["5"],
+            score: output["decoded"]["0"]["6"],
+            level: output["decoded"]["0"]["7"],
+          };
+          setApe(ape);
+          dispatch(setLoading(false));
+        })();
+      }
+    } catch (error) {
+      dispatch(setLoading(false));
+      console.log(error);
     }
   };
 

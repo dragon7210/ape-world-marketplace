@@ -13,32 +13,36 @@ export const useGetPlayers = () => {
   const { connex, isConnected, address } = useWallet();
 
   useEffect(() => {
-    setLoading(true)
-    if (connex && isConnected && address) {
-      (async () => {
-        const tournamentMethod = connex.thor
-          .account(fight_address)
-          .method(tournamentInfoABI);
-        const temp1 = await tournamentMethod.call();
+    try {
+      setLoading(true)
+      if (connex && isConnected && address) {
+        (async () => {
+          const tournamentMethod = connex.thor
+            .account(fight_address)
+            .method(tournamentInfoABI);
+          const temp1 = await tournamentMethod.call();
 
-        const _info = {
-          price: temp1["decoded"]["0"]["0"],
-          players: temp1["decoded"]["0"]["1"],
-          registered: temp1["decoded"]["0"]["4"] / temp1["decoded"]["0"]["0"],
-        };
-        setInfo(_info)
+          const _info = {
+            price: temp1["decoded"]["0"]["0"],
+            players: temp1["decoded"]["0"]["1"],
+            registered: temp1["decoded"]["0"]["4"] / temp1["decoded"]["0"]["0"],
+          };
+          setInfo(_info)
 
-        const playerMethod = connex.thor.account(fight_address).method(playersABI);
-        const temp2 = await playerMethod.call();
-        let playerList = [];
-        for (let p of temp2["decoded"]["0"]) {
-          playerList.push({ owner: p[0], tokenAddress: p[1], tokenId: p[2] });
-        }
-        setPlayers(playerList);
+          const playerMethod = connex.thor.account(fight_address).method(playersABI);
+          const temp2 = await playerMethod.call();
+          let playerList = [];
+          for (let p of temp2["decoded"]["0"]) {
+            playerList.push({ owner: p[0], tokenAddress: p[1], tokenId: p[2] });
+          }
+          setPlayers(playerList);
+          setLoading(false);
+        })();
+      } else {
         setLoading(false);
-      })();
-    } else {
-      setLoading(false);
+      }
+    } catch (error) {
+      console.log(error)
     }
   }, [connex, isConnected, address]);
 

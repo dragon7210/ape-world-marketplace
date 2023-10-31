@@ -24,31 +24,35 @@ const ExercisePutModal = ({
   const { connex } = useWallet();
 
   const handleOption = () => {
-    if (connex) {
-      const namedMethod = connex.thor
-        .account(options_address)
-        .method(exercisePutABI);
-      const last_clause = namedMethod.asClause(
-        data?.tokenId,
-        data?.tokenAddress,
-        collection
-      );
-      var clauses = [];
-      clauses.push(last_clause);
-      connex.vendor
-        .sign("tx", clauses)
-        .comment("Exercise Put.")
-        .request()
-        .then(() => {
-          dispatch(setLoading(false));
-          setOpenExercisePut(!openExercisePut);
-          toast.success("Success.");
-        })
-        .catch(() => {
-          dispatch(setLoading(false));
-          setOpenExercisePut(!openExercisePut);
-          toast.error("Could not exercise put.");
-        });
+    try {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(options_address)
+          .method(exercisePutABI);
+        const last_clause = namedMethod.asClause(
+          data?.tokenId,
+          data?.tokenAddress,
+          collection
+        );
+        var clauses = [];
+        clauses.push(last_clause);
+        connex.vendor
+          .sign("tx", clauses)
+          .comment("Exercise Put.")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            setOpenExercisePut(!openExercisePut);
+            toast.success("Success.");
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpenExercisePut(!openExercisePut);
+            toast.error("Could not exercise put.");
+          });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

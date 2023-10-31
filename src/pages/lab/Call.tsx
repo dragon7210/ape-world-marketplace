@@ -38,6 +38,7 @@ const Call = () => {
   });
 
   const { myApes } = useMyApes({ createValue });
+
   useEffect(() => {
     if (myApes?.length === 0) {
       toast.error("There is no NFT.");

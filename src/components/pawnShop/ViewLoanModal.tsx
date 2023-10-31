@@ -42,25 +42,29 @@ const ViewLoanModal = ({
 
   const removeItem = useCallback(
     async ({ id }: { id: string }) => {
-      if (connex) {
-        const namedMethod = connex.thor
-          .account(pawn_address)
-          .method(removeItemABI);
-        const clause = namedMethod.asClause(id);
-        connex.vendor
-          .sign("tx", [clause])
-          .comment("Remove Item.")
-          .request()
-          .then(() => {
-            dispatch(setLoading(false));
-            setOpenModal(!open);
-            toast.success("Removed successfully");
-          })
-          .catch(() => {
-            dispatch(setLoading(false));
-            setOpenModal(!open);
-            toast.error("Could not remove Item.");
-          });
+      try {
+        if (connex) {
+          const namedMethod = connex.thor
+            .account(pawn_address)
+            .method(removeItemABI);
+          const clause = namedMethod.asClause(id);
+          connex.vendor
+            .sign("tx", [clause])
+            .comment("Remove Item.")
+            .request()
+            .then(() => {
+              dispatch(setLoading(false));
+              setOpenModal(!open);
+              toast.success("Removed successfully");
+            })
+            .catch(() => {
+              dispatch(setLoading(false));
+              setOpenModal(!open);
+              toast.error("Could not remove Item.");
+            });
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     [connex, open, setOpenModal, dispatch]
@@ -68,28 +72,32 @@ const ViewLoanModal = ({
 
   const claimLoan = useCallback(
     async ({ id }: { id: string }) => {
-      if (connex) {
-        const namedMethod = connex.thor
-          .account(pawn_address)
-          .method(claimLoanABI);
-        const clause = namedMethod.asClause(id);
+      try {
+        if (connex) {
+          const namedMethod = connex.thor
+            .account(pawn_address)
+            .method(claimLoanABI);
+          const clause = namedMethod.asClause(id);
 
-        connex.vendor
-          .sign("tx", [clause])
-          .comment("Claim Loan.")
-          .request()
-          .then(() => {
-            toast.success("Success");
-            dispatch(setLoading(false));
-            setLoanSel();
-            setOpenModal(!open);
-          })
-          .catch(() => {
-            dispatch(setLoading(false));
-            setOpenModal(!open);
-            setLoanSel();
-            toast.error("Could not Claim Loan.");
-          });
+          connex.vendor
+            .sign("tx", [clause])
+            .comment("Claim Loan.")
+            .request()
+            .then(() => {
+              toast.success("Success");
+              dispatch(setLoading(false));
+              setLoanSel();
+              setOpenModal(!open);
+            })
+            .catch(() => {
+              dispatch(setLoading(false));
+              setOpenModal(!open);
+              setLoanSel();
+              toast.error("Could not Claim Loan.");
+            });
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     [connex, open, setOpenModal, dispatch, setLoanSel]
@@ -97,35 +105,39 @@ const ViewLoanModal = ({
 
   const settleLoan = useCallback(
     async (loanSel: { itemId: string; loanValue: string; loanFee: string }) => {
-      if (connex) {
-        const { itemId, loanValue, loanFee } = loanSel;
-        const realLoanValue =
-          Math.round(
-            (parseInt(loanValue) / 10 ** 18) * (100 + parseInt(loanFee))
-          ) *
-          10 ** 16;
-        const namedMethod = connex.thor
-          .account(pawn_address)
-          .method(settleLoanABI);
+      try {
+        if (connex) {
+          const { itemId, loanValue, loanFee } = loanSel;
+          const realLoanValue =
+            Math.round(
+              (parseInt(loanValue) / 10 ** 18) * (100 + parseInt(loanFee))
+            ) *
+            10 ** 16;
+          const namedMethod = connex.thor
+            .account(pawn_address)
+            .method(settleLoanABI);
 
-        var clause = namedMethod.asClause(itemId);
-        clause["value"] = realLoanValue.toString();
-        connex.vendor
-          .sign("tx", [clause])
-          .comment("Settle Loan.")
-          .request()
-          .then(() => {
-            setOpenModal(!open);
-            dispatch(setLoading(false));
-            setLoanSel();
-            toast.success("Success");
-          })
-          .catch(() => {
-            setOpenModal(!open);
-            dispatch(setLoading(false));
-            setLoanSel();
-            toast.error("Could not Settle Loan.");
-          });
+          var clause = namedMethod.asClause(itemId);
+          clause["value"] = realLoanValue.toString();
+          connex.vendor
+            .sign("tx", [clause])
+            .comment("Settle Loan.")
+            .request()
+            .then(() => {
+              setOpenModal(!open);
+              dispatch(setLoading(false));
+              setLoanSel();
+              toast.success("Success");
+            })
+            .catch(() => {
+              setOpenModal(!open);
+              dispatch(setLoading(false));
+              setLoanSel();
+              toast.error("Could not Settle Loan.");
+            });
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     [connex, open, setOpenModal, dispatch, setLoanSel]
@@ -133,30 +145,34 @@ const ViewLoanModal = ({
 
   const grantLoan = useCallback(
     async ({ id, loanValue }: { id: string; loanValue: string }) => {
-      if (connex) {
-        const namedMethod = connex.thor
-          .account(pawn_address)
-          .method(grantLoanABI);
-        var clause = namedMethod.asClause(id);
+      try {
+        if (connex) {
+          const namedMethod = connex.thor
+            .account(pawn_address)
+            .method(grantLoanABI);
+          var clause = namedMethod.asClause(id);
 
-        clause["value"] = loanValue;
+          clause["value"] = loanValue;
 
-        connex.vendor
-          .sign("tx", [clause])
-          .comment("Grant Loan.")
-          .request()
-          .then(() => {
-            toast.success("Grant loan successfully");
-            dispatch(setLoading(false));
-            setLoanSel();
-            setOpenModal(!open);
-          })
-          .catch(() => {
-            toast.error("Could not grant Loan.");
-            dispatch(setLoading(false));
-            setLoanSel();
-            setOpenModal(!open);
-          });
+          connex.vendor
+            .sign("tx", [clause])
+            .comment("Grant Loan.")
+            .request()
+            .then(() => {
+              toast.success("Grant loan successfully");
+              dispatch(setLoading(false));
+              setLoanSel();
+              setOpenModal(!open);
+            })
+            .catch(() => {
+              toast.error("Could not grant Loan.");
+              dispatch(setLoading(false));
+              setLoanSel();
+              setOpenModal(!open);
+            });
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     [connex, open, setOpenModal, dispatch, setLoanSel]

@@ -30,17 +30,22 @@ const Casino = () => {
   }, [collectionOptions, navigate]);
 
   useEffect(() => {
-    (async () => {
-      if (connex) {
-        dispatch(setLoading(true));
-        const namedMethod = connex.thor
-          .account(mobility_address)
-          .method(getApesFromLocationABI);
-        const output = await namedMethod.call("Casino");
-        setApes(output.decoded["0"]);
-        dispatch(setLoading(false));
-      }
-    })();
+    try {
+      (async () => {
+        if (connex) {
+          dispatch(setLoading(true));
+          const namedMethod = connex.thor
+            .account(mobility_address)
+            .method(getApesFromLocationABI);
+          const output = await namedMethod.call("Casino");
+          setApes(output.decoded["0"]);
+          dispatch(setLoading(false));
+        }
+      })();
+    } catch (error) {
+      dispatch(setLoading(false));
+      console.log(error);
+    }
   }, [connex, dispatch]);
 
   return (

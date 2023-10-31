@@ -24,6 +24,7 @@ const CreateLoan = () => {
       navigate("/shop");
     }
   }, [address, navigate]);
+
   const [createValue, setCreateValue] = useState<{ [key: string]: string }>({
     id: "",
     collectionId: "",

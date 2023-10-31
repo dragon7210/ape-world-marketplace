@@ -24,14 +24,19 @@ const Location = () => {
   const dispatch = useDispatch();
 
   const show = async () => {
-    if (connex) {
-      dispatch(setLoading(true));
-      const namedMethod = connex.thor
-        .account(mobility_address)
-        .method(getApesFromLocationABI);
-      const output = await namedMethod.call(position);
-      setApes(output.decoded["0"]);
+    try {
+      if (connex) {
+        dispatch(setLoading(true));
+        const namedMethod = connex.thor
+          .account(mobility_address)
+          .method(getApesFromLocationABI);
+        const output = await namedMethod.call(position);
+        setApes(output.decoded["0"]);
+        dispatch(setLoading(false));
+      }
+    } catch (error) {
       dispatch(setLoading(false));
+      console.log(error);
     }
   };
 

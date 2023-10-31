@@ -34,24 +34,31 @@ const ViewModal = ({
   }, [dispatch, ape]);
 
   useEffect(() => {
-    if (connex && ape?.tokenAddress) {
-      (async () => {
-        const namedMethod = connex.thor
-          .account(mobility_address)
-          .method(getApeABI);
-        const output = await namedMethod.call(ape?.tokenAddress, ape?.tokenId);
-        if (output) {
-          const temp = {
-            owner: output?.decoded[0][0],
-            location: output?.decoded[0][1],
-            lastMoveOn: output?.decoded[0][2],
-            freeMoves: output?.decoded[0][3],
-            paidMoves: output?.decoded[0][4],
-            lastReset: output?.decoded[0][5],
-          };
-          setApeDetail(temp);
-        }
-      })();
+    try {
+      if (connex && ape?.tokenAddress) {
+        (async () => {
+          const namedMethod = connex.thor
+            .account(mobility_address)
+            .method(getApeABI);
+          const output = await namedMethod.call(
+            ape?.tokenAddress,
+            ape?.tokenId
+          );
+          if (output) {
+            const temp = {
+              owner: output?.decoded[0][0],
+              location: output?.decoded[0][1],
+              lastMoveOn: output?.decoded[0][2],
+              freeMoves: output?.decoded[0][3],
+              paidMoves: output?.decoded[0][4],
+              lastReset: output?.decoded[0][5],
+            };
+            setApeDetail(temp);
+          }
+        })();
+      }
+    } catch (error) {
+      console.log(error);
     }
   }, [ape, connex]);
 
