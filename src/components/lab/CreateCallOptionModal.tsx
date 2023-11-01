@@ -53,10 +53,7 @@ const CreateCallOptionModal = ({
           (item: any) => item.collectionId === createValue.collectionId
         );
         const _tokenAddress = data[0].smartContractAddress;
-        const _id = createValue?.id;
-        const _strike = createValue?.strikePrice;
-        const _price = createValue?.callPrice;
-        const _duration = createValue?.duration;
+        const { id, strikePrice, callPrice, duration } = createValue;
         const namedMethod = connex.thor
           .account(options_address)
           .method(createCallABI);
@@ -73,9 +70,15 @@ const CreateCallOptionModal = ({
             yetAnotherMethod.asClause(options_address, fee.toString())
           );
         }
-        clauses.push(anotherNamedMethod.asClause(options_address, _id));
+        clauses.push(anotherNamedMethod.asClause(options_address, id));
         clauses.push(
-          namedMethod.asClause(_tokenAddress, _id, _strike, _price, _duration)
+          namedMethod.asClause(
+            _tokenAddress,
+            id,
+            strikePrice,
+            callPrice,
+            duration
+          )
         );
         connex.vendor
           .sign("tx", clauses)

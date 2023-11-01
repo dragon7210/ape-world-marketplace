@@ -46,10 +46,7 @@ const CreatePutOptionModal = ({
           (item: any) => item.collectionId === createValue.collectionId
         );
         const _tokenAddress = data[0].smartContractAddress;
-        const _strike = createValue?.strikePrice;
-        const _price = createValue?.putPrice;
-        const _duration = createValue?.duration;
-
+        const { putPrice, strikePrice, duration } = createValue;
         const namedMethod = connex.thor
           .account(options_address)
           .method(createPutABI);
@@ -59,11 +56,11 @@ const CreatePutOptionModal = ({
 
         var last_clause = namedMethod.asClause(
           _tokenAddress,
-          _strike,
-          _price,
-          _duration
+          strikePrice,
+          putPrice,
+          duration
         );
-        last_clause["value"] = (Number(_strike) * 10 ** 18).toString();
+        last_clause["value"] = (Number(strikePrice) * 10 ** 18).toString();
         var clauses = [];
         const fee = await getMarketFee();
         if (fee) {
