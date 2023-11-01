@@ -16,15 +16,14 @@ export const useGetOptions = () => {
     try {
       if (connex && isConnected && address) {
         (async () => {
+          setLoading(true)
           const optionAddressMethod = connex.thor
             .account(options_address)
             .method(getAllOptionsABI);
 
           const optionMethod = connex.thor.account(options_address).method(getOptionABI);
           const optionAddress = await optionAddressMethod.call();
-
           const _itemList: any = [];
-
           for (let i = 0; i < optionAddress.decoded[0].length; i++) {
             const _item = await optionMethod.call(optionAddress.decoded[0][i]);
             _itemList.push({
@@ -57,7 +56,6 @@ export const useGetOptions = () => {
     } catch (error) {
       console.log(error)
     }
-    setLoading(true)
   }, [connex, isConnected, address]);
 
   return { optionData, loading, myOptionData };
