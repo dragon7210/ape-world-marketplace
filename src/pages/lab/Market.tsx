@@ -59,7 +59,7 @@ const Market = () => {
         </div>
       </div>
       {pageData.length > 0 ? (
-        <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
+        <div className='min-h-[calc(100vh_-_250px)] md:min-h-[calc(100vh_-_400px)]'>
           <table className='w-full md:text-xl text-base mt-2'>
             <thead className='uppercase backdrop-blur-2xl bg-[#0a0b1336]'>
               <tr className='text-center'>
@@ -112,7 +112,7 @@ const Market = () => {
           </table>
         </div>
       ) : (
-        <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
+        <div className='min-h-[calc(100vh_-_250px)] md:min-h-[calc(100vh_-_400px)]'>
           <p className='pt-5 text-2xl'>No Loan Data</p>
         </div>
       )}

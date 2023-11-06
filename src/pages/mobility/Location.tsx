@@ -104,7 +104,7 @@ const Location = () => {
         </button>
       </div>
       {apes.length > 0 ? (
-        <div className='h-[calc(100vh_-_300px)] overflow-y-auto md:h-[calc(100vh_-_450px)]'>
+        <div className='h-[calc(100vh_-_250px)] overflow-y-auto md:h-[calc(100vh_-_400px)]'>
           <table className='w-full md:text-xl text-base mt-2 tracking-wider'>
             <thead className='uppercase backdrop-blur-xl bg-[#0a0b1336]'>
               <tr className='text-center'>
@@ -139,8 +139,8 @@ const Location = () => {
           </table>
         </div>
       ) : (
-        <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
-          <p className='pt-5 text-2xl'>No Apes Data</p>
+        <div className='min-h-[calc(100vh_-_250px)] md:min-h-[calc(100vh_-_400px)]'>
+          <p className='pt-5 md:text-2xl text-xl'>No Apes Data</p>
         </div>
       )}
       <Pagination data={apes} color='#00a4c7' setPageData={setPageData} />

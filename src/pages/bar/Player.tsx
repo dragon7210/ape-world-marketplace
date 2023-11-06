@@ -65,8 +65,8 @@ const Player = () => {
         </button>
       </div>
       {players.length !== 0 ? (
-        <div className='h-[calc(100vh_-_300px)] overflow-y-auto md:h-[calc(100vh_-_450px)]'>
-          <p className='mt-2 text-3xl'>
+        <div className='h-[calc(100vh_-_250px)] overflow-y-auto md:h-[calc(100vh_-_400px)]'>
+          <p className='mt-2 md:text-3xl text-xl'>
             Current Players : {info?.registered + "/" + info?.players}
           </p>
           <table className='w-full md:text-xl text-base mt-2 tracking-wider'>
@@ -116,8 +116,8 @@ const Player = () => {
           </table>
         </div>
       ) : (
-        <div className='min-h-[calc(100vh_-_300px)] md:min-h-[calc(100vh_-_450px)]'>
-          <p className='pt-5 text-2xl'>No Bars Data</p>
+        <div className='min-h-[calc(100vh_-_250px)] md:min-h-[calc(100vh_-_400px)]'>
+          <p className='pt-5 md:text-2xl text-xl'>No Bars Data</p>
         </div>
       )}
       <RegisterModal open={open} setOpen={setOpen} />

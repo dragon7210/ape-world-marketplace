@@ -28,7 +28,7 @@ const Store = () => {
         <div className='flex text-center'>
           <div className={`w-[50%]`} onClick={() => navigate("/store")}>
             <p
-              className={`md:mb-2 mb-1 cursor-pointer border-r-2 border-[#762e1550] ${
+              className={`md:mb-2 mt-1 cursor-pointer border-r-2 border-[#762e1550] ${
                 pathname === "/store" ? "text-gray-100" : "text-gray-800"
               }`}>
               ALL LISTS
@@ -47,7 +47,7 @@ const Store = () => {
               }
             }}>
             <p
-              className={`md:mb-2 mb-1 cursor-pointer ${
+              className={`md:mb-2 mt-1 cursor-pointer ${
                 pathname === "/store/create" ? "text-gray-100" : "text-gray-800"
               }`}>
               CREATE TRADING
