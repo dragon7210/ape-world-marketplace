@@ -51,7 +51,7 @@ const Mobility = () => {
       <img
         className='absolute bottom-0 right-0 z-10 hidden md:inline opacity-50'
         src={MobilityImg}
-        alt='pawnShop'
+        alt='mobility'
       />
     </div>
   );

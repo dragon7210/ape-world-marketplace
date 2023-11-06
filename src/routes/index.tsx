@@ -10,6 +10,7 @@ import Mobility from "pages/mobility";
 import PawnShop from "pages/pawnShop";
 import Ship from "pages/ship";
 import Store from "pages/store";
+import Jungle from "pages/jungle";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 const MainRoutes = () => {
@@ -56,6 +57,9 @@ const MainRoutes = () => {
       </Route>
       <Route path='/mobility' element={<Layout />}>
         <Route index element={<Mobility />} />
+      </Route>
+      <Route path='/jungle' element={<Layout />}>
+        <Route index element={<Jungle />} />
       </Route>
       <Route path='/404' element={<Layout />}>
         <Route index element={<ErrorPage />} />

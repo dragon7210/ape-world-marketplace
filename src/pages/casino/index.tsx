@@ -98,7 +98,7 @@ const Casino = () => {
       <img
         className='absolute bottom-5 right-5 z-10 hidden md:inline opacity-50'
         src={CasinoImg}
-        alt='pawnShop'
+        alt='casino'
       />
       <ViewModal open={open} setOpen={setOpen} ape={ape} setApe={setApe} />
     </div>

@@ -62,7 +62,7 @@ const Store = () => {
       <img
         className='absolute bottom-5 right-5 z-10 hidden md:inline opacity-50'
         src={StoreImg}
-        alt='pawnShop'
+        alt='store'
       />
     </div>
   );
