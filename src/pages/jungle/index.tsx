@@ -72,7 +72,7 @@ const Jungle = () => {
                     <td>
                       <div className='flex items-center justify-center md:py-1 py-[1px]'>
                         <button
-                          className='hover:bg-[#6bd6c4] bg-[#599285] md:p-[5px] p-[2px] rounded-[99px]'
+                          className='hover:bg-[#49c272] bg-[#2fb356] md:p-[5px] p-[2px] rounded-[99px]'
                           onClick={() => {
                             setOpen(!open);
                             setApe(item);
@@ -92,7 +92,7 @@ const Jungle = () => {
             <p className='pt-5 text-2xl'>No Jungle Data</p>
           </div>
         )}
-        <Pagination data={apes} color='#599285' setPageData={setPageData} />
+        <Pagination data={apes} color='#2fb356' setPageData={setPageData} />
       </div>
       <img
         className='absolute bottom-5 right-5 z-10 hidden md:inline opacity-50'
