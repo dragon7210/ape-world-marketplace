@@ -29,7 +29,7 @@ const Lab = () => {
         <div className='flex text-center'>
           <div className={`w-[33%]`} onClick={() => navigate("/lab")}>
             <p
-              className={`mb-2 cursor-pointer border-r-2 border-[#003366] ${
+              className={`md:mb-2 mb-1 cursor-pointer border-r-2 border-[#003366] ${
                 pathname === "/lab" ? "text-gray-100" : "text-gray-900"
               }`}>
               OPTIONS MARKET
@@ -48,7 +48,7 @@ const Lab = () => {
               }
             }}>
             <p
-              className={` mb-2 cursor-pointer border-r-2 border-[#003366] ${
+              className={`md:mb-2 mb-1 cursor-pointer border-r-2 border-[#003366] ${
                 pathname === "/lab/call" ? "text-gray-100" : "text-gray-900"
               }`}>
               WRITE A CALL OPTION
@@ -67,7 +67,7 @@ const Lab = () => {
               }
             }}>
             <p
-              className={`mb-2 cursor-pointer border-[#003366] ${
+              className={`md:mb-2 mb-1 cursor-pointer border-[#003366] ${
                 pathname === "/lab/put" ? "text-gray-100" : "text-gray-900"
               }`}>
               WRITE A PUT OPTION

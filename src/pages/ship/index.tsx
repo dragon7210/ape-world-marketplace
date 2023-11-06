@@ -28,7 +28,7 @@ const Ship = () => {
         <div className='flex text-center'>
           <div className={`w-[50%]`} onClick={() => navigate("/ship")}>
             <p
-              className={`mb-2 cursor-pointer border-r-2 border-[#653300] ${
+              className={`md:mb-2 mb-1 cursor-pointer border-r-2 border-[#653300] ${
                 pathname === "/ship" ? "text-gray-100" : "text-[#653300]"
               }`}>
               ALL LISTS
@@ -47,7 +47,7 @@ const Ship = () => {
               }
             }}>
             <p
-              className={` mb-2 cursor-pointer ${
+              className={`md:mb-2 mb-1 cursor-pointer ${
                 pathname === "/ship/create" ? "text-gray-100" : "text-[#653300]"
               }`}>
               CREATE RAFFLE

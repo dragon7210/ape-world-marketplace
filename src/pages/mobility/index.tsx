@@ -25,7 +25,7 @@ const Mobility = () => {
         <div className='flex text-center'>
           <div className={`w-[50%]`} onClick={() => setTab(0)}>
             <p
-              className={`mb-2 cursor-pointer border-r-2 border-[#00333350] ${
+              className={`md:mb-2 mb-1 cursor-pointer border-r-2 border-[#00333350] ${
                 tab === 0 ? "text-gray-100" : "text-[#003333]"
               }`}>
               YOUR APES
@@ -36,7 +36,7 @@ const Mobility = () => {
           </div>
           <div className={`w-[50%]`} onClick={() => setTab(1)}>
             <p
-              className={` mb-2 cursor-pointer ${
+              className={`md:mb-2 mb-1 cursor-pointer ${
                 tab === 1 ? "text-gray-100" : "text-[#003333]"
               }`}>
               LOCATION OVERVIEW
