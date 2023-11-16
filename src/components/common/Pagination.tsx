@@ -21,7 +21,7 @@ const Pagination = ({
   }, [selPage, data, perPage, setPageData]);
 
   return (
-    <div className='flex items-center justify-between md:text-lg text-base border-gray-200 bg-transparent md:py-3 py-1'>
+    <div className='flex items-center justify-between md:text-lg text-base border-[#00000030] border-t-[2px] md:py-2 py-1 md:px-4'>
       <div className='w-full flex md:justify-between justify-center'>
         <div className='hidden md:flex items-center'>
           <p className='text-gray-200'>
