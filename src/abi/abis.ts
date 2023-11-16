@@ -294,6 +294,13 @@ export const removeRaffleABI = {
   stateMutability: "payable",
   type: "function",
 };
+export const settlRaffleABI = {
+  inputs: [{ internalType: "bytes32", name: "_id", type: "bytes32" }],
+  name: "settleRaffle",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function",
+};
 export const buyTicketsABI = {
   inputs: [
     { internalType: "bytes32", name: "_id", type: "bytes32" },

@@ -89,6 +89,5 @@ export const useGetRaffle = () => {
       console.log(error)
     }
   }, [connex, isConnected, address]);
-
   return { raffles, loading, myRaffles, oldRaffles };
 };

@@ -8,7 +8,12 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { mva_token_address, raffle_address } from "config/contractAddress";
 import { raffleStatus } from "constant";
-import { buyTicketsABI, mvaApproveABI, removeRaffleABI } from "abi/abis";
+import {
+  buyTicketsABI,
+  mvaApproveABI,
+  removeRaffleABI,
+  settlRaffleABI,
+} from "abi/abis";
 import { getEndTime, get_image, shortenAddress } from "utils";
 import toast from "react-hot-toast";
 
@@ -67,6 +72,33 @@ const ViewRaffleModal = ({
             dispatch(setLoading(false));
             setOpen(!open);
             toast.error("Could not remove Item.");
+          });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [selData, dispatch, setOpen, open, connex]);
+
+  const settleItem = useCallback(async () => {
+    try {
+      if (connex) {
+        const namedMethod = connex.thor
+          .account(raffle_address)
+          .method(settlRaffleABI);
+        const clause = namedMethod.asClause(selData?.itemId);
+        connex.vendor
+          .sign("tx", [clause])
+          .comment("Settle Item.")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            toast.success("Success");
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpen(!open);
+            toast.error("Could not settle Item.");
           });
       }
     } catch (error) {
@@ -270,6 +302,16 @@ const ViewRaffleModal = ({
                     dispatch(setLoading(true));
                   }}>
                   Remove
+                </button>
+              )}
+              {selData?.status === "4" && selData?.owner === address && (
+                <button
+                  className='bg-[#FF0000] py-1 rounded-lg w-24 ml-5'
+                  onClick={() => {
+                    settleItem();
+                    dispatch(setLoading(true));
+                  }}>
+                  Settle
                 </button>
               )}
             </div>
