@@ -135,11 +135,7 @@ const CreateRaffle = () => {
           label='Value'
           name='value'
           placeholder={
-            createValue.token !== ""
-              ? createValue.token === "false"
-                ? "VET"
-                : "MVA"
-              : ""
+            createValue.token ? (createValue.token ? "MVA" : "VET") : ""
           }
           value={createValue.value}
           onChange={handleChange}

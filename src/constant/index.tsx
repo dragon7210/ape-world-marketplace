@@ -49,8 +49,8 @@ export const optionTypes = ["CALL", "PUT"];
 export const optionStatus = ["LIST", "OPEN", "CLOSED", "CANCELED"];
 export const raffleStatus = ["INVALID", "LIVE", "SETTLED", "CANCEL", "DRAWN"];
 export const TokenOption = [
-  { label: <p className='text-white'>$VET</p>, value: "false" },
-  { label: <p className='text-white'>$MVA</p>, value: "true" },
+  { label: <p className='text-white'>$VET</p>, value: false },
+  { label: <p className='text-white'>$MVA</p>, value: true },
 ];
 export const MVACollectionId = [
   "fafc86fd-79a2-47ae-ae31-938f19a6022b",

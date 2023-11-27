@@ -10,5 +10,6 @@
     "vechain",
     "VTHO",
     "wagmi"
-  ]
+  ],
+  "editor.inlineSuggest.showToolbar": "onHover"
 }
