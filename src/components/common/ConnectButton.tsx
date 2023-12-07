@@ -92,7 +92,7 @@ export const ConnectButton = () => {
         open={isOpen}
         onClose={() => {}}
         className='fixed inset-0 flex items-center justify-center tracking-widest transition-all z-30'>
-        <div className='w-[260px] bg-white py-8 px-6 rounded-lg relative'>
+        <div className='w-[300px] bg-white py-8 px-6 rounded-lg relative'>
           <button
             type='button'
             className='absolute top-2 right-2 inline-flex flex-col items-center justify-center rounded-full border border-transparent bg-blue-100 p-1 text-sm font-medium text-blue-900 hover:bg-blue-200 '
@@ -139,6 +139,16 @@ export const ConnectButton = () => {
             }}>
             GO TO MOBILITY PAGE
           </button>
+
+          <a href='https://bridge.vet/iframe/?to=vip180:MVA'>
+            <button
+              className='rounded-md border bg-blue-100 py-2 text-blue-900 hover:bg-blue-400 w-full mt-2 tracking-wider'
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}>
+              GET $MVA- Swaps from any tokens
+            </button>
+          </a>
         </div>
       </Dialog>
     </>
