@@ -48,7 +48,7 @@ const ApeWorld = () => {
             {decorators.map((decorator, index) => (
               <div className={`apeworld-${decorator} decorator`} key={index} />
             ))}
-            <a href='https://bridge.vet/iframe/?to=vip180:MVA'>
+            <a href='https://bridge.vet/?to=vip180:MVA'>
               <button className='rounded-md border bg-blue-100 py-2 text-blue-900 hover:bg-blue-400  tracking-wider absolute top-10 right-10 px-4 font-bold text-[20px]'>
                 GET $MVA- Swaps from any tokens
               </button>

@@ -140,7 +140,7 @@ export const ConnectButton = () => {
             GO TO MOBILITY PAGE
           </button>
 
-          <a href='https://bridge.vet/iframe/?to=vip180:MVA'>
+          <a href='https://bridge.vet/?to=vip180:MVA'>
             <button
               className='rounded-md border bg-blue-100 py-2 text-blue-900 hover:bg-blue-400 w-full mt-2 tracking-wider'
               onClick={() => {
