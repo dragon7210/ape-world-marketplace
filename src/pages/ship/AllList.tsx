@@ -14,7 +14,7 @@ const AllList = () => {
   const { raffles, myRaffles, oldRaffles, loading } = useGetRaffle();
   const [data, setData] = useState<any>([]);
   const [pageData, setPageData] = useState<any[]>([]);
-  const { connex } = useWallet();
+  const { thor } = useWallet();
   const [open, setOpen] = useState<boolean>(false);
   const [selData, setSelData] = useState<any>();
   const dispatch = useDispatch();
@@ -36,37 +36,40 @@ const AllList = () => {
   }, [tab, raffles, myRaffles, oldRaffles]);
 
   return (
-    <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl'>
-      <div className='flex justify-end items-center md:mt-3 border-b-2 pb-1 md:text-2xl text-base'>
+    <div className="lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl">
+      <div className="flex justify-end items-center md:mt-3 border-b-2 pb-1 md:text-2xl text-base">
         <button
           className={`md:py-1 px-2 rounded-l-[99px] w-[160px] ${
             tab === 0 ? "bg-[#ff9933]" : "bg-[#cb6500]"
           }`}
-          onClick={() => setTab(0)}>
+          onClick={() => setTab(0)}
+        >
           Live Auctions
         </button>
         <button
           className={`md:py-1 px-2 w-[160px] border-x-2 border-[#ff9933] ${
             tab === 1 ? "bg-[#ff9933]" : "bg-[#cb6500]"
           }`}
-          onClick={() => setTab(1)}>
+          onClick={() => setTab(1)}
+        >
           My Auctions
         </button>
         <button
           className={`md:py-1 px-2 rounded-r-[99px] w-[160px] ${
             tab === 2 ? "bg-[#ff9933]" : "bg-[#cb6500]"
           }`}
-          onClick={() => setTab(2)}>
+          onClick={() => setTab(2)}
+        >
           Concluded Auctions
         </button>
       </div>
       {pageData.length > 0 ? (
-        <div className='h-[calc(100vh_-_250px)] overflow-y-auto md:h-[calc(100vh_-_400px)]'>
-          <table className='w-full md:text-xl text-base mt-2'>
-            <thead className='uppercase backdrop-blur-xl bg-[#0a0b1336]'>
-              <tr className='text-center'>
-                <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
-                <th className='hidden md:table-cell'>Price</th>
+        <div className="h-[calc(100vh_-_250px)] overflow-y-auto md:h-[calc(100vh_-_400px)]">
+          <table className="w-full md:text-xl text-base mt-2">
+            <thead className="uppercase backdrop-blur-xl bg-[#0a0b1336]">
+              <tr className="text-center">
+                <th className="px-3 md:py-4 py-1 text-left">Collection</th>
+                <th className="hidden md:table-cell">Price</th>
                 <th className={`hidden ${tab !== 2 && "md:table-cell"} `}>
                   Sold
                 </th>
@@ -75,9 +78,9 @@ const AllList = () => {
                 </th>
                 {tab === 2 && (
                   <>
-                    <th className='hidden md:table-cell'>Owner</th>
-                    <th className='hidden md:table-cell'>Pot</th>
-                    <th className='hidden md:table-cell'>Winning Ticket</th>
+                    <th className="hidden md:table-cell">Owner</th>
+                    <th className="hidden md:table-cell">Pot</th>
+                    <th className="hidden md:table-cell">Winning Ticket</th>
                   </>
                 )}
                 <th>Action</th>
@@ -87,13 +90,14 @@ const AllList = () => {
               {pageData.map((item: any, index: number) => (
                 <tr
                   key={index}
-                  className='border-b text-center backdrop-blur-sm'>
-                  <td className='md:py-3 px-3 text-left'>
+                  className="border-b text-center backdrop-blur-sm"
+                >
+                  <td className="md:py-3 px-3 text-left">
                     {getCollectionName(collectionOptions, item.tokenAddress) +
                       " #" +
                       item.tokenId}
                   </td>
-                  <td className='hidden md:table-cell'>
+                  <td className="hidden md:table-cell">
                     {item.ticketValue / 10 ** 18 +
                       (item?.paymentToken ===
                       "0xc3fd50a056dc4025875fa164ced1524c93053f29"
@@ -104,33 +108,34 @@ const AllList = () => {
                     {item.nTickets + "/" + item.ticketNumber}
                   </td>
                   <td className={`hidden ${tab !== 2 && "md:table-cell"} `}>
-                    {differentTime(item.endTime, connex)}
+                    {differentTime(item.endTime, thor)}
                   </td>
                   {tab === 2 && (
                     <>
-                      <td className='hidden md:table-cell'>
+                      <td className="hidden md:table-cell">
                         {shortenAddress(item.owner)}
                       </td>
-                      <td className='hidden md:table-cell'>
+                      <td className="hidden md:table-cell">
                         {(item.nTickets * item.ticketValue) / 10 ** 18 +
                           (item?.paymentToken ===
                           "0xc3fd50a056dc4025875fa164ced1524c93053f29"
                             ? " MVA"
                             : " VET")}
                       </td>
-                      <td className='hidden md:table-cell'>{item.winner}</td>
+                      <td className="hidden md:table-cell">{item.winner}</td>
                     </>
                   )}
                   <td>
-                    <div className='flex items-center justify-center md:py-1 py-[1px]'>
+                    <div className="flex items-center justify-center md:py-1 py-[1px]">
                       <button
-                        className='hover:bg-[#ff9933] bg-[#cb6500] md:p-[5px] p-[2px] rounded-[99px]'
+                        className="hover:bg-[#ff9933] bg-[#cb6500] md:p-[5px] p-[2px] rounded-[99px]"
                         onClick={() => {
                           setSelData(item);
                           setOpen(!open);
                           dispatch(setLoading(true));
-                        }}>
-                        <EyeIcon className='md:w-6 w-4' />
+                        }}
+                      >
+                        <EyeIcon className="md:w-6 w-4" />
                       </button>
                     </div>
                   </td>
@@ -140,11 +145,11 @@ const AllList = () => {
           </table>
         </div>
       ) : (
-        <div className='min-h-[calc(100vh_-_250px)] md:min-h-[calc(100vh_-_400px)]'>
-          <p className='pt-5 md:text-2xl text-xl'>No Raffle Data</p>
+        <div className="min-h-[calc(100vh_-_250px)] md:min-h-[calc(100vh_-_400px)]">
+          <p className="pt-5 md:text-2xl text-xl">No Raffle Data</p>
         </div>
       )}
-      <Pagination data={data} color='#cb6500' setPageData={setPageData} />
+      <Pagination data={data} color="#cb6500" setPageData={setPageData} />
       <ViewRaffleModal
         open={open}
         setOpen={setOpen}

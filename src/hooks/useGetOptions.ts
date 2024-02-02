@@ -1,9 +1,9 @@
 /** @format */
 
-import { options_address, } from "config/contractAddress";
+import { options_address } from "config/contractAddress";
 import { useWallet } from "./useWallet";
 import { useEffect, useState } from "react";
-import { getAllOptionsABI, getOptionABI, } from "abi/abis";
+import { getAllOptionsABI, getOptionABI } from "abi/abis";
 import { optionStatus, optionTypes } from "constant";
 
 export const useGetOptions = () => {
@@ -11,17 +11,19 @@ export const useGetOptions = () => {
   const [optionData, setOptionData] = useState<any[]>([]);
   const [myOptionData, setMyOptionData] = useState<any[]>([]);
 
-  const { connex, isConnected, address } = useWallet();
+  const { thor, isConnected, address } = useWallet();
   useEffect(() => {
     try {
-      if (connex && isConnected && address) {
+      if (isConnected && address) {
         (async () => {
-          setLoading(true)
-          const optionAddressMethod = connex.thor
+          setLoading(true);
+          const optionAddressMethod = thor
             .account(options_address)
             .method(getAllOptionsABI);
 
-          const optionMethod = connex.thor.account(options_address).method(getOptionABI);
+          const optionMethod = thor
+            .account(options_address)
+            .method(getOptionABI);
           const optionAddress = await optionAddressMethod.call();
           const _itemList: any = [];
           for (let i = 0; i < optionAddress.decoded[0].length; i++) {
@@ -51,12 +53,12 @@ export const useGetOptions = () => {
       } else {
         setLoading(false);
         setOptionData([]);
-        setMyOptionData([])
+        setMyOptionData([]);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }, [connex, isConnected, address]);
+  }, [thor, isConnected, address]);
 
   return { optionData, loading, myOptionData };
 };

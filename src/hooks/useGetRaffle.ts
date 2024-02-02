@@ -11,26 +11,24 @@ export const useGetRaffle = () => {
   const [myRaffles, setMyRaffles] = useState<any[]>([]);
   const [oldRaffles, setOldRaffles] = useState<any[]>([]);
 
-  const { connex, isConnected, address } = useWallet();
+  const { thor, isConnected, address } = useWallet();
   useEffect(() => {
     try {
-      setLoading(true)
-      if (connex && isConnected && address) {
+      setLoading(true);
+      if (isConnected && address) {
         (async () => {
-          const raffleAddressMethod = connex.thor
+          const raffleAddressMethod = thor
             .account(item_address)
             .method(getAllRaffleABI);
-          const oldRaffleAddressMethod = connex.thor
+          const oldRaffleAddressMethod = thor
             .account(item_address)
             .method(getOldRaffleABI);
-          const raffleMethod = connex.thor
-            .account(item_address)
-            .method(getRaffleABI);
+          const raffleMethod = thor.account(item_address).method(getRaffleABI);
 
           const raffleAddress = await raffleAddressMethod.call();
-          const oldRaffleAddress = await oldRaffleAddressMethod.call()
+          const oldRaffleAddress = await oldRaffleAddressMethod.call();
           const tempRaffle: any = [];
-          const tempOldRaffle: any = []
+          const tempOldRaffle: any = [];
 
           for (let i of raffleAddress.decoded[0]) {
             const raffleData = await raffleMethod.call(i);
@@ -49,7 +47,7 @@ export const useGetRaffle = () => {
               status: raffleData["decoded"]["0"][11],
               itemId: i,
             };
-            tempRaffle.push(item)
+            tempRaffle.push(item);
           }
           const tempMyRaffle = tempRaffle.filter(
             (item: any) => item.owner?.toLowerCase() === address?.toLowerCase()
@@ -71,23 +69,23 @@ export const useGetRaffle = () => {
               status: oldraffleData["decoded"]["0"][11],
               itemId: i,
             };
-            tempOldRaffle.push(item)
+            tempOldRaffle.push(item);
           }
 
           setRaffles(tempRaffle);
           setMyRaffles(tempMyRaffle);
-          setOldRaffles(tempOldRaffle)
+          setOldRaffles(tempOldRaffle);
           setLoading(false);
         })();
       } else {
         setLoading(false);
         setRaffles([]);
-        setMyRaffles([])
-        setOldRaffles([])
+        setMyRaffles([]);
+        setOldRaffles([]);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }, [connex, isConnected, address]);
+  }, [thor, isConnected, address]);
   return { raffles, loading, myRaffles, oldRaffles };
 };

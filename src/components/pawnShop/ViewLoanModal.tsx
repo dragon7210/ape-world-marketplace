@@ -27,7 +27,7 @@ const ViewLoanModal = ({
   loanSel: any;
   setLoanSel: any;
 }) => {
-  const { address, connex } = useWallet();
+  const { address, thor, vendor } = useWallet();
   const [state, setState] = useState<string>("Available for Loan");
   const [Button, setButton] = useState<any>();
   const dispatch = useDispatch();
@@ -43,139 +43,123 @@ const ViewLoanModal = ({
   const removeItem = useCallback(
     async ({ id }: { id: string }) => {
       try {
-        if (connex) {
-          const namedMethod = connex.thor
-            .account(pawn_address)
-            .method(removeItemABI);
-          const clause = namedMethod.asClause(id);
-          connex.vendor
-            .sign("tx", [clause])
-            .comment("Remove Item.")
-            .request()
-            .then(() => {
-              dispatch(setLoading(false));
-              setOpenModal(!open);
-              toast.success("Removed successfully");
-            })
-            .catch(() => {
-              dispatch(setLoading(false));
-              setOpenModal(!open);
-              toast.error("Could not remove Item.");
-            });
-        }
+        const namedMethod = thor.account(pawn_address).method(removeItemABI);
+        const clause = namedMethod.asClause(id);
+        vendor
+          .sign("tx", [clause])
+          .comment("Remove Item.")
+          .request()
+          .then(() => {
+            dispatch(setLoading(false));
+            setOpenModal(!open);
+            toast.success("Removed successfully");
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpenModal(!open);
+            toast.error("Could not remove Item.");
+          });
       } catch (error) {
         console.log(error);
       }
     },
-    [connex, open, setOpenModal, dispatch]
+    [open, setOpenModal, dispatch]
   );
 
   const claimLoan = useCallback(
     async ({ id }: { id: string }) => {
       try {
-        if (connex) {
-          const namedMethod = connex.thor
-            .account(pawn_address)
-            .method(claimLoanABI);
-          const clause = namedMethod.asClause(id);
+        const namedMethod = thor.account(pawn_address).method(claimLoanABI);
+        const clause = namedMethod.asClause(id);
 
-          connex.vendor
-            .sign("tx", [clause])
-            .comment("Claim Loan.")
-            .request()
-            .then(() => {
-              toast.success("Success");
-              dispatch(setLoading(false));
-              setLoanSel();
-              setOpenModal(!open);
-            })
-            .catch(() => {
-              dispatch(setLoading(false));
-              setOpenModal(!open);
-              setLoanSel();
-              toast.error("Could not Claim Loan.");
-            });
-        }
+        vendor
+          .sign("tx", [clause])
+          .comment("Claim Loan.")
+          .request()
+          .then(() => {
+            toast.success("Success");
+            dispatch(setLoading(false));
+            setLoanSel();
+            setOpenModal(!open);
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+            setOpenModal(!open);
+            setLoanSel();
+            toast.error("Could not Claim Loan.");
+          });
       } catch (error) {
         console.log(error);
       }
     },
-    [connex, open, setOpenModal, dispatch, setLoanSel]
+    [open, setOpenModal, dispatch, setLoanSel]
   );
 
   const settleLoan = useCallback(
     async (loanSel: { itemId: string; loanValue: string; loanFee: string }) => {
       try {
-        if (connex) {
-          const { itemId, loanValue, loanFee } = loanSel;
-          const realLoanValue =
-            Math.round(
-              (parseInt(loanValue) / 10 ** 18) * (100 + parseInt(loanFee))
-            ) *
-            10 ** 16;
-          const namedMethod = connex.thor
-            .account(pawn_address)
-            .method(settleLoanABI);
+        const { itemId, loanValue, loanFee } = loanSel;
+        const realLoanValue =
+          Math.round(
+            (parseInt(loanValue) / 10 ** 18) * (100 + parseInt(loanFee))
+          ) *
+          10 ** 16;
+        const namedMethod = thor.account(pawn_address).method(settleLoanABI);
 
-          var clause = namedMethod.asClause(itemId);
-          clause["value"] = realLoanValue.toString();
-          connex.vendor
-            .sign("tx", [clause])
-            .comment("Settle Loan.")
-            .request()
-            .then(() => {
-              setOpenModal(!open);
-              dispatch(setLoading(false));
-              setLoanSel();
-              toast.success("Success");
-            })
-            .catch(() => {
-              setOpenModal(!open);
-              dispatch(setLoading(false));
-              setLoanSel();
-              toast.error("Could not Settle Loan.");
-            });
-        }
+        var clause = namedMethod.asClause(itemId);
+        clause["value"] = realLoanValue.toString();
+        vendor
+          .sign("tx", [clause])
+          .comment("Settle Loan.")
+          .request()
+          .then(() => {
+            setOpenModal(!open);
+            dispatch(setLoading(false));
+            setLoanSel();
+            toast.success("Success");
+          })
+          .catch(() => {
+            setOpenModal(!open);
+            dispatch(setLoading(false));
+            setLoanSel();
+            toast.error("Could not Settle Loan.");
+          });
       } catch (error) {
         console.log(error);
       }
     },
-    [connex, open, setOpenModal, dispatch, setLoanSel]
+    [open, setOpenModal, dispatch, setLoanSel]
   );
 
   const grantLoan = useCallback(
     async ({ id, loanValue }: { id: string; loanValue: string }) => {
       try {
-        if (connex) {
-          const namedMethod = connex.thor
-            .account(pawn_address)
-            .method(grantLoanABI);
-          var clause = namedMethod.asClause(id);
+        const namedMethod = thor.account(pawn_address).method(grantLoanABI);
+        var clause = namedMethod.asClause(id);
 
-          clause["value"] = loanValue;
+        clause["value"] = loanValue;
 
-          connex.vendor
-            .sign("tx", [clause])
-            .comment("Grant Loan.")
-            .request()
-            .then(() => {
-              toast.success("Grant loan successfully");
-              dispatch(setLoading(false));
-              setLoanSel();
-              setOpenModal(!open);
-            })
-            .catch(() => {
-              toast.error("Could not grant Loan.");
-              dispatch(setLoading(false));
-              setLoanSel();
-              setOpenModal(!open);
-            });
-        }
+        vendor
+          .sign("tx", [clause])
+          .comment("Grant Loan.")
+          .request()
+          .then(() => {
+            toast.success("Grant loan successfully");
+            dispatch(setLoading(false));
+            setLoanSel();
+            setOpenModal(!open);
+          })
+          .catch(() => {
+            toast.error("Could not grant Loan.");
+            dispatch(setLoading(false));
+            setLoanSel();
+            setOpenModal(!open);
+          });
       } catch (error) {
         console.log(error);
       }
     },
-    [connex, open, setOpenModal, dispatch, setLoanSel]
+    [open, setOpenModal, dispatch, setLoanSel]
   );
 
   useEffect(() => {
@@ -184,22 +168,24 @@ const ViewLoanModal = ({
       if (loanSel?.owner === address) {
         setButton(
           <button
-            className='bg-[#FF0000] py-1 rounded-lg w-24'
+            className="bg-[#FF0000] py-1 rounded-lg w-24"
             onClick={() => {
               removeItem({ id: loanSel?.itemId });
               dispatch(setLoading(true));
-            }}>
+            }}
+          >
             REMOVE
           </button>
         );
       } else {
         setButton(
           <button
-            className='bg-[#FF0000] py-1 rounded-lg w-24'
+            className="bg-[#FF0000] py-1 rounded-lg w-24"
             onClick={() => {
               grantLoan({ id: loanSel?.itemId, loanValue: loanSel?.loanValue });
               dispatch(setLoading(true));
-            }}>
+            }}
+          >
             GRANT
           </button>
         );
@@ -209,20 +195,21 @@ const ViewLoanModal = ({
       if (loanSel?.owner === address) {
         setButton(
           <button
-            className='bg-[#FF0000] py-1 rounded-lg w-24'
+            className="bg-[#FF0000] py-1 rounded-lg w-24"
             onClick={() => {
               settleLoan(loanSel);
               dispatch(setLoading(true));
-            }}>
+            }}
+          >
             SETTLE
           </button>
         );
       } else if (loanSel?.messiah === address) {
         setButton(
           <button
-            className='bg-[#FF0000] py-1 rounded-lg w-24'
+            className="bg-[#FF0000] py-1 rounded-lg w-24"
             onClick={() => {
-              let date = getEndTime(loanSel?.endTime, connex);
+              let date = getEndTime(loanSel?.endTime, thor);
               if (date) {
                 if (new Date(date) < new Date()) {
                   claimLoan({ id: loanSel?.itemId });
@@ -231,7 +218,8 @@ const ViewLoanModal = ({
                   toast.error("Please wait until end time");
                 }
               }
-            }}>
+            }}
+          >
             CLAIM
           </button>
         );
@@ -242,7 +230,6 @@ const ViewLoanModal = ({
   }, [
     loanSel,
     address,
-    connex,
     dispatch,
     claimLoan,
     grantLoan,
@@ -252,13 +239,14 @@ const ViewLoanModal = ({
 
   return (
     <Dialog
-      className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30'
+      className="fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30"
       open={open}
-      onClose={() => {}}>
-      <div className='w-[270px] md:w-[720px] bg-gray-200 md:flex justify-between p-3 rounded-lg shadow-lg text-gray-600 shadow-gray-500 '>
-        <div className='flex justify-end md:hidden'>
+      onClose={() => {}}
+    >
+      <div className="w-[270px] md:w-[720px] bg-gray-200 md:flex justify-between p-3 rounded-lg shadow-lg text-gray-600 shadow-gray-500 ">
+        <div className="flex justify-end md:hidden">
           <XMarkIcon
-            className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
+            className="w-6 cursor-pointer hover:bg-gray-500 rounded-md"
             onClick={() => {
               setOpenModal(!open);
               setLoanSel();
@@ -266,52 +254,52 @@ const ViewLoanModal = ({
           />
         </div>
         <img
-          className='rounded-lg'
+          className="rounded-lg"
           src={selData?.img}
-          alt='loanImg'
+          alt="loanImg"
           onLoad={() => dispatch(setLoading(false))}
         />
-        <div className='md:pt-0 pt-2'>
-          <div className='md:flex justify-end hidden'>
+        <div className="md:pt-0 pt-2">
+          <div className="md:flex justify-end hidden">
             <XMarkIcon
-              className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
+              className="w-6 cursor-pointer hover:bg-gray-500 rounded-md"
               onClick={() => {
                 setOpenModal(!open);
                 setLoanSel();
               }}
             />
           </div>
-          <div className='flex justify-between items-center '>
-            <p className='md:text-3xl text-2xl mt-1 font-[700] text-black'>
+          <div className="flex justify-between items-center ">
+            <p className="md:text-3xl text-2xl mt-1 font-[700] text-black">
               {selData?.name}
             </p>
-            <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
+            <span className="bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl">
               Rank {selData?.rank ? selData?.rank : "Any"}
             </span>
           </div>
-          <div className='flex justify-between md:mt-1 md:text-base text-sm text-gray-100'>
-            <span className='bg-rose-700 rounded-md p-1 px-2'>
+          <div className="flex justify-between md:mt-1 md:text-base text-sm text-gray-100">
+            <span className="bg-rose-700 rounded-md p-1 px-2">
               Item owner By {shortenAddress(loanSel?.owner)}
             </span>
-            <span className='bg-violet-700 rounded-md p-1 px-2'>{state}</span>
+            <span className="bg-violet-700 rounded-md p-1 px-2">{state}</span>
           </div>
-          <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-1 rounded-xl'>
-            <p className='md:text-xltext-sm'>Details</p>
-            <div className='md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md'>
+          <div className="bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-1 rounded-xl">
+            <p className="md:text-xltext-sm">Details</p>
+            <div className="md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md">
               <div>
-                <p className='text-gray-500'>Ask Value</p>
+                <p className="text-gray-500">Ask Value</p>
                 <p>{loanSel?.loanValue / 10 ** 18} VET</p>
               </div>
               <div>
-                <p className='text-gray-500'>Interest</p>
+                <p className="text-gray-500">Interest</p>
                 <p>{loanSel?.loanFee} %</p>
               </div>
               <div>
-                <p className='text-gray-500'>Duration</p>
+                <p className="text-gray-500">Duration</p>
                 <p>{loanSel?.duration} H</p>
               </div>
               <div>
-                <p className='text-gray-500'>Messiah</p>
+                <p className="text-gray-500">Messiah</p>
                 <p>
                   {loanSel?.status !== "1"
                     ? shortenAddress(loanSel?.messiah)
@@ -319,27 +307,28 @@ const ViewLoanModal = ({
                 </p>
               </div>
               <div>
-                <p className='text-gray-500'>Start time</p>
+                <p className="text-gray-500">Start time</p>
                 {loanSel?.status !== "1"
-                  ? getEndTime(loanSel?.startTime, connex)
+                  ? getEndTime(loanSel?.startTime, thor)
                   : "Not granted"}
               </div>
               <div>
-                <p className='text-gray-500'>End time</p>
+                <p className="text-gray-500">End time</p>
                 {loanSel?.status !== "1"
-                  ? getEndTime(loanSel?.endTime, connex)
+                  ? getEndTime(loanSel?.endTime, thor)
                   : "Not granted"}
               </div>
             </div>
           </div>
-          <div className='flex md:text-lg text-base justify-end mt-1 text-gray-100'>
+          <div className="flex md:text-lg text-base justify-end mt-1 text-gray-100">
             {Button}
             <button
-              className='bg-[#FF4200] py-1 rounded-lg ml-5 w-24'
+              className="bg-[#FF4200] py-1 rounded-lg ml-5 w-24"
               onClick={() => {
                 setOpenModal(!open);
                 setLoanSel();
-              }}>
+              }}
+            >
               CANCEL
             </button>
           </div>

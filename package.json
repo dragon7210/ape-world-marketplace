@@ -15,6 +15,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@vechain/connex": "^2.0.14",
+    "@vechain/dapp-kit": "^1.0.3",
     "ethers": "5.7.1",
     "graphql": "^16.8.0",
     "react": "^18.2.0",

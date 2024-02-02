@@ -10,13 +10,13 @@ export const useGetLoan = () => {
   const [loanData, setLoanData] = useState<any[]>([]);
   const [myLoanData, setMyLoanData] = useState<any[]>([]);
 
-  const { connex, isConnected, address } = useWallet();
+  const { thor, isConnected, address } = useWallet();
   useEffect(() => {
     try {
-      setLoading(true)
-      if (connex && isConnected && address) {
+      setLoading(true);
+      if (isConnected && address) {
         (async () => {
-          const pawnShop = connex.thor.account(pawn_address);
+          const pawnShop = thor.account(pawn_address);
 
           const loanedDataAddressMethod = pawnShop.method(getAllItemsABI);
           const loanedDataMethod = pawnShop.method(getItemABI);
@@ -40,7 +40,7 @@ export const useGetLoan = () => {
               endTime: temploanedData.decoded[0][7],
               messiah: temploanedData.decoded[0][8],
               status: temploanedData.decoded[0][9],
-              itemId: loanedDataAddress["decoded"]["0"][i]
+              itemId: loanedDataAddress["decoded"]["0"][i],
             };
             tempLoan.push(item);
           }
@@ -54,12 +54,12 @@ export const useGetLoan = () => {
       } else {
         setLoading(false);
         setLoanData([]);
-        setMyLoanData([])
+        setMyLoanData([]);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }, [connex, isConnected, address]);
+  }, [thor, isConnected, address]);
 
   return { loanData, loading, myLoanData };
 };

@@ -22,7 +22,7 @@ const ViewModal = ({
   setApe: any;
 }) => {
   const [selData, setSelData] = useState<any>();
-  const { connex } = useWallet();
+  const { thor, vendor } = useWallet();
   const [apeDetail, setApeDetail] = useState<{ [key: string]: string }>({});
   const dispatch = useDispatch();
 
@@ -35,11 +35,9 @@ const ViewModal = ({
 
   useEffect(() => {
     try {
-      if (connex && ape?.tokenAddress) {
+      if (ape?.tokenAddress) {
         (async () => {
-          const namedMethod = connex.thor
-            .account(mobility_address)
-            .method(getApeABI);
+          const namedMethod = thor.account(mobility_address).method(getApeABI);
           const output = await namedMethod.call(
             ape?.tokenAddress,
             ape?.tokenId
@@ -60,84 +58,86 @@ const ViewModal = ({
     } catch (error) {
       console.log(error);
     }
-  }, [ape, connex]);
+  }, [ape]);
 
   return (
     <Dialog
-      className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30 '
+      className="fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30 "
       open={open}
-      onClose={() => {}}>
-      <div className='p-3 rounded-lg shadow-lg bg-gray-200 shadow-gray-500 w-[270px] md:w-[720px]'>
-        <div className='flex justify-end '>
+      onClose={() => {}}
+    >
+      <div className="p-3 rounded-lg shadow-lg bg-gray-200 shadow-gray-500 w-[270px] md:w-[720px]">
+        <div className="flex justify-end ">
           <XMarkIcon
-            className='md:hidden w-6 cursor-pointer hover:bg-gray-500 rounded-md'
+            className="md:hidden w-6 cursor-pointer hover:bg-gray-500 rounded-md"
             onClick={() => {
               setOpen(!open);
               setApe();
             }}
           />
         </div>
-        <div className='md:flex justify-between'>
+        <div className="md:flex justify-between">
           <img
-            className='rounded-lg'
+            className="rounded-lg"
             src={selData?.img}
-            alt='apeImg'
+            alt="apeImg"
             onLoad={() => dispatch(setLoading(false))}
           />
-          <div className='mt-2 md:mt-0'>
-            <div className='md:flex justify-end hidden'>
+          <div className="mt-2 md:mt-0">
+            <div className="md:flex justify-end hidden">
               <XMarkIcon
-                className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
+                className="w-6 cursor-pointer hover:bg-gray-500 rounded-md"
                 onClick={() => {
                   setOpen(!open);
                   setApe();
                 }}
               />
             </div>
-            <div className='flex justify-between items-center'>
-              <p className='md:text-3xl text-2xl mt-1 font-[700] text-black'>
+            <div className="flex justify-between items-center">
+              <p className="md:text-3xl text-2xl mt-1 font-[700] text-black">
                 {selData?.name}
               </p>
-              <span className='bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl'>
+              <span className="bg-green-600 ml-1 text-gray-50 md:text-md text-sm px-3 py-1 rounded-xl">
                 Rank {selData?.rank ? selData?.rank : "Any"}
               </span>
             </div>
-            <div className='bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl'>
-              <p className='md:text-xltext-sm'>Details</p>
-              <div className='md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md'>
+            <div className="bg-gray-900 md:w-[430px] text-gray-100 md:px-5 md:py-2 p-2 mt-2 rounded-xl">
+              <p className="md:text-xltext-sm">Details</p>
+              <div className="md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md">
                 <div>
-                  <p className='text-gray-500'>Owner</p>
+                  <p className="text-gray-500">Owner</p>
                   <p>{shortenAddress(apeDetail?.owner)} </p>
                 </div>
                 <div>
-                  <p className='text-gray-500'>Location</p>
+                  <p className="text-gray-500">Location</p>
                   <p>{apeDetail?.location}</p>
                 </div>
                 <div>
-                  <p className='text-gray-500'>Free Moves</p>
+                  <p className="text-gray-500">Free Moves</p>
                   <p>{apeDetail?.freeMoves}</p>
                 </div>
                 <div>
-                  <p className='text-gray-500'>Paid Moves</p>
+                  <p className="text-gray-500">Paid Moves</p>
                   <p> {apeDetail?.paidMoves}</p>
                 </div>
                 <div>
-                  <p className='text-gray-500'>Last Move On</p>
-                  <p>{getEndTime(apeDetail?.lastMoveOn, connex)}</p>
+                  <p className="text-gray-500">Last Move On</p>
+                  <p>{getEndTime(apeDetail?.lastMoveOn, thor)}</p>
                 </div>
                 <div>
-                  <p className='text-gray-500'>Last Reset</p>
-                  <p>{getEndTime(apeDetail?.lastReset, connex)}</p>
+                  <p className="text-gray-500">Last Reset</p>
+                  <p>{getEndTime(apeDetail?.lastReset, thor)}</p>
                 </div>
               </div>
             </div>
-            <div className='flex md:text-lg text-base justify-end mt-2 text-gray-100'>
+            <div className="flex md:text-lg text-base justify-end mt-2 text-gray-100">
               <button
-                className='bg-[#FF4200] py-1 rounded-lg ml-5 w-24'
+                className="bg-[#FF4200] py-1 rounded-lg ml-5 w-24"
                 onClick={() => {
                   setOpen(!open);
                   setApe();
-                }}>
+                }}
+              >
                 CANCEL
               </button>
             </div>

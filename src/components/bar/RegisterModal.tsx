@@ -25,7 +25,7 @@ import InputSelect from "components/common/InputSelect";
 
 const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
   const dispatch = useDispatch();
-  const { connex } = useWallet();
+  const { thor, vendor } = useWallet();
   const [activeButton, setActiveButton] = useState(false);
   const [collectionOption, setCollectionOption] = useState<any>([]);
   const [idOption, setIdOption] = useState<any>([]);
@@ -62,13 +62,13 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
         value: temp.collectionId,
         name: temp.name,
         label: (
-          <div className='flex items-center md:text-base'>
+          <div className="flex items-center md:text-base">
             <img
               src={temp.thumbnailImageUrl}
               alt={temp.name}
-              className='rounded-[99px] mr-3 w-7 h-7'
+              className="rounded-[99px] mr-3 w-7 h-7"
             />
-            <p className='m-0 text-white'>{temp.name}</p>
+            <p className="m-0 text-white">{temp.name}</p>
           </div>
         ),
       };
@@ -94,8 +94,8 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
       return {
         value: item.tokenId,
         label: (
-          <div className='flex items-center md:text-base'>
-            <p className='m-0 text-white'>{item.tokenId}</p>
+          <div className="flex items-center md:text-base">
+            <p className="m-0 text-white">{item.tokenId}</p>
           </div>
         ),
       };
@@ -106,23 +106,19 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
   const handle = () => {
     try {
       dispatch(setLoading(true));
-      if (connex) {
+      if (thor) {
         (async () => {
-          const namedMethod1 = connex.thor
+          const namedMethod1 = thor
             .account(fight_address)
             .method(fightRegisterABI);
-          const namedMethod2 = connex.thor
+          const namedMethod2 = thor
             .account(mobility_address)
             .method(worldRegisterABI);
-          const namedMethod3 = connex.thor
-            .account(mobility_address)
-            .method(moveToABI);
-          const namedMethod4 = connex.thor
+          const namedMethod3 = thor.account(mobility_address).method(moveToABI);
+          const namedMethod4 = thor
             .account(mva_token_address)
             .method(mvaApproveABI);
-          const namedMethod = connex.thor
-            .account(mobility_address)
-            .method(getApeABI);
+          const namedMethod = thor.account(mobility_address).method(getApeABI);
 
           const temp = collectionOptions.filter(
             (item: any) => item.collectionId === registerValue.collectionId
@@ -145,7 +141,7 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
           var moveClause;
           var payClause;
 
-          const infoMethod = connex.thor
+          const infoMethod = thor
             .account(mobility_address)
             .method(getWorldInfoABI);
           const _price = await infoMethod.call();
@@ -199,7 +195,7 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
           clauses.push(payClause);
           clauses.push(register_clause);
 
-          connex.vendor
+          vendor
             .sign("tx", clauses)
             .comment("Fight Register")
             .request()
@@ -222,23 +218,24 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
 
   return (
     <Dialog
-      className='fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30 '
+      className="fixed inset-0 flex items-center justify-center backdrop-blur-sm overflow-y-auto m-3 z-30 "
       open={open}
-      onClose={() => {}}>
-      <div className='p-3 rounded-lg shadow-lg bg-gray-200 shadow-gray-500 w-[350px] md:w-[450px]'>
-        <div className='flex justify-end '>
+      onClose={() => {}}
+    >
+      <div className="p-3 rounded-lg shadow-lg bg-gray-200 shadow-gray-500 w-[350px] md:w-[450px]">
+        <div className="flex justify-end ">
           <XMarkIcon
-            className='w-6 cursor-pointer hover:bg-gray-500 rounded-md'
+            className="w-6 cursor-pointer hover:bg-gray-500 rounded-md"
             onClick={() => setOpen(!open)}
           />
         </div>
-        <div className='text-gray-200'>
-          <p className='text-center md:text-5xl text-4xl text-gray-800 mb-2'>
+        <div className="text-gray-200">
+          <p className="text-center md:text-5xl text-4xl text-gray-800 mb-2">
             Welcome to the APE-world!
           </p>
-          <div className='bg-gray-800 md:p-4 p-2 rounded-lg md:mx-[30px]'>
+          <div className="bg-gray-800 md:p-4 p-2 rounded-lg md:mx-[30px]">
             <InputSelect
-              label='Collection'
+              label="Collection"
               onChange={(e) => {
                 setRegisterValue({
                   ...registerValue,
@@ -248,7 +245,7 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
               options={collectionOption}
             />
             <InputSelect
-              label='Id'
+              label="Id"
               onChange={(e) => {
                 setRegisterValue({
                   ...registerValue,
@@ -258,18 +255,20 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
               options={idOption}
             />
           </div>
-          <div className='flex md:text-xl text-base justify-end mt-2 text-white md:px-[30px]'>
+          <div className="flex md:text-xl text-base justify-end mt-2 text-white md:px-[30px]">
             <button
               className={`border-2 border-[#00a4c7]  py-1 rounded-lg mr-5 w-24  ${
                 activeButton ? "bg-[#00a4c7] text-white" : "text-[#00a4c7]"
               }`}
               onClick={handle}
-              disabled={!activeButton}>
+              disabled={!activeButton}
+            >
               REGISTER
             </button>
             <button
-              className='bg-[#FF0000] py-1 rounded-lg w-24'
-              onClick={() => setOpen(!open)}>
+              className="bg-[#FF0000] py-1 rounded-lg w-24"
+              onClick={() => setOpen(!open)}
+            >
               CANCEL
             </button>
           </div>

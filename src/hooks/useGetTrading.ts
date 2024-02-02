@@ -11,16 +11,16 @@ export const useGetTrading = () => {
   const [trading, setTradidng] = useState<any[]>([]);
   const [myTrading, setMyTrading] = useState<any[]>([]);
 
-  const { connex, isConnected, address } = useWallet();
+  const { thor, isConnected, address } = useWallet();
   useEffect(() => {
     try {
-      setLoading(true)
-      if (connex && isConnected && address) {
+      setLoading(true);
+      if (isConnected && address) {
         (async () => {
-          const tradingAddressMethod = connex.thor
+          const tradingAddressMethod = thor
             .account(trade_address)
             .method(getAllTradingABI);
-          const tradingMethod = connex.thor
+          const tradingMethod = thor
             .account(trade_address)
             .method(getTradingABI);
 
@@ -38,7 +38,7 @@ export const useGetTrading = () => {
               itemId: i,
             };
             if (item.type === "LIST") {
-              tempTrading.push(item)
+              tempTrading.push(item);
             }
           }
           const tempMyTrading = tempTrading.filter(
@@ -52,12 +52,12 @@ export const useGetTrading = () => {
       } else {
         setLoading(false);
         setTradidng([]);
-        setMyTrading([])
+        setMyTrading([]);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }, [connex, isConnected, address]);
+  }, [isConnected, address]);
 
-  return { trading, loading, myTrading, };
+  return { trading, loading, myTrading };
 };

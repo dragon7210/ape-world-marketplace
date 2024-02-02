@@ -5,7 +5,10 @@ export const shortenAddress = (address: string | undefined) => {
     ? address.slice(0, 4) + "..." + address.slice(-4)
     : "Invalid Address";
 };
-export const getCollectionName = (collectionOptions: any, tokenAddress: string) => {
+export const getCollectionName = (
+  collectionOptions: any,
+  tokenAddress: string
+) => {
   let temp = collectionOptions?.filter(
     (item: any) =>
       item.smartContractAddress?.toLowerCase() === tokenAddress?.toLowerCase()
@@ -27,9 +30,9 @@ export const timeConverter = (UNIX_timestamp: number) => {
   return time;
 };
 
-export const getEndTime = (end_block: string, connex: any) => {
-  if (connex) {
-    var block_info = connex.thor.status["head"];
+export const getEndTime = (end_block: string, thor: Connex.Thor) => {
+  if (thor) {
+    var block_info = thor.status["head"];
     const current_block = block_info["number"];
     const current_unix = block_info["timestamp"];
     const delta_block = parseInt(end_block) - current_block;
@@ -39,20 +42,19 @@ export const getEndTime = (end_block: string, connex: any) => {
   }
 };
 
-export const differentTime = (time: string, connex: any) => {
-  let endTime = getEndTime(time, connex);
+export const differentTime = (time: string, thor: Connex.Thor) => {
+  let endTime = getEndTime(time, thor);
   let returnTime;
   if (endTime) {
-    let temp =
-      (new Date(endTime).getTime() - new Date().getTime()) / 1000 / 60;
+    let temp = (new Date(endTime).getTime() - new Date().getTime()) / 1000 / 60;
     returnTime =
       temp > 0
         ? Math.floor(temp / 60) + "h " + Math.floor(temp % 60) + "min"
         : "-" +
-        Math.abs(Math.floor(temp / 60 + 1)) +
-        "h " +
-        Math.abs(Math.floor(temp % 60)) +
-        "min";
+          Math.abs(Math.floor(temp / 60 + 1)) +
+          "h " +
+          Math.abs(Math.floor(temp % 60)) +
+          "min";
   }
   return returnTime;
 };
@@ -74,7 +76,11 @@ export const get_image = async (_collection: string, _tokenId: string) => {
         }
       );
       const temp = await response.json();
-      data = { img: temp.data.getToken.assets[1].url, name: temp.data.getToken.name, rank: temp.data.getToken.rank, }
+      data = {
+        img: temp.data.getToken.assets[1].url,
+        name: temp.data.getToken.name,
+        rank: temp.data.getToken.rank,
+      };
     } catch (error) {
       console.error("Error:", error);
     }

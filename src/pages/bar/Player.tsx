@@ -15,7 +15,7 @@ import RegisterModal from "components/bar/RegisterModal";
 const Player = () => {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const { connex, address } = useWallet();
+  const { thor, vendor, address } = useWallet();
   const { players, loading, info } = useGetPlayers();
   const [openView, setOpenView] = useState<boolean>(false);
   const [ape, setApe] = useState<any>();
@@ -27,54 +27,53 @@ const Player = () => {
 
   const unRegister = () => {
     try {
-      if (connex) {
-        dispatch(setLoading(true));
-        const namedMethod = connex.thor
-          .account(fight_address)
-          .method(fightUnregisterABI);
+      dispatch(setLoading(true));
+      const namedMethod = thor
+        .account(fight_address)
+        .method(fightUnregisterABI);
 
-        var clause = namedMethod.asClause();
+      var clause = namedMethod.asClause();
 
-        connex.vendor
-          .sign("tx", [clause])
-          .comment("Fight Unregister")
-          .request()
-          .then(() => {
-            dispatch(setLoading(false));
-            toast.success("Success");
-          })
-          .catch(() => {
-            dispatch(setLoading(false));
-            toast.error("Could not unregister.");
-          });
-      }
+      vendor
+        .sign("tx", [clause])
+        .comment("Fight Unregister")
+        .request()
+        .then(() => {
+          dispatch(setLoading(false));
+          toast.success("Success");
+        })
+        .catch(() => {
+          dispatch(setLoading(false));
+          toast.error("Could not unregister.");
+        });
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl'>
-      <div className='flex justify-end items-center md:mt-3 border-b-2 border-[#b13535] pb-1'>
+    <div className="lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl">
+      <div className="flex justify-end items-center md:mt-3 border-b-2 border-[#b13535] pb-1">
         <button
-          className='bg-[#b13535] hover:bg-[#ec5151] py-[1px] md:py-[5px] rounded-lg w-24 md:text-xl text-base'
+          className="bg-[#b13535] hover:bg-[#ec5151] py-[1px] md:py-[5px] rounded-lg w-24 md:text-xl text-base"
           onClick={() => {
             setOpen(!open);
-          }}>
+          }}
+        >
           Register
         </button>
       </div>
       {players.length !== 0 ? (
-        <div className='h-[calc(100vh_-_250px)] overflow-y-auto md:h-[calc(100vh_-_400px)]'>
-          <p className='mt-2 md:text-3xl text-xl'>
+        <div className="h-[calc(100vh_-_250px)] overflow-y-auto md:h-[calc(100vh_-_400px)]">
+          <p className="mt-2 md:text-3xl text-xl">
             Current Players : {info?.registered + "/" + info?.players}
           </p>
-          <table className='w-full md:text-xl text-base mt-2 tracking-wider'>
-            <thead className='uppercase backdrop-blur-xl bg-[#0a0b1336]'>
-              <tr className='text-center'>
-                <th className='px-3 md:py-4 py-1 text-left'>Collection</th>
-                <th className='hidden md:table-cell'>Id</th>
-                <th className='hidden md:table-cell'>Address</th>
+          <table className="w-full md:text-xl text-base mt-2 tracking-wider">
+            <thead className="uppercase backdrop-blur-xl bg-[#0a0b1336]">
+              <tr className="text-center">
+                <th className="px-3 md:py-4 py-1 text-left">Collection</th>
+                <th className="hidden md:table-cell">Id</th>
+                <th className="hidden md:table-cell">Address</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -82,30 +81,33 @@ const Player = () => {
               {players.map((item: any, index: number) => (
                 <tr
                   key={index}
-                  className='border-b text-center backdrop-blur-sm'>
-                  <td className='md:py-3 px-3 text-left'>
+                  className="border-b text-center backdrop-blur-sm"
+                >
+                  <td className="md:py-3 px-3 text-left">
                     {getCollectionName(collectionOptions, item?.tokenAddress)}
                   </td>
-                  <td className='hidden md:table-cell'>{item?.tokenId}</td>
-                  <td className='hidden md:table-cell'>
+                  <td className="hidden md:table-cell">{item?.tokenId}</td>
+                  <td className="hidden md:table-cell">
                     {shortenAddress(item?.owner)}
                   </td>
                   <td>
-                    <div className='flex items-center justify-center md:py-1 py-[1px]'>
+                    <div className="flex items-center justify-center md:py-1 py-[1px]">
                       <button
-                        className='bg-[#b13535] hover:bg-[#ec5151] md:p-[5px] p-[2px] rounded-[99px]'
+                        className="bg-[#b13535] hover:bg-[#ec5151] md:p-[5px] p-[2px] rounded-[99px]"
                         onClick={() => {
                           setOpenView(!openView);
                           dispatch(setLoading(true));
                           setApe(item);
-                        }}>
-                        <EyeIcon className='md:w-6 w-4' />
+                        }}
+                      >
+                        <EyeIcon className="md:w-6 w-4" />
                       </button>
                       {item?.owner === address && (
                         <button
-                          className='bg-[#b13535] hover:bg-[#ec5151] md:p-[5px] p-[2px] rounded-[99px] ml-2'
-                          onClick={unRegister}>
-                          <TrashIcon className='md:w-6 w-4' />
+                          className="bg-[#b13535] hover:bg-[#ec5151] md:p-[5px] p-[2px] rounded-[99px] ml-2"
+                          onClick={unRegister}
+                        >
+                          <TrashIcon className="md:w-6 w-4" />
                         </button>
                       )}
                     </div>
@@ -116,8 +118,8 @@ const Player = () => {
           </table>
         </div>
       ) : (
-        <div className='min-h-[calc(100vh_-_250px)] md:min-h-[calc(100vh_-_400px)]'>
-          <p className='pt-5 md:text-2xl text-xl'>No Bars Data</p>
+        <div className="min-h-[calc(100vh_-_250px)] md:min-h-[calc(100vh_-_400px)]">
+          <p className="pt-5 md:text-2xl text-xl">No Bars Data</p>
         </div>
       )}
       <RegisterModal open={open} setOpen={setOpen} />

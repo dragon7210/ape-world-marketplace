@@ -1,6 +1,6 @@
 /** @format */
 
-import { mobility_address, } from "config/contractAddress";
+import { mobility_address } from "config/contractAddress";
 import { useWallet } from "./useWallet";
 import { useEffect, useState } from "react";
 import { getUserApesABI } from "abi/abis";
@@ -9,13 +9,13 @@ export const useGetApes = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [apes, setApes] = useState<any[]>([]);
 
-  const { connex, isConnected, address } = useWallet();
+  const { thor, isConnected, address } = useWallet();
   useEffect(() => {
     try {
-      setLoading(true)
-      if (connex && isConnected && address) {
+      setLoading(true);
+      if (isConnected && address) {
         (async () => {
-          const namedMethod = connex.thor
+          const namedMethod = thor
             .account(mobility_address)
             .method(getUserApesABI);
           const temp = await namedMethod.call(address);
@@ -29,9 +29,9 @@ export const useGetApes = () => {
         setApes([]);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }, [connex, isConnected, address]);
+  }, [thor, isConnected, address]);
 
   return { apes, loading };
 };
