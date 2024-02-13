@@ -84,7 +84,11 @@ export const ConnectButton = () => {
 
   useEffect(() => {
     if (connex && account) {
-      getName(account, connex).then(setName);
+      try {
+        getName(account, connex).then(setName);
+      } catch (err) {
+        console.log(err);
+      }
     }
   }, [connex, account]);
 
