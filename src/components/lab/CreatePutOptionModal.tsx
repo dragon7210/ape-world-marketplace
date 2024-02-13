@@ -4,11 +4,11 @@ import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { useDispatch } from "react-redux";
-import { useWallet } from "hooks";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { mva_token_address, options_address } from "config/contractAddress";
 import { createPutABI, getMarketFeeABI, mvaApproveABI } from "abi/abis";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const CreatePutOptionModal = ({
   open,
@@ -22,7 +22,7 @@ const CreatePutOptionModal = ({
   createValue: any;
 }) => {
   const dispatch = useDispatch();
-  const { thor, vendor } = useWallet();
+  const { thor, vendor } = useConnex();
   const [imgUrl, setImgUrl] = useState<string>("");
 
   const getMarketFee = async () => {

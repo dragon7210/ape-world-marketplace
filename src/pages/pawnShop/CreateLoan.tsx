@@ -1,7 +1,7 @@
 /** @format */
 
 import { setLoading } from "actions/loading";
-import { useWallet, useMyApes } from "hooks";
+import { useMyApes } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -9,9 +9,10 @@ import { toast } from "react-hot-toast";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
 import CreateLoanModal from "components/pawnShop/CreateLoanModal";
+import { useWallet } from "@vechain/dapp-kit-react";
 
 const CreateLoan = () => {
-  const { address } = useWallet();
+  const { account } = useWallet();
   const [activeButton, setActiveButton] = useState(false);
   const [idOption, setIdOption] = useState<any[]>([]);
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
@@ -20,10 +21,10 @@ const CreateLoan = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!address) {
+    if (!account) {
       navigate("/shop");
     }
-  }, [address, navigate]);
+  }, [account, navigate]);
 
   const [createValue, setCreateValue] = useState<{ [key: string]: string }>({
     id: "",
@@ -57,7 +58,7 @@ const CreateLoan = () => {
     if (myApes) {
       const data = myApes.map((item: any) => {
         return {
-          label: <p className='m-0 text-white'>{item.tokenId}</p>,
+          label: <p className="m-0 text-white">{item.tokenId}</p>,
           value: item.tokenId,
         };
       });
@@ -73,13 +74,13 @@ const CreateLoan = () => {
       return {
         value: item.collectionId,
         label: (
-          <div className='flex items-center md:text-base'>
+          <div className="flex items-center md:text-base">
             <img
               src={item.thumbnailImageUrl}
               alt={item.name}
-              className='rounded-[99px] mr-3 w-7 h-7'
+              className="rounded-[99px] mr-3 w-7 h-7"
             />
-            <p className='m-0 text-white'>{item.name}</p>
+            <p className="m-0 text-white">{item.name}</p>
           </div>
         ),
       };
@@ -96,10 +97,10 @@ const CreateLoan = () => {
   };
 
   return (
-    <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] flex justify-center items-center rounded-xl'>
-      <div className='bg-[#0a0b1336] md:rounded-3xl rounded-lg m-6 px-2 py-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
+    <div className="lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] flex justify-center items-center rounded-xl">
+      <div className="bg-[#0a0b1336] md:rounded-3xl rounded-lg m-6 px-2 py-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]">
         <InputSelect
-          label='Collection'
+          label="Collection"
           onChange={(e) => {
             setCreateValue({
               ...createValue,
@@ -110,7 +111,7 @@ const CreateLoan = () => {
           options={collectionOption}
         />
         <InputSelect
-          label='Id'
+          label="Id"
           onChange={(e) => {
             setCreateValue({
               ...createValue,
@@ -120,23 +121,23 @@ const CreateLoan = () => {
           options={idOption}
         />
         <InputValue
-          label='Value'
-          name='vet'
-          placeholder='VET'
+          label="Value"
+          name="vet"
+          placeholder="VET"
           value={createValue.vet}
           onChange={handleChange}
         />
         <InputValue
-          label='Period'
-          name='period'
-          placeholder='Hours'
+          label="Period"
+          name="period"
+          placeholder="Hours"
           value={createValue.period}
           onChange={handleChange}
         />
         <InputValue
-          label='Interest'
-          name='interest'
-          placeholder='%'
+          label="Interest"
+          name="interest"
+          placeholder="%"
           value={createValue.interest}
           onChange={handleChange}
         />
@@ -152,7 +153,8 @@ const CreateLoan = () => {
             } else {
               toast.error("The period must be greater than 1 hours.");
             }
-          }}>
+          }}
+        >
           CREATE LOAN
         </button>
       </div>

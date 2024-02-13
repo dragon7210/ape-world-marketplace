@@ -1,20 +1,22 @@
 /** @format */
 
 import { pawn_address } from "config/contractAddress";
-import { useWallet } from "./useWallet";
 import { useEffect, useState } from "react";
 import { getAllItemsABI, getItemABI } from "abi/abis";
+import { useConnex, useWallet } from "@vechain/dapp-kit-react";
 
 export const useGetLoan = () => {
   const [loading, setLoading] = useState(true);
   const [loanData, setLoanData] = useState<any[]>([]);
   const [myLoanData, setMyLoanData] = useState<any[]>([]);
 
-  const { thor, isConnected, address } = useWallet();
+  const { account } = useWallet();
+  const { thor } = useConnex();
+
   useEffect(() => {
     try {
       setLoading(true);
-      if (isConnected && address) {
+      if (account) {
         (async () => {
           const pawnShop = thor.account(pawn_address);
 
@@ -45,7 +47,7 @@ export const useGetLoan = () => {
             tempLoan.push(item);
           }
           const tempMyLoan = tempLoan.filter(
-            (item: any) => item.owner?.toLowerCase() === address?.toLowerCase()
+            (item: any) => item.owner?.toLowerCase() === account?.toLowerCase()
           );
           setLoanData(tempLoan);
           setMyLoanData(tempMyLoan);
@@ -59,7 +61,7 @@ export const useGetLoan = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [thor, isConnected, address]);
+  }, [thor, account]);
 
   return { loanData, loading, myLoanData };
 };

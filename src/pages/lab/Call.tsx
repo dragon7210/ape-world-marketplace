@@ -1,7 +1,7 @@
 /** @format */
 
 import { setLoading } from "actions/loading";
-import { useWallet, useMyApes } from "hooks";
+import { useMyApes } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,9 +9,10 @@ import { useNavigate } from "react-router";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
 import CreateCallOptionModal from "components/lab/CreateCallOptionModal";
+import { useWallet } from "@vechain/dapp-kit-react";
 
 const Call = () => {
-  const { address } = useWallet();
+  const { account } = useWallet();
   const [activeButton, setActiveButton] = useState(false);
   const [idOption, setIdOption] = useState<any[]>([]);
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
@@ -20,10 +21,10 @@ const Call = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!address) {
+    if (!account) {
       navigate("/lab");
     }
-  }, [address, navigate]);
+  }, [account, navigate]);
 
   const { connectedCollections } = useSelector(
     (state: any) => state.collections
@@ -57,7 +58,7 @@ const Call = () => {
     if (myApes) {
       const data = myApes?.map((item: any) => {
         return {
-          label: <p className='m-0 text-white'>{item.tokenId}</p>,
+          label: <p className="m-0 text-white">{item.tokenId}</p>,
           value: item.tokenId,
         };
       });
@@ -73,13 +74,13 @@ const Call = () => {
       return {
         value: item.collectionId,
         label: (
-          <div className='flex items-center md:text-base'>
+          <div className="flex items-center md:text-base">
             <img
               src={item.thumbnailImageUrl}
               alt={item.name}
-              className='rounded-[99px] mr-3 w-7 h-7'
+              className="rounded-[99px] mr-3 w-7 h-7"
             />
-            <p className='m-0 text-white'>{item.name}</p>
+            <p className="m-0 text-white">{item.name}</p>
           </div>
         ),
       };
@@ -96,10 +97,10 @@ const Call = () => {
   };
 
   return (
-    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] bg-[#20202050] rounded-xl tracking-wide flex justify-center items-center'>
-      <div className='bg-[#0a0b1336] md:rounded-3xl rounded-lg p-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
+    <div className="lg:px-10 md:px-5 p-3 shadow-lg min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] bg-[#20202050] rounded-xl tracking-wide flex justify-center items-center">
+      <div className="bg-[#0a0b1336] md:rounded-3xl rounded-lg p-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]">
         <InputSelect
-          label='Collection'
+          label="Collection"
           onChange={(e) => {
             setCreateValue({
               ...createValue,
@@ -110,7 +111,7 @@ const Call = () => {
           options={collectionOption}
         />
         <InputSelect
-          label='Id'
+          label="Id"
           onChange={(e) => {
             setCreateValue({
               ...createValue,
@@ -120,23 +121,23 @@ const Call = () => {
           options={idOption}
         />
         <InputValue
-          label='Strike Price'
-          name='strikePrice'
-          placeholder='VET'
+          label="Strike Price"
+          name="strikePrice"
+          placeholder="VET"
           value={createValue.strikePrice}
           onChange={handleChange}
         />
         <InputValue
-          label='Call Price'
-          name='callPrice'
-          placeholder='VET'
+          label="Call Price"
+          name="callPrice"
+          placeholder="VET"
           value={createValue.callPrice}
           onChange={handleChange}
         />
         <InputValue
-          label='Duration'
-          name='duration'
-          placeholder='Hour'
+          label="Duration"
+          name="duration"
+          placeholder="Hour"
           value={createValue.duration}
           onChange={handleChange}
         />
@@ -152,7 +153,8 @@ const Call = () => {
             } else {
               toast.error("The period must be greater than 1 hours.");
             }
-          }}>
+          }}
+        >
           CREATE COVERED CALL
         </button>
       </div>

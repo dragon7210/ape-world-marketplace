@@ -4,12 +4,13 @@ import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { useCallback, useEffect, useState } from "react";
-import { useWallet } from "hooks";
 import { trade_address } from "config/contractAddress";
 import { useDispatch } from "react-redux";
 import { get_image, shortenAddress } from "utils";
 import { acceptOfferABI, getTradingABI, removeTradingABI } from "abi/abis";
 import toast from "react-hot-toast";
+import { useConnex, useWallet } from "@vechain/dapp-kit-react";
+import { getName } from "@vechain.energy/dapp-kit-hooks";
 
 const ViewTradingModal = ({
   open,
@@ -29,8 +30,13 @@ const ViewTradingModal = ({
   setSelData: any;
 }) => {
   const dispatch = useDispatch();
-  const { address, thor, vendor } = useWallet();
+  const { account } = useWallet();
+  const { thor, vendor } = useConnex();
+  const connex = useConnex();
   const [offerList, setOfferList] = useState<any>([]);
+
+  const [ownerName, setOwnerName] = useState<string>();
+  const [offerrerName, setOfferrerName] = useState<string>();
 
   useEffect(() => {
     if (selData) {
@@ -68,24 +74,6 @@ const ViewTradingModal = ({
       });
   }, [selData, dispatch, setOpen, open, thor, vendor]);
 
-  useEffect(() => {
-    (async () => {
-      let tempArray: any[] = [];
-      const namedMethod = thor.account(trade_address).method(getTradingABI);
-      for (const item of selData?.linked ?? []) {
-        const temp = await namedMethod.call(item);
-        const tokenId = temp["decoded"][0][3][0][1];
-        const tokenAddress = temp["decoded"][0][3][0][0];
-        const temp1 = await get_image(tokenAddress, tokenId);
-        tempArray.push({
-          ...temp1,
-          owner: temp["decoded"][0][0],
-        });
-      }
-      setOfferList(tempArray);
-    })();
-  }, [selData, thor, dispatch]);
-
   const acceptOffer = (param: string) => {
     try {
       dispatch(setLoading(true));
@@ -111,6 +99,36 @@ const ViewTradingModal = ({
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      let tempArray: any[] = [];
+      const namedMethod = thor.account(trade_address).method(getTradingABI);
+      for (const item of selData?.linked ?? []) {
+        const temp = await namedMethod.call(item);
+        const tokenId = temp["decoded"][0][3][0][1];
+        const tokenAddress = temp["decoded"][0][3][0][0];
+        const temp1 = await get_image(tokenAddress, tokenId);
+        tempArray.push({
+          ...temp1,
+          owner: temp["decoded"][0][0],
+        });
+      }
+      setOfferList(tempArray);
+    })();
+  }, [selData, thor, dispatch]);
+
+  useEffect(() => {
+    if (connex && selData?.owner) {
+      getName(selData.owner, connex).then(setOwnerName);
+    }
+  }, [connex, selData?.owner]);
+
+  useEffect(() => {
+    if (connex && offerList[0]?.owner) {
+      getName(offerList[0].owner, connex).then(setOfferrerName);
+    }
+  }, [connex, offerList[0]?.owner]);
+
   return (
     <Dialog
       className="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-30"
@@ -133,7 +151,7 @@ const ViewTradingModal = ({
           <div className="mr-2">
             <div className="flex justify-between md:mt-1 px-2 md:text-base text-sm text-gray-100">
               <span className="text-rose-700 rounded-md">
-                Item owner By {shortenAddress(selData?.owner)}
+                Item owner By {ownerName ?? shortenAddress(selData?.owner)}
               </span>
             </div>
             <p className="text-xl md:text-4xl font-bold text-gray-800 px-2 text-center">
@@ -161,7 +179,8 @@ const ViewTradingModal = ({
               <div className="w-68">
                 <div className="flex justify-between md:mt-1 md:text-base text-sm text-gray-100">
                   <span className="text-rose-700 rounded-md">
-                    Item owner By {shortenAddress(offerList[0]?.owner)}
+                    Item owner By{" "}
+                    {offerrerName ?? shortenAddress(offerList[0]?.owner)}
                   </span>
                 </div>
                 <p className="text-xl md:text-4xl font-bold text-gray-800 px-2 text-center">
@@ -178,7 +197,7 @@ const ViewTradingModal = ({
                       />
                       <div className="flex justify-between items-center px-3 text-xl my-1">
                         <p>{item.name}</p>
-                        {selData?.owner === address && (
+                        {selData?.owner === account && (
                           <button
                             className="bg-blue-500 hover:bg-blue-700 rounded-md px-2 text-gray-200 text-base"
                             onClick={() => acceptOffer(selData?.linked[index])}
@@ -214,7 +233,7 @@ const ViewTradingModal = ({
               Create New Offer
             </button>
           )}
-          {selData?.owner === address && (
+          {selData?.owner === account && (
             <button
               className="bg-[#FF0000] py-1 rounded-lg w-28 ml-5"
               onClick={() => {

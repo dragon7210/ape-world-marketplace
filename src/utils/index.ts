@@ -1,6 +1,6 @@
 import { months } from "constant";
 
-export const shortenAddress = (address: string | undefined) => {
+export const shortenAddress = (address: string | null | undefined) => {
   return address
     ? address.slice(0, 4) + "..." + address.slice(-4)
     : "Invalid Address";

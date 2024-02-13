@@ -2,7 +2,6 @@
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
-import { useWallet } from "hooks";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getApeABI, getWorldInfoABI, moveToABI, mvaApproveABI } from "abi/abis";
@@ -10,6 +9,7 @@ import { mobility_address, mva_token_address } from "config/contractAddress";
 import { positions } from "constant";
 import InputSelect from "components/common/InputSelect";
 import toast from "react-hot-toast";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const MoveModal = ({
   open,
@@ -20,7 +20,7 @@ const MoveModal = ({
   setOpen: any;
   ape: any;
 }) => {
-  const { thor, vendor } = useWallet();
+  const { thor, vendor } = useConnex();
   const [position, setPosition] = useState<string>("");
   const dispatch = useDispatch();
 

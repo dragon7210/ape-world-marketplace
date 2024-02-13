@@ -1,6 +1,6 @@
 /** @format */
 
-import { useWallet, useMyApes } from "hooks";
+import { useMyApes } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -8,19 +8,20 @@ import { useNavigate } from "react-router";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
 import CreatePutOptionModal from "components/lab/CreatePutOptionModal";
+import { useWallet } from "@vechain/dapp-kit-react";
 
 const Put = () => {
-  const { address } = useWallet();
+  const { account } = useWallet();
   const [activeButton, setActiveButton] = useState(false);
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!address) {
+    if (!account) {
       navigate("/lab");
     }
-  }, [address, navigate]);
+  }, [account, navigate]);
 
   const { connectedCollections } = useSelector(
     (state: any) => state.collections
@@ -53,13 +54,13 @@ const Put = () => {
       return {
         value: item.collectionId,
         label: (
-          <div className='flex items-center md:text-base'>
+          <div className="flex items-center md:text-base">
             <img
               src={item.thumbnailImageUrl}
               alt={item.name}
-              className='rounded-[99px] mr-3 w-7 h-7'
+              className="rounded-[99px] mr-3 w-7 h-7"
             />
-            <p className='m-0 text-white'>{item.name}</p>
+            <p className="m-0 text-white">{item.name}</p>
           </div>
         ),
       };
@@ -76,10 +77,10 @@ const Put = () => {
   };
 
   return (
-    <div className='lg:px-10 md:px-5 p-3 shadow-lg min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] bg-[#20202050] rounded-xl tracking-wide flex justify-center items-center'>
-      <div className='bg-[#0a0b1336] md:rounded-3xl rounded-lg m-6 px-2 py-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
+    <div className="lg:px-10 md:px-5 p-3 shadow-lg min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] bg-[#20202050] rounded-xl tracking-wide flex justify-center items-center">
+      <div className="bg-[#0a0b1336] md:rounded-3xl rounded-lg m-6 px-2 py-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]">
         <InputSelect
-          label='Collection'
+          label="Collection"
           onChange={(e) =>
             setCreateValue({
               ...createValue,
@@ -89,23 +90,23 @@ const Put = () => {
           options={collectionOption}
         />
         <InputValue
-          label='Strike Price'
-          name='strikePrice'
-          placeholder='VET'
+          label="Strike Price"
+          name="strikePrice"
+          placeholder="VET"
           value={createValue.strikePrice}
           onChange={handleChange}
         />
         <InputValue
-          label='Put Price'
-          name='putPrice'
-          placeholder='VET'
+          label="Put Price"
+          name="putPrice"
+          placeholder="VET"
           value={createValue.putPrice}
           onChange={handleChange}
         />
         <InputValue
-          label='Duration'
-          name='duration'
-          placeholder='Hour'
+          label="Duration"
+          name="duration"
+          placeholder="Hour"
           value={createValue.duration}
           onChange={handleChange}
         />
@@ -120,7 +121,8 @@ const Put = () => {
             } else {
               toast.error("The period must be greater than 1 hours.");
             }
-          }}>
+          }}
+        >
           CREATE COVERED PUT
         </button>
       </div>

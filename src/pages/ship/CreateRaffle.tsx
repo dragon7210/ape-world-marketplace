@@ -2,7 +2,7 @@
 
 import { setLoading } from "actions/loading";
 import { TokenOption } from "constant";
-import { useWallet, useMyApes } from "hooks";
+import { useMyApes } from "hooks";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,9 +10,10 @@ import { useNavigate } from "react-router";
 import InputSelect from "components/common/InputSelect";
 import InputValue from "components/common/InputValue";
 import CreateRaffleModal from "components/ship/CreateRaffleModal";
+import { useWallet } from "@vechain/dapp-kit-react";
 
 const CreateRaffle = () => {
-  const { address } = useWallet();
+  const { account } = useWallet();
   const [activeButton, setActiveButton] = useState(false);
   const [idOption, setIdOption] = useState<any[]>([]);
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
@@ -21,10 +22,10 @@ const CreateRaffle = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!address) {
+    if (!account) {
       navigate("/ship");
     }
-  }, [address, navigate]);
+  }, [account, navigate]);
 
   const [createValue, setCreateValue] = useState<{ [key: string]: string }>({
     collectionId: "",
@@ -59,7 +60,7 @@ const CreateRaffle = () => {
     if (myApes) {
       const data = myApes?.map((item: any) => {
         return {
-          label: <p className='m-0 text-white'>{item.tokenId}</p>,
+          label: <p className="m-0 text-white">{item.tokenId}</p>,
           value: item.tokenId,
         };
       });
@@ -75,13 +76,13 @@ const CreateRaffle = () => {
       return {
         value: item.collectionId,
         label: (
-          <div className='flex items-center md:text-base'>
+          <div className="flex items-center md:text-base">
             <img
               src={item.thumbnailImageUrl}
               alt={item.name}
-              className='rounded-[99px] mr-3 w-7 h-7'
+              className="rounded-[99px] mr-3 w-7 h-7"
             />
-            <p className='m-0 text-white'>{item.name}</p>
+            <p className="m-0 text-white">{item.name}</p>
           </div>
         ),
       };
@@ -98,10 +99,10 @@ const CreateRaffle = () => {
   };
 
   return (
-    <div className='lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] flex justify-center items-center rounded-xl'>
-      <div className='bg-[#0a0b1336] md:rounded-3xl rounded-lg m-6 px-2 py-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]'>
+    <div className="lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] flex justify-center items-center rounded-xl">
+      <div className="bg-[#0a0b1336] md:rounded-3xl rounded-lg m-6 px-2 py-4 md:px-6 lg:px-10 md:w-[450px] w-[300px]">
         <InputSelect
-          label='Collection'
+          label="Collection"
           onChange={(e) => {
             setCreateValue({
               ...createValue,
@@ -112,7 +113,7 @@ const CreateRaffle = () => {
           options={collectionOption}
         />
         <InputSelect
-          label='Id'
+          label="Id"
           onChange={(e) => {
             setCreateValue({
               ...createValue,
@@ -122,7 +123,7 @@ const CreateRaffle = () => {
           options={idOption}
         />
         <InputSelect
-          label='Token'
+          label="Token"
           onChange={(e) => {
             setCreateValue({
               ...createValue,
@@ -132,8 +133,8 @@ const CreateRaffle = () => {
           options={TokenOption}
         />
         <InputValue
-          label='Value'
-          name='value'
+          label="Value"
+          name="value"
           placeholder={
             createValue.token ? (createValue.token ? "MVA" : "VET") : ""
           }
@@ -141,16 +142,16 @@ const CreateRaffle = () => {
           onChange={handleChange}
         />
         <InputValue
-          label='Count'
-          name='count'
-          placeholder=''
+          label="Count"
+          name="count"
+          placeholder=""
           value={createValue.count}
           onChange={handleChange}
         />
         <InputValue
-          label='Duration'
-          name='duration'
-          placeholder='Hours'
+          label="Duration"
+          name="duration"
+          placeholder="Hours"
           value={createValue.duration}
           onChange={handleChange}
         />
@@ -172,7 +173,8 @@ const CreateRaffle = () => {
             } else {
               toast.error("The Count must be greater than 0.");
             }
-          }}>
+          }}
+        >
           CREATE RAFFLE
         </button>
       </div>

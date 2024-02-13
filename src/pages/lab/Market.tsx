@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName } from "utils";
-import { useGetOptions, useWallet } from "hooks";
+import { useGetOptions } from "hooks";
 import { setLoading } from "actions/loading";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import Pagination from "components/common/Pagination";
 import ViewOptionModal from "components/lab/ViewOptionModal";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const Market = () => {
   const [selector, setSelector] = useState(true);
@@ -16,7 +17,7 @@ const Market = () => {
   const [optionSel, setOptionSel] = useState<any>();
   const [block, setBlock] = useState<number>(0);
   const dispatch = useDispatch();
-  const { thor } = useWallet();
+  const { thor } = useConnex();
 
   useEffect(() => {
     setBlock(thor.status["head"]["number"]);

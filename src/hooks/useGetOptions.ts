@@ -1,20 +1,21 @@
 /** @format */
 
 import { options_address } from "config/contractAddress";
-import { useWallet } from "./useWallet";
 import { useEffect, useState } from "react";
 import { getAllOptionsABI, getOptionABI } from "abi/abis";
 import { optionStatus, optionTypes } from "constant";
+import { useConnex, useWallet } from "@vechain/dapp-kit-react";
 
 export const useGetOptions = () => {
   const [loading, setLoading] = useState(true);
   const [optionData, setOptionData] = useState<any[]>([]);
   const [myOptionData, setMyOptionData] = useState<any[]>([]);
 
-  const { thor, isConnected, address } = useWallet();
+  const { account } = useWallet();
+  const { thor } = useConnex();
   useEffect(() => {
     try {
-      if (isConnected && address) {
+      if (account) {
         (async () => {
           setLoading(true);
           const optionAddressMethod = thor
@@ -44,7 +45,7 @@ export const useGetOptions = () => {
             });
           }
           const _myItemList = _itemList.filter(
-            (item: any) => item.owner?.toLowerCase() === address?.toLowerCase()
+            (item: any) => item.owner?.toLowerCase() === account?.toLowerCase()
           );
           setOptionData(_itemList);
           setMyOptionData(_myItemList);
@@ -58,7 +59,7 @@ export const useGetOptions = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [thor, isConnected, address]);
+  }, [thor, account]);
 
   return { optionData, loading, myOptionData };
 };

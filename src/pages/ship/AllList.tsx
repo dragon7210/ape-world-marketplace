@@ -1,20 +1,21 @@
 /** @format */
 
 import { setLoading } from "actions/loading";
-import { useGetRaffle, useWallet } from "hooks";
+import { useGetRaffle } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { differentTime, getCollectionName, shortenAddress } from "utils";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import Pagination from "components/common/Pagination";
 import ViewRaffleModal from "components/ship/ViewRaffleModal";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const AllList = () => {
   const [tab, setTab] = useState<number>(0);
   const { raffles, myRaffles, oldRaffles, loading } = useGetRaffle();
   const [data, setData] = useState<any>([]);
   const [pageData, setPageData] = useState<any[]>([]);
-  const { thor } = useWallet();
+  const { thor } = useConnex();
   const [open, setOpen] = useState<boolean>(false);
   const [selData, setSelData] = useState<any>();
   const dispatch = useDispatch();

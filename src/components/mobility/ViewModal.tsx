@@ -4,11 +4,12 @@ import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { getApeABI } from "abi/abis";
 import { setLoading } from "actions/loading";
-import { useWallet } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { mobility_address } from "config/contractAddress";
 import { getEndTime, get_image, shortenAddress } from "utils";
+import { useConnex } from "@vechain/dapp-kit-react";
+import { getName } from "@vechain.energy/dapp-kit-hooks";
 
 const ViewModal = ({
   open,
@@ -21,8 +22,10 @@ const ViewModal = ({
   ape: any;
   setApe: any;
 }) => {
+  const connex = useConnex();
+
   const [selData, setSelData] = useState<any>();
-  const { thor, vendor } = useWallet();
+  const [ownerName, setOwnerName] = useState<string>();
   const [apeDetail, setApeDetail] = useState<{ [key: string]: string }>({});
   const dispatch = useDispatch();
 
@@ -37,7 +40,9 @@ const ViewModal = ({
     try {
       if (ape?.tokenAddress) {
         (async () => {
-          const namedMethod = thor.account(mobility_address).method(getApeABI);
+          const namedMethod = connex.thor
+            .account(mobility_address)
+            .method(getApeABI);
           const output = await namedMethod.call(
             ape?.tokenAddress,
             ape?.tokenId
@@ -59,6 +64,12 @@ const ViewModal = ({
       console.log(error);
     }
   }, [ape]);
+
+  useEffect(() => {
+    if (connex && apeDetail?.owner) {
+      getName(apeDetail.owner, connex).then(setOwnerName);
+    }
+  }, [connex, apeDetail?.owner]);
 
   return (
     <Dialog
@@ -106,7 +117,7 @@ const ViewModal = ({
               <div className="md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md">
                 <div>
                   <p className="text-gray-500">Owner</p>
-                  <p>{shortenAddress(apeDetail?.owner)} </p>
+                  <p>{ownerName ?? shortenAddress(apeDetail?.owner)} </p>
                 </div>
                 <div>
                   <p className="text-gray-500">Location</p>
@@ -122,11 +133,11 @@ const ViewModal = ({
                 </div>
                 <div>
                   <p className="text-gray-500">Last Move On</p>
-                  <p>{getEndTime(apeDetail?.lastMoveOn, thor)}</p>
+                  <p>{getEndTime(apeDetail?.lastMoveOn, connex.thor)}</p>
                 </div>
                 <div>
                   <p className="text-gray-500">Last Reset</p>
-                  <p>{getEndTime(apeDetail?.lastReset, thor)}</p>
+                  <p>{getEndTime(apeDetail?.lastReset, connex.thor)}</p>
                 </div>
               </div>
             </div>

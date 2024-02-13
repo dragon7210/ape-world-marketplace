@@ -1,21 +1,22 @@
 /** @format */
 
 import { trade_address } from "config/contractAddress";
-import { useWallet } from "./useWallet";
 import { useEffect, useState } from "react";
 import { getAllTradingABI, getTradingABI } from "abi/abis";
 import { tradingTypes } from "constant";
+import { useConnex, useWallet } from "@vechain/dapp-kit-react";
 
 export const useGetTrading = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [trading, setTradidng] = useState<any[]>([]);
   const [myTrading, setMyTrading] = useState<any[]>([]);
 
-  const { thor, isConnected, address } = useWallet();
+  const { account } = useWallet();
+  const { thor } = useConnex();
   useEffect(() => {
     try {
       setLoading(true);
-      if (isConnected && address) {
+      if (account) {
         (async () => {
           const tradingAddressMethod = thor
             .account(trade_address)
@@ -42,7 +43,7 @@ export const useGetTrading = () => {
             }
           }
           const tempMyTrading = tempTrading.filter(
-            (item: any) => item.owner?.toLowerCase() === address?.toLowerCase()
+            (item: any) => item.owner?.toLowerCase() === account?.toLowerCase()
           );
 
           setTradidng(tempTrading);
@@ -57,7 +58,7 @@ export const useGetTrading = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [isConnected, address]);
+  }, [account]);
 
   return { trading, loading, myTrading };
 };

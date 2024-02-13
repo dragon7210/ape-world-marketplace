@@ -1,21 +1,22 @@
 /** @format */
 
 import { fight_address } from "config/contractAddress";
-import { useWallet } from "./useWallet";
 import { useEffect, useState } from "react";
 import { playersABI, tournamentInfoABI } from "abi/abis";
+import { useConnex, useWallet } from "@vechain/dapp-kit-react";
 
 export const useGetPlayers = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [info, setInfo] = useState<any>();
   const [players, setPlayers] = useState<any[]>([]);
 
-  const { thor, isConnected, address } = useWallet();
+  const { account } = useWallet();
+  const { thor } = useConnex();
 
   useEffect(() => {
     try {
       setLoading(true);
-      if (isConnected && address) {
+      if (account) {
         (async () => {
           const tournamentMethod = thor
             .account(fight_address)
@@ -44,7 +45,7 @@ export const useGetPlayers = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [thor, isConnected, address]);
+  }, [account]);
 
   return { info, players, loading };
 };

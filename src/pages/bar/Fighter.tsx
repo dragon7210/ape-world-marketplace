@@ -5,10 +5,10 @@ import { setLoading } from "actions/loading";
 import { useGetApes } from "hooks/useGetApes";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useWallet } from "hooks";
 import { stats_address } from "config/contractAddress";
 import { getRecordABI } from "abi/abis";
 import { get_image } from "utils";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const Fighter = () => {
   const [collectionOption, setCollectionOption] = useState<any>([]);
@@ -25,7 +25,7 @@ const Fighter = () => {
   });
   const { collectionOptions } = useSelector((state: any) => state.collections);
   const { apes, loading } = useGetApes();
-  const { thor, vendor } = useWallet();
+  const { thor } = useConnex();
   const dispatch = useDispatch();
 
   useEffect(() => {

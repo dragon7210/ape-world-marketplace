@@ -5,11 +5,11 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useWallet } from "hooks";
 import { mva_token_address, options_address } from "config/contractAddress";
 import { getMarketFeeABI, mvaApproveABI, sellOptionABI } from "abi/abis";
 import InputValue from "components/common/InputValue";
 import toast from "react-hot-toast";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const SellOptionModal = ({
   openSellOption,
@@ -22,7 +22,7 @@ const SellOptionModal = ({
 }) => {
   const dispatch = useDispatch();
   const [sellPrice, setSellPrice] = useState<string>("");
-  const { thor, vendor } = useWallet();
+  const { thor, vendor } = useConnex();
 
   const getMarketFee = async () => {
     try {

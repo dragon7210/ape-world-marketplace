@@ -1,6 +1,5 @@
 /** @format */
 import { Dialog } from "@headlessui/react";
-import { useWallet } from "hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
@@ -17,6 +16,8 @@ import {
   shortenAddress,
 } from "utils";
 import toast from "react-hot-toast";
+import { useConnex, useWallet } from "@vechain/dapp-kit-react";
+import { getName } from "@vechain.energy/dapp-kit-hooks";
 
 const ViewOptionModal = ({
   open,
@@ -32,37 +33,27 @@ const ViewOptionModal = ({
   setOptionSel: any;
 }) => {
   const dispatch = useDispatch();
+  const { account } = useWallet();
+  const connex = useConnex();
   const [Button, setButton] = useState<any>();
 
   const [openEditOption, setOpenEditOption] = useState<boolean>(false);
   const [openSellOption, setOpenSellOption] = useState<boolean>(false);
   const [openExercisePut, setOpenExercisePut] = useState<boolean>(false);
-  const { thor, vendor, address } = useWallet();
   const { collectionOptions } = useSelector((state: any) => state.collections);
   const [selData, setSelData] = useState<any>();
   const [img, setImg] = useState<string>("");
-
-  useEffect(() => {
-    try {
-      (async () => {
-        if (data?.type !== "PUT") {
-          const temp = await get_image(data?.tokenAddress, data?.tokenId);
-          setSelData(temp);
-        }
-      })();
-    } catch (error) {
-      console.log(error);
-    }
-  }, [dispatch, data]);
+  const [ownerName, setOwnerName] = useState<string>();
+  const [takerName, setTakerName] = useState<string>();
 
   const removeItem = useCallback(
     (tokenId: string) => {
       try {
-        const namedMethod = thor
+        const namedMethod = connex.thor
           .account(options_address)
           .method(deleteOptionABI);
         const clause = namedMethod.asClause(tokenId);
-        vendor
+        connex.vendor
           .sign("tx", [clause])
           .comment("Remove Option.")
           .request()
@@ -100,10 +91,12 @@ const ViewOptionModal = ({
 
   const buyOption = useCallback(() => {
     try {
-      const namedMethod = thor.account(options_address).method(buyOptionABI);
+      const namedMethod = connex.thor
+        .account(options_address)
+        .method(buyOptionABI);
       var clause = namedMethod.asClause(data?.itemId);
       clause["value"] = data?.optionPrice;
-      vendor
+      connex.vendor
         .sign("tx", [clause])
         .comment("Take option.")
         .request()
@@ -126,10 +119,12 @@ const ViewOptionModal = ({
 
   const exerciseCall = useCallback(() => {
     try {
-      const namedMethod = thor.account(options_address).method(exerciseCallABI);
+      const namedMethod = connex.thor
+        .account(options_address)
+        .method(exerciseCallABI);
       var clause = namedMethod.asClause(data?.itemId);
       clause["value"] = data?.strikePrice;
-      vendor
+      connex.vendor
         .sign("tx", [clause])
         .comment("Exercise Call.")
         .request()
@@ -149,7 +144,7 @@ const ViewOptionModal = ({
   }, [data, dispatch, setOpen, open]);
 
   useEffect(() => {
-    if (data?.status === "LIST" && data?.owner === address) {
+    if (data?.status === "LIST" && data?.owner === account) {
       setButton(
         <button
           className="bg-[#006ec9] py-1 rounded-lg ml-5 w-24"
@@ -165,7 +160,7 @@ const ViewOptionModal = ({
       (data?.status === "LIST" || data?.status === "OPEN") &&
       block < Number(data?.expirationDate)
     ) {
-      if (data?.taker === address) {
+      if (data?.taker === account) {
         if (!data?.takeable) {
           setButton(
             <button
@@ -204,7 +199,7 @@ const ViewOptionModal = ({
       }
     } else if (
       data?.status === "OPEN" &&
-      address === data?.taker &&
+      account === data?.taker &&
       block < Number(data?.expirationDate)
     ) {
       if (data?.type === "CALL") {
@@ -237,7 +232,7 @@ const ViewOptionModal = ({
   }, [
     data,
     block,
-    address,
+    account,
     collectionOptions,
     dispatch,
     editOption,
@@ -261,6 +256,31 @@ const ViewOptionModal = ({
       setImg(temp[0]?.thumbnailImageUrl);
     }
   }, [selData, data, collectionOptions]);
+
+  useEffect(() => {
+    try {
+      (async () => {
+        if (data?.type !== "PUT") {
+          const temp = await get_image(data?.tokenAddress, data?.tokenId);
+          setSelData(temp);
+        }
+      })();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch, data]);
+
+  useEffect(() => {
+    if (connex && data?.owner) {
+      getName(data.owner, connex).then(setOwnerName);
+    }
+  }, [data?.owner, connex]);
+
+  useEffect(() => {
+    if (connex && data?.taker) {
+      getName(data.taker, connex).then(setTakerName);
+    }
+  }, [data?.taker, connex]);
 
   return (
     <>
@@ -308,7 +328,7 @@ const ViewOptionModal = ({
               </div>
               <div className="flex justify-between md:mt-1 md:text-base text-sm text-gray-100">
                 <span className="bg-rose-700 rounded-md p-1 px-2">
-                  Item owner By {shortenAddress(data?.owner)}
+                  Item owner By {ownerName ?? shortenAddress(data?.owner)}
                 </span>
                 <span className="bg-violet-700 rounded-md p-1 px-2">
                   {Number(data?.expirationDate) > block
@@ -331,7 +351,7 @@ const ViewOptionModal = ({
                   </div>
                   <div>
                     <p className="text-gray-500">Expiration</p>
-                    <p>{getEndTime(data?.expirationDate, thor)}</p>
+                    <p>{getEndTime(data?.expirationDate, connex.thor)}</p>
                   </div>
                   <div>
                     <p className="text-gray-500">Option Price</p>
@@ -348,7 +368,7 @@ const ViewOptionModal = ({
                     <p>
                       {data?.status !== "LIST"
                         ? "N/A"
-                        : shortenAddress(data?.taker)}
+                        : takerName ?? shortenAddress(data?.taker)}
                     </p>
                   </div>
                 </div>

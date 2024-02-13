@@ -4,7 +4,6 @@ import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { pawn_address } from "config/contractAddress";
-import { useWallet } from "hooks";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getEndTime, get_image, shortenAddress } from "utils";
@@ -15,6 +14,8 @@ import {
   settleLoanABI,
 } from "abi/abis";
 import toast from "react-hot-toast";
+import { useConnex, useWallet } from "@vechain/dapp-kit-react";
+import { getName } from "@vechain.energy/dapp-kit-hooks";
 
 const ViewLoanModal = ({
   open,
@@ -27,11 +28,15 @@ const ViewLoanModal = ({
   loanSel: any;
   setLoanSel: any;
 }) => {
-  const { address, thor, vendor } = useWallet();
+  const { account } = useWallet();
+  const connex = useConnex();
+  const dispatch = useDispatch();
+
   const [state, setState] = useState<string>("Available for Loan");
   const [Button, setButton] = useState<any>();
-  const dispatch = useDispatch();
   const [selData, setSelData] = useState<any>();
+  const [ownerName, setOwnerName] = useState<string>();
+  const [messiahName, setMessiahName] = useState<string>();
 
   useEffect(() => {
     (async () => {
@@ -43,9 +48,11 @@ const ViewLoanModal = ({
   const removeItem = useCallback(
     async ({ id }: { id: string }) => {
       try {
-        const namedMethod = thor.account(pawn_address).method(removeItemABI);
+        const namedMethod = connex.thor
+          .account(pawn_address)
+          .method(removeItemABI);
         const clause = namedMethod.asClause(id);
-        vendor
+        connex.vendor
           .sign("tx", [clause])
           .comment("Remove Item.")
           .request()
@@ -69,10 +76,12 @@ const ViewLoanModal = ({
   const claimLoan = useCallback(
     async ({ id }: { id: string }) => {
       try {
-        const namedMethod = thor.account(pawn_address).method(claimLoanABI);
+        const namedMethod = connex.thor
+          .account(pawn_address)
+          .method(claimLoanABI);
         const clause = namedMethod.asClause(id);
 
-        vendor
+        connex.vendor
           .sign("tx", [clause])
           .comment("Claim Loan.")
           .request()
@@ -104,11 +113,13 @@ const ViewLoanModal = ({
             (parseInt(loanValue) / 10 ** 18) * (100 + parseInt(loanFee))
           ) *
           10 ** 16;
-        const namedMethod = thor.account(pawn_address).method(settleLoanABI);
+        const namedMethod = connex.thor
+          .account(pawn_address)
+          .method(settleLoanABI);
 
         var clause = namedMethod.asClause(itemId);
         clause["value"] = realLoanValue.toString();
-        vendor
+        connex.vendor
           .sign("tx", [clause])
           .comment("Settle Loan.")
           .request()
@@ -134,12 +145,14 @@ const ViewLoanModal = ({
   const grantLoan = useCallback(
     async ({ id, loanValue }: { id: string; loanValue: string }) => {
       try {
-        const namedMethod = thor.account(pawn_address).method(grantLoanABI);
+        const namedMethod = connex.thor
+          .account(pawn_address)
+          .method(grantLoanABI);
         var clause = namedMethod.asClause(id);
 
         clause["value"] = loanValue;
 
-        vendor
+        connex.vendor
           .sign("tx", [clause])
           .comment("Grant Loan.")
           .request()
@@ -165,7 +178,7 @@ const ViewLoanModal = ({
   useEffect(() => {
     if (loanSel?.status === "1") {
       setState("Available for Loan");
-      if (loanSel?.owner === address) {
+      if (loanSel?.owner === account) {
         setButton(
           <button
             className="bg-[#FF0000] py-1 rounded-lg w-24"
@@ -192,7 +205,7 @@ const ViewLoanModal = ({
       }
     } else if (loanSel?.status === "2") {
       setState("Currently on Loan");
-      if (loanSel?.owner === address) {
+      if (loanSel?.owner === account) {
         setButton(
           <button
             className="bg-[#FF0000] py-1 rounded-lg w-24"
@@ -204,12 +217,12 @@ const ViewLoanModal = ({
             SETTLE
           </button>
         );
-      } else if (loanSel?.messiah === address) {
+      } else if (loanSel?.messiah === account) {
         setButton(
           <button
             className="bg-[#FF0000] py-1 rounded-lg w-24"
             onClick={() => {
-              let date = getEndTime(loanSel?.endTime, thor);
+              let date = getEndTime(loanSel?.endTime, connex.thor);
               if (date) {
                 if (new Date(date) < new Date()) {
                   claimLoan({ id: loanSel?.itemId });
@@ -229,13 +242,25 @@ const ViewLoanModal = ({
     }
   }, [
     loanSel,
-    address,
+    account,
     dispatch,
     claimLoan,
     grantLoan,
     settleLoan,
     removeItem,
   ]);
+
+  useEffect(() => {
+    if (connex && loanSel?.owner) {
+      getName(loanSel.owner, connex).then(setOwnerName);
+    }
+  }, [connex, loanSel?.owner]);
+
+  useEffect(() => {
+    if (connex && loanSel?.messiah) {
+      getName(loanSel.messiah, connex).then(setMessiahName);
+    }
+  }, [connex, loanSel?.messiah]);
 
   return (
     <Dialog
@@ -279,7 +304,7 @@ const ViewLoanModal = ({
           </div>
           <div className="flex justify-between md:mt-1 md:text-base text-sm text-gray-100">
             <span className="bg-rose-700 rounded-md p-1 px-2">
-              Item owner By {shortenAddress(loanSel?.owner)}
+              Item owner By {ownerName ?? shortenAddress(loanSel?.owner)}
             </span>
             <span className="bg-violet-700 rounded-md p-1 px-2">{state}</span>
           </div>
@@ -302,20 +327,20 @@ const ViewLoanModal = ({
                 <p className="text-gray-500">Messiah</p>
                 <p>
                   {loanSel?.status !== "1"
-                    ? shortenAddress(loanSel?.messiah)
+                    ? messiahName ?? shortenAddress(loanSel?.messiah)
                     : "Not granted"}
                 </p>
               </div>
               <div>
                 <p className="text-gray-500">Start time</p>
                 {loanSel?.status !== "1"
-                  ? getEndTime(loanSel?.startTime, thor)
+                  ? getEndTime(loanSel?.startTime, connex.thor)
                   : "Not granted"}
               </div>
               <div>
                 <p className="text-gray-500">End time</p>
                 {loanSel?.status !== "1"
-                  ? getEndTime(loanSel?.endTime, thor)
+                  ? getEndTime(loanSel?.endTime, connex.thor)
                   : "Not granted"}
               </div>
             </div>

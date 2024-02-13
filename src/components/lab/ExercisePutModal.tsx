@@ -1,6 +1,5 @@
 /** @format */
 import { Dialog } from "@headlessui/react";
-import { useWallet } from "hooks";
 import { useDispatch } from "react-redux";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
@@ -9,6 +8,7 @@ import { exercisePutABI } from "abi/abis";
 import InputValue from "components/common/InputValue";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const ExercisePutModal = ({
   openExercisePut,
@@ -21,7 +21,7 @@ const ExercisePutModal = ({
 }) => {
   const dispatch = useDispatch();
   const [collection, setCollection] = useState<string>("");
-  const { thor, vendor } = useWallet();
+  const { thor, vendor } = useConnex();
 
   const handleOption = () => {
     try {

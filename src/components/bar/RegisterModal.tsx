@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setLoading } from "actions/loading";
 import { useGetApes } from "hooks/useGetApes";
-import { useGetPlayers, useWallet } from "hooks";
+import { useGetPlayers } from "hooks";
 import {
   fight_address,
   mobility_address,
@@ -22,10 +22,11 @@ import {
 } from "abi/abis";
 import toast from "react-hot-toast";
 import InputSelect from "components/common/InputSelect";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
   const dispatch = useDispatch();
-  const { thor, vendor } = useWallet();
+  const { thor, vendor } = useConnex();
   const [activeButton, setActiveButton] = useState(false);
   const [collectionOption, setCollectionOption] = useState<any>([]);
   const [idOption, setIdOption] = useState<any>([]);

@@ -4,7 +4,6 @@ import { TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useWallet } from "hooks";
 import toast from "react-hot-toast";
 import { get_image } from "utils";
 import { mva_token_address, trade_address } from "config/contractAddress";
@@ -15,6 +14,7 @@ import {
   mvaApproveABI,
 } from "abi/abis";
 import ViewNftModal from "./ViewNftModal";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const CreateOfferModal = ({
   open,
@@ -37,7 +37,7 @@ const CreateOfferModal = ({
   const { collectionOptions } = useSelector((state: any) => state.collections);
   const [offerData, setOfferData] = useState<any>([]);
   const [offerValue, setOfferValue] = useState<number>(0);
-  const { thor, vendor } = useWallet();
+  const { thor, vendor } = useConnex();
 
   useEffect(() => {
     Promise.all(

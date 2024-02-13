@@ -3,7 +3,6 @@
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { positions } from "constant";
-import { useWallet } from "hooks";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName } from "utils";
@@ -12,9 +11,10 @@ import { getApesFromLocationABI } from "abi/abis";
 import Select from "react-select";
 import Pagination from "components/common/Pagination";
 import ViewModal from "components/mobility/ViewModal";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const Location = () => {
-  const { thor } = useWallet();
+  const { thor } = useConnex();
   const [position, setPosition] = useState<string>("");
   const [apes, setApes] = useState<any[]>([]);
   const { collectionOptions } = useSelector((state: any) => state.collections);

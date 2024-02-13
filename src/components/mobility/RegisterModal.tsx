@@ -1,7 +1,7 @@
 /** @format */
 
 import { setLoading } from "actions/loading";
-import { useWallet, useMyApes } from "hooks";
+import { useMyApes } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dialog } from "@headlessui/react";
@@ -11,6 +11,7 @@ import { worldRegisterABI } from "abi/abis";
 import { MVACollectionId } from "constant";
 import InputSelect from "components/common/InputSelect";
 import toast from "react-hot-toast";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
   const [registerValue, setRegisterValue] = useState<{
@@ -21,7 +22,7 @@ const RegisterModal = ({ open, setOpen }: { open: boolean; setOpen: any }) => {
   });
   const [idOption, setIdOption] = useState<any[]>([]);
   const [collectionOption, setCollectionOption] = useState<any[]>([]);
-  const { thor, vendor } = useWallet();
+  const { thor, vendor } = useConnex();
   const [activeButton, setActiveButton] = useState(false);
   const dispatch = useDispatch();
 

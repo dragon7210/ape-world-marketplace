@@ -3,7 +3,6 @@
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
-import { useWallet } from "hooks";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { mva_token_address, raffle_address } from "config/contractAddress";
@@ -16,6 +15,8 @@ import {
 } from "abi/abis";
 import { getEndTime, get_image, shortenAddress } from "utils";
 import toast from "react-hot-toast";
+import { useConnex, useWallet } from "@vechain/dapp-kit-react";
+import { getName } from "@vechain.energy/dapp-kit-hooks";
 
 const ViewRaffleModal = ({
   open,
@@ -29,15 +30,18 @@ const ViewRaffleModal = ({
   setSelData: any;
 }) => {
   const dispatch = useDispatch();
+  const { account } = useWallet();
+  const connex = useConnex();
+
   const [Button, setButton] = useState<any>();
-  const { address, thor, vendor } = useWallet();
   const [block, setBlock] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
   const [data, setData] = useState<any>();
+  const [ownerName, setOwnerName] = useState<string>();
 
   useEffect(() => {
-    setBlock(thor.status["head"]["number"]);
-  }, [thor]);
+    setBlock(connex.thor.status["head"]["number"]);
+  }, [connex.thor]);
 
   useEffect(() => {
     try {
@@ -52,9 +56,11 @@ const ViewRaffleModal = ({
 
   const removeItem = useCallback(async () => {
     try {
-      const namedMethod = thor.account(raffle_address).method(removeRaffleABI);
+      const namedMethod = connex.thor
+        .account(raffle_address)
+        .method(removeRaffleABI);
       const clause = namedMethod.asClause(selData?.itemId);
-      vendor
+      connex.vendor
         .sign("tx", [clause])
         .comment("Remove Item.")
         .request()
@@ -75,9 +81,11 @@ const ViewRaffleModal = ({
 
   const settleItem = useCallback(async () => {
     try {
-      const namedMethod = thor.account(raffle_address).method(settlRaffleABI);
+      const namedMethod = connex.thor
+        .account(raffle_address)
+        .method(settlRaffleABI);
       const clause = namedMethod.asClause(selData?.itemId);
-      vendor
+      connex.vendor
         .sign("tx", [clause])
         .comment("Settle Item.")
         .request()
@@ -98,9 +106,11 @@ const ViewRaffleModal = ({
 
   const buyTickets = useCallback(async () => {
     try {
-      const namedMethod = thor.account(raffle_address).method(buyTicketsABI);
+      const namedMethod = connex.thor
+        .account(raffle_address)
+        .method(buyTicketsABI);
 
-      const yetAnotherMethod = thor
+      const yetAnotherMethod = connex.thor
         .account(mva_token_address)
         .method(mvaApproveABI);
 
@@ -120,7 +130,7 @@ const ViewRaffleModal = ({
         clauses.push(clause1);
       }
 
-      vendor
+      connex.vendor
         .sign("tx", clauses)
         .comment("Buy Tickets.")
         .request()
@@ -182,7 +192,13 @@ const ViewRaffleModal = ({
     } else {
       setButton("");
     }
-  }, [selData, address, dispatch, removeItem, buyTickets, block, count]);
+  }, [selData, account, dispatch, removeItem, buyTickets, block, count]);
+
+  useEffect(() => {
+    if (connex && selData?.owner) {
+      getName(selData.owner, connex).then(setOwnerName);
+    }
+  }, [connex, selData?.owner]);
 
   return (
     <Dialog
@@ -226,7 +242,7 @@ const ViewRaffleModal = ({
           </div>
           <div className="flex justify-between md:mt-1 md:text-base text-sm text-gray-100">
             <span className="bg-rose-700 rounded-md p-1 px-2">
-              Item owner By {shortenAddress(selData?.owner)}
+              Item owner By {ownerName ?? shortenAddress(selData?.owner)}
             </span>
             <span className="bg-violet-700 rounded-md p-1 px-2">
               {raffleStatus[selData?.status]}
@@ -259,11 +275,11 @@ const ViewRaffleModal = ({
               </div>
               <div>
                 <p className="text-gray-500">Start Time</p>
-                <p>{getEndTime(selData?.startTime, thor)}</p>
+                <p>{getEndTime(selData?.startTime, connex.thor)}</p>
               </div>
               <div>
                 <p className="text-gray-500">End Time</p>
-                <p>{getEndTime(selData?.endTime, thor)}</p>
+                <p>{getEndTime(selData?.endTime, connex.thor)}</p>
               </div>
             </div>
           </div>
@@ -284,7 +300,7 @@ const ViewRaffleModal = ({
             )}
             <div className={`flex mt-2 md:mt-0 justify-end`}>
               {Button}
-              {selData?.status === "1" && selData?.owner === address && (
+              {selData?.status === "1" && selData?.owner === account && (
                 <button
                   className="bg-[#FF0000] py-1 rounded-lg w-24 ml-5"
                   onClick={() => {
@@ -295,7 +311,7 @@ const ViewRaffleModal = ({
                   Remove
                 </button>
               )}
-              {selData?.status === "4" && selData?.owner === address && (
+              {selData?.status === "4" && selData?.owner === account && (
                 <button
                   className="bg-[#FF0000] py-1 rounded-lg w-24 ml-5"
                   onClick={() => {

@@ -3,7 +3,6 @@
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
-import { useWallet } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { mva_token_address, pawn_address } from "config/contractAddress";
@@ -14,6 +13,7 @@ import {
   mvaApproveABI,
 } from "abi/abis";
 import toast from "react-hot-toast";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const CreateLoanModal = ({
   open,
@@ -28,7 +28,7 @@ const CreateLoanModal = ({
   apes: any;
   setOpen: any;
 }) => {
-  const { thor, vendor } = useWallet();
+  const { thor, vendor } = useConnex();
   const dispatch = useDispatch();
   const data = apes?.filter((item: any) => item.tokenId === createValue.id);
 

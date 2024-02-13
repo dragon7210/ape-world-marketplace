@@ -1,13 +1,14 @@
 /** @format */
 
 import { setLoading } from "actions/loading";
-import { useGetPlayers, useWallet } from "hooks";
+import { useGetPlayers } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectionName, shortenAddress } from "utils";
 import { EyeIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { fight_address } from "config/contractAddress";
 import toast from "react-hot-toast";
+import { useConnex, useWallet } from "@vechain/dapp-kit-react";
 import { fightUnregisterABI } from "abi/abis";
 import ViewModal from "components/mobility/ViewModal";
 import RegisterModal from "components/bar/RegisterModal";
@@ -15,15 +16,12 @@ import RegisterModal from "components/bar/RegisterModal";
 const Player = () => {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const { thor, vendor, address } = useWallet();
+  const { account } = useWallet();
+  const { thor, vendor } = useConnex();
   const { players, loading, info } = useGetPlayers();
   const [openView, setOpenView] = useState<boolean>(false);
   const [ape, setApe] = useState<any>();
   const { collectionOptions } = useSelector((state: any) => state.collections);
-
-  useEffect(() => {
-    dispatch(setLoading(loading));
-  }, [loading, dispatch]);
 
   const unRegister = () => {
     try {
@@ -50,6 +48,10 @@ const Player = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    dispatch(setLoading(loading));
+  }, [loading, dispatch]);
 
   return (
     <div className="lg:px-10 md:px-5 p-3 bg-[#00000050] min-h-[calc(100vh_-_180px)] md:min-h-[calc(100vh_-_300px)] rounded-xl">
@@ -102,7 +104,7 @@ const Player = () => {
                       >
                         <EyeIcon className="md:w-6 w-4" />
                       </button>
-                      {item?.owner === address && (
+                      {item?.owner === account && (
                         <button
                           className="bg-[#b13535] hover:bg-[#ec5151] md:p-[5px] p-[2px] rounded-[99px] ml-2"
                           onClick={unRegister}

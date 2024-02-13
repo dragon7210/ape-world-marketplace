@@ -1,6 +1,6 @@
 /** @format */
 
-import { useGetLoan, useWallet } from "hooks";
+import { useGetLoan } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { statusArray } from "constant";
@@ -9,6 +9,7 @@ import { setLoading } from "actions/loading";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import ViewLoanModal from "components/pawnShop/ViewLoanModal";
 import Pagination from "components/common/Pagination";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const AllLoan = () => {
   let { loanData, myLoanData, loading } = useGetLoan();
@@ -16,7 +17,7 @@ const AllLoan = () => {
   const [loanSel, setLoanSel] = useState<any>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [pageData, setPageData] = useState<any[]>([]);
-  const { thor } = useWallet();
+  const { thor } = useConnex();
 
   const dispatch = useDispatch();
 

@@ -5,11 +5,11 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useWallet } from "hooks";
 import { options_address } from "config/contractAddress";
 import { editOptionPriceABI } from "abi/abis";
 import InputValue from "components/common/InputValue";
 import toast from "react-hot-toast";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const EditOptionModal = ({
   openEditOption,
@@ -22,7 +22,7 @@ const EditOptionModal = ({
 }) => {
   const dispatch = useDispatch();
   const [optionPrice, setOptionPrice] = useState<string>("");
-  const { thor, vendor } = useWallet();
+  const { thor, vendor } = useConnex();
 
   useEffect(() => {
     setOptionPrice((Number(data?.optionPrice) / 10 ** 18).toString());

@@ -1,7 +1,6 @@
 /** @format */
 
 import { useNavigate } from "react-router";
-import { useWallet } from "hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setLoading } from "actions/loading";
@@ -12,9 +11,10 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 import Pagination from "components/common/Pagination";
 import ViewModal from "components/mobility/ViewModal";
 import CasinoImg from "assets/svg/apeworld/casino.svg";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const Casino = () => {
-  const { thor } = useWallet();
+  const { thor } = useConnex();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { collectionOptions } = useSelector((state: any) => state.collections);

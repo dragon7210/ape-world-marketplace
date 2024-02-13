@@ -1,9 +1,9 @@
 /** @format */
 
 import { item_address } from "config/contractAddress";
-import { useWallet } from "./useWallet";
 import { useEffect, useState } from "react";
 import { getAllRaffleABI, getOldRaffleABI, getRaffleABI } from "abi/abis";
+import { useConnex, useWallet } from "@vechain/dapp-kit-react";
 
 export const useGetRaffle = () => {
   const [loading, setLoading] = useState(true);
@@ -11,11 +11,12 @@ export const useGetRaffle = () => {
   const [myRaffles, setMyRaffles] = useState<any[]>([]);
   const [oldRaffles, setOldRaffles] = useState<any[]>([]);
 
-  const { thor, isConnected, address } = useWallet();
+  const { account } = useWallet();
+  const { thor } = useConnex();
   useEffect(() => {
     try {
       setLoading(true);
-      if (isConnected && address) {
+      if (account) {
         (async () => {
           const raffleAddressMethod = thor
             .account(item_address)
@@ -50,7 +51,7 @@ export const useGetRaffle = () => {
             tempRaffle.push(item);
           }
           const tempMyRaffle = tempRaffle.filter(
-            (item: any) => item.owner?.toLowerCase() === address?.toLowerCase()
+            (item: any) => item.owner?.toLowerCase() === account?.toLowerCase()
           );
           for (let i of oldRaffleAddress.decoded[0]) {
             const oldraffleData = await raffleMethod.call(i);
@@ -86,6 +87,7 @@ export const useGetRaffle = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [thor, isConnected, address]);
+  }, [thor, account]);
+
   return { raffles, loading, myRaffles, oldRaffles };
 };

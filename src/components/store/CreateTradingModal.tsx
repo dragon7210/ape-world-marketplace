@@ -5,7 +5,6 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { setLoading } from "actions/loading";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useWallet } from "hooks";
 import { mva_token_address, trade_address } from "config/contractAddress";
 import {
   approveABI,
@@ -15,6 +14,7 @@ import {
 } from "abi/abis";
 import { get_image } from "utils";
 import toast from "react-hot-toast";
+import { useConnex } from "@vechain/dapp-kit-react";
 
 const CreateTradingModal = ({
   open,
@@ -28,7 +28,7 @@ const CreateTradingModal = ({
   const dispatch = useDispatch();
   const { collectionOptions } = useSelector((state: any) => state.collections);
   const [allData, setAllData] = useState<any>([]);
-  const { thor, vendor } = useWallet();
+  const { thor, vendor } = useConnex();
 
   useEffect(() => {
     if (data?.length > 0) {
