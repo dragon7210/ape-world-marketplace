@@ -304,7 +304,8 @@ const ViewLoanModal = ({
           </div>
           <div className="flex justify-between md:mt-1 md:text-base text-sm text-gray-100">
             <span className="bg-rose-700 rounded-md p-1 px-2">
-              Item owner By {ownerName ?? shortenAddress(loanSel?.owner)}
+              Item owner By{" "}
+              {ownerName?.length ? ownerName : shortenAddress(loanSel?.owner)}
             </span>
             <span className="bg-violet-700 rounded-md p-1 px-2">{state}</span>
           </div>
@@ -327,7 +328,9 @@ const ViewLoanModal = ({
                 <p className="text-gray-500">Messiah</p>
                 <p>
                   {loanSel?.status !== "1"
-                    ? messiahName ?? shortenAddress(loanSel?.messiah)
+                    ? messiahName?.length
+                      ? messiahName
+                      : shortenAddress(loanSel?.messiah)
                     : "Not granted"}
                 </p>
               </div>

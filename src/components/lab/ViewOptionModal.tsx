@@ -328,7 +328,8 @@ const ViewOptionModal = ({
               </div>
               <div className="flex justify-between md:mt-1 md:text-base text-sm text-gray-100">
                 <span className="bg-rose-700 rounded-md p-1 px-2">
-                  Item owner By {ownerName ?? shortenAddress(data?.owner)}
+                  Item owner By{" "}
+                  {ownerName?.length ? ownerName : shortenAddress(data?.owner)}
                 </span>
                 <span className="bg-violet-700 rounded-md p-1 px-2">
                   {Number(data?.expirationDate) > block
@@ -368,7 +369,9 @@ const ViewOptionModal = ({
                     <p>
                       {data?.status !== "LIST"
                         ? "N/A"
-                        : takerName ?? shortenAddress(data?.taker)}
+                        : takerName?.length
+                        ? takerName
+                        : shortenAddress(data?.taker)}
                     </p>
                   </div>
                 </div>

@@ -109,8 +109,8 @@ export const ConnectButton = () => {
         ) : account ? (
           <div className="relative">
             <img className="md:w-40 w-24" src={WalletImage} alt="wallet" />
-            <p className="absolute md:top-[6px] md:left-8 md:text-3xl text-xl top-[2px] left-4 text-gray-100">
-              {name ?? shortenAddress(account)}
+            <p className="absolute w-full top-[2px] md:top-[6px] left-0 text-center md:text-3xl text-xl text-gray-100">
+              {name?.length ? name : shortenAddress(account)}
             </p>
           </div>
         ) : (
@@ -144,7 +144,7 @@ export const ConnectButton = () => {
             </div>
           </div>
           <h5 className="text-xl text-center font-bold mt-1">
-            {name ?? shortenAddress(account)}
+            {name?.length ? name : shortenAddress(account)}
           </h5>
           <div className="flex w-full justify-center gap-4 items-center">
             <p className="text-md font-bold mt-1 uppercase text-gray-800">

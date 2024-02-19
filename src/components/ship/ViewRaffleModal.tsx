@@ -242,7 +242,8 @@ const ViewRaffleModal = ({
           </div>
           <div className="flex justify-between md:mt-1 md:text-base text-sm text-gray-100">
             <span className="bg-rose-700 rounded-md p-1 px-2">
-              Item owner By {ownerName ?? shortenAddress(selData?.owner)}
+              Item owner By{" "}
+              {ownerName?.length ? ownerName : shortenAddress(selData?.owner)}
             </span>
             <span className="bg-violet-700 rounded-md p-1 px-2">
               {raffleStatus[selData?.status]}

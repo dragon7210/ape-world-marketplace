@@ -151,7 +151,8 @@ const ViewTradingModal = ({
           <div className="mr-2">
             <div className="flex justify-between md:mt-1 px-2 md:text-base text-sm text-gray-100">
               <span className="text-rose-700 rounded-md">
-                Item owner By {ownerName ?? shortenAddress(selData?.owner)}
+                Item owner By{" "}
+                {ownerName?.length ? ownerName : shortenAddress(selData?.owner)}
               </span>
             </div>
             <p className="text-xl md:text-4xl font-bold text-gray-800 px-2 text-center">
@@ -180,7 +181,9 @@ const ViewTradingModal = ({
                 <div className="flex justify-between md:mt-1 md:text-base text-sm text-gray-100">
                   <span className="text-rose-700 rounded-md">
                     Item owner By{" "}
-                    {offerrerName ?? shortenAddress(offerList[0]?.owner)}
+                    {offerrerName?.length
+                      ? offerrerName
+                      : shortenAddress(offerList[0]?.owner)}
                   </span>
                 </div>
                 <p className="text-xl md:text-4xl font-bold text-gray-800 px-2 text-center">

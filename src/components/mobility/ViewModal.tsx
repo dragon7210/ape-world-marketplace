@@ -117,7 +117,11 @@ const ViewModal = ({
               <div className="md:columns-3 columns-2 md:px-5 px-2 text-base md:text-md">
                 <div>
                   <p className="text-gray-500">Owner</p>
-                  <p>{ownerName ?? shortenAddress(apeDetail?.owner)} </p>
+                  <p>
+                    {ownerName?.length
+                      ? ownerName
+                      : shortenAddress(apeDetail?.owner)}{" "}
+                  </p>
                 </div>
                 <div>
                   <p className="text-gray-500">Location</p>
