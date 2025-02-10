@@ -16,16 +16,18 @@ export const useMyApes = ({ createValue }: { createValue: any }) => {
     try {
       if (createValue.collectionId === "") {
         setFilters({ ownerAddress: account });
+        dispatch(setLoading(false));
       } else {
         setFilters({
           ownerAddress: account,
           collectionId: createValue.collectionId,
         });
+        dispatch(setLoading(false));
       }
     } catch (error) {
       console.log(error);
     }
-  }, [createValue, account]);
+  }, [createValue, account, dispatch]);
 
   const temp = useCustomQuery({
     query: searchNFTs,
